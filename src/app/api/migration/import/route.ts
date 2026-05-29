@@ -46,6 +46,7 @@ export async function POST(req: Request) {
             fruitType: row.fruitType,
             quantity: row.quantity,
             rate: row.rate,
+            grossAmount: totalAmount,
             totalAmount,
             notified: true, // historical data — no SMS
           },

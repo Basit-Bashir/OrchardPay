@@ -51,20 +51,27 @@ model Grower {
 }
 
 model Transaction {
-  id          String    @id @default(cuid())
-  growerId    String
-  grower      Grower    @relation(fields: [growerId], references: [id], onDelete: Cascade)
-  buyerFirmId String
-  buyerFirm   BuyerFirm @relation(fields: [buyerFirmId], references: [id], onDelete: Cascade)
-  fruitType   String
-  quantity    Float
-  unit        String    @default("kg")
-  rate        Float
-  totalAmount Float
-  receivedAt  DateTime  @default(now())
-  notes       String?
-  notified    Boolean   @default(false)
-  createdAt   DateTime  @default(now())
+  id            String    @id @default(cuid())
+  growerId      String
+  grower        Grower    @relation(fields: [growerId], references: [id], onDelete: Cascade)
+  buyerFirmId   String
+  buyerFirm     BuyerFirm @relation(fields: [buyerFirmId], references: [id], onDelete: Cascade)
+  fruitType     String
+  quantity      Float
+  unit          String    @default("kg")
+  rate          Float
+  grossAmount   Float     @default(0)
+  commission    Float     @default(0)
+  labour        Float     @default(0)
+  freight       Float     @default(0)
+  association   Float     @default(0)
+  printing      Float     @default(0)
+  miscellaneous Float     @default(0)
+  totalAmount   Float
+  receivedAt    DateTime  @default(now())
+  notes         String?
+  notified      Boolean   @default(false)
+  createdAt     DateTime  @default(now())
 }
 
 model Payment {

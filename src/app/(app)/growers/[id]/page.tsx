@@ -13,6 +13,13 @@ type Txn = {
   quantity: number;
   unit: string;
   rate: number;
+  grossAmount: number;
+  commission: number;
+  labour: number;
+  freight: number;
+  association: number;
+  printing: number;
+  miscellaneous: number;
   totalAmount: number;
   receivedAt: string;
 };
@@ -34,7 +41,7 @@ type GrowerDetail = {
 };
 
 function inr(n: number) {
-  return `₹${n.toLocaleString("en-IN", { maximumFractionDigits: 0 })}`;
+  return `₹${n.toLocaleString("en-IN", { maximumFractionDigits: 2 })}`;
 }
 
 export default function GrowerDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -48,6 +55,7 @@ export default function GrowerDetailPage({ params }: { params: Promise<{ id: str
   const [payNotes, setPayNotes] = useState("");
   const [payError, setPayError] = useState("");
   const [payLoading, setPayLoading] = useState(false);
+  const [selectedTxn, setSelectedTxn] = useState<Txn | null>(null);
 
   const { data, isLoading } = useQuery({
     queryKey: ["grower", id],
@@ -243,22 +251,47 @@ export default function GrowerDetailPage({ params }: { params: Promise<{ id: str
                       <Box as="th" px={6} py={3} fontWeight="semibold">Fruit Type</Box>
                       <Box as="th" px={6} py={3} fontWeight="semibold">Quantity</Box>
                       <Box as="th" px={6} py={3} fontWeight="semibold">Rate</Box>
-                      <Box as="th" px={6} py={3} fontWeight="semibold">Total Credit</Box>
+                      <Box as="th" px={6} py={3} fontWeight="semibold">Deductions</Box>
+                      <Box as="th" px={6} py={3} fontWeight="semibold">Net Credit</Box>
                       <Box as="th" px={6} py={3} fontWeight="semibold">Date</Box>
                     </Box>
                   </Box>
                   <Box as="tbody">
-                    {data.transactions.map((t) => (
-                      <Box as="tr" key={t.id} borderTopWidth="1px" _hover={{ bg: "gray.50/50" }}>
-                        <Box as="td" px={6} py={3} fontWeight="medium" color="gray.800">{t.fruitType}</Box>
-                        <Box as="td" px={6} py={3}>{t.quantity} {t.unit}</Box>
-                        <Box as="td" px={6} py={3}>{inr(t.rate)}/{t.unit}</Box>
-                        <Box as="td" px={6} py={3} fontWeight="semibold" color="green.700">{inr(t.totalAmount)}</Box>
-                        <Box as="td" px={6} py={3} color="gray.500">
-                          {new Date(t.receivedAt).toLocaleDateString("en-IN")}
+                    {data.transactions.map((t) => {
+                      const gross = t.grossAmount || t.quantity * t.rate;
+                      const deductions = Math.round((gross - t.totalAmount) * 100) / 100;
+                      return (
+                        <Box as="tr" key={t.id} borderTopWidth="1px" _hover={{ bg: "gray.50/50" }}>
+                          <Box as="td" px={6} py={3} fontWeight="medium" color="gray.800">{t.fruitType}</Box>
+                          <Box as="td" px={6} py={3}>{t.quantity} {t.unit}</Box>
+                          <Box as="td" px={6} py={3}>{inr(t.rate)}/{t.unit}</Box>
+                          <Box as="td" px={6} py={3}>
+                            {deductions > 0 ? (
+                              <Flex align="center" gap={1.5}>
+                                <Text color="red.600" fontWeight="medium">{inr(deductions)}</Text>
+                                <Button 
+                                  size="xs" 
+                                  variant="ghost" 
+                                  colorPalette="green" 
+                                  onClick={() => setSelectedTxn(t)}
+                                  px={1.5}
+                                  h="18px"
+                                  fontSize="10px"
+                                >
+                                  Details
+                                </Button>
+                              </Flex>
+                            ) : (
+                              <Text color="gray.400">—</Text>
+                            )}
+                          </Box>
+                          <Box as="td" px={6} py={3} fontWeight="semibold" color="green.700">{inr(t.totalAmount)}</Box>
+                          <Box as="td" px={6} py={3} color="gray.500">
+                            {new Date(t.receivedAt).toLocaleDateString("en-IN")}
+                          </Box>
                         </Box>
-                      </Box>
-                    ))}
+                      );
+                    })}
                   </Box>
                 </Box>
               </Box>
@@ -366,6 +399,108 @@ export default function GrowerDetailPage({ params }: { params: Promise<{ id: str
           </Box>
         </Stack>
       </SimpleGrid>
+
+      {/* Deductions Details Modal */}
+      {selectedTxn && (
+        <Box
+          position="fixed"
+          top={0}
+          left={0}
+          right={0}
+          bottom={0}
+          bg="rgba(0, 0, 0, 0.4)"
+          zIndex={1000}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          p={4}
+          onClick={() => setSelectedTxn(null)}
+        >
+          <Box
+            bg="white"
+            borderRadius="xl"
+            p={6}
+            maxW="md"
+            w="full"
+            shadow="2xl"
+            borderWidth="1px"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Flex justify="space-between" align="center" mb={4} borderBottomWidth="1px" pb={3}>
+              <Heading size="md" color="gray.800">Deductions Breakdown</Heading>
+              <Button size="xs" variant="ghost" onClick={() => setSelectedTxn(null)}>
+                ✕
+              </Button>
+            </Flex>
+
+            <Stack gap={3} fontSize="sm">
+              <Box bg="gray.50" p={3} borderRadius="lg" mb={2}>
+                <Text fontWeight="semibold" color="gray.700">{selectedTxn.fruitType}</Text>
+                <Text fontSize="xs" color="gray.500">
+                  {selectedTxn.quantity} {selectedTxn.unit} @ {inr(selectedTxn.rate)}/{selectedTxn.unit}
+                </Text>
+              </Box>
+
+              <Flex justify="space-between">
+                <Text color="gray.600">Gross Amount:</Text>
+                <Text fontWeight="semibold" color="gray.800">
+                  {inr(selectedTxn.grossAmount || selectedTxn.quantity * selectedTxn.rate)}
+                </Text>
+              </Flex>
+
+              <Box borderTopWidth="1px" my={1} />
+
+              <Flex justify="space-between" fontSize="xs" pl={2}>
+                <Text color="gray.500">Commission (12%):</Text>
+                <Text color="red.600">-{inr(selectedTxn.commission)}</Text>
+              </Flex>
+
+              <Flex justify="space-between" fontSize="xs" pl={2}>
+                <Text color="gray.500">Labour (₹3/unit):</Text>
+                <Text color="red.600">-{inr(selectedTxn.labour)}</Text>
+              </Flex>
+
+              <Flex justify="space-between" fontSize="xs" pl={2}>
+                <Text color="gray.500">Freight:</Text>
+                <Text color="red.600">-{inr(selectedTxn.freight)}</Text>
+              </Flex>
+
+              <Flex justify="space-between" fontSize="xs" pl={2}>
+                <Text color="gray.500">Association (0.10%):</Text>
+                <Text color="red.600">-{inr(selectedTxn.association)}</Text>
+              </Flex>
+
+              <Flex justify="space-between" fontSize="xs" pl={2}>
+                <Text color="gray.500">Printing:</Text>
+                <Text color="red.600">-{inr(selectedTxn.printing)}</Text>
+              </Flex>
+
+              <Flex justify="space-between" fontSize="xs" pl={2}>
+                <Text color="gray.500">Miscellaneous (0.90%):</Text>
+                <Text color="red.600">-{inr(selectedTxn.miscellaneous)}</Text>
+              </Flex>
+
+              <Box borderTopWidth="1px" my={1} />
+
+              <Flex justify="space-between" fontWeight="bold">
+                <Text color="gray.700">Total Deductions:</Text>
+                <Text color="red.700">
+                  {inr(
+                    Math.round(
+                      ((selectedTxn.grossAmount || selectedTxn.quantity * selectedTxn.rate) - selectedTxn.totalAmount) * 100
+                    ) / 100
+                  )}
+                </Text>
+              </Flex>
+
+              <Flex justify="space-between" fontWeight="black" fontSize="md" bg="green.50" p={3} borderRadius="lg" mt={2}>
+                <Text color="green.800">Net Credit:</Text>
+                <Text color="green.800">{inr(selectedTxn.totalAmount)}</Text>
+              </Flex>
+            </Stack>
+          </Box>
+        </Box>
+      )}
     </Stack>
   );
 }

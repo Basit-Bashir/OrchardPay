@@ -19,11 +19,19 @@ export async function notifyGrowerOfSale(params: {
   unit: string;
   rate: number;
   totalAmount: number;
+  grossAmount?: number;
+  expensesAmount?: number;
 }): Promise<boolean> {
-  const message =
-    `Hi ${params.growerName}, your ${params.fruitType} (${params.quantity} ${params.unit}) was sold at ` +
-    `₹${inr(params.rate)}/${params.unit}. Total: ₹${inr(params.totalAmount)}. ` +
-    `Thank you for your business! - ${params.firmName}`;
+  const gross = params.grossAmount !== undefined && params.grossAmount > 0 ? params.grossAmount : (params.quantity * params.rate);
+  const expenses = params.expensesAmount !== undefined ? params.expensesAmount : Math.max(0, gross - params.totalAmount);
+
+  const message = expenses > 0
+    ? `Hi ${params.growerName}, your ${params.fruitType} (${params.quantity} ${params.unit}) was sold at ` +
+      `₹${inr(params.rate)}/${params.unit}. Gross: ₹${inr(gross)}. Expenses: ₹${inr(expenses)}. Net Credit: ₹${inr(params.totalAmount)}. ` +
+      `Thank you for your business! - ${params.firmName}`
+    : `Hi ${params.growerName}, your ${params.fruitType} (${params.quantity} ${params.unit}) was sold at ` +
+      `₹${inr(params.rate)}/${params.unit}. Total: ₹${inr(params.totalAmount)}. ` +
+      `Thank you for your business! - ${params.firmName}`;
 
   const result = await sendSms(params.growerMobile, message);
 
@@ -46,11 +54,14 @@ export async function notifyGrowerOfBatchSale(params: {
   firmName: string;
   itemsDescription: string;
   totalAmount: number;
+  grossAmount?: number;
+  expensesAmount?: number;
 }): Promise<boolean> {
-  const message =
-    `Hi ${params.growerName}, your produce [${params.itemsDescription}] was sold. ` +
-    `Total Amount: ₹${inr(params.totalAmount)}. ` +
-    `Thank you for your business! - ${params.firmName}`;
+  const hasDetails = params.grossAmount !== undefined && params.expensesAmount !== undefined;
+  
+  const message = hasDetails
+    ? `Hi ${params.growerName}, your produce [${params.itemsDescription}] was sold. Gross: ₹${inr(params.grossAmount!)}. Expenses: ₹${inr(params.expensesAmount!)}. Net Credit: ₹${inr(params.totalAmount)}. - ${params.firmName}`
+    : `Hi ${params.growerName}, your produce [${params.itemsDescription}] was sold. Total Amount: ₹${inr(params.totalAmount)}. Thank you for your business! - ${params.firmName}`;
 
   const result = await sendSms(params.growerMobile, message);
 

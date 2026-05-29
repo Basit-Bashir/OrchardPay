@@ -42,7 +42,17 @@ export async function POST(req: Request) {
     const parsed = batchTransactionSchema.safeParse(await req.json());
     if (!parsed.success) return fail(parsed.error.issues[0]?.message ?? "Invalid input");
 
-    const { growerId, items, notes } = parsed.data;
+    const {
+      growerId,
+      items,
+      freight,
+      commissionRate,
+      labourRate,
+      associationRate,
+      printingCharge,
+      miscellaneousRate,
+      notes,
+    } = parsed.data;
 
     const grower = await prisma.grower.findFirst({
       where: { id: growerId, buyerFirmId: session.buyerFirmId },
@@ -54,9 +64,23 @@ export async function POST(req: Request) {
       select: { firmName: true },
     });
 
+    const totalQuantity = items.reduce((sum, item) => sum + item.quantity, 0);
+
     const createdTxns = [];
     for (const item of items) {
-      const totalAmount = Math.round(item.quantity * item.rate * 100) / 100;
+      const grossAmount = Math.round(item.quantity * item.rate * 100) / 100;
+      const commission = Math.round(grossAmount * (commissionRate / 100) * 100) / 100;
+      const labour = Math.round(item.quantity * labourRate * 100) / 100;
+      
+      const itemFreight = totalQuantity > 0 ? Math.round(((item.quantity / totalQuantity) * freight) * 100) / 100 : 0;
+      const itemPrinting = totalQuantity > 0 ? Math.round(((item.quantity / totalQuantity) * printingCharge) * 100) / 100 : 0;
+      
+      const association = Math.round(grossAmount * (associationRate / 100) * 100) / 100;
+      const miscellaneous = Math.round(grossAmount * (miscellaneousRate / 100) * 100) / 100;
+      
+      const totalExpenses = commission + labour + itemFreight + association + itemPrinting + miscellaneous;
+      const totalAmount = Math.round((grossAmount - totalExpenses) * 100) / 100;
+
       const txn = await prisma.transaction.create({
         data: {
           growerId,
@@ -65,6 +89,13 @@ export async function POST(req: Request) {
           quantity: item.quantity,
           unit: item.unit,
           rate: item.rate,
+          grossAmount,
+          commission,
+          labour,
+          freight: itemFreight,
+          association,
+          printing: itemPrinting,
+          miscellaneous,
           totalAmount,
           notes: notes || null,
         },
@@ -76,15 +107,19 @@ export async function POST(req: Request) {
       .map((item) => `${item.fruitType} (${item.quantity} ${item.unit}) @ ₹${item.rate}/${item.unit}`)
       .join(", ");
     
-    const totalSum = items.reduce((sum, item) => sum + item.quantity * item.rate, 0);
+    const totalGross = items.reduce((sum, item) => sum + item.quantity * item.rate, 0);
+    const totalNet = createdTxns.reduce((sum, t) => sum + t.totalAmount, 0);
+    const totalExpenses = Math.round((totalGross - totalNet) * 100) / 100;
 
     const sent = await notifyGrowerOfBatchSale({
       growerId: grower.id,
       growerName: grower.name,
       growerMobile: grower.mobile,
-      firmName: firm?.firmName ?? "HortiTrack",
+      firmName: firm?.firmName ?? "OrchardPay",
       itemsDescription,
-      totalAmount: totalSum,
+      totalAmount: totalNet,
+      grossAmount: totalGross,
+      expensesAmount: totalExpenses,
     });
 
     if (sent) {

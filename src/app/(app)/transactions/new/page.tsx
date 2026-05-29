@@ -29,6 +29,12 @@ export default function NewTransactionPage() {
   const [items, setItems] = useState<FormItem[]>([
     { fruitType: "", quantity: "", unit: "kg", rate: "" }
   ]);
+  const [freight, setFreight] = useState("");
+  const [commissionRate, setCommissionRate] = useState("12");
+  const [labourRate, setLabourRate] = useState("3");
+  const [associationRate, setAssociationRate] = useState("0.10");
+  const [printingCharge, setPrintingCharge] = useState("1");
+  const [miscellaneousRate, setMiscellaneousRate] = useState("0.90");
   const [notes, setNotes] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -65,6 +71,40 @@ export default function NewTransactionPage() {
     return totals.reduce((sum, val) => sum + val, 0);
   }, [totals]);
 
+  const totalQuantity = useMemo(() => {
+    return items.reduce((sum, item) => {
+      const q = parseFloat(item.quantity);
+      return sum + (isFinite(q) ? q : 0);
+    }, 0);
+  }, [items]);
+
+  const expenseCalculations = useMemo(() => {
+    const fVal = parseFloat(freight) || 0;
+    const cRate = parseFloat(commissionRate) || 0;
+    const lRate = parseFloat(labourRate) || 0;
+    const aRate = parseFloat(associationRate) || 0;
+    const pCharge = parseFloat(printingCharge) || 0;
+    const mRate = parseFloat(miscellaneousRate) || 0;
+
+    const commission = Math.round(grandTotal * (cRate / 100) * 100) / 100;
+    const labour = Math.round(totalQuantity * lRate * 100) / 100;
+    const association = Math.round(grandTotal * (aRate / 100) * 100) / 100;
+    const miscellaneous = Math.round(grandTotal * (mRate / 100) * 100) / 100;
+    const totalDeductions = Math.round((commission + labour + fVal + association + pCharge + miscellaneous) * 100) / 100;
+    const netAmount = Math.round((grandTotal - totalDeductions) * 100) / 100;
+
+    return {
+      commission,
+      labour,
+      freight: fVal,
+      association,
+      printing: pCharge,
+      miscellaneous,
+      totalDeductions,
+      netAmount,
+    };
+  }, [grandTotal, totalQuantity, freight, commissionRate, labourRate, associationRate, printingCharge, miscellaneousRate]);
+
   async function submit() {
     setError("");
     setLoading(true);
@@ -85,6 +125,12 @@ export default function NewTransactionPage() {
             unit: item.unit,
             rate: parseFloat(item.rate),
           })),
+          freight: parseFloat(freight) || 0,
+          commissionRate: parseFloat(commissionRate) || 0,
+          labourRate: parseFloat(labourRate) || 0,
+          associationRate: parseFloat(associationRate) || 0,
+          printingCharge: parseFloat(printingCharge) || 0,
+          miscellaneousRate: parseFloat(miscellaneousRate) || 0,
           notes,
         }),
       });
@@ -229,12 +275,128 @@ export default function NewTransactionPage() {
             </datalist>
           </Box>
 
-          {/* Grand Total Card */}
-          <Box bg="green.50" px={5} py={4} borderRadius="xl" borderWidth="1px" borderColor="green.200" shadow="sm">
-            <Text fontSize="xs" color="green.700" textTransform="uppercase" fontWeight="bold" letterSpacing="wider">Grand Total Amount</Text>
-            <Text fontSize="3xl" fontWeight="black" color="green.800" mt={1}>
-              ₹{grandTotal.toLocaleString("en-IN", { maximumFractionDigits: 0 })}
-            </Text>
+          {/* Expenses & Deductions Inputs */}
+          <Box bg="white" p={6} borderRadius="xl" shadow="sm" borderWidth="1px">
+            <Heading size="md" mb={4} color="gray.700">Expenses &amp; Deductions</Heading>
+            <SimpleGrid columns={{ base: 1, md: 3 }} gap={4}>
+              <Box>
+                <Text fontSize="xs" mb={1} color="gray.600" fontWeight="medium">Freight (₹, grower-specified)</Text>
+                <Input 
+                  type="number"
+                  placeholder="Enter grower freight"
+                  value={freight}
+                  onChange={(e) => setFreight(e.target.value)}
+                  size="sm"
+                  bg="white"
+                />
+              </Box>
+              <Box>
+                <Text fontSize="xs" mb={1} color="gray.600" fontWeight="medium">Commission Rate (%)</Text>
+                <Input 
+                  type="number"
+                  placeholder="12"
+                  value={commissionRate}
+                  onChange={(e) => setCommissionRate(e.target.value)}
+                  size="sm"
+                  bg="white"
+                />
+              </Box>
+              <Box>
+                <Text fontSize="xs" mb={1} color="gray.600" fontWeight="medium">Labour Rate (₹/unit)</Text>
+                <Input 
+                  type="number"
+                  placeholder="3"
+                  value={labourRate}
+                  onChange={(e) => setLabourRate(e.target.value)}
+                  size="sm"
+                  bg="white"
+                />
+              </Box>
+              <Box>
+                <Text fontSize="xs" mb={1} color="gray.600" fontWeight="medium">Association Fee (%)</Text>
+                <Input 
+                  type="number"
+                  placeholder="0.10"
+                  value={associationRate}
+                  onChange={(e) => setAssociationRate(e.target.value)}
+                  size="sm"
+                  bg="white"
+                />
+              </Box>
+              <Box>
+                <Text fontSize="xs" mb={1} color="gray.600" fontWeight="medium">Printing Charge (₹)</Text>
+                <Input 
+                  type="number"
+                  placeholder="1"
+                  value={printingCharge}
+                  onChange={(e) => setPrintingCharge(e.target.value)}
+                  size="sm"
+                  bg="white"
+                />
+              </Box>
+              <Box>
+                <Text fontSize="xs" mb={1} color="gray.600" fontWeight="medium">Miscellaneous Rate (%)</Text>
+                <Input 
+                  type="number"
+                  placeholder="0.90"
+                  value={miscellaneousRate}
+                  onChange={(e) => setMiscellaneousRate(e.target.value)}
+                  size="sm"
+                  bg="white"
+                />
+              </Box>
+            </SimpleGrid>
+          </Box>
+
+          {/* Calculations Summary Card */}
+          <Box bg="green.50" p={6} borderRadius="xl" borderWidth="1px" borderColor="green.200" shadow="sm">
+            <Text fontSize="xs" color="green.700" textTransform="uppercase" fontWeight="bold" letterSpacing="wider" mb={3}>Calculation Summary</Text>
+            
+            <Stack gap={2} fontSize="sm">
+              <Flex justify="space-between">
+                <Text color="green.800">Gross Total (Qty × Rate):</Text>
+                <Text fontWeight="semibold" color="green.900">₹{grandTotal.toLocaleString("en-IN")}</Text>
+              </Flex>
+              
+              <Box borderTopWidth="1px" borderColor="green.100" pt={2} pb={1}>
+                <Text fontSize="xs" fontWeight="bold" color="green.700" mb={1}>DEDUCTIONS</Text>
+              </Box>
+
+              <Flex justify="space-between" pl={2}>
+                <Text fontSize="xs" color="green.800">Commission ({commissionRate}%):</Text>
+                <Text fontSize="xs" color="green.900">-₹{expenseCalculations.commission.toLocaleString("en-IN")}</Text>
+              </Flex>
+              <Flex justify="space-between" pl={2}>
+                <Text fontSize="xs" color="green.800">Labour (₹{labourRate}/unit):</Text>
+                <Text fontSize="xs" color="green.900">-₹{expenseCalculations.labour.toLocaleString("en-IN")}</Text>
+              </Flex>
+              <Flex justify="space-between" pl={2}>
+                <Text fontSize="xs" color="green.800">Freight:</Text>
+                <Text fontSize="xs" color="green.900">-₹{expenseCalculations.freight.toLocaleString("en-IN")}</Text>
+              </Flex>
+              <Flex justify="space-between" pl={2}>
+                <Text fontSize="xs" color="green.800">Association ({associationRate}%):</Text>
+                <Text fontSize="xs" color="green.900">-₹{expenseCalculations.association.toLocaleString("en-IN")}</Text>
+              </Flex>
+              <Flex justify="space-between" pl={2}>
+                <Text fontSize="xs" color="green.800">Printing:</Text>
+                <Text fontSize="xs" color="green.900">-₹{expenseCalculations.printing.toLocaleString("en-IN")}</Text>
+              </Flex>
+              <Flex justify="space-between" pl={2}>
+                <Text fontSize="xs" color="green.800">Miscellaneous ({miscellaneousRate}%):</Text>
+                <Text fontSize="xs" color="green.900">-₹{expenseCalculations.miscellaneous.toLocaleString("en-IN")}</Text>
+              </Flex>
+
+              <Flex justify="space-between" borderTopWidth="1px" borderColor="green.200" pt={2} mt={1}>
+                <Text fontWeight="bold" color="green.800">Total Deductions:</Text>
+                <Text fontWeight="bold" color="green.900">₹{expenseCalculations.totalDeductions.toLocaleString("en-IN")}</Text>
+              </Flex>
+
+              <Flex justify="space-between" borderTopWidth="2px" borderColor="green.300" pt={3} mt={1} align="center">
+                <Text fontWeight="extrabold" fontSize="md" color="green.900">Net Credit to Grower:</Text>
+                <Text fontWeight="black" fontSize="2xl" color="green.900">₹{expenseCalculations.netAmount.toLocaleString("en-IN")}</Text>
+              </Flex>
+            </Stack>
           </Box>
 
           {/* Notes Card */}

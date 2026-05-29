@@ -12,6 +12,13 @@ type Txn = {
   quantity: number;
   unit: string;
   rate: number;
+  grossAmount: number;
+  commission: number;
+  labour: number;
+  freight: number;
+  association: number;
+  printing: number;
+  miscellaneous: number;
   totalAmount: number;
   receivedAt: string;
   notes: string | null;
@@ -20,7 +27,7 @@ type Txn = {
 };
 
 function inr(n: number) {
-  return `₹${n.toLocaleString("en-IN", { maximumFractionDigits: 0 })}`;
+  return `₹${n.toLocaleString("en-IN", { maximumFractionDigits: 2 })}`;
 }
 
 function Detail({ label, value }: { label: string; value: string }) {
@@ -65,17 +72,34 @@ export default function TransactionDetailPage({ params }: { params: Promise<{ id
       </Flex>
 
       <Box bg="white" p={6} borderRadius="lg" shadow="sm" borderWidth="1px">
-        <SimpleGrid columns={{ base: 2, md: 3 }} gap={6}>
+        <Heading size="md" mb={4} color="gray.700">Delivery Details</Heading>
+        <SimpleGrid columns={{ base: 2, md: 3 }} gap={6} mb={8}>
           <Detail label="Grower" value={data.grower.name} />
           <Detail label="Grower mobile" value={data.grower.mobile} />
           <Detail label="Date" value={new Date(data.receivedAt).toLocaleString("en-IN")} />
           <Detail label="Quantity" value={`${data.quantity} ${data.unit}`} />
           <Detail label="Rate" value={`${inr(data.rate)}/${data.unit}`} />
-          <Detail label="Total" value={inr(data.totalAmount)} />
           <Detail label="SMS notification" value={data.notified ? "Sent" : "Not sent"} />
         </SimpleGrid>
+
+        <Heading size="md" mb={4} color="gray.700" borderTopWidth="1px" pt={6}>Financial Statement &amp; Deductions</Heading>
+        <SimpleGrid columns={{ base: 2, md: 4 }} gap={6}>
+          <Detail label="Gross Total Amount" value={inr(data.grossAmount || data.quantity * data.rate)} />
+          <Detail label="Commission" value={`- ${inr(data.commission)}`} />
+          <Detail label="Labour" value={`- ${inr(data.labour)}`} />
+          <Detail label="Freight" value={`- ${inr(data.freight)}`} />
+          <Detail label="Association Expenses" value={`- ${inr(data.association)}`} />
+          <Detail label="Printing" value={`- ${inr(data.printing)}`} />
+          <Detail label="Miscellaneous" value={`- ${inr(data.miscellaneous)}`} />
+          
+          <Box bg="green.50" p={3} borderRadius="md" borderWidth="1px" borderColor="green.200">
+            <Text fontSize="xs" color="green.700" fontWeight="semibold">Net Credit to Grower</Text>
+            <Text fontWeight="bold" fontSize="lg" color="green.900">{inr(data.totalAmount)}</Text>
+          </Box>
+        </SimpleGrid>
+
         {data.notes && (
-          <Box mt={6}>
+          <Box mt={6} borderTopWidth="1px" pt={6}>
             <Text fontSize="xs" color="gray.500">Notes</Text>
             <Text>{data.notes}</Text>
           </Box>

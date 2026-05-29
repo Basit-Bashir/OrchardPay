@@ -26,6 +26,8 @@ export async function POST(req: Request) {
       unit: txn.unit,
       rate: txn.rate,
       totalAmount: txn.totalAmount,
+      grossAmount: txn.grossAmount,
+      expensesAmount: Math.round(((txn.grossAmount || txn.quantity * txn.rate) - txn.totalAmount) * 100) / 100,
     });
 
     if (sent && !txn.notified) {

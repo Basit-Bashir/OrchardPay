@@ -45,6 +45,12 @@ export const transactionItemSchema = z.object({
 export const batchTransactionSchema = z.object({
   growerId: z.string().min(1, "Select a grower"),
   items: z.array(transactionItemSchema).min(1, "At least one item is required"),
+  freight: z.coerce.number().nonnegative("Freight must be 0 or greater").default(0),
+  commissionRate: z.coerce.number().nonnegative("Commission rate must be 0 or greater").default(12),
+  labourRate: z.coerce.number().nonnegative("Labour rate must be 0 or greater").default(3),
+  associationRate: z.coerce.number().nonnegative("Association rate must be 0 or greater").default(0.10),
+  printingCharge: z.coerce.number().nonnegative("Printing charge must be 0 or greater").default(1),
+  miscellaneousRate: z.coerce.number().nonnegative("Miscellaneous rate must be 0 or greater").default(0.90),
   notes: z.string().trim().optional().or(z.literal("")),
 });
 

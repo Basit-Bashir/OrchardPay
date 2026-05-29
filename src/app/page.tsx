@@ -151,6 +151,9 @@ export default function LandingPage() {
               <chakra.a href="#roi-calculator" fontSize="sm" fontWeight="medium" color="gray.600" _hover={{ color: "green.600" }} transition="color 0.2s">
                 ROI Calculator
               </chakra.a>
+              <chakra.a href="#pricing" fontSize="sm" fontWeight="medium" color="gray.600" _hover={{ color: "green.600" }} transition="color 0.2s">
+                Pricing
+              </chakra.a>
               <chakra.a href="#faq" fontSize="sm" fontWeight="medium" color="gray.600" _hover={{ color: "green.600" }} transition="color 0.2s">
                 FAQs
               </chakra.a>
@@ -191,6 +194,9 @@ export default function LandingPage() {
               </chakra.a>
               <chakra.a href="#roi-calculator" fontSize="sm" fontWeight="medium" onClick={() => setMobileOpen(false)}>
                 ROI Calculator
+              </chakra.a>
+              <chakra.a href="#pricing" fontSize="sm" fontWeight="medium" onClick={() => setMobileOpen(false)}>
+                Pricing
               </chakra.a>
               <chakra.a href="#faq" fontSize="sm" fontWeight="medium" onClick={() => setMobileOpen(false)}>
                 FAQs
@@ -555,6 +561,186 @@ export default function LandingPage() {
         </Container>
       </Box>
 
+      {/* 4.5. Pricing Section */}
+      <Box id="pricing" py={{ base: 16, md: 24 }} bg="white">
+        <Container maxW="5xl">
+          <Stack align="center" gap={3} mb={16} textAlign="center">
+            <Heading size="lg" color="green.700" fontWeight="bold" textTransform="uppercase" letterSpacing="widest" fontSize="sm">
+              Pricing Plans
+            </Heading>
+            <Heading size="2xl" fontWeight="extrabold" color="gray.900" letterSpacing="-0.02em">
+              Simple, Predictable Pricing
+            </Heading>
+            <Text color="gray.600" maxW="lg">
+              Empower your mandi business with instant ledger updates, automatic SMS receipts, and professional print outputs.
+            </Text>
+          </Stack>
+
+          <SimpleGrid columns={{ base: 1, md: 2 }} gap={8} maxW="4xl" mx="auto" px={4}>
+            {/* Card 1: Monthly Price, Charged Yearly */}
+            <Box
+              bg="white"
+              borderRadius="2xl"
+              borderWidth="1px"
+              borderColor="gray.200"
+              p={{ base: 6, md: 8 }}
+              position="relative"
+              transition="all 0.3s"
+              display="flex"
+              flexDirection="column"
+              justifyContent="space-between"
+              _hover={{ shadow: "xl", transform: "translateY(-4px)", borderColor: "green.300" }}
+            >
+              <Box>
+                <Text fontSize="xs" fontWeight="bold" color="green.600" textTransform="uppercase" letterSpacing="wider" mb={2}>
+                  Mandi Pro
+                </Text>
+                <Heading size="xl" fontWeight="extrabold" color="gray.900" mb={1}>
+                  ₹999<Text as="span" fontSize="sm" fontWeight="medium" color="gray.500"> / month</Text>
+                </Heading>
+                <Text fontSize="xs" fontWeight="semibold" color="green.700" bg="green.50" display="inline-block" px={2.5} py={0.5} borderRadius="full" mb={6}>
+                  Charged yearly (₹11,988 / year)
+                </Text>
+                <Text color="gray.600" fontSize="sm" mb={6}>
+                  Perfect for growing commission agents wanting to digitize their mandi workflow.
+                </Text>
+
+                <Stack gap={3.5} mb={8}>
+                  <Flex align="center" gap={2.5}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" style={{ color: "var(--chakra-colors-green-600)" }}>
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    <Text fontSize="sm" color="gray.700">Up to 150 Active Growers</Text>
+                  </Flex>
+                  <Flex align="center" gap={2.5}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" style={{ color: "var(--chakra-colors-green-600)" }}>
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    <Text fontSize="sm" color="gray.700">Unlimited fruit lot records</Text>
+                  </Flex>
+                  <Flex align="center" gap={2.5}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" style={{ color: "var(--chakra-colors-green-600)" }}>
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    <Text fontSize="sm" color="gray.700">Instant Automated SMS Alerts</Text>
+                  </Flex>
+                  <Flex align="center" gap={2.5}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" style={{ color: "var(--chakra-colors-green-600)" }}>
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    <Text fontSize="sm" color="gray.700">Excel / CSV Smart Reports</Text>
+                  </Flex>
+                  <Flex align="center" gap={2.5}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" style={{ color: "var(--chakra-colors-green-600)" }}>
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    <Text fontSize="sm" color="gray.700">2 Staff Member Invitations</Text>
+                  </Flex>
+                </Stack>
+              </Box>
+
+              <Button asChild colorPalette="green" variant="outline" size="lg" w="full" shadow="sm">
+                <NextLink href="/signup">Start 14-Day Free Trial</NextLink>
+              </Button>
+            </Box>
+
+            {/* Card 2: Yearly Price, Charged Yearly */}
+            <Box
+              bg="white"
+              borderRadius="2xl"
+              borderWidth="2px"
+              borderColor="green.500"
+              p={{ base: 6, md: 8 }}
+              position="relative"
+              transition="all 0.3s"
+              display="flex"
+              flexDirection="column"
+              justifyContent="space-between"
+              shadow="lg"
+              _hover={{ shadow: "2xl", transform: "translateY(-4px)" }}
+            >
+              {/* Popular Badge */}
+              <Box
+                position="absolute"
+                top="-3.5"
+                left="50%"
+                transform="translateX(-50%)"
+                bg="linear-gradient(135deg, var(--chakra-colors-green-600), var(--chakra-colors-teal-600))"
+                color="white"
+                fontSize="xs"
+                fontWeight="extrabold"
+                px={4}
+                py={1}
+                borderRadius="full"
+                boxShadow="md"
+                textTransform="uppercase"
+                letterSpacing="wider"
+              >
+                Best Value (Save 17%)
+              </Box>
+
+              <Box>
+                <Text fontSize="xs" fontWeight="bold" color="green.600" textTransform="uppercase" letterSpacing="wider" mb={2} mt={2}>
+                  Mandi Premium (Yearly)
+                </Text>
+                <Heading size="xl" fontWeight="extrabold" color="gray.900" mb={1}>
+                  ₹9,999<Text as="span" fontSize="sm" fontWeight="medium" color="gray.500"> / year</Text>
+                </Heading>
+                <Text fontSize="xs" fontWeight="semibold" color="green.750" bg="green.50" display="inline-block" px={2.5} py={0.5} borderRadius="full" mb={6}>
+                  Billed annually (Equivalent to ₹833/mo)
+                </Text>
+                <Text color="gray.600" fontSize="sm" mb={6}>
+                  Complete setup for large mandi operations requiring multiple device sync, custom logos, and priority support.
+                </Text>
+
+                <Stack gap={3.5} mb={8}>
+                  <Flex align="center" gap={2.5}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" style={{ color: "var(--chakra-colors-green-600)" }}>
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    <Text fontSize="sm" color="gray.700" fontWeight="semibold">Unlimited Active Growers</Text>
+                  </Flex>
+                  <Flex align="center" gap={2.5}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" style={{ color: "var(--chakra-colors-green-600)" }}>
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    <Text fontSize="sm" color="gray.700" fontWeight="semibold">Unlimited lot records &amp; bills</Text>
+                  </Flex>
+                  <Flex align="center" gap={2.5}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" style={{ color: "var(--chakra-colors-green-600)" }}>
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    <Text fontSize="sm" color="gray.700">Priority SMS Delivery Gateway</Text>
+                  </Flex>
+                  <Flex align="center" gap={2.5}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" style={{ color: "var(--chakra-colors-green-600)" }}>
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    <Text fontSize="sm" color="gray.700">Custom Firm Logo &amp; Watermarked Print PDF</Text>
+                  </Flex>
+                  <Flex align="center" gap={2.5}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" style={{ color: "var(--chakra-colors-green-600)" }}>
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    <Text fontSize="sm" color="gray.700">Unlimited Staff Members</Text>
+                  </Flex>
+                  <Flex align="center" gap={2.5}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" style={{ color: "var(--chakra-colors-green-600)" }}>
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    <Text fontSize="sm" color="gray.700">Dedicated Support Manager (24/7)</Text>
+                  </Flex>
+                </Stack>
+              </Box>
+
+              <Button asChild colorPalette="green" size="lg" w="full" shadow="md">
+                <NextLink href="/signup">Get Yearly Premium</NextLink>
+              </Button>
+            </Box>
+          </SimpleGrid>
+        </Container>
+      </Box>
+
       {/* 5. FAQs Section */}
       <Box id="faq" py={{ base: 16, md: 24 }} bg="white">
         <Container maxW="4xl">
@@ -642,6 +828,7 @@ export default function LandingPage() {
               <Text fontWeight="bold" color="white" fontSize="xs" textTransform="uppercase">Platform</Text>
               <chakra.a href="#features" fontSize="xs" color="gray.400" _hover={{ color: "green.400" }}>Features</chakra.a>
               <chakra.a href="#roi-calculator" fontSize="xs" color="gray.400" _hover={{ color: "green.400" }}>ROI Calculator</chakra.a>
+              <chakra.a href="#pricing" fontSize="xs" color="gray.400" _hover={{ color: "green.400" }}>Pricing</chakra.a>
               <NextLink href="/login" style={{ fontSize: "12px", color: "var(--chakra-colors-gray-400)" }}>Live Demo</NextLink>
             </Stack>
 

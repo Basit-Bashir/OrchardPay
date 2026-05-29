@@ -11,6 +11,13 @@ type Txn = {
   quantity: number;
   unit: string;
   rate: number;
+  grossAmount: number;
+  commission: number;
+  labour: number;
+  freight: number;
+  association: number;
+  printing: number;
+  miscellaneous: number;
   totalAmount: number;
   receivedAt: string;
 };
@@ -33,7 +40,7 @@ type GrowerDetail = {
 };
 
 function inr(n: number) {
-  return `₹${n.toLocaleString("en-IN", { maximumFractionDigits: 0 })}`;
+  return `₹${n.toLocaleString("en-IN", { maximumFractionDigits: 2 })}`;
 }
 
 export default function GrowerPrintPage({ params }: { params: Promise<{ id: string }> }) {
@@ -49,12 +56,16 @@ export default function GrowerPrintPage({ params }: { params: Promise<{ id: stri
     if (!data) return [];
     
     const items = [
-      ...data.transactions.map((t) => ({
-        date: new Date(t.receivedAt),
-        description: `Crop Delivery: ${t.fruitType} (${t.quantity} ${t.unit} @ ₹${t.rate}/${t.unit})`,
-        credit: t.totalAmount,
-        debit: 0,
-      })),
+      ...data.transactions.map((t) => {
+        const gross = t.grossAmount || (t.quantity * t.rate);
+        const exp = Math.round((gross - t.totalAmount) * 100) / 100;
+        return {
+          date: new Date(t.receivedAt),
+          description: `Crop Delivery: ${t.fruitType} (${t.quantity} ${t.unit} @ ₹${t.rate}/${t.unit}) [Gross: ₹${gross.toLocaleString("en-IN")}, Less Expenses: ₹${exp.toLocaleString("en-IN")}]`,
+          credit: t.totalAmount,
+          debit: 0,
+        };
+      }),
       ...(data.payments ?? []).map((p) => ({
         date: new Date(p.paidAt),
         description: `Advance Taken${p.notes ? ` - ${p.notes}` : ""}`,
@@ -75,6 +86,19 @@ export default function GrowerPrintPage({ params }: { params: Promise<{ id: stri
         balance: runningBalance,
       };
     });
+  }, [data]);
+
+  const totalGrossValue = useMemo(() => {
+    if (!data) return 0;
+    return data.transactions.reduce((sum, t) => sum + (t.grossAmount || t.quantity * t.rate), 0);
+  }, [data]);
+
+  const totalExpensesDeducted = useMemo(() => {
+    if (!data) return 0;
+    return data.transactions.reduce((sum, t) => {
+      const gross = t.grossAmount || t.quantity * t.rate;
+      return sum + Math.max(0, gross - t.totalAmount);
+    }, 0);
   }, [data]);
 
   const totalCredit = useMemo(() => {
@@ -205,9 +229,13 @@ export default function GrowerPrintPage({ params }: { params: Promise<{ id: stri
           <Box p={4} borderRadius="lg" bg="gray.50" borderWidth="1px">
             <Text fontSize="xs" fontWeight="bold" textTransform="uppercase" color="gray.400" letterSpacing="wider" mb={2}>Summary of Dues</Text>
             <SimpleGrid columns={2} gap={2} fontSize="xs">
-              <Text color="gray.600">Total Crop Credits:</Text>
-              <Text fontWeight="semibold" textAlign="right" color="green.700">{inr(totalCredit)}</Text>
-              <Text color="gray.600">Total Cash Advances:</Text>
+              <Text color="gray.600">Total Gross Produce:</Text>
+              <Text fontWeight="semibold" textAlign="right" color="gray.700">{inr(totalGrossValue)}</Text>
+              <Text color="gray.600">Total Deductions (Expenses):</Text>
+              <Text fontWeight="semibold" textAlign="right" color="red.600">{inr(totalExpensesDeducted)}</Text>
+              <Text color="gray.600" fontWeight="bold">Net Crop Credits (Cr):</Text>
+              <Text fontWeight="bold" textAlign="right" color="green.700">{inr(totalCredit)}</Text>
+              <Text color="gray.600">Total Cash Advances (Dr):</Text>
               <Text fontWeight="semibold" textAlign="right" color="indigo.700">{inr(totalDebit)}</Text>
             </SimpleGrid>
             <Box borderTopWidth="1px" mt={2} pt={2}>
