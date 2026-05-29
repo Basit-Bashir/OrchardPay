@@ -1,4 +1,4 @@
-# HortiTrack
+# OrchardPay
 
 A SaaS platform for fruit buyers in the horticulture sector. Buyers register their firm,
 log in with a mobile OTP, record produce received from growers, and growers are notified by
@@ -28,7 +28,7 @@ npm run dev          # http://localhost:3000
 
 The seed creates a firm you can log straight into:
 
-- **Mobile:** `+919999900001`
+- **Mobile:** `+919898989898`
 - On the login screen, enter that number and request a code. Because `SMS_PROVIDER=console`,
   the 6-digit OTP is **printed to the server console** and also shown on screen in dev mode.
 
