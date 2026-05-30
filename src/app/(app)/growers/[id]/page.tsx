@@ -6,6 +6,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Box, Button, Flex, Heading, Input, Spinner, Stack, Text, Textarea, SimpleGrid } from "@chakra-ui/react";
 import { GrowerForm } from "@/components/grower/GrowerForm";
 import { api } from "@/lib/client";
+import { ConfirmationModal } from "@/components/common/ConfirmationModal";
 
 type Txn = {
   id: string;
@@ -40,6 +41,18 @@ type GrowerDetail = {
   payments: Payment[];
 };
 
+type Agreement = {
+  id: string;
+  growerId: string;
+  pledgedProduce: string;
+  paymentTerms: string;
+  installments: string; // JSON string
+  buyerSign: string;
+  validUntil: string | null;
+  signedAt: string;
+  createdAt: string;
+};
+
 function inr(n: number) {
   return `₹${n.toLocaleString("en-IN", { maximumFractionDigits: 2 })}`;
 }
@@ -61,6 +74,88 @@ export default function GrowerDetailPage({ params }: { params: Promise<{ id: str
     queryKey: ["grower", id],
     queryFn: () => api<GrowerDetail>(`/api/growers/${id}`),
   });
+
+  // Agreement Form & List states
+  const { data: agreements, refetch: refetchAgreements } = useQuery({
+    queryKey: ["grower-agreements", id],
+    queryFn: () => api<Agreement[]>(`/api/growers/${id}/agreements`),
+  });
+
+  const [showAgreementModal, setShowAgreementModal] = useState(false);
+  const [deleteAgreementId, setDeleteAgreementId] = useState<string | null>(null);
+  const [isDeletingAgreement, setIsDeletingAgreement] = useState(false);
+  const [pledgedProduce, setPledgedProduce] = useState("");
+  const [paymentTerms, setPaymentTerms] = useState("");
+  const [validUntil, setValidUntil] = useState("");
+  const [buyerSign, setBuyerSign] = useState("");
+  const [installments, setInstallments] = useState<Array<{ amount: string; dueDate: string }>>([
+    { amount: "", dueDate: "" },
+  ]);
+  const [agreementError, setAgreementError] = useState("");
+  const [agreementLoading, setAgreementLoading] = useState(false);
+
+  const handleAddInstallment = () => {
+    setInstallments([...installments, { amount: "", dueDate: "" }]);
+  };
+
+  const handleRemoveInstallment = (index: number) => {
+    setInstallments(installments.filter((_, i) => i !== index));
+  };
+
+  const handleInstallmentChange = (index: number, field: "amount" | "dueDate", value: string) => {
+    const newInst = [...installments];
+    newInst[index][field] = value;
+    setInstallments(newInst);
+  };
+
+  async function handleCreateAgreement(e: React.FormEvent) {
+    e.preventDefault();
+    setAgreementError("");
+    setAgreementLoading(true);
+
+    try {
+      const formattedInstallments = installments.map((inst) => ({
+        amount: parseFloat(inst.amount),
+        dueDate: inst.dueDate,
+      }));
+
+      await api(`/api/growers/${id}/agreements`, {
+        method: "POST",
+        body: JSON.stringify({
+          pledgedProduce,
+          paymentTerms,
+          installments: formattedInstallments,
+          buyerSign,
+          validUntil: validUntil || undefined,
+        }),
+      });
+
+      setPledgedProduce("");
+      setPaymentTerms("");
+      setBuyerSign("");
+      setValidUntil("");
+      setInstallments([{ amount: "", dueDate: "" }]);
+      setShowAgreementModal(false);
+      refetchAgreements();
+    } catch (err) {
+      setAgreementError((err as Error).message);
+    } finally {
+      setAgreementLoading(false);
+    }
+  }
+
+  async function handleDeleteAgreement(agreementId: string) {
+    setIsDeletingAgreement(true);
+    try {
+      await api(`/api/growers/${id}/agreements/${agreementId}`, { method: "DELETE" });
+      refetchAgreements();
+    } catch (e) {
+      alert((e as Error).message);
+    } finally {
+      setIsDeletingAgreement(false);
+      setDeleteAgreementId(null);
+    }
+  }
 
   async function handleRecordPayment(e: React.FormEvent) {
     e.preventDefault();
@@ -301,7 +396,7 @@ export default function GrowerDetailPage({ params }: { params: Promise<{ id: str
           {/* Payments & Advances taken */}
           <Box bg="white" borderRadius="xl" shadow="sm" borderWidth="1px" overflow="hidden">
             <Box px={6} py={4} borderBottomWidth="1px" bg="gray.50">
-              <Heading size="md" color="gray.700">Cash Advances & Payments History</Heading>
+              <Heading size="md" color="gray.700">Cash Advances &amp; Payments History</Heading>
             </Box>
             {!data.payments || data.payments.length === 0 ? (
               <Box p={6} color="gray.500">No cash advances/payments recorded yet.</Box>
@@ -323,6 +418,66 @@ export default function GrowerDetailPage({ params }: { params: Promise<{ id: str
                           {new Date(p.paidAt).toLocaleDateString("en-IN")}
                         </Box>
                         <Box as="td" px={6} py={3} color="gray.500">{p.notes ?? "—"}</Box>
+                      </Box>
+                    ))}
+                  </Box>
+                </Box>
+              </Box>
+            )}
+          </Box>
+
+          {/* Grower Agreements History */}
+          <Box bg="white" borderRadius="xl" shadow="sm" borderWidth="1px" overflow="hidden">
+            <Flex px={6} py={4} borderBottomWidth="1px" bg="gray.50" justify="space-between" align="center" wrap="wrap" gap={2}>
+              <Heading size="md" color="gray.700">Agreements &amp; Contracts</Heading>
+              <Button size="xs" colorPalette="green" onClick={() => setShowAgreementModal(true)}>
+                + Generate Agreement
+              </Button>
+            </Flex>
+            {!agreements || agreements.length === 0 ? (
+              <Box p={6} color="gray.500">No agreements generated yet.</Box>
+            ) : (
+              <Box overflowX="auto">
+                <Box as="table" w="full" fontSize="sm">
+                  <Box as="thead" bg="gray.50">
+                    <Box as="tr" textAlign="left" color="gray.500">
+                      <Box as="th" px={6} py={3} fontWeight="semibold">Pledged Produce</Box>
+                      <Box as="th" px={6} py={3} fontWeight="semibold">Payment Terms</Box>
+                      <Box as="th" px={6} py={3} fontWeight="semibold">E-Signed By</Box>
+                      <Box as="th" px={6} py={3} fontWeight="semibold">Date Signed</Box>
+                      <Box as="th" px={6} py={3} fontWeight="semibold">Valid Until</Box>
+                      <Box as="th" px={6} py={3} fontWeight="semibold" textAlign="right">Actions</Box>
+                    </Box>
+                  </Box>
+                  <Box as="tbody">
+                    {agreements.map((ag) => (
+                      <Box as="tr" key={ag.id} borderTopWidth="1px" _hover={{ bg: "gray.50/50" }}>
+                        <Box as="td" px={6} py={3} color="gray.800" maxW="200px" truncate>{ag.pledgedProduce}</Box>
+                        <Box as="td" px={6} py={3} color="gray.600">{ag.paymentTerms}</Box>
+                        <Box as="td" px={6} py={3} fontWeight="semibold" color="green.750">{ag.buyerSign}</Box>
+                        <Box as="td" px={6} py={3} color="gray.500">
+                          {new Date(ag.createdAt).toLocaleDateString("en-IN")}
+                        </Box>
+                        <Box as="td" px={6} py={3} color="gray.500">
+                          {ag.validUntil ? new Date(ag.validUntil).toLocaleDateString("en-IN") : "—"}
+                        </Box>
+                        <Box as="td" px={6} py={3} textAlign="right">
+                          <Flex justify="flex-end" gap={2}>
+                            <Button asChild size="xs" variant="outline" colorPalette="green">
+                              <a href={`/growers/${id}/agreements/${ag.id}/print`} target="_blank" rel="noopener noreferrer">
+                                Print
+                              </a>
+                            </Button>
+                            <Button 
+                              size="xs" 
+                              variant="ghost" 
+                              colorPalette="red"
+                              onClick={() => setDeleteAgreementId(ag.id)}
+                            >
+                              Delete
+                            </Button>
+                          </Flex>
+                        </Box>
                       </Box>
                     ))}
                   </Box>
@@ -501,6 +656,171 @@ export default function GrowerDetailPage({ params }: { params: Promise<{ id: str
           </Box>
         </Box>
       )}
+
+      {/* Agreement Creation Modal */}
+      {showAgreementModal && (
+        <Box
+          position="fixed"
+          top={0}
+          left={0}
+          right={0}
+          bottom={0}
+          bg="rgba(0, 0, 0, 0.4)"
+          zIndex={1000}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          p={4}
+          onClick={() => setShowAgreementModal(false)}
+        >
+          <Box
+            bg="white"
+            borderRadius="xl"
+            p={6}
+            maxW="xl"
+            w="full"
+            shadow="2xl"
+            borderWidth="1px"
+            maxH="90vh"
+            overflowY="auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Flex justify="space-between" align="center" mb={4} borderBottomWidth="1px" pb={3}>
+              <Heading size="md" color="gray.800">Generate Grower Agreement</Heading>
+              <Button size="xs" variant="ghost" onClick={() => setShowAgreementModal(false)}>
+                ✕
+              </Button>
+            </Flex>
+
+            <form onSubmit={handleCreateAgreement}>
+              <Stack gap={4}>
+                {agreementError && (
+                  <Box bg="red.50" color="red.700" px={4} py={2} borderRadius="md" fontSize="sm">
+                    {agreementError}
+                  </Box>
+                )}
+
+                <Box>
+                  <Text fontSize="sm" fontWeight="medium" mb={1} color="gray.600">Pledged Fruits &amp; Produce</Text>
+                  <Textarea
+                    placeholder="Describe produce grower promises to deliver (e.g. Apples: 500 boxes, Pears: 300 boxes)"
+                    value={pledgedProduce}
+                    onChange={(e) => setPledgedProduce(e.target.value)}
+                    rows={3}
+                    required
+                  />
+                </Box>
+
+                <Box>
+                  <Text fontSize="sm" fontWeight="medium" mb={1} color="gray.600">Payment Terms Overview (Optional)</Text>
+                  <Input
+                    placeholder="e.g. 3 installments, paid post-harvest quality check"
+                    value={paymentTerms}
+                    onChange={(e) => setPaymentTerms(e.target.value)}
+                  />
+                </Box>
+
+                <Box>
+                  <Text fontSize="sm" fontWeight="medium" mb={1} color="gray.600">Agreement Validity Date (Valid Until)</Text>
+                  <Input
+                    type="date"
+                    value={validUntil}
+                    onChange={(e) => setValidUntil(e.target.value)}
+                    required
+                  />
+                </Box>
+
+                <Box>
+                  <Flex justify="space-between" align="center" mb={2}>
+                    <Text fontSize="sm" fontWeight="medium" color="gray.600">Payment Installments Schedule</Text>
+                    <Button size="xs" colorPalette="indigo" onClick={handleAddInstallment}>
+                      + Add Installment
+                    </Button>
+                  </Flex>
+
+                  <Stack gap={2}>
+                    {installments.map((inst, index) => (
+                      <Flex key={index} gap={2} align="center">
+                        <Text fontSize="xs" fontWeight="semibold" w="80px">Installment #{index + 1}</Text>
+                        <Input
+                          type="number"
+                          placeholder="Amount (₹)"
+                          value={inst.amount}
+                          onChange={(e) => handleInstallmentChange(index, "amount", e.target.value)}
+                          required
+                          size="sm"
+                          flex={1}
+                        />
+                        <Input
+                          type="date"
+                          value={inst.dueDate}
+                          onChange={(e) => handleInstallmentChange(index, "dueDate", e.target.value)}
+                          required
+                          size="sm"
+                          flex={1.2}
+                        />
+                        {installments.length > 1 && (
+                          <Button size="xs" colorPalette="red" variant="ghost" onClick={() => handleRemoveInstallment(index)}>
+                            ✕
+                          </Button>
+                        )}
+                      </Flex>
+                    ))}
+                  </Stack>
+                </Box>
+
+                <Box bg="green.50/35" p={3} borderRadius="lg" borderLeftWidth="4px" borderColor="green.500">
+                  <Text fontSize="xs" color="gray.650">
+                    Total agreement amount: <b>{inr(installments.reduce((sum, item) => sum + (parseFloat(item.amount) || 0), 0))}</b>
+                  </Text>
+                </Box>
+
+                <Box>
+                  <Text fontSize="sm" fontWeight="medium" mb={1} color="gray.600">Buyer E-Signature</Text>
+                  <Input
+                    placeholder="Type buyer's full name to authorize and sign"
+                    value={buyerSign}
+                    onChange={(e) => setBuyerSign(e.target.value)}
+                    required
+                  />
+                  <Text fontSize="10px" color="gray.400" mt={1}>
+                    By typing your name, you certify this as an authorized electronic signature for this horticultural contract.
+                  </Text>
+                </Box>
+
+                <Flex gap={3} pt={2}>
+                  <Button
+                    type="submit"
+                    colorPalette="green"
+                    loading={agreementLoading}
+                    flex={1}
+                  >
+                    Save &amp; Add to Profile
+                  </Button>
+                  <Button variant="outline" onClick={() => setShowAgreementModal(false)} flex={0.5}>
+                    Cancel
+                  </Button>
+                </Flex>
+              </Stack>
+            </form>
+          </Box>
+        </Box>
+      )}
+
+      <ConfirmationModal
+        isOpen={!!deleteAgreementId}
+        title="Delete Agreement"
+        message="Are you sure you want to delete this grower agreement? This action is permanent and cannot be undone."
+        onConfirm={async () => {
+          if (deleteAgreementId) {
+            await handleDeleteAgreement(deleteAgreementId);
+          }
+        }}
+        onCancel={() => setDeleteAgreementId(null)}
+        isLoading={isDeletingAgreement}
+        confirmText="Delete"
+      />
     </Stack>
   );
 }
+

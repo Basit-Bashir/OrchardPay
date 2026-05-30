@@ -29,7 +29,7 @@ export async function requestOtp(mobile: string): Promise<OtpRequestResult> {
 
   await prisma.otp.create({ data: { mobile, otpHash, expiresAt } });
 
-  await sendSms(mobile, `Your HortiTrack verification code is ${otp}. It expires in 10 minutes.`);
+  await sendSms(mobile, `Your OrchardPay verification code is ${otp}. It expires in 10 minutes.`);
 
   // In console/dev mode, return the OTP so the UI can show it for easy testing.
   const devOtp = (process.env.SMS_PROVIDER ?? "console") === "console" ? otp : undefined;

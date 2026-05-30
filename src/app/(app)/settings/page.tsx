@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Box, Button, Flex, Heading, Input, SimpleGrid, Spinner, Stack, Text, chakra } from "@chakra-ui/react";
 import { api } from "@/lib/client";
+import { ConfirmationModal } from "@/components/common/ConfirmationModal";
 
 const Select = chakra("select");
 
@@ -43,6 +44,7 @@ export default function SettingsPage() {
   const [error, setError] = useState("");
 
   const [editingStaffId, setEditingStaffId] = useState<string | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<Staff | null>(null);
   const [editName, setEditName] = useState("");
   const [editMobile, setEditMobile] = useState("");
   const [editRole, setEditRole] = useState("staff");
@@ -82,6 +84,7 @@ export default function SettingsPage() {
 
   const [sName, setSName] = useState("");
   const [sMobile, setSMobile] = useState("+91");
+  const [sRole, setSRole] = useState("staff");
   const [staffErr, setStaffErr] = useState("");
 
   async function saveFirm() {
@@ -98,8 +101,8 @@ export default function SettingsPage() {
   async function addStaff() {
     setStaffErr("");
     try {
-      await api("/api/staff", { method: "POST", body: JSON.stringify({ name: sName, mobile: sMobile, role: "staff" }) });
-      setSName(""); setSMobile("");
+      await api("/api/staff", { method: "POST", body: JSON.stringify({ name: sName, mobile: sMobile, role: sRole }) });
+      setSName(""); setSMobile(""); setSRole("staff");
       queryClient.invalidateQueries({ queryKey: ["staff"] });
     } catch (e) {
       setStaffErr((e as Error).message);
@@ -244,6 +247,7 @@ export default function SettingsPage() {
                           {editRole === "buyer" && <option value="buyer">buyer</option>}
                           <option value="staff">staff</option>
                           <option value="admin">admin</option>
+                          <option value="hamaal">hamaal</option>
                         </Select>
                       </Box>
                     </Flex>
@@ -301,12 +305,8 @@ export default function SettingsPage() {
                       size="xs"
                       variant="ghost"
                       colorPalette="red"
-                      loading={deleteMutation.isPending && deleteMutation.variables === u.id}
                       onClick={() => {
-                        if (confirm(`Are you sure you want to remove ${u.name || u.mobile} from the team?`)) {
-                          setStaffErr("");
-                          deleteMutation.mutate(u.id);
-                        }
+                        setDeleteTarget(u);
                       }}
                     >
                       Remove
@@ -327,9 +327,37 @@ export default function SettingsPage() {
             <Text fontSize="sm" mb={1}>Mobile</Text>
             <Input value={sMobile} onChange={(e) => setSMobile(e.target.value)} placeholder="+9198…" />
           </Box>
-          <Button colorPalette="green" onClick={addStaff}>Add staff</Button>
+          <Box minW="120px">
+            <Text fontSize="sm" mb={1}>Role</Text>
+            <Select
+              value={sRole}
+              onChange={(e) => setSRole(e.target.value)}
+              px={3} py={2} borderWidth="1px" borderRadius="md" bg="white" w="full" fontSize="sm" h="40px"
+            >
+              <option value="staff">staff</option>
+              <option value="admin">admin</option>
+              <option value="hamaal">hamaal</option>
+            </Select>
+          </Box>
+          <Button colorPalette="green" onClick={addStaff} h="40px">Add staff</Button>
         </Flex>
       </Box>
+
+      <ConfirmationModal
+        isOpen={!!deleteTarget}
+        title="Remove Team Member"
+        message={`Are you sure you want to remove ${deleteTarget?.name || deleteTarget?.mobile} from the team?`}
+        onConfirm={async () => {
+          if (deleteTarget) {
+            setStaffErr("");
+            await deleteMutation.mutateAsync(deleteTarget.id);
+            setDeleteTarget(null);
+          }
+        }}
+        onCancel={() => setDeleteTarget(null)}
+        isLoading={deleteMutation.isPending}
+        confirmText="Remove"
+      />
     </Stack>
   );
 }

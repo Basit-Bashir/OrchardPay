@@ -1,0 +1,142 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model BuyerFirm {
+  id                 String             @id @default(cuid())
+  uniqueId           String             @unique
+  firmName           String
+  ownerName          String
+  mobile             String             @unique
+  subscriptionPlan   String             @default("free")
+  subscriptionExpiry DateTime?
+  createdAt          DateTime           @default(now())
+  users              User[]
+  growers            Grower[]
+  transactions       Transaction[]
+  payments           Payment[]
+  draftTransactions  DraftTransaction[]
+  logoUrl            String?
+}
+
+model User {
+  id                String             @id @default(cuid())
+  mobile            String
+  name              String?
+  role              String             @default("buyer")
+  buyerFirmId       String
+  buyerFirm         BuyerFirm          @relation(fields: [buyerFirmId], references: [id], onDelete: Cascade)
+  draftTransactions DraftTransaction[]
+  createdAt         DateTime           @default(now())
+
+  @@unique([mobile, buyerFirmId])
+}
+
+model Grower {
+  id                String             @id @default(cuid())
+  name              String
+  mobile            String
+  address           String?
+  buyerFirmId       String
+  buyerFirm         BuyerFirm          @relation(fields: [buyerFirmId], references: [id], onDelete: Cascade)
+  transactions      Transaction[]
+  payments          Payment[]
+  notifications     Notification[]
+  agreements        Agreement[]
+  draftTransactions DraftTransaction[]
+  createdAt         DateTime           @default(now())
+
+  @@unique([mobile, buyerFirmId])
+}
+
+model Transaction {
+  id            String    @id @default(cuid())
+  growerId      String
+  grower        Grower    @relation(fields: [growerId], references: [id], onDelete: Cascade)
+  buyerFirmId   String
+  buyerFirm     BuyerFirm @relation(fields: [buyerFirmId], references: [id], onDelete: Cascade)
+  fruitType     String
+  quantity      Float
+  unit          String    @default("kg")
+  rate          Float
+  grossAmount   Float     @default(0)
+  commission    Float     @default(0)
+  labour        Float     @default(0)
+  freight       Float     @default(0)
+  association   Float     @default(0)
+  printing      Float     @default(0)
+  miscellaneous Float     @default(0)
+  totalAmount   Float
+  receivedAt    DateTime  @default(now())
+  notes         String?
+  notified      Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+}
+
+model Payment {
+  id          String    @id @default(cuid())
+  growerId    String
+  grower      Grower    @relation(fields: [growerId], references: [id], onDelete: Cascade)
+  buyerFirmId String
+  buyerFirm   BuyerFirm @relation(fields: [buyerFirmId], references: [id], onDelete: Cascade)
+  amount      Float
+  notes       String?
+  paidAt      DateTime  @default(now())
+  createdAt   DateTime  @default(now())
+}
+
+model Otp {
+  id        String   @id @default(cuid())
+  mobile    String
+  otpHash   String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([mobile])
+}
+
+model Notification {
+  id       String   @id @default(cuid())
+  growerId String
+  grower   Grower   @relation(fields: [growerId], references: [id], onDelete: Cascade)
+  message  String
+  sentAt   DateTime @default(now())
+  status   String   @default("pending")
+  type     String   @default("transaction")
+}
+
+model Agreement {
+  id             String    @id @default(cuid())
+  growerId       String
+  grower         Grower    @relation(fields: [growerId], references: [id], onDelete: Cascade)
+  pledgedProduce String
+  paymentTerms   String
+  installments   String // Serialized JSON array of { amount: number, dueDate: string }
+  buyerSign      String
+  validUntil     DateTime?
+  signedAt       DateTime  @default(now())
+  createdAt      DateTime  @default(now())
+}
+
+model DraftTransaction {
+  id          String    @id @default(cuid())
+  growerId    String
+  grower      Grower    @relation(fields: [growerId], references: [id], onDelete: Cascade)
+  buyerFirmId String
+  buyerFirm   BuyerFirm @relation(fields: [buyerFirmId], references: [id], onDelete: Cascade)
+  fruitType   String
+  quantity    Float
+  unit        String    @default("kg")
+  rate        Float
+  notes       String?
+  createdById String
+  createdBy   User      @relation(fields: [createdById], references: [id], onDelete: Cascade)
+  status      String    @default("pending")
+  createdAt   DateTime  @default(now())
+}

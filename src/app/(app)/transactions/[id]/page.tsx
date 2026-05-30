@@ -1,8 +1,9 @@
 "use client";
 
-import { use } from "react";
+import { use, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
+import { ConfirmationModal } from "@/components/common/ConfirmationModal";
 import { Box, Button, Flex, Heading, SimpleGrid, Spinner, Stack, Text } from "@chakra-ui/react";
 import { api } from "@/lib/client";
 
@@ -47,15 +48,23 @@ export default function TransactionDetailPage({ params }: { params: Promise<{ id
     queryFn: () => api<Txn>(`/api/transactions/${id}`),
   });
 
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+
   async function resend() {
     await api("/api/notifications/send", { method: "POST", body: JSON.stringify({ transactionId: id }) });
     await refetch();
   }
 
   async function remove() {
-    if (!confirm("Delete this transaction?")) return;
-    await api(`/api/transactions/${id}`, { method: "DELETE" });
-    router.push("/transactions");
+    setIsDeleting(true);
+    try {
+      await api(`/api/transactions/${id}`, { method: "DELETE" });
+      router.push("/transactions");
+    } catch (e) {
+      alert((e as Error).message);
+      setIsDeleting(false);
+    }
   }
 
   if (isLoading) return <Flex p={8} justify="center"><Spinner color="green.500" /></Flex>;
@@ -67,7 +76,7 @@ export default function TransactionDetailPage({ params }: { params: Promise<{ id
         <Heading size="lg" color="gray.800">{data.fruitType}</Heading>
         <Stack direction="row" gap={3}>
           <Button variant="outline" colorPalette="green" onClick={resend}>Resend SMS</Button>
-          <Button variant="outline" colorPalette="red" onClick={remove}>Delete</Button>
+          <Button variant="outline" colorPalette="red" onClick={() => setShowDeleteModal(true)}>Delete</Button>
         </Stack>
       </Flex>
 
@@ -105,6 +114,16 @@ export default function TransactionDetailPage({ params }: { params: Promise<{ id
           </Box>
         )}
       </Box>
+
+      <ConfirmationModal
+        isOpen={showDeleteModal}
+        title="Delete Transaction"
+        message="Are you sure you want to delete this transaction? This action cannot be undone."
+        onConfirm={remove}
+        onCancel={() => setShowDeleteModal(false)}
+        isLoading={isDeleting}
+        confirmText="Delete"
+      />
     </Stack>
   );
 }

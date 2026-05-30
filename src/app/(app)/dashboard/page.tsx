@@ -175,7 +175,7 @@ export default async function DashboardPage() {
         <Text fontSize="xs" fontWeight="bold" textTransform="uppercase" letterSpacing="wider" color="green.200">Enterprise Workspace</Text>
         <Heading size="xl" mt={2} letterSpacing="tight">Welcome, {firm?.ownerName ?? "Partner"}</Heading>
         <Text mt={2} color="green.100" maxW="xl" fontSize="sm">
-          Overview statement for <b>{firm?.firmName ?? "HortiTrack Partner"}</b>. Keep track of outstanding balances, crop deliveries, and cash payments advanced to growers.
+          Overview statement for <b>{firm?.firmName ?? "OrchardPay Partner"}</b>. Keep track of outstanding balances, crop deliveries, and cash payments advanced to growers.
         </Text>
       </Box>
 

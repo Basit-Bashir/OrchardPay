@@ -52,6 +52,7 @@ export const batchTransactionSchema = z.object({
   printingCharge: z.coerce.number().nonnegative("Printing charge must be 0 or greater").default(1),
   miscellaneousRate: z.coerce.number().nonnegative("Miscellaneous rate must be 0 or greater").default(0.90),
   notes: z.string().trim().optional().or(z.literal("")),
+  draftId: z.string().trim().optional(),
 });
 
 export const paymentSchema = z.object({
@@ -82,7 +83,16 @@ export const updateFirmSchema = z.object({
 export const staffSchema = z.object({
   name: z.string().trim().min(2, "Name is required"),
   mobile,
-  role: z.enum(["staff", "admin", "buyer"]).default("staff"),
+  role: z.enum(["staff", "admin", "buyer", "hamaal"]).default("staff"),
+});
+
+export const draftTransactionSchema = z.object({
+  growerId: z.string().min(1, "Select a grower"),
+  fruitType: z.string().trim().min(1, "Fruit type is required"),
+  quantity: z.coerce.number().positive("Quantity must be greater than 0"),
+  unit: z.enum(["kg", "peti", "daba"]).default("kg"),
+  rate: z.coerce.number().positive("Rate must be greater than 0"),
+  notes: z.string().trim().optional().or(z.literal("")),
 });
 
 export type SignupInput = z.infer<typeof signupSchema>;

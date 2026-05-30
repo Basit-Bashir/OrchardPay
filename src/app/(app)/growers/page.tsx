@@ -5,6 +5,7 @@ import NextLink from "next/link";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Box, Button, Flex, Heading, Input, Spinner, Stack, Text } from "@chakra-ui/react";
 import { api } from "@/lib/client";
+import { ConfirmationModal } from "@/components/common/ConfirmationModal";
 
 type Grower = {
   id: string;
@@ -16,6 +17,7 @@ type Grower = {
 
 export default function GrowersPage() {
   const [q, setQ] = useState("");
+  const [deleteTarget, setDeleteTarget] = useState<Grower | null>(null);
   const queryClient = useQueryClient();
 
   const { data, isLoading } = useQuery({
@@ -78,10 +80,7 @@ export default function GrowersPage() {
                         size="xs"
                         variant="outline"
                         colorPalette="red"
-                        loading={del.isPending && del.variables === g.id}
-                        onClick={() => {
-                          if (confirm(`Delete ${g.name}? This removes their transactions too.`)) del.mutate(g.id);
-                        }}
+                        onClick={() => setDeleteTarget(g)}
                       >
                         Delete
                       </Button>
@@ -94,6 +93,21 @@ export default function GrowersPage() {
         )}
       </Box>
       {del.isError && <Text color="red.600" fontSize="sm">{(del.error as Error).message}</Text>}
+
+      <ConfirmationModal
+        isOpen={!!deleteTarget}
+        title="Delete Grower"
+        message={`Are you sure you want to delete ${deleteTarget?.name}? This will permanently remove their transactions as well.`}
+        onConfirm={async () => {
+          if (deleteTarget) {
+            await del.mutateAsync(deleteTarget.id);
+            setDeleteTarget(null);
+          }
+        }}
+        onCancel={() => setDeleteTarget(null)}
+        isLoading={del.isPending}
+        confirmText="Delete"
+      />
     </Stack>
   );
 }

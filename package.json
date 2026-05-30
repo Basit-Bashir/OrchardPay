@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "prisma generate && set NODE_OPTIONS=--max-old-space-size=4096 --require ./fix-eperm.cjs && next build",
     "start": "next start",
     "lint": "next lint",
     "db:push": "prisma db push",

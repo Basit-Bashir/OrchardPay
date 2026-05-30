@@ -24,6 +24,6 @@ export async function POST(req: Request) {
       role: user.role,
     });
 
-    return ok({ ok: true });
+    return ok({ ok: true, role: user.role });
   });
 }

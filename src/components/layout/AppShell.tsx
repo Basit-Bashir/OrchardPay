@@ -72,7 +72,7 @@ export function AppShell({
   const sidebarContent = (
     <>
       <Flex align="center" justify="space-between" mb={1}>
-        <Heading size="md">HortiTrack</Heading>
+        <Heading size="md">OrchardPay</Heading>
         {/* Close button – only visible on mobile */}
         <IconButton
           aria-label="Close menu"

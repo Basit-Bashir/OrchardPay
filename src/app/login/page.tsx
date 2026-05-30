@@ -3,8 +3,9 @@
 import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import NextLink from "next/link";
-import { Box, Button, Container, Heading, Input, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Container, Flex, Heading, Input, Stack, Text } from "@chakra-ui/react";
 import { api } from "@/lib/client";
+import { Navbar } from "@/components/layout/Navbar";
 
 function LoginInner() {
   const router = useRouter();
@@ -39,11 +40,15 @@ function LoginInner() {
     setError("");
     setLoading(true);
     try {
-      await api("/api/auth/otp/verify", {
+      const data = await api<{ role: string }>("/api/auth/otp/verify", {
         method: "POST",
         body: JSON.stringify({ mobile, otp }),
       });
-      router.push(next);
+      if (data.role === "hamaal") {
+        router.push("/hamaal");
+      } else {
+        router.push(next);
+      }
     } catch (e) {
       setError((e as Error).message);
       setLoading(false);
@@ -51,63 +56,66 @@ function LoginInner() {
   }
 
   return (
-    <Box minH="100vh" bg="green.50" display="flex" alignItems="center">
-      <Container maxW="md">
-        <Box bg="white" p={8} borderRadius="xl" shadow="md">
-          <Heading size="lg" color="green.700" mb={1}>
-            Log in to HortiTrack
-          </Heading>
-          <Text color="gray.500" mb={6}>
-            {step === "mobile"
-              ? "Enter your registered mobile number."
-              : `Enter the 6-digit code sent to ${mobile}.`}
-          </Text>
+    <Flex minH="100vh" bg="green.50" direction="column">
+      <Navbar />
+      <Flex flex="1" align="center" justify="center" py={8}>
+        <Container maxW="md">
+          <Box bg="white" p={8} borderRadius="xl" shadow="md">
+            <Heading size="lg" color="green.700" mb={1}>
+              Log in to OrchardPay
+            </Heading>
+            <Text color="gray.500" mb={6}>
+              {step === "mobile"
+                ? "Enter your registered mobile number."
+                : `Enter the 6-digit code sent to ${mobile}.`}
+            </Text>
 
-          {error && (
-            <Box bg="red.50" color="red.700" px={4} py={2} borderRadius="md" mb={4} fontSize="sm">
-              {error}
-            </Box>
-          )}
-
-          {step === "mobile" ? (
-            <Stack gap={4}>
-              <Box>
-                <Text fontSize="sm" mb={1}>Mobile number</Text>
-                <Input value={mobile} onChange={(e) => setMobile(e.target.value)} placeholder="+919999900001" />
+            {error && (
+              <Box bg="red.50" color="red.700" px={4} py={2} borderRadius="md" mb={4} fontSize="sm">
+                {error}
               </Box>
-              <Button colorPalette="green" onClick={sendOtp} loading={loading}>
-                Send code
-              </Button>
-            </Stack>
-          ) : (
-            <Stack gap={4}>
-              {devOtp && (
-                <Box bg="yellow.50" color="yellow.800" px={4} py={2} borderRadius="md" fontSize="sm">
-                  Dev mode — your code is <b>{devOtp}</b>.
+            )}
+
+            {step === "mobile" ? (
+              <Stack gap={4}>
+                <Box>
+                  <Text fontSize="sm" mb={1}>Mobile number</Text>
+                  <Input value={mobile} onChange={(e) => setMobile(e.target.value)} placeholder="+919999900001" />
                 </Box>
-              )}
-              <Box>
-                <Text fontSize="sm" mb={1}>Verification code</Text>
-                <Input value={otp} onChange={(e) => setOtp(e.target.value)} placeholder="000000" maxLength={6} letterSpacing="0.3em" />
-              </Box>
-              <Button colorPalette="green" onClick={verify} loading={loading}>
-                Verify &amp; enter
-              </Button>
-              <Button variant="ghost" size="sm" onClick={() => setStep("mobile")}>
-                Use a different number
-              </Button>
-            </Stack>
-          )}
+                <Button colorPalette="green" onClick={sendOtp} loading={loading}>
+                  Send code
+                </Button>
+              </Stack>
+            ) : (
+              <Stack gap={4}>
+                {devOtp && (
+                  <Box bg="yellow.50" color="yellow.800" px={4} py={2} borderRadius="md" fontSize="sm">
+                    Dev mode — your code is <b>{devOtp}</b>.
+                  </Box>
+                )}
+                <Box>
+                  <Text fontSize="sm" mb={1}>Verification code</Text>
+                  <Input value={otp} onChange={(e) => setOtp(e.target.value)} placeholder="000000" maxLength={6} letterSpacing="0.3em" />
+                </Box>
+                <Button colorPalette="green" onClick={verify} loading={loading}>
+                  Verify &amp; enter
+                </Button>
+                <Button variant="ghost" size="sm" onClick={() => setStep("mobile")}>
+                  Use a different number
+                </Button>
+              </Stack>
+            )}
 
-          <Text fontSize="sm" color="gray.500" mt={6} textAlign="center">
-            New here?{" "}
-            <NextLink href="/signup" style={{ color: "var(--chakra-colors-green-600)", fontWeight: 600 }}>
-              Create an account
-            </NextLink>
-          </Text>
-        </Box>
-      </Container>
-    </Box>
+            <Text fontSize="sm" color="gray.500" mt={6} textAlign="center">
+              New here?{" "}
+              <NextLink href="/signup" style={{ color: "var(--chakra-colors-green-600)", fontWeight: 600 }}>
+                Create an account
+              </NextLink>
+            </Text>
+          </Box>
+        </Container>
+      </Flex>
+    </Flex>
   );
 }
 

@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useMemo, useState, useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import NextLink from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { Box, Button, chakra, Heading, Input, Stack, Text, Textarea, SimpleGrid, Flex } from "@chakra-ui/react";
@@ -18,8 +18,17 @@ type FormItem = {
   rate: string;
 };
 
-export default function NewTransactionPage() {
+function NewTransactionForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const draftId = searchParams.get("draftId") || "";
+
+  const { data: draft } = useQuery({
+    queryKey: ["draft", draftId],
+    queryFn: () => api<any>(`/api/buyer/drafts/${draftId}`),
+    enabled: !!draftId,
+  });
+
   const { data: growers } = useQuery({
     queryKey: ["growers", ""],
     queryFn: () => api<Grower[]>("/api/growers"),
@@ -38,6 +47,23 @@ export default function NewTransactionPage() {
   const [notes, setNotes] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (draft) {
+      if (draft.growerId) setGrowerId(draft.growerId);
+      if (draft.fruitType) {
+        setItems([
+          {
+            fruitType: draft.fruitType,
+            quantity: draft.quantity ? String(draft.quantity) : "",
+            unit: draft.unit || "kg",
+            rate: draft.rate ? String(draft.rate) : "",
+          }
+        ]);
+      }
+      if (draft.notes) setNotes(draft.notes);
+    }
+  }, [draft]);
 
   const addItem = () => {
     setItems([...items, { fruitType: "", quantity: "", unit: "kg", rate: "" }]);
@@ -132,6 +158,7 @@ export default function NewTransactionPage() {
           printingCharge: parseFloat(printingCharge) || 0,
           miscellaneousRate: parseFloat(miscellaneousRate) || 0,
           notes,
+          draftId: draftId || undefined,
         }),
       });
       router.push("/transactions");
@@ -412,5 +439,13 @@ export default function NewTransactionPage() {
         </Stack>
       )}
     </Stack>
+  );
+}
+
+export default function NewTransactionPage() {
+  return (
+    <Suspense fallback={<div>Loading transaction form...</div>}>
+      <NewTransactionForm />
+    </Suspense>
   );
 }

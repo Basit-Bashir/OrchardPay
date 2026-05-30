@@ -52,6 +52,7 @@ export async function POST(req: Request) {
       printingCharge,
       miscellaneousRate,
       notes,
+      draftId,
     } = parsed.data;
 
     const grower = await prisma.grower.findFirst({
@@ -127,6 +128,13 @@ export async function POST(req: Request) {
       await prisma.transaction.updateMany({
         where: { id: { in: txnIds } },
         data: { notified: true },
+      });
+    }
+
+    if (draftId) {
+      await prisma.draftTransaction.update({
+        where: { id: draftId },
+        data: { status: "approved" },
       });
     }
 

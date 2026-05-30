@@ -120,7 +120,7 @@ export default function MigrationPage() {
     <Stack gap={6}>
       <Heading size="lg" color="gray.800">Data migration</Heading>
       <Text color="gray.600" maxW="2xl">
-        Upload a CSV or Excel export from your old software. Map its columns to HortiTrack fields,
+        Upload a CSV or Excel export from your old software. Map its columns to OrchardPay fields,
         preview, then import. Growers are created automatically and matched by mobile number.
       </Text>
 

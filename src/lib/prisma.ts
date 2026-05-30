@@ -1,4 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+// Force recompile to pick up custom output directory
+import { PrismaClient } from "../../prisma/generated/client";
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
