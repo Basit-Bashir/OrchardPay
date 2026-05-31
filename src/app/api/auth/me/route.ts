@@ -12,6 +12,16 @@ export async function GET() {
       select: { id: true, uniqueId: true, firmName: true, ownerName: true, subscriptionPlan: true },
     });
 
-    return ok({ session, firm });
+    const userFirms = await prisma.user.findMany({
+      where: { mobile: session.mobile },
+      include: {
+        buyerFirm: {
+          select: { id: true, uniqueId: true, firmName: true, ownerName: true, subscriptionPlan: true },
+        },
+      },
+    });
+    const firms = userFirms.map((uf) => uf.buyerFirm);
+
+    return ok({ session, firm, firms });
   });
 }

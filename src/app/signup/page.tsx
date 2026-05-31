@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import NextLink from "next/link";
 import {
   Box,
@@ -16,9 +16,15 @@ import {
 import { api } from "@/lib/client";
 import { Navbar } from "@/components/layout/Navbar";
 
-export default function SignupPage() {
+function SignupInner() {
   const router = useRouter();
-  const [step, setStep] = useState<"details" | "otp">("details");
+  const searchParams = useSearchParams();
+  const planParam = searchParams.get("plan");
+
+  const [selectedPlan, setSelectedPlan] = useState<string>(planParam || "");
+  const [step, setStep] = useState<"plan" | "details" | "otp">(
+    planParam ? "details" : "plan"
+  );
   const [firmName, setFirmName] = useState("");
   const [ownerName, setOwnerName] = useState("");
   const [mobile, setMobile] = useState("+91");
@@ -34,7 +40,7 @@ export default function SignupPage() {
     try {
       const data = await api<{ uniqueId: string; devOtp?: string }>("/api/auth/signup", {
         method: "POST",
-        body: JSON.stringify({ firmName, ownerName, mobile }),
+        body: JSON.stringify({ firmName, ownerName, mobile, plan: selectedPlan || "pro" }),
       });
       setUniqueId(data.uniqueId);
       setDevOtp(data.devOtp);
@@ -68,10 +74,12 @@ export default function SignupPage() {
         <Container maxW="md">
           <Box bg="white" p={8} borderRadius="xl" shadow="md">
             <Heading size="lg" color="green.700" mb={1}>
-              Create your firm account
+              {step === "plan" ? "Select your plan" : "Create your firm account"}
             </Heading>
             <Text color="gray.500" mb={6}>
-              {step === "details"
+              {step === "plan"
+                ? "Choose the plan that fits your business needs."
+                : step === "details"
                 ? "Tell us about your firm to get a unique buyer ID."
                 : `Enter the 6-digit code sent to ${mobile}.`}
             </Text>
@@ -82,8 +90,116 @@ export default function SignupPage() {
               </Box>
             )}
 
-            {step === "details" ? (
+            {step === "plan" ? (
+              <Stack gap={5}>
+                <Stack gap={4}>
+                  {/* Single Firm Plan Card */}
+                  <Box
+                    borderWidth="2px"
+                    borderColor={selectedPlan === "pro" ? "green.500" : "gray.200"}
+                    bg={selectedPlan === "pro" ? "green.50" : "white"}
+                    p={4}
+                    borderRadius="xl"
+                    cursor="pointer"
+                    onClick={() => setSelectedPlan("pro")}
+                    transition="all 0.2s"
+                    _hover={{ borderColor: "green.400", shadow: "sm" }}
+                  >
+                    <Flex justify="space-between" align="center" mb={1}>
+                      <Text fontWeight="bold" color="gray.800" fontSize="sm">
+                        Single Firm Plan
+                      </Text>
+                      {selectedPlan === "pro" && (
+                        <Box bg="green.500" color="white" borderRadius="full" p={0.5}>
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                        </Box>
+                      )}
+                    </Flex>
+                    <Heading size="md" color="gray.900" mb={2}>
+                      ₹3,999 <Text as="span" fontSize="xs" fontWeight="normal" color="gray.500">/ year</Text>
+                    </Heading>
+                    <Text fontSize="xs" color="gray.600">
+                      Perfect for a single mandi business profile. Includes 2 staff members and all ledger features.
+                    </Text>
+                  </Box>
+
+                  {/* Multi Firm Plan Card */}
+                  <Box
+                    borderWidth="2px"
+                    borderColor={selectedPlan === "premium" ? "green.500" : "gray.200"}
+                    bg={selectedPlan === "premium" ? "green.50" : "white"}
+                    p={4}
+                    borderRadius="xl"
+                    cursor="pointer"
+                    onClick={() => setSelectedPlan("premium")}
+                    transition="all 0.2s"
+                    _hover={{ borderColor: "green.400", shadow: "sm" }}
+                  >
+                    <Flex justify="space-between" align="center" mb={1}>
+                      <Flex align="center" gap={2}>
+                        <Text fontWeight="bold" color="gray.800" fontSize="sm">
+                          Multi Firm Plan
+                        </Text>
+                        <Text fontSize="8px" fontWeight="bold" bg="green.600" color="white" px={1.5} py={0.5} borderRadius="full" textTransform="uppercase">
+                          Recommended
+                        </Text>
+                      </Flex>
+                      {selectedPlan === "premium" && (
+                        <Box bg="green.500" color="white" borderRadius="full" p={0.5}>
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                        </Box>
+                      )}
+                    </Flex>
+                    <Heading size="md" color="gray.900" mb={2}>
+                      ₹6,999 <Text as="span" fontSize="xs" fontWeight="normal" color="gray.500">/ year</Text>
+                    </Heading>
+                    <Text fontSize="xs" color="gray.600">
+                      Create and switch between multiple business profiles. Includes unlimited staff and priority SMS.
+                    </Text>
+                  </Box>
+                </Stack>
+
+                <Button
+                  colorPalette="green"
+                  disabled={!selectedPlan}
+                  onClick={() => setStep("details")}
+                  mt={2}
+                  w="full"
+                >
+                  Continue to Details
+                </Button>
+              </Stack>
+            ) : step === "details" ? (
               <Stack gap={4}>
+                {/* Selected Plan Summary Banner */}
+                <Flex
+                  align="center"
+                  justify="space-between"
+                  bg="green.50"
+                  borderWidth="1px"
+                  borderColor="green.200"
+                  px={4}
+                  py={3}
+                  borderRadius="xl"
+                  mb={2}
+                >
+                  <Box>
+                    <Text fontSize="10px" fontWeight="bold" color="green.800" textTransform="uppercase" letterSpacing="wider">
+                      Selected Plan
+                    </Text>
+                    <Text fontSize="sm" fontWeight="bold" color="gray.800" mt={0.5}>
+                      {selectedPlan === "premium" ? "Multi Firm Plan" : "Single Firm Plan"}
+                    </Text>
+                  </Box>
+                  <Text fontSize="sm" fontWeight="extrabold" color="green.700">
+                    {selectedPlan === "premium" ? "₹6,999/yr" : "₹3,999/yr"}
+                  </Text>
+                </Flex>
+
                 <Box>
                   <Text fontSize="sm" mb={1}>Firm name</Text>
                   <Input value={firmName} onChange={(e) => setFirmName(e.target.value)} placeholder="Valley Fresh Traders" />
@@ -96,9 +212,16 @@ export default function SignupPage() {
                   <Text fontSize="sm" mb={1}>Mobile number</Text>
                   <Input value={mobile} onChange={(e) => setMobile(e.target.value)} placeholder="+919999900001" />
                 </Box>
-                <Button colorPalette="green" onClick={submitDetails} loading={loading}>
-                  Continue
-                </Button>
+                <Flex gap={3}>
+                  {!planParam && (
+                    <Button variant="outline" onClick={() => setStep("plan")}>
+                      Back
+                    </Button>
+                  )}
+                  <Button flex="1" colorPalette="green" onClick={submitDetails} loading={loading}>
+                    Continue
+                  </Button>
+                </Flex>
               </Stack>
             ) : (
               <Stack gap={4}>
@@ -130,5 +253,13 @@ export default function SignupPage() {
         </Container>
       </Flex>
     </Flex>
+  );
+}
+
+export default function SignupPage() {
+  return (
+    <Suspense>
+      <SignupInner />
+    </Suspense>
   );
 }

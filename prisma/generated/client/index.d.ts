@@ -12335,12 +12335,12 @@ export namespace Prisma {
   export type BuyerFirmWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     uniqueId?: string
-    mobile?: string
     AND?: BuyerFirmWhereInput | BuyerFirmWhereInput[]
     OR?: BuyerFirmWhereInput[]
     NOT?: BuyerFirmWhereInput | BuyerFirmWhereInput[]
     firmName?: StringFilter<"BuyerFirm"> | string
     ownerName?: StringFilter<"BuyerFirm"> | string
+    mobile?: StringFilter<"BuyerFirm"> | string
     subscriptionPlan?: StringFilter<"BuyerFirm"> | string
     subscriptionExpiry?: DateTimeNullableFilter<"BuyerFirm"> | Date | string | null
     createdAt?: DateTimeFilter<"BuyerFirm"> | Date | string
@@ -12350,7 +12350,7 @@ export namespace Prisma {
     transactions?: TransactionListRelationFilter
     payments?: PaymentListRelationFilter
     draftTransactions?: DraftTransactionListRelationFilter
-  }, "id" | "uniqueId" | "mobile">
+  }, "id" | "uniqueId">
 
   export type BuyerFirmOrderByWithAggregationInput = {
     id?: SortOrder

@@ -120,7 +120,10 @@ export default function SettingsPage() {
         <SimpleGrid columns={{ base: 2, md: 3 }} gap={5} mb={6}>
           <Info label="Buyer ID" value={firm.uniqueId} />
           <Info label="Mobile" value={firm.mobile} />
-          <Info label="Plan" value={firm.subscriptionPlan} />
+          <Info 
+            label="Plan" 
+            value={firm.subscriptionPlan === "premium" ? "Multi Firm" : "Single Firm"} 
+          />
           <Info label="Member since" value={new Date(firm.createdAt).toLocaleDateString("en-IN")} />
         </SimpleGrid>
         {error && <Text color="red.600" fontSize="sm" mb={2}>{error}</Text>}

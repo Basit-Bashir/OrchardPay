@@ -11,9 +11,9 @@ export async function POST(req: Request) {
     if (!parsed.success) {
       return fail(parsed.error.issues[0]?.message ?? "Invalid input");
     }
-    const { firmName, ownerName, mobile } = parsed.data;
+    const { firmName, ownerName, mobile, plan } = parsed.data;
 
-    const existing = await prisma.buyerFirm.findUnique({ where: { mobile } });
+    const existing = await prisma.buyerFirm.findFirst({ where: { mobile } });
     if (existing) {
       return fail("An account with this mobile already exists. Please log in.", 409);
     }
@@ -25,6 +25,7 @@ export async function POST(req: Request) {
         firmName,
         ownerName,
         mobile,
+        subscriptionPlan: plan === "premium" ? "premium" : "free",
         users: { create: { mobile, name: ownerName, role: "buyer" } },
       },
     });

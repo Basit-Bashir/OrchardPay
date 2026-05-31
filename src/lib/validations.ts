@@ -9,6 +9,7 @@ export const signupSchema = z.object({
   firmName: z.string().trim().min(2, "Firm name is required"),
   ownerName: z.string().trim().min(2, "Owner name is required"),
   mobile,
+  plan: z.string().trim().optional(),
 });
 
 export const otpRequestSchema = z.object({

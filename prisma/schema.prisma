@@ -13,7 +13,7 @@ model BuyerFirm {
   uniqueId           String             @unique
   firmName           String
   ownerName          String
-  mobile             String             @unique
+  mobile             String
   subscriptionPlan   String             @default("free")
   subscriptionExpiry DateTime?
   createdAt          DateTime           @default(now())

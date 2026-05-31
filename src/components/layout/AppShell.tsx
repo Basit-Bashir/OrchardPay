@@ -2,9 +2,12 @@
 
 import NextLink from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Box, Button, Flex, Heading, IconButton, Stack, Text } from "@chakra-ui/react";
-import { useState, useEffect, type ReactNode } from "react";
+import { Box, Button, Flex, Heading, IconButton, Stack, Text, Input, chakra } from "@chakra-ui/react";
+import { useState, useEffect, useRef, type ReactNode } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/client";
+
+const Select = chakra("select");
 
 const NAV = [
   { href: "/dashboard", label: "Dashboard", icon: "📊" },
@@ -46,6 +49,28 @@ export function AppShell({
   const pathname = usePathname();
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const { data: meData } = useQuery({
+    queryKey: ["me"],
+    queryFn: () => api<{ session: any; firm: any; firms: any[] }>("/api/auth/me"),
+  });
+
+  const isPremium = meData?.firm?.subscriptionPlan === "premium";
+  const hasMultipleFirms = (meData?.firms && meData.firms.length > 1) || false;
+  const isInteractive = isPremium || hasMultipleFirms;
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      const target = event.target as HTMLElement;
+      if (target && !target.closest(".business-switcher-container")) {
+        setDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   // Close drawer on route change
   useEffect(() => {
@@ -86,7 +111,150 @@ export function AppShell({
           <CloseIcon />
         </IconButton>
       </Flex>
-      <Text fontSize="xs" color="green.200" mb={8}>{uniqueId}</Text>
+      
+      {/* Custom Styled Business Switcher Dropdown */}
+      <Box className="business-switcher-container" position="relative" mb={6} mt={2}>
+        <Flex
+          align="center"
+          justify="space-between"
+          bg="green.800"
+          _hover={isInteractive ? { bg: "green.700" } : undefined}
+          color="white"
+          fontSize="sm"
+          fontWeight="semibold"
+          py={2.5}
+          px={3.5}
+          borderRadius="xl"
+          borderWidth="1px"
+          borderColor="green.800"
+          cursor={isInteractive ? "pointer" : "default"}
+          onMouseDown={(e) => e.stopPropagation()}
+          onClick={() => {
+            if (isInteractive) {
+              setDropdownOpen(!dropdownOpen);
+            }
+          }}
+          transition="all 0.2s ease"
+          shadow="sm"
+        >
+          <Box truncate maxW={isInteractive ? "180px" : "210px"}>
+            <Text fontSize="sm" fontWeight="bold" truncate>
+              {meData?.firm?.firmName || "Loading..."}
+            </Text>
+            <Text fontSize="10px" color="green.200" fontWeight="medium" mt={0.5}>
+              {meData?.firm?.uniqueId}
+            </Text>
+          </Box>
+          {isInteractive && (
+            <Box ml={2} transform={dropdownOpen ? "rotate(180deg)" : "rotate(0)"} transition="transform 0.2s ease" color="green.200">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </Box>
+          )}
+        </Flex>
+
+        {isInteractive && dropdownOpen && (
+          <Box
+            position="absolute"
+            top="105%"
+            left={0}
+            right={0}
+            bg="white"
+            borderRadius="xl"
+            shadow="2xl"
+            borderWidth="1px"
+            borderColor="gray.200"
+            py={2}
+            zIndex={1000}
+            maxH="300px"
+            overflowY="auto"
+            onMouseDown={(e) => e.stopPropagation()}
+            style={{
+              animation: "slideDown 0.15s ease-out",
+            }}
+          >
+            <Text fontSize="10px" fontWeight="bold" color="gray.400" px={3.5} py={1.5} textTransform="uppercase" letterSpacing="wider">
+              Your Businesses
+            </Text>
+            
+            {meData?.firms?.map((f) => {
+              const isActive = f.id === meData?.firm?.id;
+              return (
+                <Flex
+                  key={f.id}
+                  align="center"
+                  justify="space-between"
+                  px={3.5}
+                  py={2.5}
+                  cursor="pointer"
+                  bg={isActive ? "green.50" : "transparent"}
+                  _hover={{ bg: isActive ? "green.50" : "gray.50" }}
+                  transition="background 0.15s"
+                  onClick={async () => {
+                    setDropdownOpen(false);
+                    if (isActive) return;
+                    try {
+                      await api("/api/auth/switch", {
+                        method: "POST",
+                        body: JSON.stringify({ buyerFirmId: f.id }),
+                      });
+                      window.location.reload();
+                    } catch (err: any) {
+                      alert("Switch failed: " + err.message);
+                    }
+                  }}
+                >
+                  <Box truncate maxW="170px">
+                    <Text fontSize="xs" fontWeight="semibold" color={isActive ? "green.800" : "gray.800"}>
+                      {f.firmName}
+                    </Text>
+                    <Text fontSize="9px" color="gray.500">
+                      {f.uniqueId}
+                    </Text>
+                  </Box>
+                  {isActive && (
+                    <Box color="green.600" ml={1}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                    </Box>
+                  )}
+                </Flex>
+              );
+            })}
+
+            {isPremium && (
+              <>
+                <Box borderTopWidth="1px" borderColor="gray.100" my={1.5} />
+
+                <Flex
+                  align="center"
+                  gap={2}
+                  px={3.5}
+                  py={2.5}
+                  cursor="pointer"
+                  color="green.600"
+                  _hover={{ bg: "green.50", color: "green.800" }}
+                  transition="all 0.15s"
+                  fontWeight="semibold"
+                  fontSize="xs"
+                  onClick={() => {
+                    setDropdownOpen(false);
+                    setModalOpen(true);
+                  }}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                  </svg>
+                  Add Business
+                </Flex>
+              </>
+            )}
+          </Box>
+        )}
+      </Box>
       <Stack gap={1} flex="1">
         {NAV.map((item) => {
           const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
@@ -200,13 +368,155 @@ export function AppShell({
         </Box>
       </Flex>
 
-      {/* Inline keyframes for the backdrop fade */}
+      <AddBusinessModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        defaultOwnerName={meData?.firm?.ownerName}
+      />
+
+      {/* Inline keyframes for the backdrop fade & dropdown scale-in */}
       <style>{`
         @keyframes fadeIn {
           from { opacity: 0; }
           to { opacity: 1; }
         }
+        @keyframes slideDown {
+          from { opacity: 0; transform: translateY(-8px) scale(0.98); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
+        }
       `}</style>
     </Flex>
+  );
+}
+
+function AddBusinessModal({
+  isOpen,
+  onClose,
+  defaultOwnerName,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  defaultOwnerName?: string;
+}) {
+  const [firmName, setFirmName] = useState("");
+  const [ownerName, setOwnerName] = useState(defaultOwnerName || "");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (defaultOwnerName) {
+      setOwnerName(defaultOwnerName);
+    }
+  }, [defaultOwnerName]);
+
+  if (!isOpen) return null;
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!firmName.trim() || !ownerName.trim()) {
+      setError("Please fill out all fields.");
+      return;
+    }
+    setLoading(true);
+    setError("");
+    try {
+      await api("/api/firm", {
+        method: "POST",
+        body: JSON.stringify({ firmName, ownerName }),
+      });
+      window.location.href = "/dashboard";
+    } catch (err: any) {
+      setError(err.message || "Failed to create firm.");
+      setLoading(false);
+    }
+  };
+
+  return (
+    <Box
+      position="fixed"
+      top={0}
+      left={0}
+      right={0}
+      bottom={0}
+      bg="rgba(0, 0, 0, 0.4)"
+      zIndex={2000}
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      p={4}
+      onClick={onClose}
+      backdropFilter="blur(4px)"
+    >
+      <Box
+        as="form"
+        onSubmit={handleSubmit}
+        bg="white"
+        borderRadius="xl"
+        p={6}
+        maxW="md"
+        w="full"
+        shadow="2xl"
+        borderWidth="1px"
+        onClick={(e) => e.stopPropagation()}
+        color="gray.800"
+      >
+        <Heading size="md" mb={4} color="gray.900">
+          Create New Business
+        </Heading>
+
+        {error && (
+          <Text color="red.600" fontSize="xs" mb={3} fontWeight="medium">
+            {error}
+          </Text>
+        )}
+
+        <Stack gap={4} mb={6}>
+          <Box>
+            <Text fontSize="xs" fontWeight="semibold" mb={1} color="gray.600">
+              Firm/Business Name
+            </Text>
+            <Input
+              bg="white"
+              size="sm"
+              value={firmName}
+              onChange={(e) => setFirmName(e.target.value)}
+              placeholder="e.g. Valley Fresh Traders Unit 2"
+              autoFocus
+            />
+          </Box>
+          <Box>
+            <Text fontSize="xs" fontWeight="semibold" mb={1} color="gray.600">
+              Owner Name
+            </Text>
+            <Input
+              bg="white"
+              size="sm"
+              value={ownerName}
+              onChange={(e) => setOwnerName(e.target.value)}
+              placeholder="e.g. Ramesh Singh"
+            />
+          </Box>
+        </Stack>
+
+        <Flex justify="flex-end" gap={3}>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={onClose}
+            disabled={loading}
+          >
+            Cancel
+          </Button>
+          <Button
+            size="sm"
+            colorPalette="green"
+            type="submit"
+            loading={loading}
+          >
+            Create &amp; Switch
+          </Button>
+        </Flex>
+      </Box>
+    </Box>
   );
 }

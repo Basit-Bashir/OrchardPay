@@ -61,6 +61,30 @@ const features = [
         <polyline points="10 9 9 9 8 9" />
       </svg>
     )
+  },
+  {
+    title: "Multi-Business Profiles",
+    desc: "Manage multiple distinct mandi firms under a single mobile number. Switch between profiles instantly with a custom dropdown without logging out.",
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: "var(--chakra-colors-green-500)" }}>
+        <path d="M17 2.1l4 4-4 4" />
+        <path d="M3 22v-6c0-1.1.9-2 2-2h14" />
+        <path d="M7 11.9L3 7.9 7 3.9" />
+        <path d="M21 2v6c0 1.1-.9 2-2 2H5" />
+      </svg>
+    )
+  },
+  {
+    title: "Role-Based Permissions",
+    desc: "Invite staff, admins, or hamaals to your ledger. Protect high-level business settings and reports while allowing staff to record entries.",
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: "var(--chakra-colors-green-500)" }}>
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+      </svg>
+    )
   }
 ];
 
@@ -70,8 +94,12 @@ const faqs = [
     a: "OrchardPay runs on a cloud-based gateway. When you record a transaction, our backend processes it and triggers the SMS instantly. No specialized hardware is needed in your mandi stall."
   },
   {
+    q: "Can I manage multiple mandi firms under the same phone number?",
+    a: "Absolutely! With our Multi Firm Plan, you can register multiple businesses under a single mobile number. You can instantly switch between profiles and keep separate records for each firm."
+  },
+  {
     q: "Can we manage multiple staff members under the same firm?",
-    a: "Yes! In your Settings page, you can invite team members as either 'admin' or 'staff'. Staff can record entries, while admins can manage settings and view firm financial statements."
+    a: "Yes! In your Settings page, you can invite team members as either 'admin', 'staff', or 'hamaal'. Staff can record entries, while admins can manage settings and view firm financial statements."
   },
   {
     q: "Is there a limit to the historical data we can import?",
@@ -114,6 +142,7 @@ export default function LandingPage() {
             <Stack gap={6}>
               <Box>
                 <Text
+                  className="animate-fade-in-up"
                   fontSize="xs"
                   fontWeight="bold"
                   color="green.600"
@@ -134,6 +163,7 @@ export default function LandingPage() {
                   fontWeight="black"
                   color="gray.900"
                   letterSpacing="-0.03em"
+                  className="animate-fade-in-up animate-delay-1"
                 >
                   Modern Ledger &amp; Billing for the{" "}
                   <chakra.span
@@ -148,11 +178,11 @@ export default function LandingPage() {
                 </Heading>
               </Box>
 
-              <Text fontSize="lg" color="gray.600" lineHeight="relaxed">
+              <Text className="animate-fade-in-up animate-delay-2" fontSize="lg" color="gray.600" lineHeight="relaxed">
                 Automate records for fruit lots, send instant rate updates to growers via automated SMS, and print custom watermarked statements of accounts in seconds.
               </Text>
 
-              <Flex gap={4} wrap="wrap" pt={2}>
+              <Flex className="animate-fade-in-up animate-delay-3" gap={4} wrap="wrap" pt={2}>
                 <Button asChild size="lg" colorPalette="green" px={8} shadow="md">
                   <NextLink href="/signup">Create Free Account</NextLink>
                 </Button>
@@ -194,6 +224,7 @@ export default function LandingPage() {
               borderColor="gray.200"
               p={6}
               overflow="hidden"
+              className="animate-float"
               transition="all 0.3s"
               _hover={{ transform: "scale(1.01)" }}
             >
@@ -478,13 +509,13 @@ export default function LandingPage() {
             >
               <Box>
                 <Text fontSize="xs" fontWeight="bold" color="green.600" textTransform="uppercase" letterSpacing="wider" mb={2}>
-                  Mandi Pro
+                  Single Firm Plan
                 </Text>
                 <Heading size="xl" fontWeight="extrabold" color="gray.900" mb={1}>
-                  ₹999<Text as="span" fontSize="sm" fontWeight="medium" color="gray.500"> / month</Text>
+                  ₹3,999<Text as="span" fontSize="sm" fontWeight="medium" color="gray.500"> / year</Text>
                 </Heading>
                 <Text fontSize="xs" fontWeight="semibold" color="green.700" bg="green.50" display="inline-block" px={2.5} py={0.5} borderRadius="full" mb={6}>
-                  Charged yearly (₹11,988 / year)
+                  Billed annually (Equivalent to ₹333/mo)
                 </Text>
                 <Text color="gray.600" fontSize="sm" mb={6}>
                   Perfect for growing commission agents wanting to digitize their mandi workflow.
@@ -495,7 +526,7 @@ export default function LandingPage() {
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" style={{ color: "var(--chakra-colors-green-600)" }}>
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
-                    <Text fontSize="sm" color="gray.700">Up to 150 Active Growers</Text>
+                    <Text fontSize="sm" color="gray.700">Single Business Profile (1 Firm)</Text>
                   </Flex>
                   <Flex align="center" gap={2.5}>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" style={{ color: "var(--chakra-colors-green-600)" }}>
@@ -525,7 +556,7 @@ export default function LandingPage() {
               </Box>
 
               <Button asChild colorPalette="green" variant="outline" size="lg" w="full" shadow="sm">
-                <NextLink href="/signup">Start 14-Day Free Trial</NextLink>
+                <NextLink href="/signup?plan=pro">Start 14-Day Free Trial</NextLink>
               </Button>
             </Box>
 
@@ -560,19 +591,20 @@ export default function LandingPage() {
                 boxShadow="md"
                 textTransform="uppercase"
                 letterSpacing="wider"
+                className="animate-pulse-badge"
               >
-                Best Value (Save 17%)
+                Best Value
               </Box>
 
               <Box>
                 <Text fontSize="xs" fontWeight="bold" color="green.600" textTransform="uppercase" letterSpacing="wider" mb={2} mt={2}>
-                  Mandi Premium (Yearly)
+                  Multi Firm Plan
                 </Text>
                 <Heading size="xl" fontWeight="extrabold" color="gray.900" mb={1}>
-                  ₹9,999<Text as="span" fontSize="sm" fontWeight="medium" color="gray.500"> / year</Text>
+                  ₹6,999<Text as="span" fontSize="sm" fontWeight="medium" color="gray.500"> / year</Text>
                 </Heading>
                 <Text fontSize="xs" fontWeight="semibold" color="green.750" bg="green.50" display="inline-block" px={2.5} py={0.5} borderRadius="full" mb={6}>
-                  Billed annually (Equivalent to ₹833/mo)
+                  Billed annually (Equivalent to ₹583/mo)
                 </Text>
                 <Text color="gray.600" fontSize="sm" mb={6}>
                   Complete setup for large mandi operations requiring multiple device sync, custom logos, and priority support.
@@ -583,7 +615,7 @@ export default function LandingPage() {
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" style={{ color: "var(--chakra-colors-green-600)" }}>
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
-                    <Text fontSize="sm" color="gray.700" fontWeight="semibold">Unlimited Active Growers</Text>
+                    <Text fontSize="sm" color="gray.700" fontWeight="semibold">Multiple Business Profiles (Switch easily)</Text>
                   </Flex>
                   <Flex align="center" gap={2.5}>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" style={{ color: "var(--chakra-colors-green-600)" }}>
@@ -619,7 +651,7 @@ export default function LandingPage() {
               </Box>
 
               <Button asChild colorPalette="green" size="lg" w="full" shadow="md">
-                <NextLink href="/signup">Get Yearly Premium</NextLink>
+                <NextLink href="/signup?plan=premium">Get Multi Firm Plan</NextLink>
               </Button>
             </Box>
           </SimpleGrid>
@@ -687,16 +719,16 @@ export default function LandingPage() {
             {/* Logo Column */}
             <Stack gap={4}>
               <Flex align="center" gap={2}>
-                <Box 
-                  bg="green.500" 
-                  w="24px" 
-                  h="24px" 
-                  borderRadius="md" 
-                  display="flex" 
-                  alignItems="center" 
-                  justifyContent="center" 
-                  color="white" 
-                  fontWeight="bold" 
+                <Box
+                  bg="green.500"
+                  w="24px"
+                  h="24px"
+                  borderRadius="md"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  color="white"
+                  fontWeight="bold"
                   fontSize="sm"
                 >
                   O
@@ -740,11 +772,68 @@ export default function LandingPage() {
 
           <Flex justify="space-between" align="center" borderTopWidth="1px" borderColor="gray.800" pt={8} wrap="wrap" gap={4}>
             <Text fontSize="xs" color="gray.600">&copy; {new Date().getFullYear()} OrchardPay. All rights reserved.</Text>
-            <Text fontSize="xs" color="gray.600">Designed with modern visual standards for professional wholesalers.</Text>
+            <Text fontSize="xs" color="white">Designed and developed by Sudo Technologies</Text>
           </Flex>
 
         </Container>
       </Box>
+
+      {/* Modern CSS keyframe animations for the landing page */}
+      <style>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes float {
+          0% { transform: translateY(0px); }
+          50% { transform: translateY(-8px); }
+          100% { transform: translateY(0px); }
+        }
+        @keyframes pulse {
+          0% {
+            transform: translateX(-50%) scale(1);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+          }
+          50% {
+            transform: translateX(-50%) scale(1.05);
+            box-shadow: 0 10px 15px -3px rgba(72,187,120,0.4), 0 4px 6px -2px rgba(72,187,120,0.2);
+          }
+          100% {
+            transform: translateX(-50%) scale(1);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+          }
+        }
+        .animate-fade-in-up {
+          animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .animate-delay-1 {
+          animation-delay: 0.1s;
+          opacity: 0;
+          animation-fill-mode: forwards;
+        }
+        .animate-delay-2 {
+          animation-delay: 0.2s;
+          opacity: 0;
+          animation-fill-mode: forwards;
+        }
+        .animate-delay-3 {
+          animation-delay: 0.3s;
+          opacity: 0;
+          animation-fill-mode: forwards;
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        .animate-pulse-badge {
+          animation: pulse 3s infinite ease-in-out;
+        }
+      `}</style>
 
     </Box>
   );
