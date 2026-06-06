@@ -6,35 +6,40 @@ import { Box, Button, Flex, Heading, IconButton, Stack, Text, Input, chakra } fr
 import { useState, useEffect, useRef, type ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/client";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { 
+  DashboardCircleIcon, 
+  TransactionIcon, 
+  Leaf01Icon, 
+  HandshakeIcon, 
+  PackageIcon, 
+  Document, 
+  Settings01Icon,
+  Menu01Icon,
+  Cancel01Icon,
+  ArrowDown01Icon,
+  Tick01Icon,
+  PlusSignIcon
+} from "@hugeicons/core-free-icons";
 
 const Select = chakra("select");
 
 const NAV = [
-  { href: "/dashboard", label: "Dashboard", icon: "📊" },
-  { href: "/transactions", label: "Transactions", icon: "💰" },
-  { href: "/growers", label: "Growers", icon: "🌿" },
-  { href: "/migration", label: "Data migration", icon: "📦" },
-  { href: "/reports", label: "Reports", icon: "📄" },
-  { href: "/settings", label: "Settings", icon: "⚙️" },
+  { href: "/dashboard", label: "Dashboard", icon: DashboardCircleIcon },
+  { href: "/transactions", label: "Transactions", icon: TransactionIcon },
+  { href: "/growers", label: "Growers", icon: Leaf01Icon },
+  { href: "/sellers", label: "Sellers", icon: HandshakeIcon },
+  { href: "/migration", label: "Data migration", icon: PackageIcon },
+  { href: "/reports", label: "Reports", icon: Document },
+  { href: "/settings", label: "Settings", icon: Settings01Icon },
 ];
 
 function HamburgerIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="3" y1="6" x2="21" y2="6" />
-      <line x1="3" y1="12" x2="21" y2="12" />
-      <line x1="3" y1="18" x2="21" y2="18" />
-    </svg>
-  );
+  return <HugeiconsIcon icon={Menu01Icon} size={22} />;
 }
 
 function CloseIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="18" y1="6" x2="6" y2="18" />
-      <line x1="6" y1="6" x2="18" y2="18" />
-    </svg>
-  );
+  return <HugeiconsIcon icon={Cancel01Icon} size={22} />;
 }
 
 export function AppShell({
@@ -146,10 +151,8 @@ export function AppShell({
             </Text>
           </Box>
           {isInteractive && (
-            <Box ml={2} transform={dropdownOpen ? "rotate(180deg)" : "rotate(0)"} transition="transform 0.2s ease" color="green.200">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
+            <Box ml={2} transform={dropdownOpen ? "rotate(180deg)" : "rotate(0)"} transition="transform 0.2s ease" color="green.200" display="inline-flex">
+              <HugeiconsIcon icon={ArrowDown01Icon} size={14} />
             </Box>
           )}
         </Flex>
@@ -214,10 +217,8 @@ export function AppShell({
                     </Text>
                   </Box>
                   {isActive && (
-                    <Box color="green.600" ml={1}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
+                    <Box color="green.600" ml={1} display="inline-flex">
+                      <HugeiconsIcon icon={Tick01Icon} size={14} />
                     </Box>
                   )}
                 </Flex>
@@ -244,10 +245,7 @@ export function AppShell({
                     setModalOpen(true);
                   }}
                 >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="12" y1="5" x2="12" y2="19" />
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                  </svg>
+                  <HugeiconsIcon icon={PlusSignIcon} size={14} />
                   Add Business
                 </Flex>
               </>
@@ -269,7 +267,9 @@ export function AppShell({
               _hover={{ bg: "green.700" }}
             >
               <NextLink href={item.href}>
-                <Text as="span" mr={2} fontSize="md">{item.icon}</Text>
+                <Box as="span" mr={2.5} display="inline-flex" alignItems="center">
+                  <HugeiconsIcon icon={item.icon} size={18} />
+                </Box>
                 {item.label}
               </NextLink>
             </Button>

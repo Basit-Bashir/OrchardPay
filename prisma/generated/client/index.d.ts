@@ -58,6 +58,16 @@ export type Agreement = $Result.DefaultSelection<Prisma.$AgreementPayload>
  * 
  */
 export type DraftTransaction = $Result.DefaultSelection<Prisma.$DraftTransactionPayload>
+/**
+ * Model Seller
+ * 
+ */
+export type Seller = $Result.DefaultSelection<Prisma.$SellerPayload>
+/**
+ * Model SellerPayment
+ * 
+ */
+export type SellerPayment = $Result.DefaultSelection<Prisma.$SellerPaymentPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -266,6 +276,26 @@ export class PrismaClient<
     * ```
     */
   get draftTransaction(): Prisma.DraftTransactionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.seller`: Exposes CRUD operations for the **Seller** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Sellers
+    * const sellers = await prisma.seller.findMany()
+    * ```
+    */
+  get seller(): Prisma.SellerDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.sellerPayment`: Exposes CRUD operations for the **SellerPayment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SellerPayments
+    * const sellerPayments = await prisma.sellerPayment.findMany()
+    * ```
+    */
+  get sellerPayment(): Prisma.SellerPaymentDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -715,7 +745,9 @@ export namespace Prisma {
     Otp: 'Otp',
     Notification: 'Notification',
     Agreement: 'Agreement',
-    DraftTransaction: 'DraftTransaction'
+    DraftTransaction: 'DraftTransaction',
+    Seller: 'Seller',
+    SellerPayment: 'SellerPayment'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -734,7 +766,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "buyerFirm" | "user" | "grower" | "transaction" | "payment" | "otp" | "notification" | "agreement" | "draftTransaction"
+      modelProps: "buyerFirm" | "user" | "grower" | "transaction" | "payment" | "otp" | "notification" | "agreement" | "draftTransaction" | "seller" | "sellerPayment"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1404,6 +1436,154 @@ export namespace Prisma {
           }
         }
       }
+      Seller: {
+        payload: Prisma.$SellerPayload<ExtArgs>
+        fields: Prisma.SellerFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SellerFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SellerPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SellerFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SellerPayload>
+          }
+          findFirst: {
+            args: Prisma.SellerFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SellerPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SellerFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SellerPayload>
+          }
+          findMany: {
+            args: Prisma.SellerFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SellerPayload>[]
+          }
+          create: {
+            args: Prisma.SellerCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SellerPayload>
+          }
+          createMany: {
+            args: Prisma.SellerCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SellerCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SellerPayload>[]
+          }
+          delete: {
+            args: Prisma.SellerDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SellerPayload>
+          }
+          update: {
+            args: Prisma.SellerUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SellerPayload>
+          }
+          deleteMany: {
+            args: Prisma.SellerDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SellerUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SellerUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SellerPayload>[]
+          }
+          upsert: {
+            args: Prisma.SellerUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SellerPayload>
+          }
+          aggregate: {
+            args: Prisma.SellerAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSeller>
+          }
+          groupBy: {
+            args: Prisma.SellerGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SellerGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SellerCountArgs<ExtArgs>
+            result: $Utils.Optional<SellerCountAggregateOutputType> | number
+          }
+        }
+      }
+      SellerPayment: {
+        payload: Prisma.$SellerPaymentPayload<ExtArgs>
+        fields: Prisma.SellerPaymentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SellerPaymentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SellerPaymentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SellerPaymentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SellerPaymentPayload>
+          }
+          findFirst: {
+            args: Prisma.SellerPaymentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SellerPaymentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SellerPaymentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SellerPaymentPayload>
+          }
+          findMany: {
+            args: Prisma.SellerPaymentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SellerPaymentPayload>[]
+          }
+          create: {
+            args: Prisma.SellerPaymentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SellerPaymentPayload>
+          }
+          createMany: {
+            args: Prisma.SellerPaymentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SellerPaymentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SellerPaymentPayload>[]
+          }
+          delete: {
+            args: Prisma.SellerPaymentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SellerPaymentPayload>
+          }
+          update: {
+            args: Prisma.SellerPaymentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SellerPaymentPayload>
+          }
+          deleteMany: {
+            args: Prisma.SellerPaymentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SellerPaymentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SellerPaymentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SellerPaymentPayload>[]
+          }
+          upsert: {
+            args: Prisma.SellerPaymentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SellerPaymentPayload>
+          }
+          aggregate: {
+            args: Prisma.SellerPaymentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSellerPayment>
+          }
+          groupBy: {
+            args: Prisma.SellerPaymentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SellerPaymentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SellerPaymentCountArgs<ExtArgs>
+            result: $Utils.Optional<SellerPaymentCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1509,6 +1689,8 @@ export namespace Prisma {
     notification?: NotificationOmit
     agreement?: AgreementOmit
     draftTransaction?: DraftTransactionOmit
+    seller?: SellerOmit
+    sellerPayment?: SellerPaymentOmit
   }
 
   /* Types for Logging */
@@ -1591,16 +1773,20 @@ export namespace Prisma {
   export type BuyerFirmCountOutputType = {
     users: number
     growers: number
+    sellers: number
     transactions: number
     payments: number
+    sellerPayments: number
     draftTransactions: number
   }
 
   export type BuyerFirmCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | BuyerFirmCountOutputTypeCountUsersArgs
     growers?: boolean | BuyerFirmCountOutputTypeCountGrowersArgs
+    sellers?: boolean | BuyerFirmCountOutputTypeCountSellersArgs
     transactions?: boolean | BuyerFirmCountOutputTypeCountTransactionsArgs
     payments?: boolean | BuyerFirmCountOutputTypeCountPaymentsArgs
+    sellerPayments?: boolean | BuyerFirmCountOutputTypeCountSellerPaymentsArgs
     draftTransactions?: boolean | BuyerFirmCountOutputTypeCountDraftTransactionsArgs
   }
 
@@ -1632,6 +1818,13 @@ export namespace Prisma {
   /**
    * BuyerFirmCountOutputType without action
    */
+  export type BuyerFirmCountOutputTypeCountSellersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SellerWhereInput
+  }
+
+  /**
+   * BuyerFirmCountOutputType without action
+   */
   export type BuyerFirmCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TransactionWhereInput
   }
@@ -1641,6 +1834,13 @@ export namespace Prisma {
    */
   export type BuyerFirmCountOutputTypeCountPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PaymentWhereInput
+  }
+
+  /**
+   * BuyerFirmCountOutputType without action
+   */
+  export type BuyerFirmCountOutputTypeCountSellerPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SellerPaymentWhereInput
   }
 
   /**
@@ -1746,6 +1946,55 @@ export namespace Prisma {
    */
   export type GrowerCountOutputTypeCountDraftTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DraftTransactionWhereInput
+  }
+
+
+  /**
+   * Count Type SellerCountOutputType
+   */
+
+  export type SellerCountOutputType = {
+    transactions: number
+    draftTransactions: number
+    payments: number
+  }
+
+  export type SellerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    transactions?: boolean | SellerCountOutputTypeCountTransactionsArgs
+    draftTransactions?: boolean | SellerCountOutputTypeCountDraftTransactionsArgs
+    payments?: boolean | SellerCountOutputTypeCountPaymentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SellerCountOutputType without action
+   */
+  export type SellerCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SellerCountOutputType
+     */
+    select?: SellerCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SellerCountOutputType without action
+   */
+  export type SellerCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionWhereInput
+  }
+
+  /**
+   * SellerCountOutputType without action
+   */
+  export type SellerCountOutputTypeCountDraftTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DraftTransactionWhereInput
+  }
+
+  /**
+   * SellerCountOutputType without action
+   */
+  export type SellerCountOutputTypeCountPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SellerPaymentWhereInput
   }
 
 
@@ -1951,8 +2200,10 @@ export namespace Prisma {
     logoUrl?: boolean
     users?: boolean | BuyerFirm$usersArgs<ExtArgs>
     growers?: boolean | BuyerFirm$growersArgs<ExtArgs>
+    sellers?: boolean | BuyerFirm$sellersArgs<ExtArgs>
     transactions?: boolean | BuyerFirm$transactionsArgs<ExtArgs>
     payments?: boolean | BuyerFirm$paymentsArgs<ExtArgs>
+    sellerPayments?: boolean | BuyerFirm$sellerPaymentsArgs<ExtArgs>
     draftTransactions?: boolean | BuyerFirm$draftTransactionsArgs<ExtArgs>
     _count?: boolean | BuyerFirmCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["buyerFirm"]>
@@ -1997,8 +2248,10 @@ export namespace Prisma {
   export type BuyerFirmInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | BuyerFirm$usersArgs<ExtArgs>
     growers?: boolean | BuyerFirm$growersArgs<ExtArgs>
+    sellers?: boolean | BuyerFirm$sellersArgs<ExtArgs>
     transactions?: boolean | BuyerFirm$transactionsArgs<ExtArgs>
     payments?: boolean | BuyerFirm$paymentsArgs<ExtArgs>
+    sellerPayments?: boolean | BuyerFirm$sellerPaymentsArgs<ExtArgs>
     draftTransactions?: boolean | BuyerFirm$draftTransactionsArgs<ExtArgs>
     _count?: boolean | BuyerFirmCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -2010,8 +2263,10 @@ export namespace Prisma {
     objects: {
       users: Prisma.$UserPayload<ExtArgs>[]
       growers: Prisma.$GrowerPayload<ExtArgs>[]
+      sellers: Prisma.$SellerPayload<ExtArgs>[]
       transactions: Prisma.$TransactionPayload<ExtArgs>[]
       payments: Prisma.$PaymentPayload<ExtArgs>[]
+      sellerPayments: Prisma.$SellerPaymentPayload<ExtArgs>[]
       draftTransactions: Prisma.$DraftTransactionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -2420,8 +2675,10 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     users<T extends BuyerFirm$usersArgs<ExtArgs> = {}>(args?: Subset<T, BuyerFirm$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     growers<T extends BuyerFirm$growersArgs<ExtArgs> = {}>(args?: Subset<T, BuyerFirm$growersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GrowerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sellers<T extends BuyerFirm$sellersArgs<ExtArgs> = {}>(args?: Subset<T, BuyerFirm$sellersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SellerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     transactions<T extends BuyerFirm$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, BuyerFirm$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     payments<T extends BuyerFirm$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, BuyerFirm$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sellerPayments<T extends BuyerFirm$sellerPaymentsArgs<ExtArgs> = {}>(args?: Subset<T, BuyerFirm$sellerPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SellerPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     draftTransactions<T extends BuyerFirm$draftTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, BuyerFirm$draftTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DraftTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2895,6 +3152,30 @@ export namespace Prisma {
   }
 
   /**
+   * BuyerFirm.sellers
+   */
+  export type BuyerFirm$sellersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seller
+     */
+    select?: SellerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seller
+     */
+    omit?: SellerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerInclude<ExtArgs> | null
+    where?: SellerWhereInput
+    orderBy?: SellerOrderByWithRelationInput | SellerOrderByWithRelationInput[]
+    cursor?: SellerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SellerScalarFieldEnum | SellerScalarFieldEnum[]
+  }
+
+  /**
    * BuyerFirm.transactions
    */
   export type BuyerFirm$transactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2940,6 +3221,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PaymentScalarFieldEnum | PaymentScalarFieldEnum[]
+  }
+
+  /**
+   * BuyerFirm.sellerPayments
+   */
+  export type BuyerFirm$sellerPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SellerPayment
+     */
+    select?: SellerPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SellerPayment
+     */
+    omit?: SellerPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerPaymentInclude<ExtArgs> | null
+    where?: SellerPaymentWhereInput
+    orderBy?: SellerPaymentOrderByWithRelationInput | SellerPaymentOrderByWithRelationInput[]
+    cursor?: SellerPaymentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SellerPaymentScalarFieldEnum | SellerPaymentScalarFieldEnum[]
   }
 
   /**
@@ -5336,6 +5641,7 @@ export namespace Prisma {
   export type TransactionMinAggregateOutputType = {
     id: string | null
     growerId: string | null
+    sellerId: string | null
     buyerFirmId: string | null
     fruitType: string | null
     quantity: number | null
@@ -5358,6 +5664,7 @@ export namespace Prisma {
   export type TransactionMaxAggregateOutputType = {
     id: string | null
     growerId: string | null
+    sellerId: string | null
     buyerFirmId: string | null
     fruitType: string | null
     quantity: number | null
@@ -5380,6 +5687,7 @@ export namespace Prisma {
   export type TransactionCountAggregateOutputType = {
     id: number
     growerId: number
+    sellerId: number
     buyerFirmId: number
     fruitType: number
     quantity: number
@@ -5430,6 +5738,7 @@ export namespace Prisma {
   export type TransactionMinAggregateInputType = {
     id?: true
     growerId?: true
+    sellerId?: true
     buyerFirmId?: true
     fruitType?: true
     quantity?: true
@@ -5452,6 +5761,7 @@ export namespace Prisma {
   export type TransactionMaxAggregateInputType = {
     id?: true
     growerId?: true
+    sellerId?: true
     buyerFirmId?: true
     fruitType?: true
     quantity?: true
@@ -5474,6 +5784,7 @@ export namespace Prisma {
   export type TransactionCountAggregateInputType = {
     id?: true
     growerId?: true
+    sellerId?: true
     buyerFirmId?: true
     fruitType?: true
     quantity?: true
@@ -5582,7 +5893,8 @@ export namespace Prisma {
 
   export type TransactionGroupByOutputType = {
     id: string
-    growerId: string
+    growerId: string | null
+    sellerId: string | null
     buyerFirmId: string
     fruitType: string
     quantity: number
@@ -5624,6 +5936,7 @@ export namespace Prisma {
   export type TransactionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     growerId?: boolean
+    sellerId?: boolean
     buyerFirmId?: boolean
     fruitType?: boolean
     quantity?: boolean
@@ -5641,13 +5954,15 @@ export namespace Prisma {
     notes?: boolean
     notified?: boolean
     createdAt?: boolean
-    grower?: boolean | GrowerDefaultArgs<ExtArgs>
+    grower?: boolean | Transaction$growerArgs<ExtArgs>
+    seller?: boolean | Transaction$sellerArgs<ExtArgs>
     buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transaction"]>
 
   export type TransactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     growerId?: boolean
+    sellerId?: boolean
     buyerFirmId?: boolean
     fruitType?: boolean
     quantity?: boolean
@@ -5665,13 +5980,15 @@ export namespace Prisma {
     notes?: boolean
     notified?: boolean
     createdAt?: boolean
-    grower?: boolean | GrowerDefaultArgs<ExtArgs>
+    grower?: boolean | Transaction$growerArgs<ExtArgs>
+    seller?: boolean | Transaction$sellerArgs<ExtArgs>
     buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transaction"]>
 
   export type TransactionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     growerId?: boolean
+    sellerId?: boolean
     buyerFirmId?: boolean
     fruitType?: boolean
     quantity?: boolean
@@ -5689,13 +6006,15 @@ export namespace Prisma {
     notes?: boolean
     notified?: boolean
     createdAt?: boolean
-    grower?: boolean | GrowerDefaultArgs<ExtArgs>
+    grower?: boolean | Transaction$growerArgs<ExtArgs>
+    seller?: boolean | Transaction$sellerArgs<ExtArgs>
     buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transaction"]>
 
   export type TransactionSelectScalar = {
     id?: boolean
     growerId?: boolean
+    sellerId?: boolean
     buyerFirmId?: boolean
     fruitType?: boolean
     quantity?: boolean
@@ -5715,29 +6034,34 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "growerId" | "buyerFirmId" | "fruitType" | "quantity" | "unit" | "rate" | "grossAmount" | "commission" | "labour" | "freight" | "association" | "printing" | "miscellaneous" | "totalAmount" | "receivedAt" | "notes" | "notified" | "createdAt", ExtArgs["result"]["transaction"]>
+  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "growerId" | "sellerId" | "buyerFirmId" | "fruitType" | "quantity" | "unit" | "rate" | "grossAmount" | "commission" | "labour" | "freight" | "association" | "printing" | "miscellaneous" | "totalAmount" | "receivedAt" | "notes" | "notified" | "createdAt", ExtArgs["result"]["transaction"]>
   export type TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    grower?: boolean | GrowerDefaultArgs<ExtArgs>
+    grower?: boolean | Transaction$growerArgs<ExtArgs>
+    seller?: boolean | Transaction$sellerArgs<ExtArgs>
     buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
   }
   export type TransactionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    grower?: boolean | GrowerDefaultArgs<ExtArgs>
+    grower?: boolean | Transaction$growerArgs<ExtArgs>
+    seller?: boolean | Transaction$sellerArgs<ExtArgs>
     buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
   }
   export type TransactionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    grower?: boolean | GrowerDefaultArgs<ExtArgs>
+    grower?: boolean | Transaction$growerArgs<ExtArgs>
+    seller?: boolean | Transaction$sellerArgs<ExtArgs>
     buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
   }
 
   export type $TransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Transaction"
     objects: {
-      grower: Prisma.$GrowerPayload<ExtArgs>
+      grower: Prisma.$GrowerPayload<ExtArgs> | null
+      seller: Prisma.$SellerPayload<ExtArgs> | null
       buyerFirm: Prisma.$BuyerFirmPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      growerId: string
+      growerId: string | null
+      sellerId: string | null
       buyerFirmId: string
       fruitType: string
       quantity: number
@@ -6149,7 +6473,8 @@ export namespace Prisma {
    */
   export interface Prisma__TransactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    grower<T extends GrowerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GrowerDefaultArgs<ExtArgs>>): Prisma__GrowerClient<$Result.GetResult<Prisma.$GrowerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    grower<T extends Transaction$growerArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$growerArgs<ExtArgs>>): Prisma__GrowerClient<$Result.GetResult<Prisma.$GrowerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    seller<T extends Transaction$sellerArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$sellerArgs<ExtArgs>>): Prisma__SellerClient<$Result.GetResult<Prisma.$SellerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     buyerFirm<T extends BuyerFirmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BuyerFirmDefaultArgs<ExtArgs>>): Prisma__BuyerFirmClient<$Result.GetResult<Prisma.$BuyerFirmPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -6182,6 +6507,7 @@ export namespace Prisma {
   interface TransactionFieldRefs {
     readonly id: FieldRef<"Transaction", 'String'>
     readonly growerId: FieldRef<"Transaction", 'String'>
+    readonly sellerId: FieldRef<"Transaction", 'String'>
     readonly buyerFirmId: FieldRef<"Transaction", 'String'>
     readonly fruitType: FieldRef<"Transaction", 'String'>
     readonly quantity: FieldRef<"Transaction", 'Float'>
@@ -6590,6 +6916,44 @@ export namespace Prisma {
      * Limit how many Transactions to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Transaction.grower
+   */
+  export type Transaction$growerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grower
+     */
+    select?: GrowerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grower
+     */
+    omit?: GrowerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrowerInclude<ExtArgs> | null
+    where?: GrowerWhereInput
+  }
+
+  /**
+   * Transaction.seller
+   */
+  export type Transaction$sellerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seller
+     */
+    select?: SellerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seller
+     */
+    omit?: SellerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerInclude<ExtArgs> | null
+    where?: SellerWhereInput
   }
 
   /**
@@ -10930,6 +11294,7 @@ export namespace Prisma {
   export type DraftTransactionMinAggregateOutputType = {
     id: string | null
     growerId: string | null
+    sellerId: string | null
     buyerFirmId: string | null
     fruitType: string | null
     quantity: number | null
@@ -10944,6 +11309,7 @@ export namespace Prisma {
   export type DraftTransactionMaxAggregateOutputType = {
     id: string | null
     growerId: string | null
+    sellerId: string | null
     buyerFirmId: string | null
     fruitType: string | null
     quantity: number | null
@@ -10958,6 +11324,7 @@ export namespace Prisma {
   export type DraftTransactionCountAggregateOutputType = {
     id: number
     growerId: number
+    sellerId: number
     buyerFirmId: number
     fruitType: number
     quantity: number
@@ -10984,6 +11351,7 @@ export namespace Prisma {
   export type DraftTransactionMinAggregateInputType = {
     id?: true
     growerId?: true
+    sellerId?: true
     buyerFirmId?: true
     fruitType?: true
     quantity?: true
@@ -10998,6 +11366,7 @@ export namespace Prisma {
   export type DraftTransactionMaxAggregateInputType = {
     id?: true
     growerId?: true
+    sellerId?: true
     buyerFirmId?: true
     fruitType?: true
     quantity?: true
@@ -11012,6 +11381,7 @@ export namespace Prisma {
   export type DraftTransactionCountAggregateInputType = {
     id?: true
     growerId?: true
+    sellerId?: true
     buyerFirmId?: true
     fruitType?: true
     quantity?: true
@@ -11112,7 +11482,8 @@ export namespace Prisma {
 
   export type DraftTransactionGroupByOutputType = {
     id: string
-    growerId: string
+    growerId: string | null
+    sellerId: string | null
     buyerFirmId: string
     fruitType: string
     quantity: number
@@ -11146,6 +11517,7 @@ export namespace Prisma {
   export type DraftTransactionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     growerId?: boolean
+    sellerId?: boolean
     buyerFirmId?: boolean
     fruitType?: boolean
     quantity?: boolean
@@ -11155,7 +11527,8 @@ export namespace Prisma {
     createdById?: boolean
     status?: boolean
     createdAt?: boolean
-    grower?: boolean | GrowerDefaultArgs<ExtArgs>
+    grower?: boolean | DraftTransaction$growerArgs<ExtArgs>
+    seller?: boolean | DraftTransaction$sellerArgs<ExtArgs>
     buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["draftTransaction"]>
@@ -11163,6 +11536,7 @@ export namespace Prisma {
   export type DraftTransactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     growerId?: boolean
+    sellerId?: boolean
     buyerFirmId?: boolean
     fruitType?: boolean
     quantity?: boolean
@@ -11172,7 +11546,8 @@ export namespace Prisma {
     createdById?: boolean
     status?: boolean
     createdAt?: boolean
-    grower?: boolean | GrowerDefaultArgs<ExtArgs>
+    grower?: boolean | DraftTransaction$growerArgs<ExtArgs>
+    seller?: boolean | DraftTransaction$sellerArgs<ExtArgs>
     buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["draftTransaction"]>
@@ -11180,6 +11555,7 @@ export namespace Prisma {
   export type DraftTransactionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     growerId?: boolean
+    sellerId?: boolean
     buyerFirmId?: boolean
     fruitType?: boolean
     quantity?: boolean
@@ -11189,7 +11565,8 @@ export namespace Prisma {
     createdById?: boolean
     status?: boolean
     createdAt?: boolean
-    grower?: boolean | GrowerDefaultArgs<ExtArgs>
+    grower?: boolean | DraftTransaction$growerArgs<ExtArgs>
+    seller?: boolean | DraftTransaction$sellerArgs<ExtArgs>
     buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["draftTransaction"]>
@@ -11197,6 +11574,7 @@ export namespace Prisma {
   export type DraftTransactionSelectScalar = {
     id?: boolean
     growerId?: boolean
+    sellerId?: boolean
     buyerFirmId?: boolean
     fruitType?: boolean
     quantity?: boolean
@@ -11208,19 +11586,22 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type DraftTransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "growerId" | "buyerFirmId" | "fruitType" | "quantity" | "unit" | "rate" | "notes" | "createdById" | "status" | "createdAt", ExtArgs["result"]["draftTransaction"]>
+  export type DraftTransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "growerId" | "sellerId" | "buyerFirmId" | "fruitType" | "quantity" | "unit" | "rate" | "notes" | "createdById" | "status" | "createdAt", ExtArgs["result"]["draftTransaction"]>
   export type DraftTransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    grower?: boolean | GrowerDefaultArgs<ExtArgs>
+    grower?: boolean | DraftTransaction$growerArgs<ExtArgs>
+    seller?: boolean | DraftTransaction$sellerArgs<ExtArgs>
     buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type DraftTransactionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    grower?: boolean | GrowerDefaultArgs<ExtArgs>
+    grower?: boolean | DraftTransaction$growerArgs<ExtArgs>
+    seller?: boolean | DraftTransaction$sellerArgs<ExtArgs>
     buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type DraftTransactionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    grower?: boolean | GrowerDefaultArgs<ExtArgs>
+    grower?: boolean | DraftTransaction$growerArgs<ExtArgs>
+    seller?: boolean | DraftTransaction$sellerArgs<ExtArgs>
     buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -11228,13 +11609,15 @@ export namespace Prisma {
   export type $DraftTransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "DraftTransaction"
     objects: {
-      grower: Prisma.$GrowerPayload<ExtArgs>
+      grower: Prisma.$GrowerPayload<ExtArgs> | null
+      seller: Prisma.$SellerPayload<ExtArgs> | null
       buyerFirm: Prisma.$BuyerFirmPayload<ExtArgs>
       createdBy: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      growerId: string
+      growerId: string | null
+      sellerId: string | null
       buyerFirmId: string
       fruitType: string
       quantity: number
@@ -11638,7 +12021,8 @@ export namespace Prisma {
    */
   export interface Prisma__DraftTransactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    grower<T extends GrowerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GrowerDefaultArgs<ExtArgs>>): Prisma__GrowerClient<$Result.GetResult<Prisma.$GrowerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    grower<T extends DraftTransaction$growerArgs<ExtArgs> = {}>(args?: Subset<T, DraftTransaction$growerArgs<ExtArgs>>): Prisma__GrowerClient<$Result.GetResult<Prisma.$GrowerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    seller<T extends DraftTransaction$sellerArgs<ExtArgs> = {}>(args?: Subset<T, DraftTransaction$sellerArgs<ExtArgs>>): Prisma__SellerClient<$Result.GetResult<Prisma.$SellerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     buyerFirm<T extends BuyerFirmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BuyerFirmDefaultArgs<ExtArgs>>): Prisma__BuyerFirmClient<$Result.GetResult<Prisma.$BuyerFirmPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     createdBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -11672,6 +12056,7 @@ export namespace Prisma {
   interface DraftTransactionFieldRefs {
     readonly id: FieldRef<"DraftTransaction", 'String'>
     readonly growerId: FieldRef<"DraftTransaction", 'String'>
+    readonly sellerId: FieldRef<"DraftTransaction", 'String'>
     readonly buyerFirmId: FieldRef<"DraftTransaction", 'String'>
     readonly fruitType: FieldRef<"DraftTransaction", 'String'>
     readonly quantity: FieldRef<"DraftTransaction", 'Float'>
@@ -12075,6 +12460,44 @@ export namespace Prisma {
   }
 
   /**
+   * DraftTransaction.grower
+   */
+  export type DraftTransaction$growerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grower
+     */
+    select?: GrowerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grower
+     */
+    omit?: GrowerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrowerInclude<ExtArgs> | null
+    where?: GrowerWhereInput
+  }
+
+  /**
+   * DraftTransaction.seller
+   */
+  export type DraftTransaction$sellerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seller
+     */
+    select?: SellerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seller
+     */
+    omit?: SellerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerInclude<ExtArgs> | null
+    where?: SellerWhereInput
+  }
+
+  /**
    * DraftTransaction without action
    */
   export type DraftTransactionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12090,6 +12513,2285 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: DraftTransactionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Seller
+   */
+
+  export type AggregateSeller = {
+    _count: SellerCountAggregateOutputType | null
+    _min: SellerMinAggregateOutputType | null
+    _max: SellerMaxAggregateOutputType | null
+  }
+
+  export type SellerMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    mobile: string | null
+    address: string | null
+    buyerFirmId: string | null
+    createdAt: Date | null
+  }
+
+  export type SellerMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    mobile: string | null
+    address: string | null
+    buyerFirmId: string | null
+    createdAt: Date | null
+  }
+
+  export type SellerCountAggregateOutputType = {
+    id: number
+    name: number
+    mobile: number
+    address: number
+    buyerFirmId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type SellerMinAggregateInputType = {
+    id?: true
+    name?: true
+    mobile?: true
+    address?: true
+    buyerFirmId?: true
+    createdAt?: true
+  }
+
+  export type SellerMaxAggregateInputType = {
+    id?: true
+    name?: true
+    mobile?: true
+    address?: true
+    buyerFirmId?: true
+    createdAt?: true
+  }
+
+  export type SellerCountAggregateInputType = {
+    id?: true
+    name?: true
+    mobile?: true
+    address?: true
+    buyerFirmId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type SellerAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Seller to aggregate.
+     */
+    where?: SellerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Sellers to fetch.
+     */
+    orderBy?: SellerOrderByWithRelationInput | SellerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SellerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Sellers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Sellers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Sellers
+    **/
+    _count?: true | SellerCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SellerMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SellerMaxAggregateInputType
+  }
+
+  export type GetSellerAggregateType<T extends SellerAggregateArgs> = {
+        [P in keyof T & keyof AggregateSeller]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSeller[P]>
+      : GetScalarType<T[P], AggregateSeller[P]>
+  }
+
+
+
+
+  export type SellerGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SellerWhereInput
+    orderBy?: SellerOrderByWithAggregationInput | SellerOrderByWithAggregationInput[]
+    by: SellerScalarFieldEnum[] | SellerScalarFieldEnum
+    having?: SellerScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SellerCountAggregateInputType | true
+    _min?: SellerMinAggregateInputType
+    _max?: SellerMaxAggregateInputType
+  }
+
+  export type SellerGroupByOutputType = {
+    id: string
+    name: string
+    mobile: string
+    address: string | null
+    buyerFirmId: string
+    createdAt: Date
+    _count: SellerCountAggregateOutputType | null
+    _min: SellerMinAggregateOutputType | null
+    _max: SellerMaxAggregateOutputType | null
+  }
+
+  type GetSellerGroupByPayload<T extends SellerGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SellerGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SellerGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SellerGroupByOutputType[P]>
+            : GetScalarType<T[P], SellerGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SellerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    mobile?: boolean
+    address?: boolean
+    buyerFirmId?: boolean
+    createdAt?: boolean
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+    transactions?: boolean | Seller$transactionsArgs<ExtArgs>
+    draftTransactions?: boolean | Seller$draftTransactionsArgs<ExtArgs>
+    payments?: boolean | Seller$paymentsArgs<ExtArgs>
+    _count?: boolean | SellerCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["seller"]>
+
+  export type SellerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    mobile?: boolean
+    address?: boolean
+    buyerFirmId?: boolean
+    createdAt?: boolean
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["seller"]>
+
+  export type SellerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    mobile?: boolean
+    address?: boolean
+    buyerFirmId?: boolean
+    createdAt?: boolean
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["seller"]>
+
+  export type SellerSelectScalar = {
+    id?: boolean
+    name?: boolean
+    mobile?: boolean
+    address?: boolean
+    buyerFirmId?: boolean
+    createdAt?: boolean
+  }
+
+  export type SellerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "mobile" | "address" | "buyerFirmId" | "createdAt", ExtArgs["result"]["seller"]>
+  export type SellerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+    transactions?: boolean | Seller$transactionsArgs<ExtArgs>
+    draftTransactions?: boolean | Seller$draftTransactionsArgs<ExtArgs>
+    payments?: boolean | Seller$paymentsArgs<ExtArgs>
+    _count?: boolean | SellerCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SellerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }
+  export type SellerIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }
+
+  export type $SellerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Seller"
+    objects: {
+      buyerFirm: Prisma.$BuyerFirmPayload<ExtArgs>
+      transactions: Prisma.$TransactionPayload<ExtArgs>[]
+      draftTransactions: Prisma.$DraftTransactionPayload<ExtArgs>[]
+      payments: Prisma.$SellerPaymentPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      mobile: string
+      address: string | null
+      buyerFirmId: string
+      createdAt: Date
+    }, ExtArgs["result"]["seller"]>
+    composites: {}
+  }
+
+  type SellerGetPayload<S extends boolean | null | undefined | SellerDefaultArgs> = $Result.GetResult<Prisma.$SellerPayload, S>
+
+  type SellerCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SellerFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SellerCountAggregateInputType | true
+    }
+
+  export interface SellerDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Seller'], meta: { name: 'Seller' } }
+    /**
+     * Find zero or one Seller that matches the filter.
+     * @param {SellerFindUniqueArgs} args - Arguments to find a Seller
+     * @example
+     * // Get one Seller
+     * const seller = await prisma.seller.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SellerFindUniqueArgs>(args: SelectSubset<T, SellerFindUniqueArgs<ExtArgs>>): Prisma__SellerClient<$Result.GetResult<Prisma.$SellerPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Seller that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SellerFindUniqueOrThrowArgs} args - Arguments to find a Seller
+     * @example
+     * // Get one Seller
+     * const seller = await prisma.seller.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SellerFindUniqueOrThrowArgs>(args: SelectSubset<T, SellerFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SellerClient<$Result.GetResult<Prisma.$SellerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Seller that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SellerFindFirstArgs} args - Arguments to find a Seller
+     * @example
+     * // Get one Seller
+     * const seller = await prisma.seller.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SellerFindFirstArgs>(args?: SelectSubset<T, SellerFindFirstArgs<ExtArgs>>): Prisma__SellerClient<$Result.GetResult<Prisma.$SellerPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Seller that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SellerFindFirstOrThrowArgs} args - Arguments to find a Seller
+     * @example
+     * // Get one Seller
+     * const seller = await prisma.seller.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SellerFindFirstOrThrowArgs>(args?: SelectSubset<T, SellerFindFirstOrThrowArgs<ExtArgs>>): Prisma__SellerClient<$Result.GetResult<Prisma.$SellerPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Sellers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SellerFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Sellers
+     * const sellers = await prisma.seller.findMany()
+     * 
+     * // Get first 10 Sellers
+     * const sellers = await prisma.seller.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const sellerWithIdOnly = await prisma.seller.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SellerFindManyArgs>(args?: SelectSubset<T, SellerFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SellerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Seller.
+     * @param {SellerCreateArgs} args - Arguments to create a Seller.
+     * @example
+     * // Create one Seller
+     * const Seller = await prisma.seller.create({
+     *   data: {
+     *     // ... data to create a Seller
+     *   }
+     * })
+     * 
+     */
+    create<T extends SellerCreateArgs>(args: SelectSubset<T, SellerCreateArgs<ExtArgs>>): Prisma__SellerClient<$Result.GetResult<Prisma.$SellerPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Sellers.
+     * @param {SellerCreateManyArgs} args - Arguments to create many Sellers.
+     * @example
+     * // Create many Sellers
+     * const seller = await prisma.seller.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SellerCreateManyArgs>(args?: SelectSubset<T, SellerCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Sellers and returns the data saved in the database.
+     * @param {SellerCreateManyAndReturnArgs} args - Arguments to create many Sellers.
+     * @example
+     * // Create many Sellers
+     * const seller = await prisma.seller.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Sellers and only return the `id`
+     * const sellerWithIdOnly = await prisma.seller.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SellerCreateManyAndReturnArgs>(args?: SelectSubset<T, SellerCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SellerPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Seller.
+     * @param {SellerDeleteArgs} args - Arguments to delete one Seller.
+     * @example
+     * // Delete one Seller
+     * const Seller = await prisma.seller.delete({
+     *   where: {
+     *     // ... filter to delete one Seller
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SellerDeleteArgs>(args: SelectSubset<T, SellerDeleteArgs<ExtArgs>>): Prisma__SellerClient<$Result.GetResult<Prisma.$SellerPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Seller.
+     * @param {SellerUpdateArgs} args - Arguments to update one Seller.
+     * @example
+     * // Update one Seller
+     * const seller = await prisma.seller.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SellerUpdateArgs>(args: SelectSubset<T, SellerUpdateArgs<ExtArgs>>): Prisma__SellerClient<$Result.GetResult<Prisma.$SellerPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Sellers.
+     * @param {SellerDeleteManyArgs} args - Arguments to filter Sellers to delete.
+     * @example
+     * // Delete a few Sellers
+     * const { count } = await prisma.seller.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SellerDeleteManyArgs>(args?: SelectSubset<T, SellerDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Sellers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SellerUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Sellers
+     * const seller = await prisma.seller.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SellerUpdateManyArgs>(args: SelectSubset<T, SellerUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Sellers and returns the data updated in the database.
+     * @param {SellerUpdateManyAndReturnArgs} args - Arguments to update many Sellers.
+     * @example
+     * // Update many Sellers
+     * const seller = await prisma.seller.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Sellers and only return the `id`
+     * const sellerWithIdOnly = await prisma.seller.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SellerUpdateManyAndReturnArgs>(args: SelectSubset<T, SellerUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SellerPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Seller.
+     * @param {SellerUpsertArgs} args - Arguments to update or create a Seller.
+     * @example
+     * // Update or create a Seller
+     * const seller = await prisma.seller.upsert({
+     *   create: {
+     *     // ... data to create a Seller
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Seller we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SellerUpsertArgs>(args: SelectSubset<T, SellerUpsertArgs<ExtArgs>>): Prisma__SellerClient<$Result.GetResult<Prisma.$SellerPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Sellers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SellerCountArgs} args - Arguments to filter Sellers to count.
+     * @example
+     * // Count the number of Sellers
+     * const count = await prisma.seller.count({
+     *   where: {
+     *     // ... the filter for the Sellers we want to count
+     *   }
+     * })
+    **/
+    count<T extends SellerCountArgs>(
+      args?: Subset<T, SellerCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SellerCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Seller.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SellerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SellerAggregateArgs>(args: Subset<T, SellerAggregateArgs>): Prisma.PrismaPromise<GetSellerAggregateType<T>>
+
+    /**
+     * Group by Seller.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SellerGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SellerGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SellerGroupByArgs['orderBy'] }
+        : { orderBy?: SellerGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SellerGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSellerGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Seller model
+   */
+  readonly fields: SellerFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Seller.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SellerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    buyerFirm<T extends BuyerFirmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BuyerFirmDefaultArgs<ExtArgs>>): Prisma__BuyerFirmClient<$Result.GetResult<Prisma.$BuyerFirmPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    transactions<T extends Seller$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, Seller$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    draftTransactions<T extends Seller$draftTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, Seller$draftTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DraftTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    payments<T extends Seller$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, Seller$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SellerPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Seller model
+   */
+  interface SellerFieldRefs {
+    readonly id: FieldRef<"Seller", 'String'>
+    readonly name: FieldRef<"Seller", 'String'>
+    readonly mobile: FieldRef<"Seller", 'String'>
+    readonly address: FieldRef<"Seller", 'String'>
+    readonly buyerFirmId: FieldRef<"Seller", 'String'>
+    readonly createdAt: FieldRef<"Seller", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Seller findUnique
+   */
+  export type SellerFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seller
+     */
+    select?: SellerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seller
+     */
+    omit?: SellerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerInclude<ExtArgs> | null
+    /**
+     * Filter, which Seller to fetch.
+     */
+    where: SellerWhereUniqueInput
+  }
+
+  /**
+   * Seller findUniqueOrThrow
+   */
+  export type SellerFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seller
+     */
+    select?: SellerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seller
+     */
+    omit?: SellerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerInclude<ExtArgs> | null
+    /**
+     * Filter, which Seller to fetch.
+     */
+    where: SellerWhereUniqueInput
+  }
+
+  /**
+   * Seller findFirst
+   */
+  export type SellerFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seller
+     */
+    select?: SellerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seller
+     */
+    omit?: SellerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerInclude<ExtArgs> | null
+    /**
+     * Filter, which Seller to fetch.
+     */
+    where?: SellerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Sellers to fetch.
+     */
+    orderBy?: SellerOrderByWithRelationInput | SellerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Sellers.
+     */
+    cursor?: SellerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Sellers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Sellers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Sellers.
+     */
+    distinct?: SellerScalarFieldEnum | SellerScalarFieldEnum[]
+  }
+
+  /**
+   * Seller findFirstOrThrow
+   */
+  export type SellerFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seller
+     */
+    select?: SellerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seller
+     */
+    omit?: SellerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerInclude<ExtArgs> | null
+    /**
+     * Filter, which Seller to fetch.
+     */
+    where?: SellerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Sellers to fetch.
+     */
+    orderBy?: SellerOrderByWithRelationInput | SellerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Sellers.
+     */
+    cursor?: SellerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Sellers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Sellers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Sellers.
+     */
+    distinct?: SellerScalarFieldEnum | SellerScalarFieldEnum[]
+  }
+
+  /**
+   * Seller findMany
+   */
+  export type SellerFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seller
+     */
+    select?: SellerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seller
+     */
+    omit?: SellerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerInclude<ExtArgs> | null
+    /**
+     * Filter, which Sellers to fetch.
+     */
+    where?: SellerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Sellers to fetch.
+     */
+    orderBy?: SellerOrderByWithRelationInput | SellerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Sellers.
+     */
+    cursor?: SellerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Sellers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Sellers.
+     */
+    skip?: number
+    distinct?: SellerScalarFieldEnum | SellerScalarFieldEnum[]
+  }
+
+  /**
+   * Seller create
+   */
+  export type SellerCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seller
+     */
+    select?: SellerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seller
+     */
+    omit?: SellerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Seller.
+     */
+    data: XOR<SellerCreateInput, SellerUncheckedCreateInput>
+  }
+
+  /**
+   * Seller createMany
+   */
+  export type SellerCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Sellers.
+     */
+    data: SellerCreateManyInput | SellerCreateManyInput[]
+  }
+
+  /**
+   * Seller createManyAndReturn
+   */
+  export type SellerCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seller
+     */
+    select?: SellerSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seller
+     */
+    omit?: SellerOmit<ExtArgs> | null
+    /**
+     * The data used to create many Sellers.
+     */
+    data: SellerCreateManyInput | SellerCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Seller update
+   */
+  export type SellerUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seller
+     */
+    select?: SellerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seller
+     */
+    omit?: SellerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Seller.
+     */
+    data: XOR<SellerUpdateInput, SellerUncheckedUpdateInput>
+    /**
+     * Choose, which Seller to update.
+     */
+    where: SellerWhereUniqueInput
+  }
+
+  /**
+   * Seller updateMany
+   */
+  export type SellerUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Sellers.
+     */
+    data: XOR<SellerUpdateManyMutationInput, SellerUncheckedUpdateManyInput>
+    /**
+     * Filter which Sellers to update
+     */
+    where?: SellerWhereInput
+    /**
+     * Limit how many Sellers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Seller updateManyAndReturn
+   */
+  export type SellerUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seller
+     */
+    select?: SellerSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seller
+     */
+    omit?: SellerOmit<ExtArgs> | null
+    /**
+     * The data used to update Sellers.
+     */
+    data: XOR<SellerUpdateManyMutationInput, SellerUncheckedUpdateManyInput>
+    /**
+     * Filter which Sellers to update
+     */
+    where?: SellerWhereInput
+    /**
+     * Limit how many Sellers to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Seller upsert
+   */
+  export type SellerUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seller
+     */
+    select?: SellerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seller
+     */
+    omit?: SellerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Seller to update in case it exists.
+     */
+    where: SellerWhereUniqueInput
+    /**
+     * In case the Seller found by the `where` argument doesn't exist, create a new Seller with this data.
+     */
+    create: XOR<SellerCreateInput, SellerUncheckedCreateInput>
+    /**
+     * In case the Seller was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SellerUpdateInput, SellerUncheckedUpdateInput>
+  }
+
+  /**
+   * Seller delete
+   */
+  export type SellerDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seller
+     */
+    select?: SellerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seller
+     */
+    omit?: SellerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerInclude<ExtArgs> | null
+    /**
+     * Filter which Seller to delete.
+     */
+    where: SellerWhereUniqueInput
+  }
+
+  /**
+   * Seller deleteMany
+   */
+  export type SellerDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Sellers to delete
+     */
+    where?: SellerWhereInput
+    /**
+     * Limit how many Sellers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Seller.transactions
+   */
+  export type Seller$transactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaction
+     */
+    omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    where?: TransactionWhereInput
+    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
+    cursor?: TransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
+  }
+
+  /**
+   * Seller.draftTransactions
+   */
+  export type Seller$draftTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DraftTransaction
+     */
+    select?: DraftTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DraftTransaction
+     */
+    omit?: DraftTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DraftTransactionInclude<ExtArgs> | null
+    where?: DraftTransactionWhereInput
+    orderBy?: DraftTransactionOrderByWithRelationInput | DraftTransactionOrderByWithRelationInput[]
+    cursor?: DraftTransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DraftTransactionScalarFieldEnum | DraftTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * Seller.payments
+   */
+  export type Seller$paymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SellerPayment
+     */
+    select?: SellerPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SellerPayment
+     */
+    omit?: SellerPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerPaymentInclude<ExtArgs> | null
+    where?: SellerPaymentWhereInput
+    orderBy?: SellerPaymentOrderByWithRelationInput | SellerPaymentOrderByWithRelationInput[]
+    cursor?: SellerPaymentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SellerPaymentScalarFieldEnum | SellerPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * Seller without action
+   */
+  export type SellerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seller
+     */
+    select?: SellerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seller
+     */
+    omit?: SellerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SellerPayment
+   */
+
+  export type AggregateSellerPayment = {
+    _count: SellerPaymentCountAggregateOutputType | null
+    _avg: SellerPaymentAvgAggregateOutputType | null
+    _sum: SellerPaymentSumAggregateOutputType | null
+    _min: SellerPaymentMinAggregateOutputType | null
+    _max: SellerPaymentMaxAggregateOutputType | null
+  }
+
+  export type SellerPaymentAvgAggregateOutputType = {
+    amount: number | null
+  }
+
+  export type SellerPaymentSumAggregateOutputType = {
+    amount: number | null
+  }
+
+  export type SellerPaymentMinAggregateOutputType = {
+    id: string | null
+    sellerId: string | null
+    buyerFirmId: string | null
+    amount: number | null
+    notes: string | null
+    paidAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type SellerPaymentMaxAggregateOutputType = {
+    id: string | null
+    sellerId: string | null
+    buyerFirmId: string | null
+    amount: number | null
+    notes: string | null
+    paidAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type SellerPaymentCountAggregateOutputType = {
+    id: number
+    sellerId: number
+    buyerFirmId: number
+    amount: number
+    notes: number
+    paidAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type SellerPaymentAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type SellerPaymentSumAggregateInputType = {
+    amount?: true
+  }
+
+  export type SellerPaymentMinAggregateInputType = {
+    id?: true
+    sellerId?: true
+    buyerFirmId?: true
+    amount?: true
+    notes?: true
+    paidAt?: true
+    createdAt?: true
+  }
+
+  export type SellerPaymentMaxAggregateInputType = {
+    id?: true
+    sellerId?: true
+    buyerFirmId?: true
+    amount?: true
+    notes?: true
+    paidAt?: true
+    createdAt?: true
+  }
+
+  export type SellerPaymentCountAggregateInputType = {
+    id?: true
+    sellerId?: true
+    buyerFirmId?: true
+    amount?: true
+    notes?: true
+    paidAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type SellerPaymentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SellerPayment to aggregate.
+     */
+    where?: SellerPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SellerPayments to fetch.
+     */
+    orderBy?: SellerPaymentOrderByWithRelationInput | SellerPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SellerPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SellerPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SellerPayments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SellerPayments
+    **/
+    _count?: true | SellerPaymentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SellerPaymentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SellerPaymentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SellerPaymentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SellerPaymentMaxAggregateInputType
+  }
+
+  export type GetSellerPaymentAggregateType<T extends SellerPaymentAggregateArgs> = {
+        [P in keyof T & keyof AggregateSellerPayment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSellerPayment[P]>
+      : GetScalarType<T[P], AggregateSellerPayment[P]>
+  }
+
+
+
+
+  export type SellerPaymentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SellerPaymentWhereInput
+    orderBy?: SellerPaymentOrderByWithAggregationInput | SellerPaymentOrderByWithAggregationInput[]
+    by: SellerPaymentScalarFieldEnum[] | SellerPaymentScalarFieldEnum
+    having?: SellerPaymentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SellerPaymentCountAggregateInputType | true
+    _avg?: SellerPaymentAvgAggregateInputType
+    _sum?: SellerPaymentSumAggregateInputType
+    _min?: SellerPaymentMinAggregateInputType
+    _max?: SellerPaymentMaxAggregateInputType
+  }
+
+  export type SellerPaymentGroupByOutputType = {
+    id: string
+    sellerId: string
+    buyerFirmId: string
+    amount: number
+    notes: string | null
+    paidAt: Date
+    createdAt: Date
+    _count: SellerPaymentCountAggregateOutputType | null
+    _avg: SellerPaymentAvgAggregateOutputType | null
+    _sum: SellerPaymentSumAggregateOutputType | null
+    _min: SellerPaymentMinAggregateOutputType | null
+    _max: SellerPaymentMaxAggregateOutputType | null
+  }
+
+  type GetSellerPaymentGroupByPayload<T extends SellerPaymentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SellerPaymentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SellerPaymentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SellerPaymentGroupByOutputType[P]>
+            : GetScalarType<T[P], SellerPaymentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SellerPaymentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    sellerId?: boolean
+    buyerFirmId?: boolean
+    amount?: boolean
+    notes?: boolean
+    paidAt?: boolean
+    createdAt?: boolean
+    seller?: boolean | SellerDefaultArgs<ExtArgs>
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sellerPayment"]>
+
+  export type SellerPaymentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    sellerId?: boolean
+    buyerFirmId?: boolean
+    amount?: boolean
+    notes?: boolean
+    paidAt?: boolean
+    createdAt?: boolean
+    seller?: boolean | SellerDefaultArgs<ExtArgs>
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sellerPayment"]>
+
+  export type SellerPaymentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    sellerId?: boolean
+    buyerFirmId?: boolean
+    amount?: boolean
+    notes?: boolean
+    paidAt?: boolean
+    createdAt?: boolean
+    seller?: boolean | SellerDefaultArgs<ExtArgs>
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sellerPayment"]>
+
+  export type SellerPaymentSelectScalar = {
+    id?: boolean
+    sellerId?: boolean
+    buyerFirmId?: boolean
+    amount?: boolean
+    notes?: boolean
+    paidAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type SellerPaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "sellerId" | "buyerFirmId" | "amount" | "notes" | "paidAt" | "createdAt", ExtArgs["result"]["sellerPayment"]>
+  export type SellerPaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    seller?: boolean | SellerDefaultArgs<ExtArgs>
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }
+  export type SellerPaymentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    seller?: boolean | SellerDefaultArgs<ExtArgs>
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }
+  export type SellerPaymentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    seller?: boolean | SellerDefaultArgs<ExtArgs>
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }
+
+  export type $SellerPaymentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SellerPayment"
+    objects: {
+      seller: Prisma.$SellerPayload<ExtArgs>
+      buyerFirm: Prisma.$BuyerFirmPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      sellerId: string
+      buyerFirmId: string
+      amount: number
+      notes: string | null
+      paidAt: Date
+      createdAt: Date
+    }, ExtArgs["result"]["sellerPayment"]>
+    composites: {}
+  }
+
+  type SellerPaymentGetPayload<S extends boolean | null | undefined | SellerPaymentDefaultArgs> = $Result.GetResult<Prisma.$SellerPaymentPayload, S>
+
+  type SellerPaymentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SellerPaymentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SellerPaymentCountAggregateInputType | true
+    }
+
+  export interface SellerPaymentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SellerPayment'], meta: { name: 'SellerPayment' } }
+    /**
+     * Find zero or one SellerPayment that matches the filter.
+     * @param {SellerPaymentFindUniqueArgs} args - Arguments to find a SellerPayment
+     * @example
+     * // Get one SellerPayment
+     * const sellerPayment = await prisma.sellerPayment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SellerPaymentFindUniqueArgs>(args: SelectSubset<T, SellerPaymentFindUniqueArgs<ExtArgs>>): Prisma__SellerPaymentClient<$Result.GetResult<Prisma.$SellerPaymentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SellerPayment that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SellerPaymentFindUniqueOrThrowArgs} args - Arguments to find a SellerPayment
+     * @example
+     * // Get one SellerPayment
+     * const sellerPayment = await prisma.sellerPayment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SellerPaymentFindUniqueOrThrowArgs>(args: SelectSubset<T, SellerPaymentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SellerPaymentClient<$Result.GetResult<Prisma.$SellerPaymentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SellerPayment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SellerPaymentFindFirstArgs} args - Arguments to find a SellerPayment
+     * @example
+     * // Get one SellerPayment
+     * const sellerPayment = await prisma.sellerPayment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SellerPaymentFindFirstArgs>(args?: SelectSubset<T, SellerPaymentFindFirstArgs<ExtArgs>>): Prisma__SellerPaymentClient<$Result.GetResult<Prisma.$SellerPaymentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SellerPayment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SellerPaymentFindFirstOrThrowArgs} args - Arguments to find a SellerPayment
+     * @example
+     * // Get one SellerPayment
+     * const sellerPayment = await prisma.sellerPayment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SellerPaymentFindFirstOrThrowArgs>(args?: SelectSubset<T, SellerPaymentFindFirstOrThrowArgs<ExtArgs>>): Prisma__SellerPaymentClient<$Result.GetResult<Prisma.$SellerPaymentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SellerPayments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SellerPaymentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SellerPayments
+     * const sellerPayments = await prisma.sellerPayment.findMany()
+     * 
+     * // Get first 10 SellerPayments
+     * const sellerPayments = await prisma.sellerPayment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const sellerPaymentWithIdOnly = await prisma.sellerPayment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SellerPaymentFindManyArgs>(args?: SelectSubset<T, SellerPaymentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SellerPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SellerPayment.
+     * @param {SellerPaymentCreateArgs} args - Arguments to create a SellerPayment.
+     * @example
+     * // Create one SellerPayment
+     * const SellerPayment = await prisma.sellerPayment.create({
+     *   data: {
+     *     // ... data to create a SellerPayment
+     *   }
+     * })
+     * 
+     */
+    create<T extends SellerPaymentCreateArgs>(args: SelectSubset<T, SellerPaymentCreateArgs<ExtArgs>>): Prisma__SellerPaymentClient<$Result.GetResult<Prisma.$SellerPaymentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SellerPayments.
+     * @param {SellerPaymentCreateManyArgs} args - Arguments to create many SellerPayments.
+     * @example
+     * // Create many SellerPayments
+     * const sellerPayment = await prisma.sellerPayment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SellerPaymentCreateManyArgs>(args?: SelectSubset<T, SellerPaymentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SellerPayments and returns the data saved in the database.
+     * @param {SellerPaymentCreateManyAndReturnArgs} args - Arguments to create many SellerPayments.
+     * @example
+     * // Create many SellerPayments
+     * const sellerPayment = await prisma.sellerPayment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SellerPayments and only return the `id`
+     * const sellerPaymentWithIdOnly = await prisma.sellerPayment.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SellerPaymentCreateManyAndReturnArgs>(args?: SelectSubset<T, SellerPaymentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SellerPaymentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SellerPayment.
+     * @param {SellerPaymentDeleteArgs} args - Arguments to delete one SellerPayment.
+     * @example
+     * // Delete one SellerPayment
+     * const SellerPayment = await prisma.sellerPayment.delete({
+     *   where: {
+     *     // ... filter to delete one SellerPayment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SellerPaymentDeleteArgs>(args: SelectSubset<T, SellerPaymentDeleteArgs<ExtArgs>>): Prisma__SellerPaymentClient<$Result.GetResult<Prisma.$SellerPaymentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SellerPayment.
+     * @param {SellerPaymentUpdateArgs} args - Arguments to update one SellerPayment.
+     * @example
+     * // Update one SellerPayment
+     * const sellerPayment = await prisma.sellerPayment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SellerPaymentUpdateArgs>(args: SelectSubset<T, SellerPaymentUpdateArgs<ExtArgs>>): Prisma__SellerPaymentClient<$Result.GetResult<Prisma.$SellerPaymentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SellerPayments.
+     * @param {SellerPaymentDeleteManyArgs} args - Arguments to filter SellerPayments to delete.
+     * @example
+     * // Delete a few SellerPayments
+     * const { count } = await prisma.sellerPayment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SellerPaymentDeleteManyArgs>(args?: SelectSubset<T, SellerPaymentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SellerPayments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SellerPaymentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SellerPayments
+     * const sellerPayment = await prisma.sellerPayment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SellerPaymentUpdateManyArgs>(args: SelectSubset<T, SellerPaymentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SellerPayments and returns the data updated in the database.
+     * @param {SellerPaymentUpdateManyAndReturnArgs} args - Arguments to update many SellerPayments.
+     * @example
+     * // Update many SellerPayments
+     * const sellerPayment = await prisma.sellerPayment.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SellerPayments and only return the `id`
+     * const sellerPaymentWithIdOnly = await prisma.sellerPayment.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SellerPaymentUpdateManyAndReturnArgs>(args: SelectSubset<T, SellerPaymentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SellerPaymentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SellerPayment.
+     * @param {SellerPaymentUpsertArgs} args - Arguments to update or create a SellerPayment.
+     * @example
+     * // Update or create a SellerPayment
+     * const sellerPayment = await prisma.sellerPayment.upsert({
+     *   create: {
+     *     // ... data to create a SellerPayment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SellerPayment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SellerPaymentUpsertArgs>(args: SelectSubset<T, SellerPaymentUpsertArgs<ExtArgs>>): Prisma__SellerPaymentClient<$Result.GetResult<Prisma.$SellerPaymentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SellerPayments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SellerPaymentCountArgs} args - Arguments to filter SellerPayments to count.
+     * @example
+     * // Count the number of SellerPayments
+     * const count = await prisma.sellerPayment.count({
+     *   where: {
+     *     // ... the filter for the SellerPayments we want to count
+     *   }
+     * })
+    **/
+    count<T extends SellerPaymentCountArgs>(
+      args?: Subset<T, SellerPaymentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SellerPaymentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SellerPayment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SellerPaymentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SellerPaymentAggregateArgs>(args: Subset<T, SellerPaymentAggregateArgs>): Prisma.PrismaPromise<GetSellerPaymentAggregateType<T>>
+
+    /**
+     * Group by SellerPayment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SellerPaymentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SellerPaymentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SellerPaymentGroupByArgs['orderBy'] }
+        : { orderBy?: SellerPaymentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SellerPaymentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSellerPaymentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SellerPayment model
+   */
+  readonly fields: SellerPaymentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SellerPayment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SellerPaymentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    seller<T extends SellerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SellerDefaultArgs<ExtArgs>>): Prisma__SellerClient<$Result.GetResult<Prisma.$SellerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    buyerFirm<T extends BuyerFirmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BuyerFirmDefaultArgs<ExtArgs>>): Prisma__BuyerFirmClient<$Result.GetResult<Prisma.$BuyerFirmPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SellerPayment model
+   */
+  interface SellerPaymentFieldRefs {
+    readonly id: FieldRef<"SellerPayment", 'String'>
+    readonly sellerId: FieldRef<"SellerPayment", 'String'>
+    readonly buyerFirmId: FieldRef<"SellerPayment", 'String'>
+    readonly amount: FieldRef<"SellerPayment", 'Float'>
+    readonly notes: FieldRef<"SellerPayment", 'String'>
+    readonly paidAt: FieldRef<"SellerPayment", 'DateTime'>
+    readonly createdAt: FieldRef<"SellerPayment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SellerPayment findUnique
+   */
+  export type SellerPaymentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SellerPayment
+     */
+    select?: SellerPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SellerPayment
+     */
+    omit?: SellerPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which SellerPayment to fetch.
+     */
+    where: SellerPaymentWhereUniqueInput
+  }
+
+  /**
+   * SellerPayment findUniqueOrThrow
+   */
+  export type SellerPaymentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SellerPayment
+     */
+    select?: SellerPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SellerPayment
+     */
+    omit?: SellerPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which SellerPayment to fetch.
+     */
+    where: SellerPaymentWhereUniqueInput
+  }
+
+  /**
+   * SellerPayment findFirst
+   */
+  export type SellerPaymentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SellerPayment
+     */
+    select?: SellerPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SellerPayment
+     */
+    omit?: SellerPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which SellerPayment to fetch.
+     */
+    where?: SellerPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SellerPayments to fetch.
+     */
+    orderBy?: SellerPaymentOrderByWithRelationInput | SellerPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SellerPayments.
+     */
+    cursor?: SellerPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SellerPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SellerPayments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SellerPayments.
+     */
+    distinct?: SellerPaymentScalarFieldEnum | SellerPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * SellerPayment findFirstOrThrow
+   */
+  export type SellerPaymentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SellerPayment
+     */
+    select?: SellerPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SellerPayment
+     */
+    omit?: SellerPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which SellerPayment to fetch.
+     */
+    where?: SellerPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SellerPayments to fetch.
+     */
+    orderBy?: SellerPaymentOrderByWithRelationInput | SellerPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SellerPayments.
+     */
+    cursor?: SellerPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SellerPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SellerPayments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SellerPayments.
+     */
+    distinct?: SellerPaymentScalarFieldEnum | SellerPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * SellerPayment findMany
+   */
+  export type SellerPaymentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SellerPayment
+     */
+    select?: SellerPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SellerPayment
+     */
+    omit?: SellerPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which SellerPayments to fetch.
+     */
+    where?: SellerPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SellerPayments to fetch.
+     */
+    orderBy?: SellerPaymentOrderByWithRelationInput | SellerPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SellerPayments.
+     */
+    cursor?: SellerPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SellerPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SellerPayments.
+     */
+    skip?: number
+    distinct?: SellerPaymentScalarFieldEnum | SellerPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * SellerPayment create
+   */
+  export type SellerPaymentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SellerPayment
+     */
+    select?: SellerPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SellerPayment
+     */
+    omit?: SellerPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerPaymentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SellerPayment.
+     */
+    data: XOR<SellerPaymentCreateInput, SellerPaymentUncheckedCreateInput>
+  }
+
+  /**
+   * SellerPayment createMany
+   */
+  export type SellerPaymentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SellerPayments.
+     */
+    data: SellerPaymentCreateManyInput | SellerPaymentCreateManyInput[]
+  }
+
+  /**
+   * SellerPayment createManyAndReturn
+   */
+  export type SellerPaymentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SellerPayment
+     */
+    select?: SellerPaymentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SellerPayment
+     */
+    omit?: SellerPaymentOmit<ExtArgs> | null
+    /**
+     * The data used to create many SellerPayments.
+     */
+    data: SellerPaymentCreateManyInput | SellerPaymentCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerPaymentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SellerPayment update
+   */
+  export type SellerPaymentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SellerPayment
+     */
+    select?: SellerPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SellerPayment
+     */
+    omit?: SellerPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerPaymentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SellerPayment.
+     */
+    data: XOR<SellerPaymentUpdateInput, SellerPaymentUncheckedUpdateInput>
+    /**
+     * Choose, which SellerPayment to update.
+     */
+    where: SellerPaymentWhereUniqueInput
+  }
+
+  /**
+   * SellerPayment updateMany
+   */
+  export type SellerPaymentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SellerPayments.
+     */
+    data: XOR<SellerPaymentUpdateManyMutationInput, SellerPaymentUncheckedUpdateManyInput>
+    /**
+     * Filter which SellerPayments to update
+     */
+    where?: SellerPaymentWhereInput
+    /**
+     * Limit how many SellerPayments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SellerPayment updateManyAndReturn
+   */
+  export type SellerPaymentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SellerPayment
+     */
+    select?: SellerPaymentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SellerPayment
+     */
+    omit?: SellerPaymentOmit<ExtArgs> | null
+    /**
+     * The data used to update SellerPayments.
+     */
+    data: XOR<SellerPaymentUpdateManyMutationInput, SellerPaymentUncheckedUpdateManyInput>
+    /**
+     * Filter which SellerPayments to update
+     */
+    where?: SellerPaymentWhereInput
+    /**
+     * Limit how many SellerPayments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerPaymentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SellerPayment upsert
+   */
+  export type SellerPaymentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SellerPayment
+     */
+    select?: SellerPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SellerPayment
+     */
+    omit?: SellerPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerPaymentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SellerPayment to update in case it exists.
+     */
+    where: SellerPaymentWhereUniqueInput
+    /**
+     * In case the SellerPayment found by the `where` argument doesn't exist, create a new SellerPayment with this data.
+     */
+    create: XOR<SellerPaymentCreateInput, SellerPaymentUncheckedCreateInput>
+    /**
+     * In case the SellerPayment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SellerPaymentUpdateInput, SellerPaymentUncheckedUpdateInput>
+  }
+
+  /**
+   * SellerPayment delete
+   */
+  export type SellerPaymentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SellerPayment
+     */
+    select?: SellerPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SellerPayment
+     */
+    omit?: SellerPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerPaymentInclude<ExtArgs> | null
+    /**
+     * Filter which SellerPayment to delete.
+     */
+    where: SellerPaymentWhereUniqueInput
+  }
+
+  /**
+   * SellerPayment deleteMany
+   */
+  export type SellerPaymentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SellerPayments to delete
+     */
+    where?: SellerPaymentWhereInput
+    /**
+     * Limit how many SellerPayments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SellerPayment without action
+   */
+  export type SellerPaymentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SellerPayment
+     */
+    select?: SellerPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SellerPayment
+     */
+    omit?: SellerPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SellerPaymentInclude<ExtArgs> | null
   }
 
 
@@ -12146,6 +14848,7 @@ export namespace Prisma {
   export const TransactionScalarFieldEnum: {
     id: 'id',
     growerId: 'growerId',
+    sellerId: 'sellerId',
     buyerFirmId: 'buyerFirmId',
     fruitType: 'fruitType',
     quantity: 'quantity',
@@ -12222,6 +14925,7 @@ export namespace Prisma {
   export const DraftTransactionScalarFieldEnum: {
     id: 'id',
     growerId: 'growerId',
+    sellerId: 'sellerId',
     buyerFirmId: 'buyerFirmId',
     fruitType: 'fruitType',
     quantity: 'quantity',
@@ -12234,6 +14938,31 @@ export namespace Prisma {
   };
 
   export type DraftTransactionScalarFieldEnum = (typeof DraftTransactionScalarFieldEnum)[keyof typeof DraftTransactionScalarFieldEnum]
+
+
+  export const SellerScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    mobile: 'mobile',
+    address: 'address',
+    buyerFirmId: 'buyerFirmId',
+    createdAt: 'createdAt'
+  };
+
+  export type SellerScalarFieldEnum = (typeof SellerScalarFieldEnum)[keyof typeof SellerScalarFieldEnum]
+
+
+  export const SellerPaymentScalarFieldEnum: {
+    id: 'id',
+    sellerId: 'sellerId',
+    buyerFirmId: 'buyerFirmId',
+    amount: 'amount',
+    notes: 'notes',
+    paidAt: 'paidAt',
+    createdAt: 'createdAt'
+  };
+
+  export type SellerPaymentScalarFieldEnum = (typeof SellerPaymentScalarFieldEnum)[keyof typeof SellerPaymentScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -12310,8 +15039,10 @@ export namespace Prisma {
     logoUrl?: StringNullableFilter<"BuyerFirm"> | string | null
     users?: UserListRelationFilter
     growers?: GrowerListRelationFilter
+    sellers?: SellerListRelationFilter
     transactions?: TransactionListRelationFilter
     payments?: PaymentListRelationFilter
+    sellerPayments?: SellerPaymentListRelationFilter
     draftTransactions?: DraftTransactionListRelationFilter
   }
 
@@ -12327,8 +15058,10 @@ export namespace Prisma {
     logoUrl?: SortOrderInput | SortOrder
     users?: UserOrderByRelationAggregateInput
     growers?: GrowerOrderByRelationAggregateInput
+    sellers?: SellerOrderByRelationAggregateInput
     transactions?: TransactionOrderByRelationAggregateInput
     payments?: PaymentOrderByRelationAggregateInput
+    sellerPayments?: SellerPaymentOrderByRelationAggregateInput
     draftTransactions?: DraftTransactionOrderByRelationAggregateInput
   }
 
@@ -12347,8 +15080,10 @@ export namespace Prisma {
     logoUrl?: StringNullableFilter<"BuyerFirm"> | string | null
     users?: UserListRelationFilter
     growers?: GrowerListRelationFilter
+    sellers?: SellerListRelationFilter
     transactions?: TransactionListRelationFilter
     payments?: PaymentListRelationFilter
+    sellerPayments?: SellerPaymentListRelationFilter
     draftTransactions?: DraftTransactionListRelationFilter
   }, "id" | "uniqueId">
 
@@ -12527,7 +15262,8 @@ export namespace Prisma {
     OR?: TransactionWhereInput[]
     NOT?: TransactionWhereInput | TransactionWhereInput[]
     id?: StringFilter<"Transaction"> | string
-    growerId?: StringFilter<"Transaction"> | string
+    growerId?: StringNullableFilter<"Transaction"> | string | null
+    sellerId?: StringNullableFilter<"Transaction"> | string | null
     buyerFirmId?: StringFilter<"Transaction"> | string
     fruitType?: StringFilter<"Transaction"> | string
     quantity?: FloatFilter<"Transaction"> | number
@@ -12545,13 +15281,15 @@ export namespace Prisma {
     notes?: StringNullableFilter<"Transaction"> | string | null
     notified?: BoolFilter<"Transaction"> | boolean
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
-    grower?: XOR<GrowerScalarRelationFilter, GrowerWhereInput>
+    grower?: XOR<GrowerNullableScalarRelationFilter, GrowerWhereInput> | null
+    seller?: XOR<SellerNullableScalarRelationFilter, SellerWhereInput> | null
     buyerFirm?: XOR<BuyerFirmScalarRelationFilter, BuyerFirmWhereInput>
   }
 
   export type TransactionOrderByWithRelationInput = {
     id?: SortOrder
-    growerId?: SortOrder
+    growerId?: SortOrderInput | SortOrder
+    sellerId?: SortOrderInput | SortOrder
     buyerFirmId?: SortOrder
     fruitType?: SortOrder
     quantity?: SortOrder
@@ -12570,6 +15308,7 @@ export namespace Prisma {
     notified?: SortOrder
     createdAt?: SortOrder
     grower?: GrowerOrderByWithRelationInput
+    seller?: SellerOrderByWithRelationInput
     buyerFirm?: BuyerFirmOrderByWithRelationInput
   }
 
@@ -12578,7 +15317,8 @@ export namespace Prisma {
     AND?: TransactionWhereInput | TransactionWhereInput[]
     OR?: TransactionWhereInput[]
     NOT?: TransactionWhereInput | TransactionWhereInput[]
-    growerId?: StringFilter<"Transaction"> | string
+    growerId?: StringNullableFilter<"Transaction"> | string | null
+    sellerId?: StringNullableFilter<"Transaction"> | string | null
     buyerFirmId?: StringFilter<"Transaction"> | string
     fruitType?: StringFilter<"Transaction"> | string
     quantity?: FloatFilter<"Transaction"> | number
@@ -12596,13 +15336,15 @@ export namespace Prisma {
     notes?: StringNullableFilter<"Transaction"> | string | null
     notified?: BoolFilter<"Transaction"> | boolean
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
-    grower?: XOR<GrowerScalarRelationFilter, GrowerWhereInput>
+    grower?: XOR<GrowerNullableScalarRelationFilter, GrowerWhereInput> | null
+    seller?: XOR<SellerNullableScalarRelationFilter, SellerWhereInput> | null
     buyerFirm?: XOR<BuyerFirmScalarRelationFilter, BuyerFirmWhereInput>
   }, "id">
 
   export type TransactionOrderByWithAggregationInput = {
     id?: SortOrder
-    growerId?: SortOrder
+    growerId?: SortOrderInput | SortOrder
+    sellerId?: SortOrderInput | SortOrder
     buyerFirmId?: SortOrder
     fruitType?: SortOrder
     quantity?: SortOrder
@@ -12632,7 +15374,8 @@ export namespace Prisma {
     OR?: TransactionScalarWhereWithAggregatesInput[]
     NOT?: TransactionScalarWhereWithAggregatesInput | TransactionScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Transaction"> | string
-    growerId?: StringWithAggregatesFilter<"Transaction"> | string
+    growerId?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
+    sellerId?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     buyerFirmId?: StringWithAggregatesFilter<"Transaction"> | string
     fruitType?: StringWithAggregatesFilter<"Transaction"> | string
     quantity?: FloatWithAggregatesFilter<"Transaction"> | number
@@ -12914,7 +15657,8 @@ export namespace Prisma {
     OR?: DraftTransactionWhereInput[]
     NOT?: DraftTransactionWhereInput | DraftTransactionWhereInput[]
     id?: StringFilter<"DraftTransaction"> | string
-    growerId?: StringFilter<"DraftTransaction"> | string
+    growerId?: StringNullableFilter<"DraftTransaction"> | string | null
+    sellerId?: StringNullableFilter<"DraftTransaction"> | string | null
     buyerFirmId?: StringFilter<"DraftTransaction"> | string
     fruitType?: StringFilter<"DraftTransaction"> | string
     quantity?: FloatFilter<"DraftTransaction"> | number
@@ -12924,14 +15668,16 @@ export namespace Prisma {
     createdById?: StringFilter<"DraftTransaction"> | string
     status?: StringFilter<"DraftTransaction"> | string
     createdAt?: DateTimeFilter<"DraftTransaction"> | Date | string
-    grower?: XOR<GrowerScalarRelationFilter, GrowerWhereInput>
+    grower?: XOR<GrowerNullableScalarRelationFilter, GrowerWhereInput> | null
+    seller?: XOR<SellerNullableScalarRelationFilter, SellerWhereInput> | null
     buyerFirm?: XOR<BuyerFirmScalarRelationFilter, BuyerFirmWhereInput>
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type DraftTransactionOrderByWithRelationInput = {
     id?: SortOrder
-    growerId?: SortOrder
+    growerId?: SortOrderInput | SortOrder
+    sellerId?: SortOrderInput | SortOrder
     buyerFirmId?: SortOrder
     fruitType?: SortOrder
     quantity?: SortOrder
@@ -12942,6 +15688,7 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     grower?: GrowerOrderByWithRelationInput
+    seller?: SellerOrderByWithRelationInput
     buyerFirm?: BuyerFirmOrderByWithRelationInput
     createdBy?: UserOrderByWithRelationInput
   }
@@ -12951,7 +15698,8 @@ export namespace Prisma {
     AND?: DraftTransactionWhereInput | DraftTransactionWhereInput[]
     OR?: DraftTransactionWhereInput[]
     NOT?: DraftTransactionWhereInput | DraftTransactionWhereInput[]
-    growerId?: StringFilter<"DraftTransaction"> | string
+    growerId?: StringNullableFilter<"DraftTransaction"> | string | null
+    sellerId?: StringNullableFilter<"DraftTransaction"> | string | null
     buyerFirmId?: StringFilter<"DraftTransaction"> | string
     fruitType?: StringFilter<"DraftTransaction"> | string
     quantity?: FloatFilter<"DraftTransaction"> | number
@@ -12961,14 +15709,16 @@ export namespace Prisma {
     createdById?: StringFilter<"DraftTransaction"> | string
     status?: StringFilter<"DraftTransaction"> | string
     createdAt?: DateTimeFilter<"DraftTransaction"> | Date | string
-    grower?: XOR<GrowerScalarRelationFilter, GrowerWhereInput>
+    grower?: XOR<GrowerNullableScalarRelationFilter, GrowerWhereInput> | null
+    seller?: XOR<SellerNullableScalarRelationFilter, SellerWhereInput> | null
     buyerFirm?: XOR<BuyerFirmScalarRelationFilter, BuyerFirmWhereInput>
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type DraftTransactionOrderByWithAggregationInput = {
     id?: SortOrder
-    growerId?: SortOrder
+    growerId?: SortOrderInput | SortOrder
+    sellerId?: SortOrderInput | SortOrder
     buyerFirmId?: SortOrder
     fruitType?: SortOrder
     quantity?: SortOrder
@@ -12990,7 +15740,8 @@ export namespace Prisma {
     OR?: DraftTransactionScalarWhereWithAggregatesInput[]
     NOT?: DraftTransactionScalarWhereWithAggregatesInput | DraftTransactionScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"DraftTransaction"> | string
-    growerId?: StringWithAggregatesFilter<"DraftTransaction"> | string
+    growerId?: StringNullableWithAggregatesFilter<"DraftTransaction"> | string | null
+    sellerId?: StringNullableWithAggregatesFilter<"DraftTransaction"> | string | null
     buyerFirmId?: StringWithAggregatesFilter<"DraftTransaction"> | string
     fruitType?: StringWithAggregatesFilter<"DraftTransaction"> | string
     quantity?: FloatWithAggregatesFilter<"DraftTransaction"> | number
@@ -13000,6 +15751,146 @@ export namespace Prisma {
     createdById?: StringWithAggregatesFilter<"DraftTransaction"> | string
     status?: StringWithAggregatesFilter<"DraftTransaction"> | string
     createdAt?: DateTimeWithAggregatesFilter<"DraftTransaction"> | Date | string
+  }
+
+  export type SellerWhereInput = {
+    AND?: SellerWhereInput | SellerWhereInput[]
+    OR?: SellerWhereInput[]
+    NOT?: SellerWhereInput | SellerWhereInput[]
+    id?: StringFilter<"Seller"> | string
+    name?: StringFilter<"Seller"> | string
+    mobile?: StringFilter<"Seller"> | string
+    address?: StringNullableFilter<"Seller"> | string | null
+    buyerFirmId?: StringFilter<"Seller"> | string
+    createdAt?: DateTimeFilter<"Seller"> | Date | string
+    buyerFirm?: XOR<BuyerFirmScalarRelationFilter, BuyerFirmWhereInput>
+    transactions?: TransactionListRelationFilter
+    draftTransactions?: DraftTransactionListRelationFilter
+    payments?: SellerPaymentListRelationFilter
+  }
+
+  export type SellerOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    mobile?: SortOrder
+    address?: SortOrderInput | SortOrder
+    buyerFirmId?: SortOrder
+    createdAt?: SortOrder
+    buyerFirm?: BuyerFirmOrderByWithRelationInput
+    transactions?: TransactionOrderByRelationAggregateInput
+    draftTransactions?: DraftTransactionOrderByRelationAggregateInput
+    payments?: SellerPaymentOrderByRelationAggregateInput
+  }
+
+  export type SellerWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    mobile_buyerFirmId?: SellerMobileBuyerFirmIdCompoundUniqueInput
+    AND?: SellerWhereInput | SellerWhereInput[]
+    OR?: SellerWhereInput[]
+    NOT?: SellerWhereInput | SellerWhereInput[]
+    name?: StringFilter<"Seller"> | string
+    mobile?: StringFilter<"Seller"> | string
+    address?: StringNullableFilter<"Seller"> | string | null
+    buyerFirmId?: StringFilter<"Seller"> | string
+    createdAt?: DateTimeFilter<"Seller"> | Date | string
+    buyerFirm?: XOR<BuyerFirmScalarRelationFilter, BuyerFirmWhereInput>
+    transactions?: TransactionListRelationFilter
+    draftTransactions?: DraftTransactionListRelationFilter
+    payments?: SellerPaymentListRelationFilter
+  }, "id" | "mobile_buyerFirmId">
+
+  export type SellerOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    mobile?: SortOrder
+    address?: SortOrderInput | SortOrder
+    buyerFirmId?: SortOrder
+    createdAt?: SortOrder
+    _count?: SellerCountOrderByAggregateInput
+    _max?: SellerMaxOrderByAggregateInput
+    _min?: SellerMinOrderByAggregateInput
+  }
+
+  export type SellerScalarWhereWithAggregatesInput = {
+    AND?: SellerScalarWhereWithAggregatesInput | SellerScalarWhereWithAggregatesInput[]
+    OR?: SellerScalarWhereWithAggregatesInput[]
+    NOT?: SellerScalarWhereWithAggregatesInput | SellerScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Seller"> | string
+    name?: StringWithAggregatesFilter<"Seller"> | string
+    mobile?: StringWithAggregatesFilter<"Seller"> | string
+    address?: StringNullableWithAggregatesFilter<"Seller"> | string | null
+    buyerFirmId?: StringWithAggregatesFilter<"Seller"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Seller"> | Date | string
+  }
+
+  export type SellerPaymentWhereInput = {
+    AND?: SellerPaymentWhereInput | SellerPaymentWhereInput[]
+    OR?: SellerPaymentWhereInput[]
+    NOT?: SellerPaymentWhereInput | SellerPaymentWhereInput[]
+    id?: StringFilter<"SellerPayment"> | string
+    sellerId?: StringFilter<"SellerPayment"> | string
+    buyerFirmId?: StringFilter<"SellerPayment"> | string
+    amount?: FloatFilter<"SellerPayment"> | number
+    notes?: StringNullableFilter<"SellerPayment"> | string | null
+    paidAt?: DateTimeFilter<"SellerPayment"> | Date | string
+    createdAt?: DateTimeFilter<"SellerPayment"> | Date | string
+    seller?: XOR<SellerScalarRelationFilter, SellerWhereInput>
+    buyerFirm?: XOR<BuyerFirmScalarRelationFilter, BuyerFirmWhereInput>
+  }
+
+  export type SellerPaymentOrderByWithRelationInput = {
+    id?: SortOrder
+    sellerId?: SortOrder
+    buyerFirmId?: SortOrder
+    amount?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    paidAt?: SortOrder
+    createdAt?: SortOrder
+    seller?: SellerOrderByWithRelationInput
+    buyerFirm?: BuyerFirmOrderByWithRelationInput
+  }
+
+  export type SellerPaymentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SellerPaymentWhereInput | SellerPaymentWhereInput[]
+    OR?: SellerPaymentWhereInput[]
+    NOT?: SellerPaymentWhereInput | SellerPaymentWhereInput[]
+    sellerId?: StringFilter<"SellerPayment"> | string
+    buyerFirmId?: StringFilter<"SellerPayment"> | string
+    amount?: FloatFilter<"SellerPayment"> | number
+    notes?: StringNullableFilter<"SellerPayment"> | string | null
+    paidAt?: DateTimeFilter<"SellerPayment"> | Date | string
+    createdAt?: DateTimeFilter<"SellerPayment"> | Date | string
+    seller?: XOR<SellerScalarRelationFilter, SellerWhereInput>
+    buyerFirm?: XOR<BuyerFirmScalarRelationFilter, BuyerFirmWhereInput>
+  }, "id">
+
+  export type SellerPaymentOrderByWithAggregationInput = {
+    id?: SortOrder
+    sellerId?: SortOrder
+    buyerFirmId?: SortOrder
+    amount?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    paidAt?: SortOrder
+    createdAt?: SortOrder
+    _count?: SellerPaymentCountOrderByAggregateInput
+    _avg?: SellerPaymentAvgOrderByAggregateInput
+    _max?: SellerPaymentMaxOrderByAggregateInput
+    _min?: SellerPaymentMinOrderByAggregateInput
+    _sum?: SellerPaymentSumOrderByAggregateInput
+  }
+
+  export type SellerPaymentScalarWhereWithAggregatesInput = {
+    AND?: SellerPaymentScalarWhereWithAggregatesInput | SellerPaymentScalarWhereWithAggregatesInput[]
+    OR?: SellerPaymentScalarWhereWithAggregatesInput[]
+    NOT?: SellerPaymentScalarWhereWithAggregatesInput | SellerPaymentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SellerPayment"> | string
+    sellerId?: StringWithAggregatesFilter<"SellerPayment"> | string
+    buyerFirmId?: StringWithAggregatesFilter<"SellerPayment"> | string
+    amount?: FloatWithAggregatesFilter<"SellerPayment"> | number
+    notes?: StringNullableWithAggregatesFilter<"SellerPayment"> | string | null
+    paidAt?: DateTimeWithAggregatesFilter<"SellerPayment"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"SellerPayment"> | Date | string
   }
 
   export type BuyerFirmCreateInput = {
@@ -13014,8 +15905,10 @@ export namespace Prisma {
     logoUrl?: string | null
     users?: UserCreateNestedManyWithoutBuyerFirmInput
     growers?: GrowerCreateNestedManyWithoutBuyerFirmInput
+    sellers?: SellerCreateNestedManyWithoutBuyerFirmInput
     transactions?: TransactionCreateNestedManyWithoutBuyerFirmInput
     payments?: PaymentCreateNestedManyWithoutBuyerFirmInput
+    sellerPayments?: SellerPaymentCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionCreateNestedManyWithoutBuyerFirmInput
   }
 
@@ -13031,8 +15924,10 @@ export namespace Prisma {
     logoUrl?: string | null
     users?: UserUncheckedCreateNestedManyWithoutBuyerFirmInput
     growers?: GrowerUncheckedCreateNestedManyWithoutBuyerFirmInput
+    sellers?: SellerUncheckedCreateNestedManyWithoutBuyerFirmInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
     payments?: PaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
+    sellerPayments?: SellerPaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
   }
 
@@ -13048,8 +15943,10 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateManyWithoutBuyerFirmNestedInput
     growers?: GrowerUpdateManyWithoutBuyerFirmNestedInput
+    sellers?: SellerUpdateManyWithoutBuyerFirmNestedInput
     transactions?: TransactionUpdateManyWithoutBuyerFirmNestedInput
     payments?: PaymentUpdateManyWithoutBuyerFirmNestedInput
+    sellerPayments?: SellerPaymentUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUpdateManyWithoutBuyerFirmNestedInput
   }
 
@@ -13065,8 +15962,10 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutBuyerFirmNestedInput
     growers?: GrowerUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    sellers?: SellerUncheckedUpdateManyWithoutBuyerFirmNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    sellerPayments?: SellerPaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
   }
 
@@ -13272,13 +16171,15 @@ export namespace Prisma {
     notes?: string | null
     notified?: boolean
     createdAt?: Date | string
-    grower: GrowerCreateNestedOneWithoutTransactionsInput
+    grower?: GrowerCreateNestedOneWithoutTransactionsInput
+    seller?: SellerCreateNestedOneWithoutTransactionsInput
     buyerFirm: BuyerFirmCreateNestedOneWithoutTransactionsInput
   }
 
   export type TransactionUncheckedCreateInput = {
     id?: string
-    growerId: string
+    growerId?: string | null
+    sellerId?: string | null
     buyerFirmId: string
     fruitType: string
     quantity: number
@@ -13316,13 +16217,15 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     notified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    grower?: GrowerUpdateOneRequiredWithoutTransactionsNestedInput
+    grower?: GrowerUpdateOneWithoutTransactionsNestedInput
+    seller?: SellerUpdateOneWithoutTransactionsNestedInput
     buyerFirm?: BuyerFirmUpdateOneRequiredWithoutTransactionsNestedInput
   }
 
   export type TransactionUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    growerId?: StringFieldUpdateOperationsInput | string
+    growerId?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
     buyerFirmId?: StringFieldUpdateOperationsInput | string
     fruitType?: StringFieldUpdateOperationsInput | string
     quantity?: FloatFieldUpdateOperationsInput | number
@@ -13344,7 +16247,8 @@ export namespace Prisma {
 
   export type TransactionCreateManyInput = {
     id?: string
-    growerId: string
+    growerId?: string | null
+    sellerId?: string | null
     buyerFirmId: string
     fruitType: string
     quantity: number
@@ -13386,7 +16290,8 @@ export namespace Prisma {
 
   export type TransactionUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    growerId?: StringFieldUpdateOperationsInput | string
+    growerId?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
     buyerFirmId?: StringFieldUpdateOperationsInput | string
     fruitType?: StringFieldUpdateOperationsInput | string
     quantity?: FloatFieldUpdateOperationsInput | number
@@ -13684,14 +16589,16 @@ export namespace Prisma {
     notes?: string | null
     status?: string
     createdAt?: Date | string
-    grower: GrowerCreateNestedOneWithoutDraftTransactionsInput
+    grower?: GrowerCreateNestedOneWithoutDraftTransactionsInput
+    seller?: SellerCreateNestedOneWithoutDraftTransactionsInput
     buyerFirm: BuyerFirmCreateNestedOneWithoutDraftTransactionsInput
     createdBy: UserCreateNestedOneWithoutDraftTransactionsInput
   }
 
   export type DraftTransactionUncheckedCreateInput = {
     id?: string
-    growerId: string
+    growerId?: string | null
+    sellerId?: string | null
     buyerFirmId: string
     fruitType: string
     quantity: number
@@ -13712,14 +16619,16 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    grower?: GrowerUpdateOneRequiredWithoutDraftTransactionsNestedInput
+    grower?: GrowerUpdateOneWithoutDraftTransactionsNestedInput
+    seller?: SellerUpdateOneWithoutDraftTransactionsNestedInput
     buyerFirm?: BuyerFirmUpdateOneRequiredWithoutDraftTransactionsNestedInput
     createdBy?: UserUpdateOneRequiredWithoutDraftTransactionsNestedInput
   }
 
   export type DraftTransactionUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    growerId?: StringFieldUpdateOperationsInput | string
+    growerId?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
     buyerFirmId?: StringFieldUpdateOperationsInput | string
     fruitType?: StringFieldUpdateOperationsInput | string
     quantity?: FloatFieldUpdateOperationsInput | number
@@ -13733,7 +16642,8 @@ export namespace Prisma {
 
   export type DraftTransactionCreateManyInput = {
     id?: string
-    growerId: string
+    growerId?: string | null
+    sellerId?: string | null
     buyerFirmId: string
     fruitType: string
     quantity: number
@@ -13758,7 +16668,8 @@ export namespace Prisma {
 
   export type DraftTransactionUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    growerId?: StringFieldUpdateOperationsInput | string
+    growerId?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
     buyerFirmId?: StringFieldUpdateOperationsInput | string
     fruitType?: StringFieldUpdateOperationsInput | string
     quantity?: FloatFieldUpdateOperationsInput | number
@@ -13767,6 +16678,148 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdById?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SellerCreateInput = {
+    id?: string
+    name: string
+    mobile: string
+    address?: string | null
+    createdAt?: Date | string
+    buyerFirm: BuyerFirmCreateNestedOneWithoutSellersInput
+    transactions?: TransactionCreateNestedManyWithoutSellerInput
+    draftTransactions?: DraftTransactionCreateNestedManyWithoutSellerInput
+    payments?: SellerPaymentCreateNestedManyWithoutSellerInput
+  }
+
+  export type SellerUncheckedCreateInput = {
+    id?: string
+    name: string
+    mobile: string
+    address?: string | null
+    buyerFirmId: string
+    createdAt?: Date | string
+    transactions?: TransactionUncheckedCreateNestedManyWithoutSellerInput
+    draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutSellerInput
+    payments?: SellerPaymentUncheckedCreateNestedManyWithoutSellerInput
+  }
+
+  export type SellerUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    buyerFirm?: BuyerFirmUpdateOneRequiredWithoutSellersNestedInput
+    transactions?: TransactionUpdateManyWithoutSellerNestedInput
+    draftTransactions?: DraftTransactionUpdateManyWithoutSellerNestedInput
+    payments?: SellerPaymentUpdateManyWithoutSellerNestedInput
+  }
+
+  export type SellerUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerFirmId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: TransactionUncheckedUpdateManyWithoutSellerNestedInput
+    draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutSellerNestedInput
+    payments?: SellerPaymentUncheckedUpdateManyWithoutSellerNestedInput
+  }
+
+  export type SellerCreateManyInput = {
+    id?: string
+    name: string
+    mobile: string
+    address?: string | null
+    buyerFirmId: string
+    createdAt?: Date | string
+  }
+
+  export type SellerUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SellerUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerFirmId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SellerPaymentCreateInput = {
+    id?: string
+    amount: number
+    notes?: string | null
+    paidAt?: Date | string
+    createdAt?: Date | string
+    seller: SellerCreateNestedOneWithoutPaymentsInput
+    buyerFirm: BuyerFirmCreateNestedOneWithoutSellerPaymentsInput
+  }
+
+  export type SellerPaymentUncheckedCreateInput = {
+    id?: string
+    sellerId: string
+    buyerFirmId: string
+    amount: number
+    notes?: string | null
+    paidAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type SellerPaymentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    seller?: SellerUpdateOneRequiredWithoutPaymentsNestedInput
+    buyerFirm?: BuyerFirmUpdateOneRequiredWithoutSellerPaymentsNestedInput
+  }
+
+  export type SellerPaymentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sellerId?: StringFieldUpdateOperationsInput | string
+    buyerFirmId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SellerPaymentCreateManyInput = {
+    id?: string
+    sellerId: string
+    buyerFirmId: string
+    amount: number
+    notes?: string | null
+    paidAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type SellerPaymentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SellerPaymentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sellerId?: StringFieldUpdateOperationsInput | string
+    buyerFirmId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -13832,6 +16885,12 @@ export namespace Prisma {
     none?: GrowerWhereInput
   }
 
+  export type SellerListRelationFilter = {
+    every?: SellerWhereInput
+    some?: SellerWhereInput
+    none?: SellerWhereInput
+  }
+
   export type TransactionListRelationFilter = {
     every?: TransactionWhereInput
     some?: TransactionWhereInput
@@ -13842,6 +16901,12 @@ export namespace Prisma {
     every?: PaymentWhereInput
     some?: PaymentWhereInput
     none?: PaymentWhereInput
+  }
+
+  export type SellerPaymentListRelationFilter = {
+    every?: SellerPaymentWhereInput
+    some?: SellerPaymentWhereInput
+    none?: SellerPaymentWhereInput
   }
 
   export type DraftTransactionListRelationFilter = {
@@ -13863,11 +16928,19 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type SellerOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type TransactionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type PaymentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SellerPaymentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -14078,14 +17151,20 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-  export type GrowerScalarRelationFilter = {
-    is?: GrowerWhereInput
-    isNot?: GrowerWhereInput
+  export type GrowerNullableScalarRelationFilter = {
+    is?: GrowerWhereInput | null
+    isNot?: GrowerWhereInput | null
+  }
+
+  export type SellerNullableScalarRelationFilter = {
+    is?: SellerWhereInput | null
+    isNot?: SellerWhereInput | null
   }
 
   export type TransactionCountOrderByAggregateInput = {
     id?: SortOrder
     growerId?: SortOrder
+    sellerId?: SortOrder
     buyerFirmId?: SortOrder
     fruitType?: SortOrder
     quantity?: SortOrder
@@ -14121,6 +17200,7 @@ export namespace Prisma {
   export type TransactionMaxOrderByAggregateInput = {
     id?: SortOrder
     growerId?: SortOrder
+    sellerId?: SortOrder
     buyerFirmId?: SortOrder
     fruitType?: SortOrder
     quantity?: SortOrder
@@ -14143,6 +17223,7 @@ export namespace Prisma {
   export type TransactionMinOrderByAggregateInput = {
     id?: SortOrder
     growerId?: SortOrder
+    sellerId?: SortOrder
     buyerFirmId?: SortOrder
     fruitType?: SortOrder
     quantity?: SortOrder
@@ -14197,6 +17278,11 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type GrowerScalarRelationFilter = {
+    is?: GrowerWhereInput
+    isNot?: GrowerWhereInput
   }
 
   export type PaymentCountOrderByAggregateInput = {
@@ -14332,6 +17418,7 @@ export namespace Prisma {
   export type DraftTransactionCountOrderByAggregateInput = {
     id?: SortOrder
     growerId?: SortOrder
+    sellerId?: SortOrder
     buyerFirmId?: SortOrder
     fruitType?: SortOrder
     quantity?: SortOrder
@@ -14351,6 +17438,7 @@ export namespace Prisma {
   export type DraftTransactionMaxOrderByAggregateInput = {
     id?: SortOrder
     growerId?: SortOrder
+    sellerId?: SortOrder
     buyerFirmId?: SortOrder
     fruitType?: SortOrder
     quantity?: SortOrder
@@ -14365,6 +17453,7 @@ export namespace Prisma {
   export type DraftTransactionMinOrderByAggregateInput = {
     id?: SortOrder
     growerId?: SortOrder
+    sellerId?: SortOrder
     buyerFirmId?: SortOrder
     fruitType?: SortOrder
     quantity?: SortOrder
@@ -14381,6 +17470,81 @@ export namespace Prisma {
     rate?: SortOrder
   }
 
+  export type SellerMobileBuyerFirmIdCompoundUniqueInput = {
+    mobile: string
+    buyerFirmId: string
+  }
+
+  export type SellerCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    mobile?: SortOrder
+    address?: SortOrder
+    buyerFirmId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SellerMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    mobile?: SortOrder
+    address?: SortOrder
+    buyerFirmId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SellerMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    mobile?: SortOrder
+    address?: SortOrder
+    buyerFirmId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SellerScalarRelationFilter = {
+    is?: SellerWhereInput
+    isNot?: SellerWhereInput
+  }
+
+  export type SellerPaymentCountOrderByAggregateInput = {
+    id?: SortOrder
+    sellerId?: SortOrder
+    buyerFirmId?: SortOrder
+    amount?: SortOrder
+    notes?: SortOrder
+    paidAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SellerPaymentAvgOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type SellerPaymentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    sellerId?: SortOrder
+    buyerFirmId?: SortOrder
+    amount?: SortOrder
+    notes?: SortOrder
+    paidAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SellerPaymentMinOrderByAggregateInput = {
+    id?: SortOrder
+    sellerId?: SortOrder
+    buyerFirmId?: SortOrder
+    amount?: SortOrder
+    notes?: SortOrder
+    paidAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SellerPaymentSumOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
   export type UserCreateNestedManyWithoutBuyerFirmInput = {
     create?: XOR<UserCreateWithoutBuyerFirmInput, UserUncheckedCreateWithoutBuyerFirmInput> | UserCreateWithoutBuyerFirmInput[] | UserUncheckedCreateWithoutBuyerFirmInput[]
     connectOrCreate?: UserCreateOrConnectWithoutBuyerFirmInput | UserCreateOrConnectWithoutBuyerFirmInput[]
@@ -14395,6 +17559,13 @@ export namespace Prisma {
     connect?: GrowerWhereUniqueInput | GrowerWhereUniqueInput[]
   }
 
+  export type SellerCreateNestedManyWithoutBuyerFirmInput = {
+    create?: XOR<SellerCreateWithoutBuyerFirmInput, SellerUncheckedCreateWithoutBuyerFirmInput> | SellerCreateWithoutBuyerFirmInput[] | SellerUncheckedCreateWithoutBuyerFirmInput[]
+    connectOrCreate?: SellerCreateOrConnectWithoutBuyerFirmInput | SellerCreateOrConnectWithoutBuyerFirmInput[]
+    createMany?: SellerCreateManyBuyerFirmInputEnvelope
+    connect?: SellerWhereUniqueInput | SellerWhereUniqueInput[]
+  }
+
   export type TransactionCreateNestedManyWithoutBuyerFirmInput = {
     create?: XOR<TransactionCreateWithoutBuyerFirmInput, TransactionUncheckedCreateWithoutBuyerFirmInput> | TransactionCreateWithoutBuyerFirmInput[] | TransactionUncheckedCreateWithoutBuyerFirmInput[]
     connectOrCreate?: TransactionCreateOrConnectWithoutBuyerFirmInput | TransactionCreateOrConnectWithoutBuyerFirmInput[]
@@ -14407,6 +17578,13 @@ export namespace Prisma {
     connectOrCreate?: PaymentCreateOrConnectWithoutBuyerFirmInput | PaymentCreateOrConnectWithoutBuyerFirmInput[]
     createMany?: PaymentCreateManyBuyerFirmInputEnvelope
     connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
+  }
+
+  export type SellerPaymentCreateNestedManyWithoutBuyerFirmInput = {
+    create?: XOR<SellerPaymentCreateWithoutBuyerFirmInput, SellerPaymentUncheckedCreateWithoutBuyerFirmInput> | SellerPaymentCreateWithoutBuyerFirmInput[] | SellerPaymentUncheckedCreateWithoutBuyerFirmInput[]
+    connectOrCreate?: SellerPaymentCreateOrConnectWithoutBuyerFirmInput | SellerPaymentCreateOrConnectWithoutBuyerFirmInput[]
+    createMany?: SellerPaymentCreateManyBuyerFirmInputEnvelope
+    connect?: SellerPaymentWhereUniqueInput | SellerPaymentWhereUniqueInput[]
   }
 
   export type DraftTransactionCreateNestedManyWithoutBuyerFirmInput = {
@@ -14430,6 +17608,13 @@ export namespace Prisma {
     connect?: GrowerWhereUniqueInput | GrowerWhereUniqueInput[]
   }
 
+  export type SellerUncheckedCreateNestedManyWithoutBuyerFirmInput = {
+    create?: XOR<SellerCreateWithoutBuyerFirmInput, SellerUncheckedCreateWithoutBuyerFirmInput> | SellerCreateWithoutBuyerFirmInput[] | SellerUncheckedCreateWithoutBuyerFirmInput[]
+    connectOrCreate?: SellerCreateOrConnectWithoutBuyerFirmInput | SellerCreateOrConnectWithoutBuyerFirmInput[]
+    createMany?: SellerCreateManyBuyerFirmInputEnvelope
+    connect?: SellerWhereUniqueInput | SellerWhereUniqueInput[]
+  }
+
   export type TransactionUncheckedCreateNestedManyWithoutBuyerFirmInput = {
     create?: XOR<TransactionCreateWithoutBuyerFirmInput, TransactionUncheckedCreateWithoutBuyerFirmInput> | TransactionCreateWithoutBuyerFirmInput[] | TransactionUncheckedCreateWithoutBuyerFirmInput[]
     connectOrCreate?: TransactionCreateOrConnectWithoutBuyerFirmInput | TransactionCreateOrConnectWithoutBuyerFirmInput[]
@@ -14442,6 +17627,13 @@ export namespace Prisma {
     connectOrCreate?: PaymentCreateOrConnectWithoutBuyerFirmInput | PaymentCreateOrConnectWithoutBuyerFirmInput[]
     createMany?: PaymentCreateManyBuyerFirmInputEnvelope
     connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
+  }
+
+  export type SellerPaymentUncheckedCreateNestedManyWithoutBuyerFirmInput = {
+    create?: XOR<SellerPaymentCreateWithoutBuyerFirmInput, SellerPaymentUncheckedCreateWithoutBuyerFirmInput> | SellerPaymentCreateWithoutBuyerFirmInput[] | SellerPaymentUncheckedCreateWithoutBuyerFirmInput[]
+    connectOrCreate?: SellerPaymentCreateOrConnectWithoutBuyerFirmInput | SellerPaymentCreateOrConnectWithoutBuyerFirmInput[]
+    createMany?: SellerPaymentCreateManyBuyerFirmInputEnvelope
+    connect?: SellerPaymentWhereUniqueInput | SellerPaymentWhereUniqueInput[]
   }
 
   export type DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput = {
@@ -14495,6 +17687,20 @@ export namespace Prisma {
     deleteMany?: GrowerScalarWhereInput | GrowerScalarWhereInput[]
   }
 
+  export type SellerUpdateManyWithoutBuyerFirmNestedInput = {
+    create?: XOR<SellerCreateWithoutBuyerFirmInput, SellerUncheckedCreateWithoutBuyerFirmInput> | SellerCreateWithoutBuyerFirmInput[] | SellerUncheckedCreateWithoutBuyerFirmInput[]
+    connectOrCreate?: SellerCreateOrConnectWithoutBuyerFirmInput | SellerCreateOrConnectWithoutBuyerFirmInput[]
+    upsert?: SellerUpsertWithWhereUniqueWithoutBuyerFirmInput | SellerUpsertWithWhereUniqueWithoutBuyerFirmInput[]
+    createMany?: SellerCreateManyBuyerFirmInputEnvelope
+    set?: SellerWhereUniqueInput | SellerWhereUniqueInput[]
+    disconnect?: SellerWhereUniqueInput | SellerWhereUniqueInput[]
+    delete?: SellerWhereUniqueInput | SellerWhereUniqueInput[]
+    connect?: SellerWhereUniqueInput | SellerWhereUniqueInput[]
+    update?: SellerUpdateWithWhereUniqueWithoutBuyerFirmInput | SellerUpdateWithWhereUniqueWithoutBuyerFirmInput[]
+    updateMany?: SellerUpdateManyWithWhereWithoutBuyerFirmInput | SellerUpdateManyWithWhereWithoutBuyerFirmInput[]
+    deleteMany?: SellerScalarWhereInput | SellerScalarWhereInput[]
+  }
+
   export type TransactionUpdateManyWithoutBuyerFirmNestedInput = {
     create?: XOR<TransactionCreateWithoutBuyerFirmInput, TransactionUncheckedCreateWithoutBuyerFirmInput> | TransactionCreateWithoutBuyerFirmInput[] | TransactionUncheckedCreateWithoutBuyerFirmInput[]
     connectOrCreate?: TransactionCreateOrConnectWithoutBuyerFirmInput | TransactionCreateOrConnectWithoutBuyerFirmInput[]
@@ -14521,6 +17727,20 @@ export namespace Prisma {
     update?: PaymentUpdateWithWhereUniqueWithoutBuyerFirmInput | PaymentUpdateWithWhereUniqueWithoutBuyerFirmInput[]
     updateMany?: PaymentUpdateManyWithWhereWithoutBuyerFirmInput | PaymentUpdateManyWithWhereWithoutBuyerFirmInput[]
     deleteMany?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
+  }
+
+  export type SellerPaymentUpdateManyWithoutBuyerFirmNestedInput = {
+    create?: XOR<SellerPaymentCreateWithoutBuyerFirmInput, SellerPaymentUncheckedCreateWithoutBuyerFirmInput> | SellerPaymentCreateWithoutBuyerFirmInput[] | SellerPaymentUncheckedCreateWithoutBuyerFirmInput[]
+    connectOrCreate?: SellerPaymentCreateOrConnectWithoutBuyerFirmInput | SellerPaymentCreateOrConnectWithoutBuyerFirmInput[]
+    upsert?: SellerPaymentUpsertWithWhereUniqueWithoutBuyerFirmInput | SellerPaymentUpsertWithWhereUniqueWithoutBuyerFirmInput[]
+    createMany?: SellerPaymentCreateManyBuyerFirmInputEnvelope
+    set?: SellerPaymentWhereUniqueInput | SellerPaymentWhereUniqueInput[]
+    disconnect?: SellerPaymentWhereUniqueInput | SellerPaymentWhereUniqueInput[]
+    delete?: SellerPaymentWhereUniqueInput | SellerPaymentWhereUniqueInput[]
+    connect?: SellerPaymentWhereUniqueInput | SellerPaymentWhereUniqueInput[]
+    update?: SellerPaymentUpdateWithWhereUniqueWithoutBuyerFirmInput | SellerPaymentUpdateWithWhereUniqueWithoutBuyerFirmInput[]
+    updateMany?: SellerPaymentUpdateManyWithWhereWithoutBuyerFirmInput | SellerPaymentUpdateManyWithWhereWithoutBuyerFirmInput[]
+    deleteMany?: SellerPaymentScalarWhereInput | SellerPaymentScalarWhereInput[]
   }
 
   export type DraftTransactionUpdateManyWithoutBuyerFirmNestedInput = {
@@ -14565,6 +17785,20 @@ export namespace Prisma {
     deleteMany?: GrowerScalarWhereInput | GrowerScalarWhereInput[]
   }
 
+  export type SellerUncheckedUpdateManyWithoutBuyerFirmNestedInput = {
+    create?: XOR<SellerCreateWithoutBuyerFirmInput, SellerUncheckedCreateWithoutBuyerFirmInput> | SellerCreateWithoutBuyerFirmInput[] | SellerUncheckedCreateWithoutBuyerFirmInput[]
+    connectOrCreate?: SellerCreateOrConnectWithoutBuyerFirmInput | SellerCreateOrConnectWithoutBuyerFirmInput[]
+    upsert?: SellerUpsertWithWhereUniqueWithoutBuyerFirmInput | SellerUpsertWithWhereUniqueWithoutBuyerFirmInput[]
+    createMany?: SellerCreateManyBuyerFirmInputEnvelope
+    set?: SellerWhereUniqueInput | SellerWhereUniqueInput[]
+    disconnect?: SellerWhereUniqueInput | SellerWhereUniqueInput[]
+    delete?: SellerWhereUniqueInput | SellerWhereUniqueInput[]
+    connect?: SellerWhereUniqueInput | SellerWhereUniqueInput[]
+    update?: SellerUpdateWithWhereUniqueWithoutBuyerFirmInput | SellerUpdateWithWhereUniqueWithoutBuyerFirmInput[]
+    updateMany?: SellerUpdateManyWithWhereWithoutBuyerFirmInput | SellerUpdateManyWithWhereWithoutBuyerFirmInput[]
+    deleteMany?: SellerScalarWhereInput | SellerScalarWhereInput[]
+  }
+
   export type TransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput = {
     create?: XOR<TransactionCreateWithoutBuyerFirmInput, TransactionUncheckedCreateWithoutBuyerFirmInput> | TransactionCreateWithoutBuyerFirmInput[] | TransactionUncheckedCreateWithoutBuyerFirmInput[]
     connectOrCreate?: TransactionCreateOrConnectWithoutBuyerFirmInput | TransactionCreateOrConnectWithoutBuyerFirmInput[]
@@ -14591,6 +17825,20 @@ export namespace Prisma {
     update?: PaymentUpdateWithWhereUniqueWithoutBuyerFirmInput | PaymentUpdateWithWhereUniqueWithoutBuyerFirmInput[]
     updateMany?: PaymentUpdateManyWithWhereWithoutBuyerFirmInput | PaymentUpdateManyWithWhereWithoutBuyerFirmInput[]
     deleteMany?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
+  }
+
+  export type SellerPaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput = {
+    create?: XOR<SellerPaymentCreateWithoutBuyerFirmInput, SellerPaymentUncheckedCreateWithoutBuyerFirmInput> | SellerPaymentCreateWithoutBuyerFirmInput[] | SellerPaymentUncheckedCreateWithoutBuyerFirmInput[]
+    connectOrCreate?: SellerPaymentCreateOrConnectWithoutBuyerFirmInput | SellerPaymentCreateOrConnectWithoutBuyerFirmInput[]
+    upsert?: SellerPaymentUpsertWithWhereUniqueWithoutBuyerFirmInput | SellerPaymentUpsertWithWhereUniqueWithoutBuyerFirmInput[]
+    createMany?: SellerPaymentCreateManyBuyerFirmInputEnvelope
+    set?: SellerPaymentWhereUniqueInput | SellerPaymentWhereUniqueInput[]
+    disconnect?: SellerPaymentWhereUniqueInput | SellerPaymentWhereUniqueInput[]
+    delete?: SellerPaymentWhereUniqueInput | SellerPaymentWhereUniqueInput[]
+    connect?: SellerPaymentWhereUniqueInput | SellerPaymentWhereUniqueInput[]
+    update?: SellerPaymentUpdateWithWhereUniqueWithoutBuyerFirmInput | SellerPaymentUpdateWithWhereUniqueWithoutBuyerFirmInput[]
+    updateMany?: SellerPaymentUpdateManyWithWhereWithoutBuyerFirmInput | SellerPaymentUpdateManyWithWhereWithoutBuyerFirmInput[]
+    deleteMany?: SellerPaymentScalarWhereInput | SellerPaymentScalarWhereInput[]
   }
 
   export type DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput = {
@@ -14893,6 +18141,12 @@ export namespace Prisma {
     connect?: GrowerWhereUniqueInput
   }
 
+  export type SellerCreateNestedOneWithoutTransactionsInput = {
+    create?: XOR<SellerCreateWithoutTransactionsInput, SellerUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: SellerCreateOrConnectWithoutTransactionsInput
+    connect?: SellerWhereUniqueInput
+  }
+
   export type BuyerFirmCreateNestedOneWithoutTransactionsInput = {
     create?: XOR<BuyerFirmCreateWithoutTransactionsInput, BuyerFirmUncheckedCreateWithoutTransactionsInput>
     connectOrCreate?: BuyerFirmCreateOrConnectWithoutTransactionsInput
@@ -14911,12 +18165,24 @@ export namespace Prisma {
     set?: boolean
   }
 
-  export type GrowerUpdateOneRequiredWithoutTransactionsNestedInput = {
+  export type GrowerUpdateOneWithoutTransactionsNestedInput = {
     create?: XOR<GrowerCreateWithoutTransactionsInput, GrowerUncheckedCreateWithoutTransactionsInput>
     connectOrCreate?: GrowerCreateOrConnectWithoutTransactionsInput
     upsert?: GrowerUpsertWithoutTransactionsInput
+    disconnect?: GrowerWhereInput | boolean
+    delete?: GrowerWhereInput | boolean
     connect?: GrowerWhereUniqueInput
     update?: XOR<XOR<GrowerUpdateToOneWithWhereWithoutTransactionsInput, GrowerUpdateWithoutTransactionsInput>, GrowerUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type SellerUpdateOneWithoutTransactionsNestedInput = {
+    create?: XOR<SellerCreateWithoutTransactionsInput, SellerUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: SellerCreateOrConnectWithoutTransactionsInput
+    upsert?: SellerUpsertWithoutTransactionsInput
+    disconnect?: SellerWhereInput | boolean
+    delete?: SellerWhereInput | boolean
+    connect?: SellerWhereUniqueInput
+    update?: XOR<XOR<SellerUpdateToOneWithWhereWithoutTransactionsInput, SellerUpdateWithoutTransactionsInput>, SellerUncheckedUpdateWithoutTransactionsInput>
   }
 
   export type BuyerFirmUpdateOneRequiredWithoutTransactionsNestedInput = {
@@ -14989,6 +18255,12 @@ export namespace Prisma {
     connect?: GrowerWhereUniqueInput
   }
 
+  export type SellerCreateNestedOneWithoutDraftTransactionsInput = {
+    create?: XOR<SellerCreateWithoutDraftTransactionsInput, SellerUncheckedCreateWithoutDraftTransactionsInput>
+    connectOrCreate?: SellerCreateOrConnectWithoutDraftTransactionsInput
+    connect?: SellerWhereUniqueInput
+  }
+
   export type BuyerFirmCreateNestedOneWithoutDraftTransactionsInput = {
     create?: XOR<BuyerFirmCreateWithoutDraftTransactionsInput, BuyerFirmUncheckedCreateWithoutDraftTransactionsInput>
     connectOrCreate?: BuyerFirmCreateOrConnectWithoutDraftTransactionsInput
@@ -15001,12 +18273,24 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type GrowerUpdateOneRequiredWithoutDraftTransactionsNestedInput = {
+  export type GrowerUpdateOneWithoutDraftTransactionsNestedInput = {
     create?: XOR<GrowerCreateWithoutDraftTransactionsInput, GrowerUncheckedCreateWithoutDraftTransactionsInput>
     connectOrCreate?: GrowerCreateOrConnectWithoutDraftTransactionsInput
     upsert?: GrowerUpsertWithoutDraftTransactionsInput
+    disconnect?: GrowerWhereInput | boolean
+    delete?: GrowerWhereInput | boolean
     connect?: GrowerWhereUniqueInput
     update?: XOR<XOR<GrowerUpdateToOneWithWhereWithoutDraftTransactionsInput, GrowerUpdateWithoutDraftTransactionsInput>, GrowerUncheckedUpdateWithoutDraftTransactionsInput>
+  }
+
+  export type SellerUpdateOneWithoutDraftTransactionsNestedInput = {
+    create?: XOR<SellerCreateWithoutDraftTransactionsInput, SellerUncheckedCreateWithoutDraftTransactionsInput>
+    connectOrCreate?: SellerCreateOrConnectWithoutDraftTransactionsInput
+    upsert?: SellerUpsertWithoutDraftTransactionsInput
+    disconnect?: SellerWhereInput | boolean
+    delete?: SellerWhereInput | boolean
+    connect?: SellerWhereUniqueInput
+    update?: XOR<XOR<SellerUpdateToOneWithWhereWithoutDraftTransactionsInput, SellerUpdateWithoutDraftTransactionsInput>, SellerUncheckedUpdateWithoutDraftTransactionsInput>
   }
 
   export type BuyerFirmUpdateOneRequiredWithoutDraftTransactionsNestedInput = {
@@ -15023,6 +18307,174 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutDraftTransactionsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDraftTransactionsInput, UserUpdateWithoutDraftTransactionsInput>, UserUncheckedUpdateWithoutDraftTransactionsInput>
+  }
+
+  export type BuyerFirmCreateNestedOneWithoutSellersInput = {
+    create?: XOR<BuyerFirmCreateWithoutSellersInput, BuyerFirmUncheckedCreateWithoutSellersInput>
+    connectOrCreate?: BuyerFirmCreateOrConnectWithoutSellersInput
+    connect?: BuyerFirmWhereUniqueInput
+  }
+
+  export type TransactionCreateNestedManyWithoutSellerInput = {
+    create?: XOR<TransactionCreateWithoutSellerInput, TransactionUncheckedCreateWithoutSellerInput> | TransactionCreateWithoutSellerInput[] | TransactionUncheckedCreateWithoutSellerInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutSellerInput | TransactionCreateOrConnectWithoutSellerInput[]
+    createMany?: TransactionCreateManySellerInputEnvelope
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  }
+
+  export type DraftTransactionCreateNestedManyWithoutSellerInput = {
+    create?: XOR<DraftTransactionCreateWithoutSellerInput, DraftTransactionUncheckedCreateWithoutSellerInput> | DraftTransactionCreateWithoutSellerInput[] | DraftTransactionUncheckedCreateWithoutSellerInput[]
+    connectOrCreate?: DraftTransactionCreateOrConnectWithoutSellerInput | DraftTransactionCreateOrConnectWithoutSellerInput[]
+    createMany?: DraftTransactionCreateManySellerInputEnvelope
+    connect?: DraftTransactionWhereUniqueInput | DraftTransactionWhereUniqueInput[]
+  }
+
+  export type SellerPaymentCreateNestedManyWithoutSellerInput = {
+    create?: XOR<SellerPaymentCreateWithoutSellerInput, SellerPaymentUncheckedCreateWithoutSellerInput> | SellerPaymentCreateWithoutSellerInput[] | SellerPaymentUncheckedCreateWithoutSellerInput[]
+    connectOrCreate?: SellerPaymentCreateOrConnectWithoutSellerInput | SellerPaymentCreateOrConnectWithoutSellerInput[]
+    createMany?: SellerPaymentCreateManySellerInputEnvelope
+    connect?: SellerPaymentWhereUniqueInput | SellerPaymentWhereUniqueInput[]
+  }
+
+  export type TransactionUncheckedCreateNestedManyWithoutSellerInput = {
+    create?: XOR<TransactionCreateWithoutSellerInput, TransactionUncheckedCreateWithoutSellerInput> | TransactionCreateWithoutSellerInput[] | TransactionUncheckedCreateWithoutSellerInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutSellerInput | TransactionCreateOrConnectWithoutSellerInput[]
+    createMany?: TransactionCreateManySellerInputEnvelope
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  }
+
+  export type DraftTransactionUncheckedCreateNestedManyWithoutSellerInput = {
+    create?: XOR<DraftTransactionCreateWithoutSellerInput, DraftTransactionUncheckedCreateWithoutSellerInput> | DraftTransactionCreateWithoutSellerInput[] | DraftTransactionUncheckedCreateWithoutSellerInput[]
+    connectOrCreate?: DraftTransactionCreateOrConnectWithoutSellerInput | DraftTransactionCreateOrConnectWithoutSellerInput[]
+    createMany?: DraftTransactionCreateManySellerInputEnvelope
+    connect?: DraftTransactionWhereUniqueInput | DraftTransactionWhereUniqueInput[]
+  }
+
+  export type SellerPaymentUncheckedCreateNestedManyWithoutSellerInput = {
+    create?: XOR<SellerPaymentCreateWithoutSellerInput, SellerPaymentUncheckedCreateWithoutSellerInput> | SellerPaymentCreateWithoutSellerInput[] | SellerPaymentUncheckedCreateWithoutSellerInput[]
+    connectOrCreate?: SellerPaymentCreateOrConnectWithoutSellerInput | SellerPaymentCreateOrConnectWithoutSellerInput[]
+    createMany?: SellerPaymentCreateManySellerInputEnvelope
+    connect?: SellerPaymentWhereUniqueInput | SellerPaymentWhereUniqueInput[]
+  }
+
+  export type BuyerFirmUpdateOneRequiredWithoutSellersNestedInput = {
+    create?: XOR<BuyerFirmCreateWithoutSellersInput, BuyerFirmUncheckedCreateWithoutSellersInput>
+    connectOrCreate?: BuyerFirmCreateOrConnectWithoutSellersInput
+    upsert?: BuyerFirmUpsertWithoutSellersInput
+    connect?: BuyerFirmWhereUniqueInput
+    update?: XOR<XOR<BuyerFirmUpdateToOneWithWhereWithoutSellersInput, BuyerFirmUpdateWithoutSellersInput>, BuyerFirmUncheckedUpdateWithoutSellersInput>
+  }
+
+  export type TransactionUpdateManyWithoutSellerNestedInput = {
+    create?: XOR<TransactionCreateWithoutSellerInput, TransactionUncheckedCreateWithoutSellerInput> | TransactionCreateWithoutSellerInput[] | TransactionUncheckedCreateWithoutSellerInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutSellerInput | TransactionCreateOrConnectWithoutSellerInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutSellerInput | TransactionUpsertWithWhereUniqueWithoutSellerInput[]
+    createMany?: TransactionCreateManySellerInputEnvelope
+    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutSellerInput | TransactionUpdateWithWhereUniqueWithoutSellerInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutSellerInput | TransactionUpdateManyWithWhereWithoutSellerInput[]
+    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  }
+
+  export type DraftTransactionUpdateManyWithoutSellerNestedInput = {
+    create?: XOR<DraftTransactionCreateWithoutSellerInput, DraftTransactionUncheckedCreateWithoutSellerInput> | DraftTransactionCreateWithoutSellerInput[] | DraftTransactionUncheckedCreateWithoutSellerInput[]
+    connectOrCreate?: DraftTransactionCreateOrConnectWithoutSellerInput | DraftTransactionCreateOrConnectWithoutSellerInput[]
+    upsert?: DraftTransactionUpsertWithWhereUniqueWithoutSellerInput | DraftTransactionUpsertWithWhereUniqueWithoutSellerInput[]
+    createMany?: DraftTransactionCreateManySellerInputEnvelope
+    set?: DraftTransactionWhereUniqueInput | DraftTransactionWhereUniqueInput[]
+    disconnect?: DraftTransactionWhereUniqueInput | DraftTransactionWhereUniqueInput[]
+    delete?: DraftTransactionWhereUniqueInput | DraftTransactionWhereUniqueInput[]
+    connect?: DraftTransactionWhereUniqueInput | DraftTransactionWhereUniqueInput[]
+    update?: DraftTransactionUpdateWithWhereUniqueWithoutSellerInput | DraftTransactionUpdateWithWhereUniqueWithoutSellerInput[]
+    updateMany?: DraftTransactionUpdateManyWithWhereWithoutSellerInput | DraftTransactionUpdateManyWithWhereWithoutSellerInput[]
+    deleteMany?: DraftTransactionScalarWhereInput | DraftTransactionScalarWhereInput[]
+  }
+
+  export type SellerPaymentUpdateManyWithoutSellerNestedInput = {
+    create?: XOR<SellerPaymentCreateWithoutSellerInput, SellerPaymentUncheckedCreateWithoutSellerInput> | SellerPaymentCreateWithoutSellerInput[] | SellerPaymentUncheckedCreateWithoutSellerInput[]
+    connectOrCreate?: SellerPaymentCreateOrConnectWithoutSellerInput | SellerPaymentCreateOrConnectWithoutSellerInput[]
+    upsert?: SellerPaymentUpsertWithWhereUniqueWithoutSellerInput | SellerPaymentUpsertWithWhereUniqueWithoutSellerInput[]
+    createMany?: SellerPaymentCreateManySellerInputEnvelope
+    set?: SellerPaymentWhereUniqueInput | SellerPaymentWhereUniqueInput[]
+    disconnect?: SellerPaymentWhereUniqueInput | SellerPaymentWhereUniqueInput[]
+    delete?: SellerPaymentWhereUniqueInput | SellerPaymentWhereUniqueInput[]
+    connect?: SellerPaymentWhereUniqueInput | SellerPaymentWhereUniqueInput[]
+    update?: SellerPaymentUpdateWithWhereUniqueWithoutSellerInput | SellerPaymentUpdateWithWhereUniqueWithoutSellerInput[]
+    updateMany?: SellerPaymentUpdateManyWithWhereWithoutSellerInput | SellerPaymentUpdateManyWithWhereWithoutSellerInput[]
+    deleteMany?: SellerPaymentScalarWhereInput | SellerPaymentScalarWhereInput[]
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutSellerNestedInput = {
+    create?: XOR<TransactionCreateWithoutSellerInput, TransactionUncheckedCreateWithoutSellerInput> | TransactionCreateWithoutSellerInput[] | TransactionUncheckedCreateWithoutSellerInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutSellerInput | TransactionCreateOrConnectWithoutSellerInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutSellerInput | TransactionUpsertWithWhereUniqueWithoutSellerInput[]
+    createMany?: TransactionCreateManySellerInputEnvelope
+    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutSellerInput | TransactionUpdateWithWhereUniqueWithoutSellerInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutSellerInput | TransactionUpdateManyWithWhereWithoutSellerInput[]
+    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  }
+
+  export type DraftTransactionUncheckedUpdateManyWithoutSellerNestedInput = {
+    create?: XOR<DraftTransactionCreateWithoutSellerInput, DraftTransactionUncheckedCreateWithoutSellerInput> | DraftTransactionCreateWithoutSellerInput[] | DraftTransactionUncheckedCreateWithoutSellerInput[]
+    connectOrCreate?: DraftTransactionCreateOrConnectWithoutSellerInput | DraftTransactionCreateOrConnectWithoutSellerInput[]
+    upsert?: DraftTransactionUpsertWithWhereUniqueWithoutSellerInput | DraftTransactionUpsertWithWhereUniqueWithoutSellerInput[]
+    createMany?: DraftTransactionCreateManySellerInputEnvelope
+    set?: DraftTransactionWhereUniqueInput | DraftTransactionWhereUniqueInput[]
+    disconnect?: DraftTransactionWhereUniqueInput | DraftTransactionWhereUniqueInput[]
+    delete?: DraftTransactionWhereUniqueInput | DraftTransactionWhereUniqueInput[]
+    connect?: DraftTransactionWhereUniqueInput | DraftTransactionWhereUniqueInput[]
+    update?: DraftTransactionUpdateWithWhereUniqueWithoutSellerInput | DraftTransactionUpdateWithWhereUniqueWithoutSellerInput[]
+    updateMany?: DraftTransactionUpdateManyWithWhereWithoutSellerInput | DraftTransactionUpdateManyWithWhereWithoutSellerInput[]
+    deleteMany?: DraftTransactionScalarWhereInput | DraftTransactionScalarWhereInput[]
+  }
+
+  export type SellerPaymentUncheckedUpdateManyWithoutSellerNestedInput = {
+    create?: XOR<SellerPaymentCreateWithoutSellerInput, SellerPaymentUncheckedCreateWithoutSellerInput> | SellerPaymentCreateWithoutSellerInput[] | SellerPaymentUncheckedCreateWithoutSellerInput[]
+    connectOrCreate?: SellerPaymentCreateOrConnectWithoutSellerInput | SellerPaymentCreateOrConnectWithoutSellerInput[]
+    upsert?: SellerPaymentUpsertWithWhereUniqueWithoutSellerInput | SellerPaymentUpsertWithWhereUniqueWithoutSellerInput[]
+    createMany?: SellerPaymentCreateManySellerInputEnvelope
+    set?: SellerPaymentWhereUniqueInput | SellerPaymentWhereUniqueInput[]
+    disconnect?: SellerPaymentWhereUniqueInput | SellerPaymentWhereUniqueInput[]
+    delete?: SellerPaymentWhereUniqueInput | SellerPaymentWhereUniqueInput[]
+    connect?: SellerPaymentWhereUniqueInput | SellerPaymentWhereUniqueInput[]
+    update?: SellerPaymentUpdateWithWhereUniqueWithoutSellerInput | SellerPaymentUpdateWithWhereUniqueWithoutSellerInput[]
+    updateMany?: SellerPaymentUpdateManyWithWhereWithoutSellerInput | SellerPaymentUpdateManyWithWhereWithoutSellerInput[]
+    deleteMany?: SellerPaymentScalarWhereInput | SellerPaymentScalarWhereInput[]
+  }
+
+  export type SellerCreateNestedOneWithoutPaymentsInput = {
+    create?: XOR<SellerCreateWithoutPaymentsInput, SellerUncheckedCreateWithoutPaymentsInput>
+    connectOrCreate?: SellerCreateOrConnectWithoutPaymentsInput
+    connect?: SellerWhereUniqueInput
+  }
+
+  export type BuyerFirmCreateNestedOneWithoutSellerPaymentsInput = {
+    create?: XOR<BuyerFirmCreateWithoutSellerPaymentsInput, BuyerFirmUncheckedCreateWithoutSellerPaymentsInput>
+    connectOrCreate?: BuyerFirmCreateOrConnectWithoutSellerPaymentsInput
+    connect?: BuyerFirmWhereUniqueInput
+  }
+
+  export type SellerUpdateOneRequiredWithoutPaymentsNestedInput = {
+    create?: XOR<SellerCreateWithoutPaymentsInput, SellerUncheckedCreateWithoutPaymentsInput>
+    connectOrCreate?: SellerCreateOrConnectWithoutPaymentsInput
+    upsert?: SellerUpsertWithoutPaymentsInput
+    connect?: SellerWhereUniqueInput
+    update?: XOR<XOR<SellerUpdateToOneWithWhereWithoutPaymentsInput, SellerUpdateWithoutPaymentsInput>, SellerUncheckedUpdateWithoutPaymentsInput>
+  }
+
+  export type BuyerFirmUpdateOneRequiredWithoutSellerPaymentsNestedInput = {
+    create?: XOR<BuyerFirmCreateWithoutSellerPaymentsInput, BuyerFirmUncheckedCreateWithoutSellerPaymentsInput>
+    connectOrCreate?: BuyerFirmCreateOrConnectWithoutSellerPaymentsInput
+    upsert?: BuyerFirmUpsertWithoutSellerPaymentsInput
+    connect?: BuyerFirmWhereUniqueInput
+    update?: XOR<XOR<BuyerFirmUpdateToOneWithWhereWithoutSellerPaymentsInput, BuyerFirmUpdateWithoutSellerPaymentsInput>, BuyerFirmUncheckedUpdateWithoutSellerPaymentsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -15261,6 +18713,37 @@ export namespace Prisma {
     data: GrowerCreateManyBuyerFirmInput | GrowerCreateManyBuyerFirmInput[]
   }
 
+  export type SellerCreateWithoutBuyerFirmInput = {
+    id?: string
+    name: string
+    mobile: string
+    address?: string | null
+    createdAt?: Date | string
+    transactions?: TransactionCreateNestedManyWithoutSellerInput
+    draftTransactions?: DraftTransactionCreateNestedManyWithoutSellerInput
+    payments?: SellerPaymentCreateNestedManyWithoutSellerInput
+  }
+
+  export type SellerUncheckedCreateWithoutBuyerFirmInput = {
+    id?: string
+    name: string
+    mobile: string
+    address?: string | null
+    createdAt?: Date | string
+    transactions?: TransactionUncheckedCreateNestedManyWithoutSellerInput
+    draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutSellerInput
+    payments?: SellerPaymentUncheckedCreateNestedManyWithoutSellerInput
+  }
+
+  export type SellerCreateOrConnectWithoutBuyerFirmInput = {
+    where: SellerWhereUniqueInput
+    create: XOR<SellerCreateWithoutBuyerFirmInput, SellerUncheckedCreateWithoutBuyerFirmInput>
+  }
+
+  export type SellerCreateManyBuyerFirmInputEnvelope = {
+    data: SellerCreateManyBuyerFirmInput | SellerCreateManyBuyerFirmInput[]
+  }
+
   export type TransactionCreateWithoutBuyerFirmInput = {
     id?: string
     fruitType: string
@@ -15279,12 +18762,14 @@ export namespace Prisma {
     notes?: string | null
     notified?: boolean
     createdAt?: Date | string
-    grower: GrowerCreateNestedOneWithoutTransactionsInput
+    grower?: GrowerCreateNestedOneWithoutTransactionsInput
+    seller?: SellerCreateNestedOneWithoutTransactionsInput
   }
 
   export type TransactionUncheckedCreateWithoutBuyerFirmInput = {
     id?: string
-    growerId: string
+    growerId?: string | null
+    sellerId?: string | null
     fruitType: string
     quantity: number
     unit?: string
@@ -15339,6 +18824,33 @@ export namespace Prisma {
     data: PaymentCreateManyBuyerFirmInput | PaymentCreateManyBuyerFirmInput[]
   }
 
+  export type SellerPaymentCreateWithoutBuyerFirmInput = {
+    id?: string
+    amount: number
+    notes?: string | null
+    paidAt?: Date | string
+    createdAt?: Date | string
+    seller: SellerCreateNestedOneWithoutPaymentsInput
+  }
+
+  export type SellerPaymentUncheckedCreateWithoutBuyerFirmInput = {
+    id?: string
+    sellerId: string
+    amount: number
+    notes?: string | null
+    paidAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type SellerPaymentCreateOrConnectWithoutBuyerFirmInput = {
+    where: SellerPaymentWhereUniqueInput
+    create: XOR<SellerPaymentCreateWithoutBuyerFirmInput, SellerPaymentUncheckedCreateWithoutBuyerFirmInput>
+  }
+
+  export type SellerPaymentCreateManyBuyerFirmInputEnvelope = {
+    data: SellerPaymentCreateManyBuyerFirmInput | SellerPaymentCreateManyBuyerFirmInput[]
+  }
+
   export type DraftTransactionCreateWithoutBuyerFirmInput = {
     id?: string
     fruitType: string
@@ -15348,13 +18860,15 @@ export namespace Prisma {
     notes?: string | null
     status?: string
     createdAt?: Date | string
-    grower: GrowerCreateNestedOneWithoutDraftTransactionsInput
+    grower?: GrowerCreateNestedOneWithoutDraftTransactionsInput
+    seller?: SellerCreateNestedOneWithoutDraftTransactionsInput
     createdBy: UserCreateNestedOneWithoutDraftTransactionsInput
   }
 
   export type DraftTransactionUncheckedCreateWithoutBuyerFirmInput = {
     id?: string
-    growerId: string
+    growerId?: string | null
+    sellerId?: string | null
     fruitType: string
     quantity: number
     unit?: string
@@ -15430,6 +18944,34 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Grower"> | Date | string
   }
 
+  export type SellerUpsertWithWhereUniqueWithoutBuyerFirmInput = {
+    where: SellerWhereUniqueInput
+    update: XOR<SellerUpdateWithoutBuyerFirmInput, SellerUncheckedUpdateWithoutBuyerFirmInput>
+    create: XOR<SellerCreateWithoutBuyerFirmInput, SellerUncheckedCreateWithoutBuyerFirmInput>
+  }
+
+  export type SellerUpdateWithWhereUniqueWithoutBuyerFirmInput = {
+    where: SellerWhereUniqueInput
+    data: XOR<SellerUpdateWithoutBuyerFirmInput, SellerUncheckedUpdateWithoutBuyerFirmInput>
+  }
+
+  export type SellerUpdateManyWithWhereWithoutBuyerFirmInput = {
+    where: SellerScalarWhereInput
+    data: XOR<SellerUpdateManyMutationInput, SellerUncheckedUpdateManyWithoutBuyerFirmInput>
+  }
+
+  export type SellerScalarWhereInput = {
+    AND?: SellerScalarWhereInput | SellerScalarWhereInput[]
+    OR?: SellerScalarWhereInput[]
+    NOT?: SellerScalarWhereInput | SellerScalarWhereInput[]
+    id?: StringFilter<"Seller"> | string
+    name?: StringFilter<"Seller"> | string
+    mobile?: StringFilter<"Seller"> | string
+    address?: StringNullableFilter<"Seller"> | string | null
+    buyerFirmId?: StringFilter<"Seller"> | string
+    createdAt?: DateTimeFilter<"Seller"> | Date | string
+  }
+
   export type TransactionUpsertWithWhereUniqueWithoutBuyerFirmInput = {
     where: TransactionWhereUniqueInput
     update: XOR<TransactionUpdateWithoutBuyerFirmInput, TransactionUncheckedUpdateWithoutBuyerFirmInput>
@@ -15451,7 +18993,8 @@ export namespace Prisma {
     OR?: TransactionScalarWhereInput[]
     NOT?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
     id?: StringFilter<"Transaction"> | string
-    growerId?: StringFilter<"Transaction"> | string
+    growerId?: StringNullableFilter<"Transaction"> | string | null
+    sellerId?: StringNullableFilter<"Transaction"> | string | null
     buyerFirmId?: StringFilter<"Transaction"> | string
     fruitType?: StringFilter<"Transaction"> | string
     quantity?: FloatFilter<"Transaction"> | number
@@ -15500,6 +19043,35 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Payment"> | Date | string
   }
 
+  export type SellerPaymentUpsertWithWhereUniqueWithoutBuyerFirmInput = {
+    where: SellerPaymentWhereUniqueInput
+    update: XOR<SellerPaymentUpdateWithoutBuyerFirmInput, SellerPaymentUncheckedUpdateWithoutBuyerFirmInput>
+    create: XOR<SellerPaymentCreateWithoutBuyerFirmInput, SellerPaymentUncheckedCreateWithoutBuyerFirmInput>
+  }
+
+  export type SellerPaymentUpdateWithWhereUniqueWithoutBuyerFirmInput = {
+    where: SellerPaymentWhereUniqueInput
+    data: XOR<SellerPaymentUpdateWithoutBuyerFirmInput, SellerPaymentUncheckedUpdateWithoutBuyerFirmInput>
+  }
+
+  export type SellerPaymentUpdateManyWithWhereWithoutBuyerFirmInput = {
+    where: SellerPaymentScalarWhereInput
+    data: XOR<SellerPaymentUpdateManyMutationInput, SellerPaymentUncheckedUpdateManyWithoutBuyerFirmInput>
+  }
+
+  export type SellerPaymentScalarWhereInput = {
+    AND?: SellerPaymentScalarWhereInput | SellerPaymentScalarWhereInput[]
+    OR?: SellerPaymentScalarWhereInput[]
+    NOT?: SellerPaymentScalarWhereInput | SellerPaymentScalarWhereInput[]
+    id?: StringFilter<"SellerPayment"> | string
+    sellerId?: StringFilter<"SellerPayment"> | string
+    buyerFirmId?: StringFilter<"SellerPayment"> | string
+    amount?: FloatFilter<"SellerPayment"> | number
+    notes?: StringNullableFilter<"SellerPayment"> | string | null
+    paidAt?: DateTimeFilter<"SellerPayment"> | Date | string
+    createdAt?: DateTimeFilter<"SellerPayment"> | Date | string
+  }
+
   export type DraftTransactionUpsertWithWhereUniqueWithoutBuyerFirmInput = {
     where: DraftTransactionWhereUniqueInput
     update: XOR<DraftTransactionUpdateWithoutBuyerFirmInput, DraftTransactionUncheckedUpdateWithoutBuyerFirmInput>
@@ -15521,7 +19093,8 @@ export namespace Prisma {
     OR?: DraftTransactionScalarWhereInput[]
     NOT?: DraftTransactionScalarWhereInput | DraftTransactionScalarWhereInput[]
     id?: StringFilter<"DraftTransaction"> | string
-    growerId?: StringFilter<"DraftTransaction"> | string
+    growerId?: StringNullableFilter<"DraftTransaction"> | string | null
+    sellerId?: StringNullableFilter<"DraftTransaction"> | string | null
     buyerFirmId?: StringFilter<"DraftTransaction"> | string
     fruitType?: StringFilter<"DraftTransaction"> | string
     quantity?: FloatFilter<"DraftTransaction"> | number
@@ -15544,8 +19117,10 @@ export namespace Prisma {
     createdAt?: Date | string
     logoUrl?: string | null
     growers?: GrowerCreateNestedManyWithoutBuyerFirmInput
+    sellers?: SellerCreateNestedManyWithoutBuyerFirmInput
     transactions?: TransactionCreateNestedManyWithoutBuyerFirmInput
     payments?: PaymentCreateNestedManyWithoutBuyerFirmInput
+    sellerPayments?: SellerPaymentCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionCreateNestedManyWithoutBuyerFirmInput
   }
 
@@ -15560,8 +19135,10 @@ export namespace Prisma {
     createdAt?: Date | string
     logoUrl?: string | null
     growers?: GrowerUncheckedCreateNestedManyWithoutBuyerFirmInput
+    sellers?: SellerUncheckedCreateNestedManyWithoutBuyerFirmInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
     payments?: PaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
+    sellerPayments?: SellerPaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
   }
 
@@ -15579,13 +19156,15 @@ export namespace Prisma {
     notes?: string | null
     status?: string
     createdAt?: Date | string
-    grower: GrowerCreateNestedOneWithoutDraftTransactionsInput
+    grower?: GrowerCreateNestedOneWithoutDraftTransactionsInput
+    seller?: SellerCreateNestedOneWithoutDraftTransactionsInput
     buyerFirm: BuyerFirmCreateNestedOneWithoutDraftTransactionsInput
   }
 
   export type DraftTransactionUncheckedCreateWithoutCreatedByInput = {
     id?: string
-    growerId: string
+    growerId?: string | null
+    sellerId?: string | null
     buyerFirmId: string
     fruitType: string
     quantity: number
@@ -15627,8 +19206,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     growers?: GrowerUpdateManyWithoutBuyerFirmNestedInput
+    sellers?: SellerUpdateManyWithoutBuyerFirmNestedInput
     transactions?: TransactionUpdateManyWithoutBuyerFirmNestedInput
     payments?: PaymentUpdateManyWithoutBuyerFirmNestedInput
+    sellerPayments?: SellerPaymentUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUpdateManyWithoutBuyerFirmNestedInput
   }
 
@@ -15643,8 +19224,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     growers?: GrowerUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    sellers?: SellerUncheckedUpdateManyWithoutBuyerFirmNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    sellerPayments?: SellerPaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
   }
 
@@ -15675,8 +19258,10 @@ export namespace Prisma {
     createdAt?: Date | string
     logoUrl?: string | null
     users?: UserCreateNestedManyWithoutBuyerFirmInput
+    sellers?: SellerCreateNestedManyWithoutBuyerFirmInput
     transactions?: TransactionCreateNestedManyWithoutBuyerFirmInput
     payments?: PaymentCreateNestedManyWithoutBuyerFirmInput
+    sellerPayments?: SellerPaymentCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionCreateNestedManyWithoutBuyerFirmInput
   }
 
@@ -15691,8 +19276,10 @@ export namespace Prisma {
     createdAt?: Date | string
     logoUrl?: string | null
     users?: UserUncheckedCreateNestedManyWithoutBuyerFirmInput
+    sellers?: SellerUncheckedCreateNestedManyWithoutBuyerFirmInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
     payments?: PaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
+    sellerPayments?: SellerPaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
   }
 
@@ -15719,11 +19306,13 @@ export namespace Prisma {
     notes?: string | null
     notified?: boolean
     createdAt?: Date | string
+    seller?: SellerCreateNestedOneWithoutTransactionsInput
     buyerFirm: BuyerFirmCreateNestedOneWithoutTransactionsInput
   }
 
   export type TransactionUncheckedCreateWithoutGrowerInput = {
     id?: string
+    sellerId?: string | null
     buyerFirmId: string
     fruitType: string
     quantity: number
@@ -15844,12 +19433,14 @@ export namespace Prisma {
     notes?: string | null
     status?: string
     createdAt?: Date | string
+    seller?: SellerCreateNestedOneWithoutDraftTransactionsInput
     buyerFirm: BuyerFirmCreateNestedOneWithoutDraftTransactionsInput
     createdBy: UserCreateNestedOneWithoutDraftTransactionsInput
   }
 
   export type DraftTransactionUncheckedCreateWithoutGrowerInput = {
     id?: string
+    sellerId?: string | null
     buyerFirmId: string
     fruitType: string
     quantity: number
@@ -15892,8 +19483,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateManyWithoutBuyerFirmNestedInput
+    sellers?: SellerUpdateManyWithoutBuyerFirmNestedInput
     transactions?: TransactionUpdateManyWithoutBuyerFirmNestedInput
     payments?: PaymentUpdateManyWithoutBuyerFirmNestedInput
+    sellerPayments?: SellerPaymentUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUpdateManyWithoutBuyerFirmNestedInput
   }
 
@@ -15908,8 +19501,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    sellers?: SellerUncheckedUpdateManyWithoutBuyerFirmNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    sellerPayments?: SellerPaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
   }
 
@@ -16051,6 +19646,33 @@ export namespace Prisma {
     create: XOR<GrowerCreateWithoutTransactionsInput, GrowerUncheckedCreateWithoutTransactionsInput>
   }
 
+  export type SellerCreateWithoutTransactionsInput = {
+    id?: string
+    name: string
+    mobile: string
+    address?: string | null
+    createdAt?: Date | string
+    buyerFirm: BuyerFirmCreateNestedOneWithoutSellersInput
+    draftTransactions?: DraftTransactionCreateNestedManyWithoutSellerInput
+    payments?: SellerPaymentCreateNestedManyWithoutSellerInput
+  }
+
+  export type SellerUncheckedCreateWithoutTransactionsInput = {
+    id?: string
+    name: string
+    mobile: string
+    address?: string | null
+    buyerFirmId: string
+    createdAt?: Date | string
+    draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutSellerInput
+    payments?: SellerPaymentUncheckedCreateNestedManyWithoutSellerInput
+  }
+
+  export type SellerCreateOrConnectWithoutTransactionsInput = {
+    where: SellerWhereUniqueInput
+    create: XOR<SellerCreateWithoutTransactionsInput, SellerUncheckedCreateWithoutTransactionsInput>
+  }
+
   export type BuyerFirmCreateWithoutTransactionsInput = {
     id?: string
     uniqueId: string
@@ -16063,7 +19685,9 @@ export namespace Prisma {
     logoUrl?: string | null
     users?: UserCreateNestedManyWithoutBuyerFirmInput
     growers?: GrowerCreateNestedManyWithoutBuyerFirmInput
+    sellers?: SellerCreateNestedManyWithoutBuyerFirmInput
     payments?: PaymentCreateNestedManyWithoutBuyerFirmInput
+    sellerPayments?: SellerPaymentCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionCreateNestedManyWithoutBuyerFirmInput
   }
 
@@ -16079,7 +19703,9 @@ export namespace Prisma {
     logoUrl?: string | null
     users?: UserUncheckedCreateNestedManyWithoutBuyerFirmInput
     growers?: GrowerUncheckedCreateNestedManyWithoutBuyerFirmInput
+    sellers?: SellerUncheckedCreateNestedManyWithoutBuyerFirmInput
     payments?: PaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
+    sellerPayments?: SellerPaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
   }
 
@@ -16125,6 +19751,39 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutGrowerNestedInput
   }
 
+  export type SellerUpsertWithoutTransactionsInput = {
+    update: XOR<SellerUpdateWithoutTransactionsInput, SellerUncheckedUpdateWithoutTransactionsInput>
+    create: XOR<SellerCreateWithoutTransactionsInput, SellerUncheckedCreateWithoutTransactionsInput>
+    where?: SellerWhereInput
+  }
+
+  export type SellerUpdateToOneWithWhereWithoutTransactionsInput = {
+    where?: SellerWhereInput
+    data: XOR<SellerUpdateWithoutTransactionsInput, SellerUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type SellerUpdateWithoutTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    buyerFirm?: BuyerFirmUpdateOneRequiredWithoutSellersNestedInput
+    draftTransactions?: DraftTransactionUpdateManyWithoutSellerNestedInput
+    payments?: SellerPaymentUpdateManyWithoutSellerNestedInput
+  }
+
+  export type SellerUncheckedUpdateWithoutTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerFirmId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutSellerNestedInput
+    payments?: SellerPaymentUncheckedUpdateManyWithoutSellerNestedInput
+  }
+
   export type BuyerFirmUpsertWithoutTransactionsInput = {
     update: XOR<BuyerFirmUpdateWithoutTransactionsInput, BuyerFirmUncheckedUpdateWithoutTransactionsInput>
     create: XOR<BuyerFirmCreateWithoutTransactionsInput, BuyerFirmUncheckedCreateWithoutTransactionsInput>
@@ -16148,7 +19807,9 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateManyWithoutBuyerFirmNestedInput
     growers?: GrowerUpdateManyWithoutBuyerFirmNestedInput
+    sellers?: SellerUpdateManyWithoutBuyerFirmNestedInput
     payments?: PaymentUpdateManyWithoutBuyerFirmNestedInput
+    sellerPayments?: SellerPaymentUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUpdateManyWithoutBuyerFirmNestedInput
   }
 
@@ -16164,7 +19825,9 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutBuyerFirmNestedInput
     growers?: GrowerUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    sellers?: SellerUncheckedUpdateManyWithoutBuyerFirmNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    sellerPayments?: SellerPaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
   }
 
@@ -16211,7 +19874,9 @@ export namespace Prisma {
     logoUrl?: string | null
     users?: UserCreateNestedManyWithoutBuyerFirmInput
     growers?: GrowerCreateNestedManyWithoutBuyerFirmInput
+    sellers?: SellerCreateNestedManyWithoutBuyerFirmInput
     transactions?: TransactionCreateNestedManyWithoutBuyerFirmInput
+    sellerPayments?: SellerPaymentCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionCreateNestedManyWithoutBuyerFirmInput
   }
 
@@ -16227,7 +19892,9 @@ export namespace Prisma {
     logoUrl?: string | null
     users?: UserUncheckedCreateNestedManyWithoutBuyerFirmInput
     growers?: GrowerUncheckedCreateNestedManyWithoutBuyerFirmInput
+    sellers?: SellerUncheckedCreateNestedManyWithoutBuyerFirmInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
+    sellerPayments?: SellerPaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
   }
 
@@ -16296,7 +19963,9 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateManyWithoutBuyerFirmNestedInput
     growers?: GrowerUpdateManyWithoutBuyerFirmNestedInput
+    sellers?: SellerUpdateManyWithoutBuyerFirmNestedInput
     transactions?: TransactionUpdateManyWithoutBuyerFirmNestedInput
+    sellerPayments?: SellerPaymentUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUpdateManyWithoutBuyerFirmNestedInput
   }
 
@@ -16312,7 +19981,9 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutBuyerFirmNestedInput
     growers?: GrowerUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    sellers?: SellerUncheckedUpdateManyWithoutBuyerFirmNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    sellerPayments?: SellerPaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
   }
 
@@ -16483,6 +20154,33 @@ export namespace Prisma {
     create: XOR<GrowerCreateWithoutDraftTransactionsInput, GrowerUncheckedCreateWithoutDraftTransactionsInput>
   }
 
+  export type SellerCreateWithoutDraftTransactionsInput = {
+    id?: string
+    name: string
+    mobile: string
+    address?: string | null
+    createdAt?: Date | string
+    buyerFirm: BuyerFirmCreateNestedOneWithoutSellersInput
+    transactions?: TransactionCreateNestedManyWithoutSellerInput
+    payments?: SellerPaymentCreateNestedManyWithoutSellerInput
+  }
+
+  export type SellerUncheckedCreateWithoutDraftTransactionsInput = {
+    id?: string
+    name: string
+    mobile: string
+    address?: string | null
+    buyerFirmId: string
+    createdAt?: Date | string
+    transactions?: TransactionUncheckedCreateNestedManyWithoutSellerInput
+    payments?: SellerPaymentUncheckedCreateNestedManyWithoutSellerInput
+  }
+
+  export type SellerCreateOrConnectWithoutDraftTransactionsInput = {
+    where: SellerWhereUniqueInput
+    create: XOR<SellerCreateWithoutDraftTransactionsInput, SellerUncheckedCreateWithoutDraftTransactionsInput>
+  }
+
   export type BuyerFirmCreateWithoutDraftTransactionsInput = {
     id?: string
     uniqueId: string
@@ -16495,8 +20193,10 @@ export namespace Prisma {
     logoUrl?: string | null
     users?: UserCreateNestedManyWithoutBuyerFirmInput
     growers?: GrowerCreateNestedManyWithoutBuyerFirmInput
+    sellers?: SellerCreateNestedManyWithoutBuyerFirmInput
     transactions?: TransactionCreateNestedManyWithoutBuyerFirmInput
     payments?: PaymentCreateNestedManyWithoutBuyerFirmInput
+    sellerPayments?: SellerPaymentCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmUncheckedCreateWithoutDraftTransactionsInput = {
@@ -16511,8 +20211,10 @@ export namespace Prisma {
     logoUrl?: string | null
     users?: UserUncheckedCreateNestedManyWithoutBuyerFirmInput
     growers?: GrowerUncheckedCreateNestedManyWithoutBuyerFirmInput
+    sellers?: SellerUncheckedCreateNestedManyWithoutBuyerFirmInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
     payments?: PaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
+    sellerPayments?: SellerPaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmCreateOrConnectWithoutDraftTransactionsInput = {
@@ -16580,6 +20282,39 @@ export namespace Prisma {
     agreements?: AgreementUncheckedUpdateManyWithoutGrowerNestedInput
   }
 
+  export type SellerUpsertWithoutDraftTransactionsInput = {
+    update: XOR<SellerUpdateWithoutDraftTransactionsInput, SellerUncheckedUpdateWithoutDraftTransactionsInput>
+    create: XOR<SellerCreateWithoutDraftTransactionsInput, SellerUncheckedCreateWithoutDraftTransactionsInput>
+    where?: SellerWhereInput
+  }
+
+  export type SellerUpdateToOneWithWhereWithoutDraftTransactionsInput = {
+    where?: SellerWhereInput
+    data: XOR<SellerUpdateWithoutDraftTransactionsInput, SellerUncheckedUpdateWithoutDraftTransactionsInput>
+  }
+
+  export type SellerUpdateWithoutDraftTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    buyerFirm?: BuyerFirmUpdateOneRequiredWithoutSellersNestedInput
+    transactions?: TransactionUpdateManyWithoutSellerNestedInput
+    payments?: SellerPaymentUpdateManyWithoutSellerNestedInput
+  }
+
+  export type SellerUncheckedUpdateWithoutDraftTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerFirmId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: TransactionUncheckedUpdateManyWithoutSellerNestedInput
+    payments?: SellerPaymentUncheckedUpdateManyWithoutSellerNestedInput
+  }
+
   export type BuyerFirmUpsertWithoutDraftTransactionsInput = {
     update: XOR<BuyerFirmUpdateWithoutDraftTransactionsInput, BuyerFirmUncheckedUpdateWithoutDraftTransactionsInput>
     create: XOR<BuyerFirmCreateWithoutDraftTransactionsInput, BuyerFirmUncheckedCreateWithoutDraftTransactionsInput>
@@ -16603,8 +20338,10 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateManyWithoutBuyerFirmNestedInput
     growers?: GrowerUpdateManyWithoutBuyerFirmNestedInput
+    sellers?: SellerUpdateManyWithoutBuyerFirmNestedInput
     transactions?: TransactionUpdateManyWithoutBuyerFirmNestedInput
     payments?: PaymentUpdateManyWithoutBuyerFirmNestedInput
+    sellerPayments?: SellerPaymentUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type BuyerFirmUncheckedUpdateWithoutDraftTransactionsInput = {
@@ -16619,8 +20356,10 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutBuyerFirmNestedInput
     growers?: GrowerUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    sellers?: SellerUncheckedUpdateManyWithoutBuyerFirmNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    sellerPayments?: SellerPaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type UserUpsertWithoutDraftTransactionsInput = {
@@ -16652,6 +20391,407 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type BuyerFirmCreateWithoutSellersInput = {
+    id?: string
+    uniqueId: string
+    firmName: string
+    ownerName: string
+    mobile: string
+    subscriptionPlan?: string
+    subscriptionExpiry?: Date | string | null
+    createdAt?: Date | string
+    logoUrl?: string | null
+    users?: UserCreateNestedManyWithoutBuyerFirmInput
+    growers?: GrowerCreateNestedManyWithoutBuyerFirmInput
+    transactions?: TransactionCreateNestedManyWithoutBuyerFirmInput
+    payments?: PaymentCreateNestedManyWithoutBuyerFirmInput
+    sellerPayments?: SellerPaymentCreateNestedManyWithoutBuyerFirmInput
+    draftTransactions?: DraftTransactionCreateNestedManyWithoutBuyerFirmInput
+  }
+
+  export type BuyerFirmUncheckedCreateWithoutSellersInput = {
+    id?: string
+    uniqueId: string
+    firmName: string
+    ownerName: string
+    mobile: string
+    subscriptionPlan?: string
+    subscriptionExpiry?: Date | string | null
+    createdAt?: Date | string
+    logoUrl?: string | null
+    users?: UserUncheckedCreateNestedManyWithoutBuyerFirmInput
+    growers?: GrowerUncheckedCreateNestedManyWithoutBuyerFirmInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
+    sellerPayments?: SellerPaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
+    draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
+  }
+
+  export type BuyerFirmCreateOrConnectWithoutSellersInput = {
+    where: BuyerFirmWhereUniqueInput
+    create: XOR<BuyerFirmCreateWithoutSellersInput, BuyerFirmUncheckedCreateWithoutSellersInput>
+  }
+
+  export type TransactionCreateWithoutSellerInput = {
+    id?: string
+    fruitType: string
+    quantity: number
+    unit?: string
+    rate: number
+    grossAmount?: number
+    commission?: number
+    labour?: number
+    freight?: number
+    association?: number
+    printing?: number
+    miscellaneous?: number
+    totalAmount: number
+    receivedAt?: Date | string
+    notes?: string | null
+    notified?: boolean
+    createdAt?: Date | string
+    grower?: GrowerCreateNestedOneWithoutTransactionsInput
+    buyerFirm: BuyerFirmCreateNestedOneWithoutTransactionsInput
+  }
+
+  export type TransactionUncheckedCreateWithoutSellerInput = {
+    id?: string
+    growerId?: string | null
+    buyerFirmId: string
+    fruitType: string
+    quantity: number
+    unit?: string
+    rate: number
+    grossAmount?: number
+    commission?: number
+    labour?: number
+    freight?: number
+    association?: number
+    printing?: number
+    miscellaneous?: number
+    totalAmount: number
+    receivedAt?: Date | string
+    notes?: string | null
+    notified?: boolean
+    createdAt?: Date | string
+  }
+
+  export type TransactionCreateOrConnectWithoutSellerInput = {
+    where: TransactionWhereUniqueInput
+    create: XOR<TransactionCreateWithoutSellerInput, TransactionUncheckedCreateWithoutSellerInput>
+  }
+
+  export type TransactionCreateManySellerInputEnvelope = {
+    data: TransactionCreateManySellerInput | TransactionCreateManySellerInput[]
+  }
+
+  export type DraftTransactionCreateWithoutSellerInput = {
+    id?: string
+    fruitType: string
+    quantity: number
+    unit?: string
+    rate: number
+    notes?: string | null
+    status?: string
+    createdAt?: Date | string
+    grower?: GrowerCreateNestedOneWithoutDraftTransactionsInput
+    buyerFirm: BuyerFirmCreateNestedOneWithoutDraftTransactionsInput
+    createdBy: UserCreateNestedOneWithoutDraftTransactionsInput
+  }
+
+  export type DraftTransactionUncheckedCreateWithoutSellerInput = {
+    id?: string
+    growerId?: string | null
+    buyerFirmId: string
+    fruitType: string
+    quantity: number
+    unit?: string
+    rate: number
+    notes?: string | null
+    createdById: string
+    status?: string
+    createdAt?: Date | string
+  }
+
+  export type DraftTransactionCreateOrConnectWithoutSellerInput = {
+    where: DraftTransactionWhereUniqueInput
+    create: XOR<DraftTransactionCreateWithoutSellerInput, DraftTransactionUncheckedCreateWithoutSellerInput>
+  }
+
+  export type DraftTransactionCreateManySellerInputEnvelope = {
+    data: DraftTransactionCreateManySellerInput | DraftTransactionCreateManySellerInput[]
+  }
+
+  export type SellerPaymentCreateWithoutSellerInput = {
+    id?: string
+    amount: number
+    notes?: string | null
+    paidAt?: Date | string
+    createdAt?: Date | string
+    buyerFirm: BuyerFirmCreateNestedOneWithoutSellerPaymentsInput
+  }
+
+  export type SellerPaymentUncheckedCreateWithoutSellerInput = {
+    id?: string
+    buyerFirmId: string
+    amount: number
+    notes?: string | null
+    paidAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type SellerPaymentCreateOrConnectWithoutSellerInput = {
+    where: SellerPaymentWhereUniqueInput
+    create: XOR<SellerPaymentCreateWithoutSellerInput, SellerPaymentUncheckedCreateWithoutSellerInput>
+  }
+
+  export type SellerPaymentCreateManySellerInputEnvelope = {
+    data: SellerPaymentCreateManySellerInput | SellerPaymentCreateManySellerInput[]
+  }
+
+  export type BuyerFirmUpsertWithoutSellersInput = {
+    update: XOR<BuyerFirmUpdateWithoutSellersInput, BuyerFirmUncheckedUpdateWithoutSellersInput>
+    create: XOR<BuyerFirmCreateWithoutSellersInput, BuyerFirmUncheckedCreateWithoutSellersInput>
+    where?: BuyerFirmWhereInput
+  }
+
+  export type BuyerFirmUpdateToOneWithWhereWithoutSellersInput = {
+    where?: BuyerFirmWhereInput
+    data: XOR<BuyerFirmUpdateWithoutSellersInput, BuyerFirmUncheckedUpdateWithoutSellersInput>
+  }
+
+  export type BuyerFirmUpdateWithoutSellersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    uniqueId?: StringFieldUpdateOperationsInput | string
+    firmName?: StringFieldUpdateOperationsInput | string
+    ownerName?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    subscriptionPlan?: StringFieldUpdateOperationsInput | string
+    subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    users?: UserUpdateManyWithoutBuyerFirmNestedInput
+    growers?: GrowerUpdateManyWithoutBuyerFirmNestedInput
+    transactions?: TransactionUpdateManyWithoutBuyerFirmNestedInput
+    payments?: PaymentUpdateManyWithoutBuyerFirmNestedInput
+    sellerPayments?: SellerPaymentUpdateManyWithoutBuyerFirmNestedInput
+    draftTransactions?: DraftTransactionUpdateManyWithoutBuyerFirmNestedInput
+  }
+
+  export type BuyerFirmUncheckedUpdateWithoutSellersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    uniqueId?: StringFieldUpdateOperationsInput | string
+    firmName?: StringFieldUpdateOperationsInput | string
+    ownerName?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    subscriptionPlan?: StringFieldUpdateOperationsInput | string
+    subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    users?: UserUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    growers?: GrowerUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    sellerPayments?: SellerPaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
+  }
+
+  export type TransactionUpsertWithWhereUniqueWithoutSellerInput = {
+    where: TransactionWhereUniqueInput
+    update: XOR<TransactionUpdateWithoutSellerInput, TransactionUncheckedUpdateWithoutSellerInput>
+    create: XOR<TransactionCreateWithoutSellerInput, TransactionUncheckedCreateWithoutSellerInput>
+  }
+
+  export type TransactionUpdateWithWhereUniqueWithoutSellerInput = {
+    where: TransactionWhereUniqueInput
+    data: XOR<TransactionUpdateWithoutSellerInput, TransactionUncheckedUpdateWithoutSellerInput>
+  }
+
+  export type TransactionUpdateManyWithWhereWithoutSellerInput = {
+    where: TransactionScalarWhereInput
+    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyWithoutSellerInput>
+  }
+
+  export type DraftTransactionUpsertWithWhereUniqueWithoutSellerInput = {
+    where: DraftTransactionWhereUniqueInput
+    update: XOR<DraftTransactionUpdateWithoutSellerInput, DraftTransactionUncheckedUpdateWithoutSellerInput>
+    create: XOR<DraftTransactionCreateWithoutSellerInput, DraftTransactionUncheckedCreateWithoutSellerInput>
+  }
+
+  export type DraftTransactionUpdateWithWhereUniqueWithoutSellerInput = {
+    where: DraftTransactionWhereUniqueInput
+    data: XOR<DraftTransactionUpdateWithoutSellerInput, DraftTransactionUncheckedUpdateWithoutSellerInput>
+  }
+
+  export type DraftTransactionUpdateManyWithWhereWithoutSellerInput = {
+    where: DraftTransactionScalarWhereInput
+    data: XOR<DraftTransactionUpdateManyMutationInput, DraftTransactionUncheckedUpdateManyWithoutSellerInput>
+  }
+
+  export type SellerPaymentUpsertWithWhereUniqueWithoutSellerInput = {
+    where: SellerPaymentWhereUniqueInput
+    update: XOR<SellerPaymentUpdateWithoutSellerInput, SellerPaymentUncheckedUpdateWithoutSellerInput>
+    create: XOR<SellerPaymentCreateWithoutSellerInput, SellerPaymentUncheckedCreateWithoutSellerInput>
+  }
+
+  export type SellerPaymentUpdateWithWhereUniqueWithoutSellerInput = {
+    where: SellerPaymentWhereUniqueInput
+    data: XOR<SellerPaymentUpdateWithoutSellerInput, SellerPaymentUncheckedUpdateWithoutSellerInput>
+  }
+
+  export type SellerPaymentUpdateManyWithWhereWithoutSellerInput = {
+    where: SellerPaymentScalarWhereInput
+    data: XOR<SellerPaymentUpdateManyMutationInput, SellerPaymentUncheckedUpdateManyWithoutSellerInput>
+  }
+
+  export type SellerCreateWithoutPaymentsInput = {
+    id?: string
+    name: string
+    mobile: string
+    address?: string | null
+    createdAt?: Date | string
+    buyerFirm: BuyerFirmCreateNestedOneWithoutSellersInput
+    transactions?: TransactionCreateNestedManyWithoutSellerInput
+    draftTransactions?: DraftTransactionCreateNestedManyWithoutSellerInput
+  }
+
+  export type SellerUncheckedCreateWithoutPaymentsInput = {
+    id?: string
+    name: string
+    mobile: string
+    address?: string | null
+    buyerFirmId: string
+    createdAt?: Date | string
+    transactions?: TransactionUncheckedCreateNestedManyWithoutSellerInput
+    draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutSellerInput
+  }
+
+  export type SellerCreateOrConnectWithoutPaymentsInput = {
+    where: SellerWhereUniqueInput
+    create: XOR<SellerCreateWithoutPaymentsInput, SellerUncheckedCreateWithoutPaymentsInput>
+  }
+
+  export type BuyerFirmCreateWithoutSellerPaymentsInput = {
+    id?: string
+    uniqueId: string
+    firmName: string
+    ownerName: string
+    mobile: string
+    subscriptionPlan?: string
+    subscriptionExpiry?: Date | string | null
+    createdAt?: Date | string
+    logoUrl?: string | null
+    users?: UserCreateNestedManyWithoutBuyerFirmInput
+    growers?: GrowerCreateNestedManyWithoutBuyerFirmInput
+    sellers?: SellerCreateNestedManyWithoutBuyerFirmInput
+    transactions?: TransactionCreateNestedManyWithoutBuyerFirmInput
+    payments?: PaymentCreateNestedManyWithoutBuyerFirmInput
+    draftTransactions?: DraftTransactionCreateNestedManyWithoutBuyerFirmInput
+  }
+
+  export type BuyerFirmUncheckedCreateWithoutSellerPaymentsInput = {
+    id?: string
+    uniqueId: string
+    firmName: string
+    ownerName: string
+    mobile: string
+    subscriptionPlan?: string
+    subscriptionExpiry?: Date | string | null
+    createdAt?: Date | string
+    logoUrl?: string | null
+    users?: UserUncheckedCreateNestedManyWithoutBuyerFirmInput
+    growers?: GrowerUncheckedCreateNestedManyWithoutBuyerFirmInput
+    sellers?: SellerUncheckedCreateNestedManyWithoutBuyerFirmInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
+    draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
+  }
+
+  export type BuyerFirmCreateOrConnectWithoutSellerPaymentsInput = {
+    where: BuyerFirmWhereUniqueInput
+    create: XOR<BuyerFirmCreateWithoutSellerPaymentsInput, BuyerFirmUncheckedCreateWithoutSellerPaymentsInput>
+  }
+
+  export type SellerUpsertWithoutPaymentsInput = {
+    update: XOR<SellerUpdateWithoutPaymentsInput, SellerUncheckedUpdateWithoutPaymentsInput>
+    create: XOR<SellerCreateWithoutPaymentsInput, SellerUncheckedCreateWithoutPaymentsInput>
+    where?: SellerWhereInput
+  }
+
+  export type SellerUpdateToOneWithWhereWithoutPaymentsInput = {
+    where?: SellerWhereInput
+    data: XOR<SellerUpdateWithoutPaymentsInput, SellerUncheckedUpdateWithoutPaymentsInput>
+  }
+
+  export type SellerUpdateWithoutPaymentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    buyerFirm?: BuyerFirmUpdateOneRequiredWithoutSellersNestedInput
+    transactions?: TransactionUpdateManyWithoutSellerNestedInput
+    draftTransactions?: DraftTransactionUpdateManyWithoutSellerNestedInput
+  }
+
+  export type SellerUncheckedUpdateWithoutPaymentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerFirmId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: TransactionUncheckedUpdateManyWithoutSellerNestedInput
+    draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutSellerNestedInput
+  }
+
+  export type BuyerFirmUpsertWithoutSellerPaymentsInput = {
+    update: XOR<BuyerFirmUpdateWithoutSellerPaymentsInput, BuyerFirmUncheckedUpdateWithoutSellerPaymentsInput>
+    create: XOR<BuyerFirmCreateWithoutSellerPaymentsInput, BuyerFirmUncheckedCreateWithoutSellerPaymentsInput>
+    where?: BuyerFirmWhereInput
+  }
+
+  export type BuyerFirmUpdateToOneWithWhereWithoutSellerPaymentsInput = {
+    where?: BuyerFirmWhereInput
+    data: XOR<BuyerFirmUpdateWithoutSellerPaymentsInput, BuyerFirmUncheckedUpdateWithoutSellerPaymentsInput>
+  }
+
+  export type BuyerFirmUpdateWithoutSellerPaymentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    uniqueId?: StringFieldUpdateOperationsInput | string
+    firmName?: StringFieldUpdateOperationsInput | string
+    ownerName?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    subscriptionPlan?: StringFieldUpdateOperationsInput | string
+    subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    users?: UserUpdateManyWithoutBuyerFirmNestedInput
+    growers?: GrowerUpdateManyWithoutBuyerFirmNestedInput
+    sellers?: SellerUpdateManyWithoutBuyerFirmNestedInput
+    transactions?: TransactionUpdateManyWithoutBuyerFirmNestedInput
+    payments?: PaymentUpdateManyWithoutBuyerFirmNestedInput
+    draftTransactions?: DraftTransactionUpdateManyWithoutBuyerFirmNestedInput
+  }
+
+  export type BuyerFirmUncheckedUpdateWithoutSellerPaymentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    uniqueId?: StringFieldUpdateOperationsInput | string
+    firmName?: StringFieldUpdateOperationsInput | string
+    ownerName?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    subscriptionPlan?: StringFieldUpdateOperationsInput | string
+    subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    users?: UserUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    growers?: GrowerUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    sellers?: SellerUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
+  }
+
   export type UserCreateManyBuyerFirmInput = {
     id?: string
     mobile: string
@@ -16668,9 +20808,18 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type SellerCreateManyBuyerFirmInput = {
+    id?: string
+    name: string
+    mobile: string
+    address?: string | null
+    createdAt?: Date | string
+  }
+
   export type TransactionCreateManyBuyerFirmInput = {
     id?: string
-    growerId: string
+    growerId?: string | null
+    sellerId?: string | null
     fruitType: string
     quantity: number
     unit?: string
@@ -16698,9 +20847,19 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type SellerPaymentCreateManyBuyerFirmInput = {
+    id?: string
+    sellerId: string
+    amount: number
+    notes?: string | null
+    paidAt?: Date | string
+    createdAt?: Date | string
+  }
+
   export type DraftTransactionCreateManyBuyerFirmInput = {
     id?: string
-    growerId: string
+    growerId?: string | null
+    sellerId?: string | null
     fruitType: string
     quantity: number
     unit?: string
@@ -16771,6 +20930,36 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SellerUpdateWithoutBuyerFirmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: TransactionUpdateManyWithoutSellerNestedInput
+    draftTransactions?: DraftTransactionUpdateManyWithoutSellerNestedInput
+    payments?: SellerPaymentUpdateManyWithoutSellerNestedInput
+  }
+
+  export type SellerUncheckedUpdateWithoutBuyerFirmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: TransactionUncheckedUpdateManyWithoutSellerNestedInput
+    draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutSellerNestedInput
+    payments?: SellerPaymentUncheckedUpdateManyWithoutSellerNestedInput
+  }
+
+  export type SellerUncheckedUpdateManyWithoutBuyerFirmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TransactionUpdateWithoutBuyerFirmInput = {
     id?: StringFieldUpdateOperationsInput | string
     fruitType?: StringFieldUpdateOperationsInput | string
@@ -16789,12 +20978,14 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     notified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    grower?: GrowerUpdateOneRequiredWithoutTransactionsNestedInput
+    grower?: GrowerUpdateOneWithoutTransactionsNestedInput
+    seller?: SellerUpdateOneWithoutTransactionsNestedInput
   }
 
   export type TransactionUncheckedUpdateWithoutBuyerFirmInput = {
     id?: StringFieldUpdateOperationsInput | string
-    growerId?: StringFieldUpdateOperationsInput | string
+    growerId?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
     fruitType?: StringFieldUpdateOperationsInput | string
     quantity?: FloatFieldUpdateOperationsInput | number
     unit?: StringFieldUpdateOperationsInput | string
@@ -16815,7 +21006,8 @@ export namespace Prisma {
 
   export type TransactionUncheckedUpdateManyWithoutBuyerFirmInput = {
     id?: StringFieldUpdateOperationsInput | string
-    growerId?: StringFieldUpdateOperationsInput | string
+    growerId?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
     fruitType?: StringFieldUpdateOperationsInput | string
     quantity?: FloatFieldUpdateOperationsInput | number
     unit?: StringFieldUpdateOperationsInput | string
@@ -16861,6 +21053,33 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SellerPaymentUpdateWithoutBuyerFirmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    seller?: SellerUpdateOneRequiredWithoutPaymentsNestedInput
+  }
+
+  export type SellerPaymentUncheckedUpdateWithoutBuyerFirmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sellerId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SellerPaymentUncheckedUpdateManyWithoutBuyerFirmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sellerId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type DraftTransactionUpdateWithoutBuyerFirmInput = {
     id?: StringFieldUpdateOperationsInput | string
     fruitType?: StringFieldUpdateOperationsInput | string
@@ -16870,13 +21089,15 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    grower?: GrowerUpdateOneRequiredWithoutDraftTransactionsNestedInput
+    grower?: GrowerUpdateOneWithoutDraftTransactionsNestedInput
+    seller?: SellerUpdateOneWithoutDraftTransactionsNestedInput
     createdBy?: UserUpdateOneRequiredWithoutDraftTransactionsNestedInput
   }
 
   export type DraftTransactionUncheckedUpdateWithoutBuyerFirmInput = {
     id?: StringFieldUpdateOperationsInput | string
-    growerId?: StringFieldUpdateOperationsInput | string
+    growerId?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
     fruitType?: StringFieldUpdateOperationsInput | string
     quantity?: FloatFieldUpdateOperationsInput | number
     unit?: StringFieldUpdateOperationsInput | string
@@ -16889,7 +21110,8 @@ export namespace Prisma {
 
   export type DraftTransactionUncheckedUpdateManyWithoutBuyerFirmInput = {
     id?: StringFieldUpdateOperationsInput | string
-    growerId?: StringFieldUpdateOperationsInput | string
+    growerId?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
     fruitType?: StringFieldUpdateOperationsInput | string
     quantity?: FloatFieldUpdateOperationsInput | number
     unit?: StringFieldUpdateOperationsInput | string
@@ -16902,7 +21124,8 @@ export namespace Prisma {
 
   export type DraftTransactionCreateManyCreatedByInput = {
     id?: string
-    growerId: string
+    growerId?: string | null
+    sellerId?: string | null
     buyerFirmId: string
     fruitType: string
     quantity: number
@@ -16922,13 +21145,15 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    grower?: GrowerUpdateOneRequiredWithoutDraftTransactionsNestedInput
+    grower?: GrowerUpdateOneWithoutDraftTransactionsNestedInput
+    seller?: SellerUpdateOneWithoutDraftTransactionsNestedInput
     buyerFirm?: BuyerFirmUpdateOneRequiredWithoutDraftTransactionsNestedInput
   }
 
   export type DraftTransactionUncheckedUpdateWithoutCreatedByInput = {
     id?: StringFieldUpdateOperationsInput | string
-    growerId?: StringFieldUpdateOperationsInput | string
+    growerId?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
     buyerFirmId?: StringFieldUpdateOperationsInput | string
     fruitType?: StringFieldUpdateOperationsInput | string
     quantity?: FloatFieldUpdateOperationsInput | number
@@ -16941,7 +21166,8 @@ export namespace Prisma {
 
   export type DraftTransactionUncheckedUpdateManyWithoutCreatedByInput = {
     id?: StringFieldUpdateOperationsInput | string
-    growerId?: StringFieldUpdateOperationsInput | string
+    growerId?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
     buyerFirmId?: StringFieldUpdateOperationsInput | string
     fruitType?: StringFieldUpdateOperationsInput | string
     quantity?: FloatFieldUpdateOperationsInput | number
@@ -16954,6 +21180,7 @@ export namespace Prisma {
 
   export type TransactionCreateManyGrowerInput = {
     id?: string
+    sellerId?: string | null
     buyerFirmId: string
     fruitType: string
     quantity: number
@@ -17003,6 +21230,7 @@ export namespace Prisma {
 
   export type DraftTransactionCreateManyGrowerInput = {
     id?: string
+    sellerId?: string | null
     buyerFirmId: string
     fruitType: string
     quantity: number
@@ -17032,11 +21260,13 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     notified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    seller?: SellerUpdateOneWithoutTransactionsNestedInput
     buyerFirm?: BuyerFirmUpdateOneRequiredWithoutTransactionsNestedInput
   }
 
   export type TransactionUncheckedUpdateWithoutGrowerInput = {
     id?: StringFieldUpdateOperationsInput | string
+    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
     buyerFirmId?: StringFieldUpdateOperationsInput | string
     fruitType?: StringFieldUpdateOperationsInput | string
     quantity?: FloatFieldUpdateOperationsInput | number
@@ -17058,6 +21288,7 @@ export namespace Prisma {
 
   export type TransactionUncheckedUpdateManyWithoutGrowerInput = {
     id?: StringFieldUpdateOperationsInput | string
+    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
     buyerFirmId?: StringFieldUpdateOperationsInput | string
     fruitType?: StringFieldUpdateOperationsInput | string
     quantity?: FloatFieldUpdateOperationsInput | number
@@ -17170,12 +21401,14 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    seller?: SellerUpdateOneWithoutDraftTransactionsNestedInput
     buyerFirm?: BuyerFirmUpdateOneRequiredWithoutDraftTransactionsNestedInput
     createdBy?: UserUpdateOneRequiredWithoutDraftTransactionsNestedInput
   }
 
   export type DraftTransactionUncheckedUpdateWithoutGrowerInput = {
     id?: StringFieldUpdateOperationsInput | string
+    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
     buyerFirmId?: StringFieldUpdateOperationsInput | string
     fruitType?: StringFieldUpdateOperationsInput | string
     quantity?: FloatFieldUpdateOperationsInput | number
@@ -17189,6 +21422,7 @@ export namespace Prisma {
 
   export type DraftTransactionUncheckedUpdateManyWithoutGrowerInput = {
     id?: StringFieldUpdateOperationsInput | string
+    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
     buyerFirmId?: StringFieldUpdateOperationsInput | string
     fruitType?: StringFieldUpdateOperationsInput | string
     quantity?: FloatFieldUpdateOperationsInput | number
@@ -17197,6 +21431,186 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdById?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionCreateManySellerInput = {
+    id?: string
+    growerId?: string | null
+    buyerFirmId: string
+    fruitType: string
+    quantity: number
+    unit?: string
+    rate: number
+    grossAmount?: number
+    commission?: number
+    labour?: number
+    freight?: number
+    association?: number
+    printing?: number
+    miscellaneous?: number
+    totalAmount: number
+    receivedAt?: Date | string
+    notes?: string | null
+    notified?: boolean
+    createdAt?: Date | string
+  }
+
+  export type DraftTransactionCreateManySellerInput = {
+    id?: string
+    growerId?: string | null
+    buyerFirmId: string
+    fruitType: string
+    quantity: number
+    unit?: string
+    rate: number
+    notes?: string | null
+    createdById: string
+    status?: string
+    createdAt?: Date | string
+  }
+
+  export type SellerPaymentCreateManySellerInput = {
+    id?: string
+    buyerFirmId: string
+    amount: number
+    notes?: string | null
+    paidAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type TransactionUpdateWithoutSellerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fruitType?: StringFieldUpdateOperationsInput | string
+    quantity?: FloatFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
+    rate?: FloatFieldUpdateOperationsInput | number
+    grossAmount?: FloatFieldUpdateOperationsInput | number
+    commission?: FloatFieldUpdateOperationsInput | number
+    labour?: FloatFieldUpdateOperationsInput | number
+    freight?: FloatFieldUpdateOperationsInput | number
+    association?: FloatFieldUpdateOperationsInput | number
+    printing?: FloatFieldUpdateOperationsInput | number
+    miscellaneous?: FloatFieldUpdateOperationsInput | number
+    totalAmount?: FloatFieldUpdateOperationsInput | number
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    notified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    grower?: GrowerUpdateOneWithoutTransactionsNestedInput
+    buyerFirm?: BuyerFirmUpdateOneRequiredWithoutTransactionsNestedInput
+  }
+
+  export type TransactionUncheckedUpdateWithoutSellerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    growerId?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerFirmId?: StringFieldUpdateOperationsInput | string
+    fruitType?: StringFieldUpdateOperationsInput | string
+    quantity?: FloatFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
+    rate?: FloatFieldUpdateOperationsInput | number
+    grossAmount?: FloatFieldUpdateOperationsInput | number
+    commission?: FloatFieldUpdateOperationsInput | number
+    labour?: FloatFieldUpdateOperationsInput | number
+    freight?: FloatFieldUpdateOperationsInput | number
+    association?: FloatFieldUpdateOperationsInput | number
+    printing?: FloatFieldUpdateOperationsInput | number
+    miscellaneous?: FloatFieldUpdateOperationsInput | number
+    totalAmount?: FloatFieldUpdateOperationsInput | number
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    notified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutSellerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    growerId?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerFirmId?: StringFieldUpdateOperationsInput | string
+    fruitType?: StringFieldUpdateOperationsInput | string
+    quantity?: FloatFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
+    rate?: FloatFieldUpdateOperationsInput | number
+    grossAmount?: FloatFieldUpdateOperationsInput | number
+    commission?: FloatFieldUpdateOperationsInput | number
+    labour?: FloatFieldUpdateOperationsInput | number
+    freight?: FloatFieldUpdateOperationsInput | number
+    association?: FloatFieldUpdateOperationsInput | number
+    printing?: FloatFieldUpdateOperationsInput | number
+    miscellaneous?: FloatFieldUpdateOperationsInput | number
+    totalAmount?: FloatFieldUpdateOperationsInput | number
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    notified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DraftTransactionUpdateWithoutSellerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fruitType?: StringFieldUpdateOperationsInput | string
+    quantity?: FloatFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
+    rate?: FloatFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    grower?: GrowerUpdateOneWithoutDraftTransactionsNestedInput
+    buyerFirm?: BuyerFirmUpdateOneRequiredWithoutDraftTransactionsNestedInput
+    createdBy?: UserUpdateOneRequiredWithoutDraftTransactionsNestedInput
+  }
+
+  export type DraftTransactionUncheckedUpdateWithoutSellerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    growerId?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerFirmId?: StringFieldUpdateOperationsInput | string
+    fruitType?: StringFieldUpdateOperationsInput | string
+    quantity?: FloatFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
+    rate?: FloatFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DraftTransactionUncheckedUpdateManyWithoutSellerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    growerId?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerFirmId?: StringFieldUpdateOperationsInput | string
+    fruitType?: StringFieldUpdateOperationsInput | string
+    quantity?: FloatFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
+    rate?: FloatFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SellerPaymentUpdateWithoutSellerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    buyerFirm?: BuyerFirmUpdateOneRequiredWithoutSellerPaymentsNestedInput
+  }
+
+  export type SellerPaymentUncheckedUpdateWithoutSellerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    buyerFirmId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SellerPaymentUncheckedUpdateManyWithoutSellerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    buyerFirmId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

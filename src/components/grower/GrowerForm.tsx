@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Box, Button, Input, Stack, Text, Textarea } from "@chakra-ui/react";
+import { PhoneInput } from "@/components/common/PhoneInput";
 
 export type GrowerValues = { name: string; mobile: string; address: string };
 
@@ -44,7 +45,7 @@ export function GrowerForm({
       </Box>
       <Box>
         <Text fontSize="sm" mb={1}>Mobile</Text>
-        <Input value={mobile} onChange={(e) => setMobile(e.target.value)} placeholder="+919812300001" />
+        <PhoneInput value={mobile} onChange={setMobile} placeholder="9812300001" />
       </Box>
       <Box>
         <Text fontSize="sm" mb={1}>Address (optional)</Text>

@@ -15,6 +15,7 @@ export async function GET() {
       orderBy: { createdAt: "desc" },
       include: {
         grower: { select: { name: true } },
+        seller: { select: { name: true } },
         createdBy: { select: { name: true, mobile: true } },
       },
     });

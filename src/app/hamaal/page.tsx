@@ -12,7 +12,8 @@ type Grower = { id: string; name: string; mobile: string };
 
 type Draft = {
   id: string;
-  grower: { name: string };
+  grower?: { name: string } | null;
+  seller?: { name: string } | null;
   fruitType: string;
   quantity: number;
   unit: string;
@@ -389,7 +390,7 @@ export default function HamaalPage() {
                     <Box key={d.id} bg="white" p={4} borderRadius="xl" shadow="xs" borderWidth="1px">
                       <Flex justify="space-between" align="start">
                         <Stack gap={0.5}>
-                          <Text fontWeight="semibold" color="gray.800" fontSize="sm">{d.grower.name}</Text>
+                          <Text fontWeight="semibold" color="gray.800" fontSize="sm">{d.grower?.name || d.seller?.name || "—"}</Text>
                           <Text color="green.750" fontWeight="bold" fontSize="xs">
                             {d.quantity} {d.unit} of {d.fruitType} {d.rate ? `@ ₹${d.rate}/${d.unit}` : ""}
                           </Text>

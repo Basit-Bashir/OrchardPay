@@ -5,6 +5,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Box, Button, Flex, Heading, Input, SimpleGrid, Spinner, Stack, Text, chakra } from "@chakra-ui/react";
 import { api } from "@/lib/client";
 import { ConfirmationModal } from "@/components/common/ConfirmationModal";
+import { PhoneInput } from "@/components/common/PhoneInput";
 
 const Select = chakra("select");
 
@@ -225,11 +226,10 @@ export default function SettingsPage() {
                       </Box>
                       <Box flex={1} minW="150px">
                         <Text fontSize="xs" mb={1} color="gray.500">Mobile {isBuyer && <span style={{ color: "var(--chakra-colors-gray-400)" }}>(Registered Number)</span>}</Text>
-                        <Input 
+                        <PhoneInput 
                           size="sm" 
                           value={editMobile} 
-                          onChange={(e) => setEditMobile(e.target.value)} 
-                          bg={isBuyer ? "gray.100" : "white"} 
+                          onChange={setEditMobile} 
                           disabled={isBuyer} 
                         />
                       </Box>
@@ -328,7 +328,7 @@ export default function SettingsPage() {
           </Box>
           <Box>
             <Text fontSize="sm" mb={1}>Mobile</Text>
-            <Input value={sMobile} onChange={(e) => setSMobile(e.target.value)} placeholder="+9198…" />
+            <PhoneInput value={sMobile} onChange={setSMobile} placeholder="98…" />
           </Box>
           <Box minW="120px">
             <Text fontSize="sm" mb={1}>Role</Text>

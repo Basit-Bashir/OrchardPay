@@ -27,13 +27,23 @@ export const growerSchema = z.object({
   address: z.string().trim().optional().or(z.literal("")),
 });
 
+export const sellerSchema = z.object({
+  name: z.string().trim().min(2, "Name is required"),
+  mobile,
+  address: z.string().trim().optional().or(z.literal("")),
+});
+
 export const transactionSchema = z.object({
-  growerId: z.string().min(1, "Select a grower"),
+  growerId: z.string().trim().optional().or(z.literal("")),
+  sellerId: z.string().trim().optional().or(z.literal("")),
   fruitType: z.string().trim().min(1, "Fruit type is required"),
   quantity: z.coerce.number().positive("Quantity must be greater than 0"),
   unit: z.enum(["kg", "peti", "daba"]).default("kg"),
   rate: z.coerce.number().positive("Rate must be greater than 0"),
   notes: z.string().trim().optional().or(z.literal("")),
+}).refine(data => (data.growerId && !data.sellerId) || (!data.growerId && data.sellerId), {
+  message: "Select either a Grower or a Seller, but not both",
+  path: ["growerId"],
 });
 
 export const transactionItemSchema = z.object({
@@ -44,7 +54,8 @@ export const transactionItemSchema = z.object({
 });
 
 export const batchTransactionSchema = z.object({
-  growerId: z.string().min(1, "Select a grower"),
+  growerId: z.string().trim().optional().or(z.literal("")),
+  sellerId: z.string().trim().optional().or(z.literal("")),
   items: z.array(transactionItemSchema).min(1, "At least one item is required"),
   freight: z.coerce.number().nonnegative("Freight must be 0 or greater").default(0),
   commissionRate: z.coerce.number().nonnegative("Commission rate must be 0 or greater").default(12),
@@ -54,10 +65,20 @@ export const batchTransactionSchema = z.object({
   miscellaneousRate: z.coerce.number().nonnegative("Miscellaneous rate must be 0 or greater").default(0.90),
   notes: z.string().trim().optional().or(z.literal("")),
   draftId: z.string().trim().optional(),
+}).refine(data => (data.growerId && !data.sellerId) || (!data.growerId && data.sellerId), {
+  message: "Select either a Grower or a Seller, but not both",
+  path: ["growerId"],
 });
 
 export const paymentSchema = z.object({
   growerId: z.string().min(1, "Select a grower"),
+  amount: z.coerce.number().positive("Amount must be greater than 0"),
+  notes: z.string().trim().optional().or(z.literal("")),
+  paidAt: z.coerce.date().optional(),
+});
+
+export const sellerPaymentSchema = z.object({
+  sellerId: z.string().min(1, "Select a seller"),
   amount: z.coerce.number().positive("Amount must be greater than 0"),
   notes: z.string().trim().optional().or(z.literal("")),
   paidAt: z.coerce.date().optional(),
@@ -88,17 +109,23 @@ export const staffSchema = z.object({
 });
 
 export const draftTransactionSchema = z.object({
-  growerId: z.string().min(1, "Select a grower"),
+  growerId: z.string().trim().optional().or(z.literal("")),
+  sellerId: z.string().trim().optional().or(z.literal("")),
   fruitType: z.string().trim().min(1, "Fruit type is required"),
   quantity: z.coerce.number().positive("Quantity must be greater than 0"),
   unit: z.enum(["kg", "peti", "daba"]).default("kg"),
   rate: z.coerce.number().positive("Rate must be greater than 0"),
   notes: z.string().trim().optional().or(z.literal("")),
+}).refine(data => (data.growerId && !data.sellerId) || (!data.growerId && data.sellerId), {
+  message: "Select either a Grower or a Seller, but not both",
+  path: ["growerId"],
 });
 
 export type SignupInput = z.infer<typeof signupSchema>;
 export type GrowerInput = z.infer<typeof growerSchema>;
+export type SellerInput = z.infer<typeof sellerSchema>;
 export type TransactionInput = z.infer<typeof transactionSchema>;
 export type BatchTransactionInput = z.infer<typeof batchTransactionSchema>;
 export type PaymentInput = z.infer<typeof paymentSchema>;
+export type SellerPaymentInput = z.infer<typeof sellerPaymentSchema>;
 export type MigrationRow = z.infer<typeof migrationRowSchema>;

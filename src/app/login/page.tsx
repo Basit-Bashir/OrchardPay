@@ -6,6 +6,7 @@ import NextLink from "next/link";
 import { Box, Button, Container, Flex, Heading, Input, Stack, Text } from "@chakra-ui/react";
 import { api } from "@/lib/client";
 import { Navbar } from "@/components/layout/Navbar";
+import { PhoneInput } from "@/components/common/PhoneInput";
 
 function LoginInner() {
   const router = useRouter();
@@ -80,7 +81,7 @@ function LoginInner() {
               <Stack gap={4}>
                 <Box>
                   <Text fontSize="sm" mb={1}>Mobile number</Text>
-                  <Input value={mobile} onChange={(e) => setMobile(e.target.value)} placeholder="+919999900001" />
+                  <PhoneInput value={mobile} onChange={setMobile} placeholder="9999900001" />
                 </Box>
                 <Button colorPalette="green" onClick={sendOtp} loading={loading}>
                   Send code

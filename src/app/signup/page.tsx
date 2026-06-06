@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { api } from "@/lib/client";
 import { Navbar } from "@/components/layout/Navbar";
+import { PhoneInput } from "@/components/common/PhoneInput";
 
 function SignupInner() {
   const router = useRouter();
@@ -210,7 +211,7 @@ function SignupInner() {
                 </Box>
                 <Box>
                   <Text fontSize="sm" mb={1}>Mobile number</Text>
-                  <Input value={mobile} onChange={(e) => setMobile(e.target.value)} placeholder="+919999900001" />
+                  <PhoneInput value={mobile} onChange={setMobile} placeholder="9999900001" />
                 </Box>
                 <Flex gap={3}>
                   {!planParam && (

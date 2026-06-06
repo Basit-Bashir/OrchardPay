@@ -21,15 +21,21 @@ export async function GET(req: Request) {
       receivedAt.lte = end;
     }
 
+    const sellerId = sp.get("sellerId") || undefined;
+
     const txns = await prisma.transaction.findMany({
       where: {
         buyerFirmId: session.buyerFirmId,
         ...(growerId ? { growerId } : {}),
+        ...(sellerId ? { sellerId } : {}),
         ...(fruitType ? { fruitType: { contains: fruitType } } : {}),
         ...(receivedAt.gte || receivedAt.lte ? { receivedAt } : {}),
       },
       orderBy: { receivedAt: "desc" },
-      include: { grower: { select: { name: true, mobile: true } } },
+      include: {
+        grower: { select: { name: true, mobile: true } },
+        seller: { select: { name: true, mobile: true } },
+      },
     });
 
     return ok(txns);
@@ -44,6 +50,7 @@ export async function POST(req: Request) {
 
     const {
       growerId,
+      sellerId,
       items,
       freight,
       commissionRate,
@@ -55,10 +62,28 @@ export async function POST(req: Request) {
       draftId,
     } = parsed.data;
 
-    const grower = await prisma.grower.findFirst({
-      where: { id: growerId, buyerFirmId: session.buyerFirmId },
-    });
-    if (!grower) return fail("Grower not found", 404);
+    if ((growerId && sellerId) || (!growerId && !sellerId)) {
+      return fail("Select either a Grower or a Seller, but not both", 400);
+    }
+
+    let growerName = "";
+    let growerMobile = "";
+
+    if (growerId) {
+      const grower = await prisma.grower.findFirst({
+        where: { id: growerId, buyerFirmId: session.buyerFirmId },
+      });
+      if (!grower) return fail("Grower not found", 404);
+      growerName = grower.name;
+      growerMobile = grower.mobile;
+    }
+
+    if (sellerId) {
+      const seller = await prisma.seller.findFirst({
+        where: { id: sellerId, buyerFirmId: session.buyerFirmId },
+      });
+      if (!seller) return fail("Seller not found", 404);
+    }
 
     const firm = await prisma.buyerFirm.findUnique({
       where: { id: session.buyerFirmId },
@@ -70,21 +95,29 @@ export async function POST(req: Request) {
     const createdTxns = [];
     for (const item of items) {
       const grossAmount = Math.round(item.quantity * item.rate * 100) / 100;
-      const commission = Math.round(grossAmount * (commissionRate / 100) * 100) / 100;
-      const labour = Math.round(item.quantity * labourRate * 100) / 100;
-      
-      const itemFreight = totalQuantity > 0 ? Math.round(((item.quantity / totalQuantity) * freight) * 100) / 100 : 0;
-      const itemPrinting = totalQuantity > 0 ? Math.round(((item.quantity / totalQuantity) * printingCharge) * 100) / 100 : 0;
-      
-      const association = Math.round(grossAmount * (associationRate / 100) * 100) / 100;
-      const miscellaneous = Math.round(grossAmount * (miscellaneousRate / 100) * 100) / 100;
-      
-      const totalExpenses = commission + labour + itemFreight + association + itemPrinting + miscellaneous;
-      const totalAmount = Math.round((grossAmount - totalExpenses) * 100) / 100;
+      let commission = 0;
+      let labour = 0;
+      let itemFreight = 0;
+      let itemPrinting = 0;
+      let association = 0;
+      let miscellaneous = 0;
+      let totalAmount = grossAmount;
+
+      if (growerId) {
+        commission = Math.round(grossAmount * (commissionRate / 100) * 100) / 100;
+        labour = Math.round(item.quantity * labourRate * 100) / 100;
+        itemFreight = totalQuantity > 0 ? Math.round(((item.quantity / totalQuantity) * freight) * 100) / 100 : 0;
+        itemPrinting = totalQuantity > 0 ? Math.round(((item.quantity / totalQuantity) * printingCharge) * 100) / 100 : 0;
+        association = Math.round(grossAmount * (associationRate / 100) * 100) / 100;
+        miscellaneous = Math.round(grossAmount * (miscellaneousRate / 100) * 100) / 100;
+        const totalExpenses = commission + labour + itemFreight + association + itemPrinting + miscellaneous;
+        totalAmount = Math.round((grossAmount - totalExpenses) * 100) / 100;
+      }
 
       const txn = await prisma.transaction.create({
         data: {
-          growerId,
+          growerId: growerId || null,
+          sellerId: sellerId || null,
           buyerFirmId: session.buyerFirmId,
           fruitType: item.fruitType,
           quantity: item.quantity,
@@ -104,31 +137,33 @@ export async function POST(req: Request) {
       createdTxns.push(txn);
     }
 
-    const itemsDescription = items
-      .map((item) => `${item.fruitType} (${item.quantity} ${item.unit}) @ ₹${item.rate}/${item.unit}`)
-      .join(", ");
-    
-    const totalGross = items.reduce((sum, item) => sum + item.quantity * item.rate, 0);
-    const totalNet = createdTxns.reduce((sum, t) => sum + t.totalAmount, 0);
-    const totalExpenses = Math.round((totalGross - totalNet) * 100) / 100;
+    if (growerId && growerMobile) {
+      const itemsDescription = items
+        .map((item) => `${item.fruitType} (${item.quantity} ${item.unit}) @ ₹${item.rate}/${item.unit}`)
+        .join(", ");
+      
+      const totalGross = items.reduce((sum, item) => sum + item.quantity * item.rate, 0);
+      const totalNet = createdTxns.reduce((sum, t) => sum + t.totalAmount, 0);
+      const totalExpenses = Math.round((totalGross - totalNet) * 100) / 100;
 
-    const sent = await notifyGrowerOfBatchSale({
-      growerId: grower.id,
-      growerName: grower.name,
-      growerMobile: grower.mobile,
-      firmName: firm?.firmName ?? "OrchardPay",
-      itemsDescription,
-      totalAmount: totalNet,
-      grossAmount: totalGross,
-      expensesAmount: totalExpenses,
-    });
-
-    if (sent) {
-      const txnIds = createdTxns.map((t) => t.id);
-      await prisma.transaction.updateMany({
-        where: { id: { in: txnIds } },
-        data: { notified: true },
+      const sent = await notifyGrowerOfBatchSale({
+        growerId: growerId,
+        growerName: growerName,
+        growerMobile: growerMobile,
+        firmName: firm?.firmName ?? "OrchardPay",
+        itemsDescription,
+        totalAmount: totalNet,
+        grossAmount: totalGross,
+        expensesAmount: totalExpenses,
       });
+
+      if (sent) {
+        const txnIds = createdTxns.map((t) => t.id);
+        await prisma.transaction.updateMany({
+          where: { id: { in: txnIds } },
+          data: { notified: true },
+        });
+      }
     }
 
     if (draftId) {

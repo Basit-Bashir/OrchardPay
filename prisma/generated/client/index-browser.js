@@ -151,6 +151,7 @@ exports.Prisma.GrowerScalarFieldEnum = {
 exports.Prisma.TransactionScalarFieldEnum = {
   id: 'id',
   growerId: 'growerId',
+  sellerId: 'sellerId',
   buyerFirmId: 'buyerFirmId',
   fruitType: 'fruitType',
   quantity: 'quantity',
@@ -212,6 +213,7 @@ exports.Prisma.AgreementScalarFieldEnum = {
 exports.Prisma.DraftTransactionScalarFieldEnum = {
   id: 'id',
   growerId: 'growerId',
+  sellerId: 'sellerId',
   buyerFirmId: 'buyerFirmId',
   fruitType: 'fruitType',
   quantity: 'quantity',
@@ -220,6 +222,25 @@ exports.Prisma.DraftTransactionScalarFieldEnum = {
   notes: 'notes',
   createdById: 'createdById',
   status: 'status',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.SellerScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  mobile: 'mobile',
+  address: 'address',
+  buyerFirmId: 'buyerFirmId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.SellerPaymentScalarFieldEnum = {
+  id: 'id',
+  sellerId: 'sellerId',
+  buyerFirmId: 'buyerFirmId',
+  amount: 'amount',
+  notes: 'notes',
+  paidAt: 'paidAt',
   createdAt: 'createdAt'
 };
 
@@ -243,7 +264,9 @@ exports.Prisma.ModelName = {
   Otp: 'Otp',
   Notification: 'Notification',
   Agreement: 'Agreement',
-  DraftTransaction: 'DraftTransaction'
+  DraftTransaction: 'DraftTransaction',
+  Seller: 'Seller',
+  SellerPayment: 'SellerPayment'
 };
 
 /**

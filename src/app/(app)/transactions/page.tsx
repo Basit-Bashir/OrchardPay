@@ -18,7 +18,10 @@ type Txn = {
   totalAmount: number;
   receivedAt: string;
   notified: boolean;
-  grower: { name: string };
+  growerId?: string | null;
+  grower?: { name: string } | null;
+  sellerId?: string | null;
+  seller?: { name: string } | null;
 };
 
 function inr(n: number) {
@@ -28,6 +31,7 @@ function inr(n: number) {
 export default function TransactionsPage() {
   const [fruitType, setFruitType] = useState("");
   const [growerId, setGrowerId] = useState("");
+  const [sellerId, setSellerId] = useState("");
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [rejectingId, setRejectingId] = useState<string | null>(null);
@@ -36,17 +40,23 @@ export default function TransactionsPage() {
   const params = new URLSearchParams();
   if (fruitType) params.set("fruitType", fruitType);
   if (growerId) params.set("growerId", growerId);
+  if (sellerId) params.set("sellerId", sellerId);
   if (from) params.set("from", from);
   if (to) params.set("to", to);
 
   const { data, isLoading } = useQuery({
-    queryKey: ["transactions", fruitType, growerId, from, to],
+    queryKey: ["transactions", fruitType, growerId, sellerId, from, to],
     queryFn: () => api<Txn[]>(`/api/transactions?${params.toString()}`),
   });
 
   const { data: growers } = useQuery({
     queryKey: ["growers"],
     queryFn: () => api<any[]>("/api/growers"),
+  });
+
+  const { data: sellers } = useQuery({
+    queryKey: ["sellers"],
+    queryFn: () => api<any[]>("/api/sellers"),
   });
 
   const { data: drafts, refetch: refetchDrafts } = useQuery({
@@ -88,7 +98,7 @@ export default function TransactionsPage() {
             <Box as="table" w="full" fontSize="sm">
               <Box as="thead" bg="gray.50">
                 <Box as="tr" textAlign="left" color="gray.500">
-                  <Box as="th" px={6} py={3} fontWeight="medium">Grower</Box>
+                  <Box as="th" px={6} py={3} fontWeight="medium">Grower / Seller</Box>
                   <Box as="th" px={6} py={3} fontWeight="medium">Fruit</Box>
                   <Box as="th" px={6} py={3} fontWeight="medium">Quantity</Box>
                   <Box as="th" px={6} py={3} fontWeight="medium">Rate</Box>
@@ -101,7 +111,7 @@ export default function TransactionsPage() {
                 {drafts.map((d) => (
                   <Box as="tr" key={d.id} borderTopWidth="1px">
                     <Box as="td" px={6} py={3} fontWeight="semibold" color="gray.700">
-                      {d.grower?.name}
+                      {d.grower?.name || d.seller?.name || "—"}
                     </Box>
                     <Box as="td" px={6} py={3}>{d.fruitType}</Box>
                     <Box as="td" px={6} py={3}>{d.quantity} {d.unit}</Box>
@@ -154,7 +164,7 @@ export default function TransactionsPage() {
             borderRadius="md"
             fontSize="sm"
             h="32px"
-            style={{ width: "200px" }}
+            style={{ width: "160px" }}
           >
             <option value="">All Growers</option>
             {growers?.map((g) => (
@@ -163,8 +173,28 @@ export default function TransactionsPage() {
           </Select>
         </Box>
         <Box>
+          <Text fontSize="xs" color="gray.500" mb={1}>Seller (Buyer)</Text>
+          <Select
+            value={sellerId}
+            onChange={(e) => setSellerId(e.target.value)}
+            bg="white"
+            px={3}
+            py={1.5}
+            borderWidth="1px"
+            borderRadius="md"
+            fontSize="sm"
+            h="32px"
+            style={{ width: "160px" }}
+          >
+            <option value="">All Sellers</option>
+            {sellers?.map((s) => (
+              <option key={s.id} value={s.id}>{s.name}</option>
+            ))}
+          </Select>
+        </Box>
+        <Box>
           <Text fontSize="xs" color="gray.500" mb={1}>Fruit type</Text>
-          <Input size="sm" bg="white" value={fruitType} onChange={(e) => setFruitType(e.target.value)} placeholder="All" />
+          <Input size="sm" bg="white" value={fruitType} onChange={(e) => setFruitType(e.target.value)} placeholder="All" w="100px" />
         </Box>
         <Box>
           <Text fontSize="xs" color="gray.500" mb={1}>From</Text>
@@ -174,8 +204,8 @@ export default function TransactionsPage() {
           <Text fontSize="xs" color="gray.500" mb={1}>To</Text>
           <Input size="sm" bg="white" type="date" value={to} onChange={(e) => setTo(e.target.value)} />
         </Box>
-        {(fruitType || growerId || from || to) && (
-          <Button size="sm" variant="ghost" onClick={() => { setFruitType(""); setGrowerId(""); setFrom(""); setTo(""); }}>
+        {(fruitType || growerId || sellerId || from || to) && (
+          <Button size="sm" variant="ghost" onClick={() => { setFruitType(""); setGrowerId(""); setSellerId(""); setFrom(""); setTo(""); }}>
             Clear
           </Button>
         )}
@@ -192,6 +222,7 @@ export default function TransactionsPage() {
               <Box as="thead" bg="gray.50">
                 <Box as="tr" textAlign="left" color="gray.500">
                   <Box as="th" px={6} py={3} fontWeight="medium">Grower</Box>
+                  <Box as="th" px={6} py={3} fontWeight="medium">Seller (Buyer)</Box>
                   <Box as="th" px={6} py={3} fontWeight="medium">Fruit</Box>
                   <Box as="th" px={6} py={3} fontWeight="medium">Quantity</Box>
                   <Box as="th" px={6} py={3} fontWeight="medium">Rate</Box>
@@ -204,9 +235,22 @@ export default function TransactionsPage() {
                 {data.map((t) => (
                   <Box as="tr" key={t.id} borderTopWidth="1px">
                     <Box as="td" px={6} py={3}>
-                      <NextLink href={`/transactions/${t.id}`} style={{ color: "var(--chakra-colors-green-600)", fontWeight: 600 }}>
-                        {t.grower.name}
-                      </NextLink>
+                      {t.grower ? (
+                        <NextLink href={`/growers/${t.growerId}`} style={{ color: "var(--chakra-colors-green-600)", fontWeight: 600 }}>
+                          {t.grower.name}
+                        </NextLink>
+                      ) : (
+                        <Text color="gray.400">—</Text>
+                      )}
+                    </Box>
+                    <Box as="td" px={6} py={3}>
+                      {t.seller ? (
+                        <NextLink href={`/sellers/${t.sellerId}`} style={{ color: "var(--chakra-colors-green-600)", fontWeight: 600 }}>
+                          {t.seller.name}
+                        </NextLink>
+                      ) : (
+                        <Text color="gray.400">—</Text>
+                      )}
                     </Box>
                     <Box as="td" px={6} py={3}>{t.fruitType}</Box>
                     <Box as="td" px={6} py={3}>{t.quantity} {t.unit}</Box>

@@ -24,7 +24,8 @@ type Txn = {
   receivedAt: string;
   notes: string | null;
   notified: boolean;
-  grower: { name: string; mobile: string };
+  grower?: { name: string; mobile: string } | null;
+  seller?: { name: string; mobile: string } | null;
 };
 
 function inr(n: number) {
@@ -83,8 +84,22 @@ export default function TransactionDetailPage({ params }: { params: Promise<{ id
       <Box bg="white" p={6} borderRadius="lg" shadow="sm" borderWidth="1px">
         <Heading size="md" mb={4} color="gray.700">Delivery Details</Heading>
         <SimpleGrid columns={{ base: 2, md: 3 }} gap={6} mb={8}>
-          <Detail label="Grower" value={data.grower.name} />
-          <Detail label="Grower mobile" value={data.grower.mobile} />
+          {data.grower ? (
+            <>
+              <Detail label="Grower" value={data.grower.name} />
+              <Detail label="Grower mobile" value={data.grower.mobile} />
+            </>
+          ) : (
+            <Detail label="Grower" value="—" />
+          )}
+          {data.seller ? (
+            <>
+              <Detail label="Seller (Buyer)" value={data.seller.name} />
+              <Detail label="Seller mobile" value={data.seller.mobile} />
+            </>
+          ) : (
+            <Detail label="Seller (Buyer)" value="—" />
+          )}
           <Detail label="Date" value={new Date(data.receivedAt).toLocaleString("en-IN")} />
           <Detail label="Quantity" value={`${data.quantity} ${data.unit}`} />
           <Detail label="Rate" value={`${inr(data.rate)}/${data.unit}`} />

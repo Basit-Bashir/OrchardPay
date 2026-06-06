@@ -15,6 +15,7 @@ export async function POST(req: Request) {
       include: { grower: true, buyerFirm: { select: { firmName: true } } },
     });
     if (!txn) return fail("Transaction not found", 404);
+    if (!txn.grower) return fail("Cannot send SMS: No grower associated with this transaction", 400);
 
     const sent = await notifyGrowerOfSale({
       growerId: txn.grower.id,

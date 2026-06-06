@@ -16,7 +16,7 @@ type Txn = {
   rate: number;
   totalAmount: number;
   receivedAt: string;
-  grower: { name: string; mobile: string };
+  grower?: { name: string; mobile: string } | null;
 };
 
 function inr(n: number) {
@@ -62,8 +62,8 @@ export default function ReportsPage() {
     const XLSX = await import("xlsx");
     const rows = data.map((t) => ({
       Date: new Date(t.receivedAt).toLocaleDateString("en-IN"),
-      Grower: t.grower.name,
-      Mobile: t.grower.mobile,
+      Grower: t.grower?.name || "—",
+      Mobile: t.grower?.mobile || "—",
       Fruit: t.fruitType,
       Quantity: t.quantity,
       Unit: t.unit,
@@ -145,7 +145,7 @@ export default function ReportsPage() {
                 {data.map((t) => (
                   <Box as="tr" key={t.id} borderTopWidth="1px">
                     <Box as="td" px={6} py={3} color="gray.500">{new Date(t.receivedAt).toLocaleDateString("en-IN")}</Box>
-                    <Box as="td" px={6} py={3}>{t.grower.name}</Box>
+                    <Box as="td" px={6} py={3}>{t.grower?.name || "—"}</Box>
                     <Box as="td" px={6} py={3}>{t.fruitType}</Box>
                     <Box as="td" px={6} py={3}>{t.quantity} {t.unit}</Box>
                     <Box as="td" px={6} py={3}>{inr(t.rate)}/{t.unit}</Box>

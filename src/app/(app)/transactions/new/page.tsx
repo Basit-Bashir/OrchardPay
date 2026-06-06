@@ -34,7 +34,13 @@ function NewTransactionForm() {
     queryFn: () => api<Grower[]>("/api/growers"),
   });
 
+  const { data: sellers } = useQuery({
+    queryKey: ["sellers", ""],
+    queryFn: () => api<any[]>("/api/sellers"),
+  });
+
   const [growerId, setGrowerId] = useState("");
+  const [sellerId, setSellerId] = useState("");
   const [items, setItems] = useState<FormItem[]>([
     { fruitType: "", quantity: "", unit: "kg", rate: "" }
   ]);
@@ -51,6 +57,7 @@ function NewTransactionForm() {
   useEffect(() => {
     if (draft) {
       if (draft.growerId) setGrowerId(draft.growerId);
+      if (draft.sellerId) setSellerId(draft.sellerId);
       if (draft.fruitType) {
         setItems([
           {
@@ -105,6 +112,19 @@ function NewTransactionForm() {
   }, [items]);
 
   const expenseCalculations = useMemo(() => {
+    if (sellerId) {
+      return {
+        commission: 0,
+        labour: 0,
+        freight: 0,
+        association: 0,
+        printing: 0,
+        miscellaneous: 0,
+        totalDeductions: 0,
+        netAmount: grandTotal,
+      };
+    }
+
     const fVal = parseFloat(freight) || 0;
     const cRate = parseFloat(commissionRate) || 0;
     const lRate = parseFloat(labourRate) || 0;
@@ -129,14 +149,14 @@ function NewTransactionForm() {
       totalDeductions,
       netAmount,
     };
-  }, [grandTotal, totalQuantity, freight, commissionRate, labourRate, associationRate, printingCharge, miscellaneousRate]);
+  }, [sellerId, grandTotal, totalQuantity, freight, commissionRate, labourRate, associationRate, printingCharge, miscellaneousRate]);
 
   async function submit() {
     setError("");
     setLoading(true);
     try {
-      if (!growerId) {
-        throw new Error("Select a grower");
+      if (!growerId && !sellerId) {
+        throw new Error("Select a grower or a seller");
       }
       if (items.some(item => !item.fruitType || !item.quantity || !item.rate)) {
         throw new Error("Please fill in Fruit Type, Quantity, and Rate for all items.");
@@ -144,7 +164,8 @@ function NewTransactionForm() {
       await api("/api/transactions", {
         method: "POST",
         body: JSON.stringify({
-          growerId,
+          growerId: growerId || undefined,
+          sellerId: sellerId || undefined,
           items: items.map(item => ({
             fruitType: item.fruitType,
             quantity: parseFloat(item.quantity),
@@ -168,16 +189,19 @@ function NewTransactionForm() {
     }
   }
 
-  const noGrowers = growers && growers.length === 0;
+  const noParties = (growers && growers.length === 0) && (sellers && sellers.length === 0);
 
   return (
     <Stack gap={6} maxW="3xl">
       <Heading size="lg" color="gray.800">Add transaction</Heading>
 
-      {noGrowers ? (
+      {noParties ? (
         <Box bg="white" p={6} borderRadius="lg" borderWidth="1px">
-          <Text mb={3}>You need at least one grower before recording a transaction.</Text>
-          <Button asChild colorPalette="green"><NextLink href="/growers/new">Add a grower</NextLink></Button>
+          <Text mb={3}>You need at least one grower or seller before recording a transaction.</Text>
+          <Flex gap={3}>
+            <Button asChild colorPalette="green"><NextLink href="/growers/new">Add a grower</NextLink></Button>
+            <Button asChild colorPalette="green" variant="outline"><NextLink href="/sellers/new">Add a seller</NextLink></Button>
+          </Flex>
         </Box>
       ) : (
         <Stack gap={6}>
@@ -185,25 +209,61 @@ function NewTransactionForm() {
             <Box bg="red.50" color="red.700" px={4} py={2} borderRadius="md" fontSize="sm">{error}</Box>
           )}
 
-          {/* Grower Selector */}
-          <Box bg="white" p={6} borderRadius="xl" shadow="sm" borderWidth="1px">
-            <Text fontSize="sm" fontWeight="semibold" mb={2} color="gray.700">Grower</Text>
-            <Select
-              value={growerId}
-              onChange={(e) => setGrowerId(e.target.value)}
-              w="full"
-              px={3}
-              py={2}
-              borderWidth="1px"
-              borderRadius="md"
-              bg="white"
-            >
-              <option value="">Select a grower…</option>
-              {growers?.map((g) => (
-                <option key={g.id} value={g.id}>{g.name}</option>
-              ))}
-            </Select>
+          {/* Parties Selector */}
+          <Box mt={-2}>
+            <Text fontSize="xs" color="gray.500" fontStyle="italic">
+              * Note: A transaction can only be created for either a Grower (inward purchase) or a Seller (outward sale), but not both. Selecting one automatically resets the other.
+            </Text>
           </Box>
+          <SimpleGrid columns={{ base: 1, md: 2 }} gap={4}>
+            <Box bg="white" p={6} borderRadius="xl" shadow="sm" borderWidth="1px">
+              <Text fontSize="sm" fontWeight="semibold" mb={2} color="gray.700">Grower (Seller to Mandi)</Text>
+              <Select
+                value={growerId}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  setGrowerId(val);
+                  if (val) setSellerId("");
+                }}
+                disabled={!!sellerId}
+                w="full"
+                px={3}
+                py={2}
+                borderWidth="1px"
+                borderRadius="md"
+                bg="white"
+              >
+                <option value="">Select a grower…</option>
+                {growers?.map((g) => (
+                  <option key={g.id} value={g.id}>{g.name}</option>
+                ))}
+              </Select>
+            </Box>
+
+            <Box bg="white" p={6} borderRadius="xl" shadow="sm" borderWidth="1px">
+              <Text fontSize="sm" fontWeight="semibold" mb={2} color="gray.700">Seller / Buyer (Purchaser from Mandi)</Text>
+              <Select
+                value={sellerId}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  setSellerId(val);
+                  if (val) setGrowerId("");
+                }}
+                disabled={!!growerId}
+                w="full"
+                px={3}
+                py={2}
+                borderWidth="1px"
+                borderRadius="md"
+                bg="white"
+              >
+                <option value="">Select a seller/buyer…</option>
+                {sellers?.map((s) => (
+                  <option key={s.id} value={s.id}>{s.name}</option>
+                ))}
+              </Select>
+            </Box>
+          </SimpleGrid>
 
           {/* Items Section */}
           <Box bg="white" p={6} borderRadius="xl" shadow="sm" borderWidth="1px">
@@ -303,77 +363,79 @@ function NewTransactionForm() {
           </Box>
 
           {/* Expenses & Deductions Inputs */}
-          <Box bg="white" p={6} borderRadius="xl" shadow="sm" borderWidth="1px">
-            <Heading size="md" mb={4} color="gray.700">Expenses &amp; Deductions</Heading>
-            <SimpleGrid columns={{ base: 1, md: 3 }} gap={4}>
-              <Box>
-                <Text fontSize="xs" mb={1} color="gray.600" fontWeight="medium">Freight (₹, grower-specified)</Text>
-                <Input 
-                  type="number"
-                  placeholder="Enter grower freight"
-                  value={freight}
-                  onChange={(e) => setFreight(e.target.value)}
-                  size="sm"
-                  bg="white"
-                />
-              </Box>
-              <Box>
-                <Text fontSize="xs" mb={1} color="gray.600" fontWeight="medium">Commission Rate (%)</Text>
-                <Input 
-                  type="number"
-                  placeholder="12"
-                  value={commissionRate}
-                  onChange={(e) => setCommissionRate(e.target.value)}
-                  size="sm"
-                  bg="white"
-                />
-              </Box>
-              <Box>
-                <Text fontSize="xs" mb={1} color="gray.600" fontWeight="medium">Labour Rate (₹/unit)</Text>
-                <Input 
-                  type="number"
-                  placeholder="3"
-                  value={labourRate}
-                  onChange={(e) => setLabourRate(e.target.value)}
-                  size="sm"
-                  bg="white"
-                />
-              </Box>
-              <Box>
-                <Text fontSize="xs" mb={1} color="gray.600" fontWeight="medium">Association Fee (%)</Text>
-                <Input 
-                  type="number"
-                  placeholder="0.10"
-                  value={associationRate}
-                  onChange={(e) => setAssociationRate(e.target.value)}
-                  size="sm"
-                  bg="white"
-                />
-              </Box>
-              <Box>
-                <Text fontSize="xs" mb={1} color="gray.600" fontWeight="medium">Printing Charge (₹)</Text>
-                <Input 
-                  type="number"
-                  placeholder="1"
-                  value={printingCharge}
-                  onChange={(e) => setPrintingCharge(e.target.value)}
-                  size="sm"
-                  bg="white"
-                />
-              </Box>
-              <Box>
-                <Text fontSize="xs" mb={1} color="gray.600" fontWeight="medium">Miscellaneous Rate (%)</Text>
-                <Input 
-                  type="number"
-                  placeholder="0.90"
-                  value={miscellaneousRate}
-                  onChange={(e) => setMiscellaneousRate(e.target.value)}
-                  size="sm"
-                  bg="white"
-                />
-              </Box>
-            </SimpleGrid>
-          </Box>
+          {!sellerId && (
+            <Box bg="white" p={6} borderRadius="xl" shadow="sm" borderWidth="1px">
+              <Heading size="md" mb={4} color="gray.700">Expenses &amp; Deductions</Heading>
+              <SimpleGrid columns={{ base: 1, md: 3 }} gap={4}>
+                <Box>
+                  <Text fontSize="xs" mb={1} color="gray.600" fontWeight="medium">Freight (₹, grower-specified)</Text>
+                  <Input 
+                    type="number"
+                    placeholder="Enter grower freight"
+                    value={freight}
+                    onChange={(e) => setFreight(e.target.value)}
+                    size="sm"
+                    bg="white"
+                  />
+                </Box>
+                <Box>
+                  <Text fontSize="xs" mb={1} color="gray.600" fontWeight="medium">Commission Rate (%)</Text>
+                  <Input 
+                    type="number"
+                    placeholder="12"
+                    value={commissionRate}
+                    onChange={(e) => setCommissionRate(e.target.value)}
+                    size="sm"
+                    bg="white"
+                  />
+                </Box>
+                <Box>
+                  <Text fontSize="xs" mb={1} color="gray.600" fontWeight="medium">Labour Rate (₹/unit)</Text>
+                  <Input 
+                    type="number"
+                    placeholder="3"
+                    value={labourRate}
+                    onChange={(e) => setLabourRate(e.target.value)}
+                    size="sm"
+                    bg="white"
+                  />
+                </Box>
+                <Box>
+                  <Text fontSize="xs" mb={1} color="gray.600" fontWeight="medium">Association Fee (%)</Text>
+                  <Input 
+                    type="number"
+                    placeholder="0.10"
+                    value={associationRate}
+                    onChange={(e) => setAssociationRate(e.target.value)}
+                    size="sm"
+                    bg="white"
+                  />
+                </Box>
+                <Box>
+                  <Text fontSize="xs" mb={1} color="gray.600" fontWeight="medium">Printing Charge (₹)</Text>
+                  <Input 
+                    type="number"
+                    placeholder="1"
+                    value={printingCharge}
+                    onChange={(e) => setPrintingCharge(e.target.value)}
+                    size="sm"
+                    bg="white"
+                  />
+                </Box>
+                <Box>
+                  <Text fontSize="xs" mb={1} color="gray.600" fontWeight="medium">Miscellaneous Rate (%)</Text>
+                  <Input 
+                    type="number"
+                    placeholder="0.90"
+                    value={miscellaneousRate}
+                    onChange={(e) => setMiscellaneousRate(e.target.value)}
+                    size="sm"
+                    bg="white"
+                  />
+                </Box>
+              </SimpleGrid>
+            </Box>
+          )}
 
           {/* Calculations Summary Card */}
           <Box bg="green.50" p={6} borderRadius="xl" borderWidth="1px" borderColor="green.200" shadow="sm">
@@ -385,44 +447,56 @@ function NewTransactionForm() {
                 <Text fontWeight="semibold" color="green.900">₹{grandTotal.toLocaleString("en-IN")}</Text>
               </Flex>
               
-              <Box borderTopWidth="1px" borderColor="green.100" pt={2} pb={1}>
-                <Text fontSize="xs" fontWeight="bold" color="green.700" mb={1}>DEDUCTIONS</Text>
-              </Box>
+              {sellerId ? (
+                <Box borderTopWidth="1px" borderColor="green.200" pt={3} mt={1}>
+                  <Text fontSize="xs" color="green.700" fontStyle="italic">No deductions applicable for Seller transactions.</Text>
+                  <Flex justify="space-between" borderTopWidth="1px" borderColor="green.300" pt={3} mt={3} align="center">
+                    <Text fontWeight="extrabold" fontSize="md" color="green.900">Net Due from Seller:</Text>
+                    <Text fontWeight="black" fontSize="2xl" color="green.900">₹{grandTotal.toLocaleString("en-IN")}</Text>
+                  </Flex>
+                </Box>
+              ) : (
+                <>
+                  <Box borderTopWidth="1px" borderColor="green.100" pt={2} pb={1}>
+                    <Text fontSize="xs" fontWeight="bold" color="green.700" mb={1}>DEDUCTIONS</Text>
+                  </Box>
 
-              <Flex justify="space-between" pl={2}>
-                <Text fontSize="xs" color="green.800">Commission ({commissionRate}%):</Text>
-                <Text fontSize="xs" color="green.900">-₹{expenseCalculations.commission.toLocaleString("en-IN")}</Text>
-              </Flex>
-              <Flex justify="space-between" pl={2}>
-                <Text fontSize="xs" color="green.800">Labour (₹{labourRate}/unit):</Text>
-                <Text fontSize="xs" color="green.900">-₹{expenseCalculations.labour.toLocaleString("en-IN")}</Text>
-              </Flex>
-              <Flex justify="space-between" pl={2}>
-                <Text fontSize="xs" color="green.800">Freight:</Text>
-                <Text fontSize="xs" color="green.900">-₹{expenseCalculations.freight.toLocaleString("en-IN")}</Text>
-              </Flex>
-              <Flex justify="space-between" pl={2}>
-                <Text fontSize="xs" color="green.800">Association ({associationRate}%):</Text>
-                <Text fontSize="xs" color="green.900">-₹{expenseCalculations.association.toLocaleString("en-IN")}</Text>
-              </Flex>
-              <Flex justify="space-between" pl={2}>
-                <Text fontSize="xs" color="green.800">Printing:</Text>
-                <Text fontSize="xs" color="green.900">-₹{expenseCalculations.printing.toLocaleString("en-IN")}</Text>
-              </Flex>
-              <Flex justify="space-between" pl={2}>
-                <Text fontSize="xs" color="green.800">Miscellaneous ({miscellaneousRate}%):</Text>
-                <Text fontSize="xs" color="green.900">-₹{expenseCalculations.miscellaneous.toLocaleString("en-IN")}</Text>
-              </Flex>
+                  <Flex justify="space-between" pl={2}>
+                    <Text fontSize="xs" color="green.800">Commission ({commissionRate}%):</Text>
+                    <Text fontSize="xs" color="green.900">-₹{expenseCalculations.commission.toLocaleString("en-IN")}</Text>
+                  </Flex>
+                  <Flex justify="space-between" pl={2}>
+                    <Text fontSize="xs" color="green.800">Labour (₹{labourRate}/unit):</Text>
+                    <Text fontSize="xs" color="green.900">-₹{expenseCalculations.labour.toLocaleString("en-IN")}</Text>
+                  </Flex>
+                  <Flex justify="space-between" pl={2}>
+                    <Text fontSize="xs" color="green.800">Freight:</Text>
+                    <Text fontSize="xs" color="green.900">-₹{expenseCalculations.freight.toLocaleString("en-IN")}</Text>
+                  </Flex>
+                  <Flex justify="space-between" pl={2}>
+                    <Text fontSize="xs" color="green.800">Association ({associationRate}%):</Text>
+                    <Text fontSize="xs" color="green.900">-₹{expenseCalculations.association.toLocaleString("en-IN")}</Text>
+                  </Flex>
+                  <Flex justify="space-between" pl={2}>
+                    <Text fontSize="xs" color="green.800">Printing:</Text>
+                    <Text fontSize="xs" color="green.900">-₹{expenseCalculations.printing.toLocaleString("en-IN")}</Text>
+                  </Flex>
+                  <Flex justify="space-between" pl={2}>
+                    <Text fontSize="xs" color="green.800">Miscellaneous ({miscellaneousRate}%):</Text>
+                    <Text fontSize="xs" color="green.900">-₹{expenseCalculations.miscellaneous.toLocaleString("en-IN")}</Text>
+                  </Flex>
 
-              <Flex justify="space-between" borderTopWidth="1px" borderColor="green.200" pt={2} mt={1}>
-                <Text fontWeight="bold" color="green.800">Total Deductions:</Text>
-                <Text fontWeight="bold" color="green.900">₹{expenseCalculations.totalDeductions.toLocaleString("en-IN")}</Text>
-              </Flex>
+                  <Flex justify="space-between" borderTopWidth="1px" borderColor="green.200" pt={2} mt={1}>
+                    <Text fontWeight="bold" color="green.800">Total Deductions:</Text>
+                    <Text fontWeight="bold" color="green.900">₹{expenseCalculations.totalDeductions.toLocaleString("en-IN")}</Text>
+                  </Flex>
 
-              <Flex justify="space-between" borderTopWidth="2px" borderColor="green.300" pt={3} mt={1} align="center">
-                <Text fontWeight="extrabold" fontSize="md" color="green.900">Net Credit to Grower:</Text>
-                <Text fontWeight="black" fontSize="2xl" color="green.900">₹{expenseCalculations.netAmount.toLocaleString("en-IN")}</Text>
-              </Flex>
+                  <Flex justify="space-between" borderTopWidth="2px" borderColor="green.300" pt={3} mt={1} align="center">
+                    <Text fontWeight="extrabold" fontSize="md" color="green.900">Net Credit to Grower:</Text>
+                    <Text fontWeight="black" fontSize="2xl" color="green.900">₹{expenseCalculations.netAmount.toLocaleString("en-IN")}</Text>
+                  </Flex>
+                </>
+              )}
             </Stack>
           </Box>
 
@@ -434,7 +508,7 @@ function NewTransactionForm() {
 
           {/* Submit Action */}
           <Button colorPalette="green" onClick={submit} loading={loading} alignSelf="flex-start" size="lg" px={8}>
-            Save &amp; notify grower
+            {sellerId ? "Add to seller" : "Save & notify grower"}
           </Button>
         </Stack>
       )}

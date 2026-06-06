@@ -10,7 +10,10 @@ export async function GET(_req: Request, { params }: Ctx) {
     const { id } = await params;
     const txn = await prisma.transaction.findFirst({
       where: { id, buyerFirmId: session.buyerFirmId },
-      include: { grower: { select: { name: true, mobile: true } } },
+      include: {
+        grower: { select: { name: true, mobile: true } },
+        seller: { select: { name: true, mobile: true } },
+      },
     });
     if (!txn) return fail("Transaction not found", 404);
     return ok(txn);

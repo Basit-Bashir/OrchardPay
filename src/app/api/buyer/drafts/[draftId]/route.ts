@@ -17,6 +17,7 @@ export async function GET(_req: Request, { params }: Ctx) {
       },
       include: {
         grower: { select: { name: true } },
+        seller: { select: { name: true } },
       },
     });
 
