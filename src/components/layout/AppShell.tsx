@@ -19,7 +19,9 @@ import {
   Cancel01Icon,
   ArrowDown01Icon,
   Tick01Icon,
-  PlusSignIcon
+  PlusSignIcon,
+  BanknoteIcon,
+  CoinsIcon
 } from "@hugeicons/core-free-icons";
 
 const Select = chakra("select");
@@ -29,6 +31,8 @@ const NAV = [
   { href: "/transactions", label: "Transactions", icon: TransactionIcon },
   { href: "/growers", label: "Growers", icon: Leaf01Icon },
   { href: "/sellers", label: "Sellers", icon: HandshakeIcon },
+  { href: "/grower-charges", label: "Grower Charges", icon: CoinsIcon },
+  { href: "/expenses", label: "Expenses", icon: BanknoteIcon },
   { href: "/migration", label: "Data migration", icon: PackageIcon },
   { href: "/reports", label: "Reports", icon: Document },
   { href: "/settings", label: "Settings", icon: Settings01Icon },

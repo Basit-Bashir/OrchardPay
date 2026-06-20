@@ -84,6 +84,23 @@ export const sellerPaymentSchema = z.object({
   paidAt: z.coerce.date().optional(),
 });
 
+export const expenseSchema = z.object({
+  title: z.string().trim().min(1, "Title/Description is required"),
+  amount: z.coerce.number().positive("Amount must be greater than 0"),
+  category: z.string().trim().min(1, "Category is required"),
+  date: z.coerce.date().optional(),
+  notes: z.string().trim().optional().or(z.literal("")),
+});
+
+export const growerItemChargeSchema = z.object({
+  growerId: z.string().min(1, "Select a grower"),
+  itemName: z.string().trim().min(1, "Item name is required"),
+  quantity: z.coerce.number().positive("Quantity must be greater than 0"),
+  rate: z.coerce.number().nonnegative("Rate must be 0 or greater"),
+  notes: z.string().trim().optional().or(z.literal("")),
+  issuedAt: z.coerce.date().optional(),
+});
+
 export const migrationRowSchema = z.object({
   growerName: z.string().trim().min(1),
   growerMobile: z.string().trim().min(1),
@@ -129,3 +146,5 @@ export type BatchTransactionInput = z.infer<typeof batchTransactionSchema>;
 export type PaymentInput = z.infer<typeof paymentSchema>;
 export type SellerPaymentInput = z.infer<typeof sellerPaymentSchema>;
 export type MigrationRow = z.infer<typeof migrationRowSchema>;
+export type ExpenseInput = z.infer<typeof expenseSchema>;
+export type GrowerItemChargeInput = z.infer<typeof growerItemChargeSchema>;

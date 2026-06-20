@@ -68,6 +68,16 @@ export type Seller = $Result.DefaultSelection<Prisma.$SellerPayload>
  * 
  */
 export type SellerPayment = $Result.DefaultSelection<Prisma.$SellerPaymentPayload>
+/**
+ * Model Expense
+ * 
+ */
+export type Expense = $Result.DefaultSelection<Prisma.$ExpensePayload>
+/**
+ * Model GrowerItemCharge
+ * 
+ */
+export type GrowerItemCharge = $Result.DefaultSelection<Prisma.$GrowerItemChargePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -296,6 +306,26 @@ export class PrismaClient<
     * ```
     */
   get sellerPayment(): Prisma.SellerPaymentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.expense`: Exposes CRUD operations for the **Expense** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Expenses
+    * const expenses = await prisma.expense.findMany()
+    * ```
+    */
+  get expense(): Prisma.ExpenseDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.growerItemCharge`: Exposes CRUD operations for the **GrowerItemCharge** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GrowerItemCharges
+    * const growerItemCharges = await prisma.growerItemCharge.findMany()
+    * ```
+    */
+  get growerItemCharge(): Prisma.GrowerItemChargeDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -747,7 +777,9 @@ export namespace Prisma {
     Agreement: 'Agreement',
     DraftTransaction: 'DraftTransaction',
     Seller: 'Seller',
-    SellerPayment: 'SellerPayment'
+    SellerPayment: 'SellerPayment',
+    Expense: 'Expense',
+    GrowerItemCharge: 'GrowerItemCharge'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -766,7 +798,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "buyerFirm" | "user" | "grower" | "transaction" | "payment" | "otp" | "notification" | "agreement" | "draftTransaction" | "seller" | "sellerPayment"
+      modelProps: "buyerFirm" | "user" | "grower" | "transaction" | "payment" | "otp" | "notification" | "agreement" | "draftTransaction" | "seller" | "sellerPayment" | "expense" | "growerItemCharge"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1584,6 +1616,154 @@ export namespace Prisma {
           }
         }
       }
+      Expense: {
+        payload: Prisma.$ExpensePayload<ExtArgs>
+        fields: Prisma.ExpenseFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ExpenseFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExpensePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ExpenseFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExpensePayload>
+          }
+          findFirst: {
+            args: Prisma.ExpenseFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExpensePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ExpenseFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExpensePayload>
+          }
+          findMany: {
+            args: Prisma.ExpenseFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExpensePayload>[]
+          }
+          create: {
+            args: Prisma.ExpenseCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExpensePayload>
+          }
+          createMany: {
+            args: Prisma.ExpenseCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ExpenseCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExpensePayload>[]
+          }
+          delete: {
+            args: Prisma.ExpenseDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExpensePayload>
+          }
+          update: {
+            args: Prisma.ExpenseUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExpensePayload>
+          }
+          deleteMany: {
+            args: Prisma.ExpenseDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ExpenseUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ExpenseUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExpensePayload>[]
+          }
+          upsert: {
+            args: Prisma.ExpenseUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExpensePayload>
+          }
+          aggregate: {
+            args: Prisma.ExpenseAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateExpense>
+          }
+          groupBy: {
+            args: Prisma.ExpenseGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ExpenseGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ExpenseCountArgs<ExtArgs>
+            result: $Utils.Optional<ExpenseCountAggregateOutputType> | number
+          }
+        }
+      }
+      GrowerItemCharge: {
+        payload: Prisma.$GrowerItemChargePayload<ExtArgs>
+        fields: Prisma.GrowerItemChargeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GrowerItemChargeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrowerItemChargePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GrowerItemChargeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrowerItemChargePayload>
+          }
+          findFirst: {
+            args: Prisma.GrowerItemChargeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrowerItemChargePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GrowerItemChargeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrowerItemChargePayload>
+          }
+          findMany: {
+            args: Prisma.GrowerItemChargeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrowerItemChargePayload>[]
+          }
+          create: {
+            args: Prisma.GrowerItemChargeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrowerItemChargePayload>
+          }
+          createMany: {
+            args: Prisma.GrowerItemChargeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GrowerItemChargeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrowerItemChargePayload>[]
+          }
+          delete: {
+            args: Prisma.GrowerItemChargeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrowerItemChargePayload>
+          }
+          update: {
+            args: Prisma.GrowerItemChargeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrowerItemChargePayload>
+          }
+          deleteMany: {
+            args: Prisma.GrowerItemChargeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GrowerItemChargeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GrowerItemChargeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrowerItemChargePayload>[]
+          }
+          upsert: {
+            args: Prisma.GrowerItemChargeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrowerItemChargePayload>
+          }
+          aggregate: {
+            args: Prisma.GrowerItemChargeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGrowerItemCharge>
+          }
+          groupBy: {
+            args: Prisma.GrowerItemChargeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GrowerItemChargeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GrowerItemChargeCountArgs<ExtArgs>
+            result: $Utils.Optional<GrowerItemChargeCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1691,6 +1871,8 @@ export namespace Prisma {
     draftTransaction?: DraftTransactionOmit
     seller?: SellerOmit
     sellerPayment?: SellerPaymentOmit
+    expense?: ExpenseOmit
+    growerItemCharge?: GrowerItemChargeOmit
   }
 
   /* Types for Logging */
@@ -1778,6 +1960,8 @@ export namespace Prisma {
     payments: number
     sellerPayments: number
     draftTransactions: number
+    expenses: number
+    itemCharges: number
   }
 
   export type BuyerFirmCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1788,6 +1972,8 @@ export namespace Prisma {
     payments?: boolean | BuyerFirmCountOutputTypeCountPaymentsArgs
     sellerPayments?: boolean | BuyerFirmCountOutputTypeCountSellerPaymentsArgs
     draftTransactions?: boolean | BuyerFirmCountOutputTypeCountDraftTransactionsArgs
+    expenses?: boolean | BuyerFirmCountOutputTypeCountExpensesArgs
+    itemCharges?: boolean | BuyerFirmCountOutputTypeCountItemChargesArgs
   }
 
   // Custom InputTypes
@@ -1850,6 +2036,20 @@ export namespace Prisma {
     where?: DraftTransactionWhereInput
   }
 
+  /**
+   * BuyerFirmCountOutputType without action
+   */
+  export type BuyerFirmCountOutputTypeCountExpensesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExpenseWhereInput
+  }
+
+  /**
+   * BuyerFirmCountOutputType without action
+   */
+  export type BuyerFirmCountOutputTypeCountItemChargesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GrowerItemChargeWhereInput
+  }
+
 
   /**
    * Count Type UserCountOutputType
@@ -1892,6 +2092,7 @@ export namespace Prisma {
     notifications: number
     agreements: number
     draftTransactions: number
+    itemCharges: number
   }
 
   export type GrowerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1900,6 +2101,7 @@ export namespace Prisma {
     notifications?: boolean | GrowerCountOutputTypeCountNotificationsArgs
     agreements?: boolean | GrowerCountOutputTypeCountAgreementsArgs
     draftTransactions?: boolean | GrowerCountOutputTypeCountDraftTransactionsArgs
+    itemCharges?: boolean | GrowerCountOutputTypeCountItemChargesArgs
   }
 
   // Custom InputTypes
@@ -1946,6 +2148,13 @@ export namespace Prisma {
    */
   export type GrowerCountOutputTypeCountDraftTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DraftTransactionWhereInput
+  }
+
+  /**
+   * GrowerCountOutputType without action
+   */
+  export type GrowerCountOutputTypeCountItemChargesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GrowerItemChargeWhereInput
   }
 
 
@@ -2205,6 +2414,8 @@ export namespace Prisma {
     payments?: boolean | BuyerFirm$paymentsArgs<ExtArgs>
     sellerPayments?: boolean | BuyerFirm$sellerPaymentsArgs<ExtArgs>
     draftTransactions?: boolean | BuyerFirm$draftTransactionsArgs<ExtArgs>
+    expenses?: boolean | BuyerFirm$expensesArgs<ExtArgs>
+    itemCharges?: boolean | BuyerFirm$itemChargesArgs<ExtArgs>
     _count?: boolean | BuyerFirmCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["buyerFirm"]>
 
@@ -2253,6 +2464,8 @@ export namespace Prisma {
     payments?: boolean | BuyerFirm$paymentsArgs<ExtArgs>
     sellerPayments?: boolean | BuyerFirm$sellerPaymentsArgs<ExtArgs>
     draftTransactions?: boolean | BuyerFirm$draftTransactionsArgs<ExtArgs>
+    expenses?: boolean | BuyerFirm$expensesArgs<ExtArgs>
+    itemCharges?: boolean | BuyerFirm$itemChargesArgs<ExtArgs>
     _count?: boolean | BuyerFirmCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BuyerFirmIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2268,6 +2481,8 @@ export namespace Prisma {
       payments: Prisma.$PaymentPayload<ExtArgs>[]
       sellerPayments: Prisma.$SellerPaymentPayload<ExtArgs>[]
       draftTransactions: Prisma.$DraftTransactionPayload<ExtArgs>[]
+      expenses: Prisma.$ExpensePayload<ExtArgs>[]
+      itemCharges: Prisma.$GrowerItemChargePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2680,6 +2895,8 @@ export namespace Prisma {
     payments<T extends BuyerFirm$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, BuyerFirm$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sellerPayments<T extends BuyerFirm$sellerPaymentsArgs<ExtArgs> = {}>(args?: Subset<T, BuyerFirm$sellerPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SellerPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     draftTransactions<T extends BuyerFirm$draftTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, BuyerFirm$draftTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DraftTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    expenses<T extends BuyerFirm$expensesArgs<ExtArgs> = {}>(args?: Subset<T, BuyerFirm$expensesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExpensePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    itemCharges<T extends BuyerFirm$itemChargesArgs<ExtArgs> = {}>(args?: Subset<T, BuyerFirm$itemChargesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GrowerItemChargePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3269,6 +3486,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DraftTransactionScalarFieldEnum | DraftTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * BuyerFirm.expenses
+   */
+  export type BuyerFirm$expensesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Expense
+     */
+    select?: ExpenseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Expense
+     */
+    omit?: ExpenseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExpenseInclude<ExtArgs> | null
+    where?: ExpenseWhereInput
+    orderBy?: ExpenseOrderByWithRelationInput | ExpenseOrderByWithRelationInput[]
+    cursor?: ExpenseWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ExpenseScalarFieldEnum | ExpenseScalarFieldEnum[]
+  }
+
+  /**
+   * BuyerFirm.itemCharges
+   */
+  export type BuyerFirm$itemChargesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrowerItemCharge
+     */
+    select?: GrowerItemChargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrowerItemCharge
+     */
+    omit?: GrowerItemChargeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrowerItemChargeInclude<ExtArgs> | null
+    where?: GrowerItemChargeWhereInput
+    orderBy?: GrowerItemChargeOrderByWithRelationInput | GrowerItemChargeOrderByWithRelationInput[]
+    cursor?: GrowerItemChargeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GrowerItemChargeScalarFieldEnum | GrowerItemChargeScalarFieldEnum[]
   }
 
   /**
@@ -4567,6 +4832,7 @@ export namespace Prisma {
     notifications?: boolean | Grower$notificationsArgs<ExtArgs>
     agreements?: boolean | Grower$agreementsArgs<ExtArgs>
     draftTransactions?: boolean | Grower$draftTransactionsArgs<ExtArgs>
+    itemCharges?: boolean | Grower$itemChargesArgs<ExtArgs>
     _count?: boolean | GrowerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["grower"]>
 
@@ -4607,6 +4873,7 @@ export namespace Prisma {
     notifications?: boolean | Grower$notificationsArgs<ExtArgs>
     agreements?: boolean | Grower$agreementsArgs<ExtArgs>
     draftTransactions?: boolean | Grower$draftTransactionsArgs<ExtArgs>
+    itemCharges?: boolean | Grower$itemChargesArgs<ExtArgs>
     _count?: boolean | GrowerCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type GrowerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4625,6 +4892,7 @@ export namespace Prisma {
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
       agreements: Prisma.$AgreementPayload<ExtArgs>[]
       draftTransactions: Prisma.$DraftTransactionPayload<ExtArgs>[]
+      itemCharges: Prisma.$GrowerItemChargePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5033,6 +5301,7 @@ export namespace Prisma {
     notifications<T extends Grower$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, Grower$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     agreements<T extends Grower$agreementsArgs<ExtArgs> = {}>(args?: Subset<T, Grower$agreementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AgreementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     draftTransactions<T extends Grower$draftTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, Grower$draftTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DraftTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    itemCharges<T extends Grower$itemChargesArgs<ExtArgs> = {}>(args?: Subset<T, Grower$itemChargesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GrowerItemChargePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5579,6 +5848,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DraftTransactionScalarFieldEnum | DraftTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * Grower.itemCharges
+   */
+  export type Grower$itemChargesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrowerItemCharge
+     */
+    select?: GrowerItemChargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrowerItemCharge
+     */
+    omit?: GrowerItemChargeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrowerItemChargeInclude<ExtArgs> | null
+    where?: GrowerItemChargeWhereInput
+    orderBy?: GrowerItemChargeOrderByWithRelationInput | GrowerItemChargeOrderByWithRelationInput[]
+    cursor?: GrowerItemChargeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GrowerItemChargeScalarFieldEnum | GrowerItemChargeScalarFieldEnum[]
   }
 
   /**
@@ -14796,6 +15089,2306 @@ export namespace Prisma {
 
 
   /**
+   * Model Expense
+   */
+
+  export type AggregateExpense = {
+    _count: ExpenseCountAggregateOutputType | null
+    _avg: ExpenseAvgAggregateOutputType | null
+    _sum: ExpenseSumAggregateOutputType | null
+    _min: ExpenseMinAggregateOutputType | null
+    _max: ExpenseMaxAggregateOutputType | null
+  }
+
+  export type ExpenseAvgAggregateOutputType = {
+    amount: number | null
+  }
+
+  export type ExpenseSumAggregateOutputType = {
+    amount: number | null
+  }
+
+  export type ExpenseMinAggregateOutputType = {
+    id: string | null
+    buyerFirmId: string | null
+    title: string | null
+    amount: number | null
+    category: string | null
+    date: Date | null
+    notes: string | null
+    createdAt: Date | null
+  }
+
+  export type ExpenseMaxAggregateOutputType = {
+    id: string | null
+    buyerFirmId: string | null
+    title: string | null
+    amount: number | null
+    category: string | null
+    date: Date | null
+    notes: string | null
+    createdAt: Date | null
+  }
+
+  export type ExpenseCountAggregateOutputType = {
+    id: number
+    buyerFirmId: number
+    title: number
+    amount: number
+    category: number
+    date: number
+    notes: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type ExpenseAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type ExpenseSumAggregateInputType = {
+    amount?: true
+  }
+
+  export type ExpenseMinAggregateInputType = {
+    id?: true
+    buyerFirmId?: true
+    title?: true
+    amount?: true
+    category?: true
+    date?: true
+    notes?: true
+    createdAt?: true
+  }
+
+  export type ExpenseMaxAggregateInputType = {
+    id?: true
+    buyerFirmId?: true
+    title?: true
+    amount?: true
+    category?: true
+    date?: true
+    notes?: true
+    createdAt?: true
+  }
+
+  export type ExpenseCountAggregateInputType = {
+    id?: true
+    buyerFirmId?: true
+    title?: true
+    amount?: true
+    category?: true
+    date?: true
+    notes?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type ExpenseAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Expense to aggregate.
+     */
+    where?: ExpenseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Expenses to fetch.
+     */
+    orderBy?: ExpenseOrderByWithRelationInput | ExpenseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ExpenseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Expenses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Expenses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Expenses
+    **/
+    _count?: true | ExpenseCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ExpenseAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ExpenseSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ExpenseMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ExpenseMaxAggregateInputType
+  }
+
+  export type GetExpenseAggregateType<T extends ExpenseAggregateArgs> = {
+        [P in keyof T & keyof AggregateExpense]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateExpense[P]>
+      : GetScalarType<T[P], AggregateExpense[P]>
+  }
+
+
+
+
+  export type ExpenseGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExpenseWhereInput
+    orderBy?: ExpenseOrderByWithAggregationInput | ExpenseOrderByWithAggregationInput[]
+    by: ExpenseScalarFieldEnum[] | ExpenseScalarFieldEnum
+    having?: ExpenseScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ExpenseCountAggregateInputType | true
+    _avg?: ExpenseAvgAggregateInputType
+    _sum?: ExpenseSumAggregateInputType
+    _min?: ExpenseMinAggregateInputType
+    _max?: ExpenseMaxAggregateInputType
+  }
+
+  export type ExpenseGroupByOutputType = {
+    id: string
+    buyerFirmId: string
+    title: string
+    amount: number
+    category: string
+    date: Date
+    notes: string | null
+    createdAt: Date
+    _count: ExpenseCountAggregateOutputType | null
+    _avg: ExpenseAvgAggregateOutputType | null
+    _sum: ExpenseSumAggregateOutputType | null
+    _min: ExpenseMinAggregateOutputType | null
+    _max: ExpenseMaxAggregateOutputType | null
+  }
+
+  type GetExpenseGroupByPayload<T extends ExpenseGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ExpenseGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ExpenseGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ExpenseGroupByOutputType[P]>
+            : GetScalarType<T[P], ExpenseGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ExpenseSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    buyerFirmId?: boolean
+    title?: boolean
+    amount?: boolean
+    category?: boolean
+    date?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["expense"]>
+
+  export type ExpenseSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    buyerFirmId?: boolean
+    title?: boolean
+    amount?: boolean
+    category?: boolean
+    date?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["expense"]>
+
+  export type ExpenseSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    buyerFirmId?: boolean
+    title?: boolean
+    amount?: boolean
+    category?: boolean
+    date?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["expense"]>
+
+  export type ExpenseSelectScalar = {
+    id?: boolean
+    buyerFirmId?: boolean
+    title?: boolean
+    amount?: boolean
+    category?: boolean
+    date?: boolean
+    notes?: boolean
+    createdAt?: boolean
+  }
+
+  export type ExpenseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "buyerFirmId" | "title" | "amount" | "category" | "date" | "notes" | "createdAt", ExtArgs["result"]["expense"]>
+  export type ExpenseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }
+  export type ExpenseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }
+  export type ExpenseIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }
+
+  export type $ExpensePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Expense"
+    objects: {
+      buyerFirm: Prisma.$BuyerFirmPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      buyerFirmId: string
+      title: string
+      amount: number
+      category: string
+      date: Date
+      notes: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["expense"]>
+    composites: {}
+  }
+
+  type ExpenseGetPayload<S extends boolean | null | undefined | ExpenseDefaultArgs> = $Result.GetResult<Prisma.$ExpensePayload, S>
+
+  type ExpenseCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ExpenseFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ExpenseCountAggregateInputType | true
+    }
+
+  export interface ExpenseDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Expense'], meta: { name: 'Expense' } }
+    /**
+     * Find zero or one Expense that matches the filter.
+     * @param {ExpenseFindUniqueArgs} args - Arguments to find a Expense
+     * @example
+     * // Get one Expense
+     * const expense = await prisma.expense.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ExpenseFindUniqueArgs>(args: SelectSubset<T, ExpenseFindUniqueArgs<ExtArgs>>): Prisma__ExpenseClient<$Result.GetResult<Prisma.$ExpensePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Expense that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ExpenseFindUniqueOrThrowArgs} args - Arguments to find a Expense
+     * @example
+     * // Get one Expense
+     * const expense = await prisma.expense.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ExpenseFindUniqueOrThrowArgs>(args: SelectSubset<T, ExpenseFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ExpenseClient<$Result.GetResult<Prisma.$ExpensePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Expense that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExpenseFindFirstArgs} args - Arguments to find a Expense
+     * @example
+     * // Get one Expense
+     * const expense = await prisma.expense.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ExpenseFindFirstArgs>(args?: SelectSubset<T, ExpenseFindFirstArgs<ExtArgs>>): Prisma__ExpenseClient<$Result.GetResult<Prisma.$ExpensePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Expense that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExpenseFindFirstOrThrowArgs} args - Arguments to find a Expense
+     * @example
+     * // Get one Expense
+     * const expense = await prisma.expense.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ExpenseFindFirstOrThrowArgs>(args?: SelectSubset<T, ExpenseFindFirstOrThrowArgs<ExtArgs>>): Prisma__ExpenseClient<$Result.GetResult<Prisma.$ExpensePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Expenses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExpenseFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Expenses
+     * const expenses = await prisma.expense.findMany()
+     * 
+     * // Get first 10 Expenses
+     * const expenses = await prisma.expense.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const expenseWithIdOnly = await prisma.expense.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ExpenseFindManyArgs>(args?: SelectSubset<T, ExpenseFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExpensePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Expense.
+     * @param {ExpenseCreateArgs} args - Arguments to create a Expense.
+     * @example
+     * // Create one Expense
+     * const Expense = await prisma.expense.create({
+     *   data: {
+     *     // ... data to create a Expense
+     *   }
+     * })
+     * 
+     */
+    create<T extends ExpenseCreateArgs>(args: SelectSubset<T, ExpenseCreateArgs<ExtArgs>>): Prisma__ExpenseClient<$Result.GetResult<Prisma.$ExpensePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Expenses.
+     * @param {ExpenseCreateManyArgs} args - Arguments to create many Expenses.
+     * @example
+     * // Create many Expenses
+     * const expense = await prisma.expense.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ExpenseCreateManyArgs>(args?: SelectSubset<T, ExpenseCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Expenses and returns the data saved in the database.
+     * @param {ExpenseCreateManyAndReturnArgs} args - Arguments to create many Expenses.
+     * @example
+     * // Create many Expenses
+     * const expense = await prisma.expense.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Expenses and only return the `id`
+     * const expenseWithIdOnly = await prisma.expense.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ExpenseCreateManyAndReturnArgs>(args?: SelectSubset<T, ExpenseCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExpensePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Expense.
+     * @param {ExpenseDeleteArgs} args - Arguments to delete one Expense.
+     * @example
+     * // Delete one Expense
+     * const Expense = await prisma.expense.delete({
+     *   where: {
+     *     // ... filter to delete one Expense
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ExpenseDeleteArgs>(args: SelectSubset<T, ExpenseDeleteArgs<ExtArgs>>): Prisma__ExpenseClient<$Result.GetResult<Prisma.$ExpensePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Expense.
+     * @param {ExpenseUpdateArgs} args - Arguments to update one Expense.
+     * @example
+     * // Update one Expense
+     * const expense = await prisma.expense.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ExpenseUpdateArgs>(args: SelectSubset<T, ExpenseUpdateArgs<ExtArgs>>): Prisma__ExpenseClient<$Result.GetResult<Prisma.$ExpensePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Expenses.
+     * @param {ExpenseDeleteManyArgs} args - Arguments to filter Expenses to delete.
+     * @example
+     * // Delete a few Expenses
+     * const { count } = await prisma.expense.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ExpenseDeleteManyArgs>(args?: SelectSubset<T, ExpenseDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Expenses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExpenseUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Expenses
+     * const expense = await prisma.expense.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ExpenseUpdateManyArgs>(args: SelectSubset<T, ExpenseUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Expenses and returns the data updated in the database.
+     * @param {ExpenseUpdateManyAndReturnArgs} args - Arguments to update many Expenses.
+     * @example
+     * // Update many Expenses
+     * const expense = await prisma.expense.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Expenses and only return the `id`
+     * const expenseWithIdOnly = await prisma.expense.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ExpenseUpdateManyAndReturnArgs>(args: SelectSubset<T, ExpenseUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExpensePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Expense.
+     * @param {ExpenseUpsertArgs} args - Arguments to update or create a Expense.
+     * @example
+     * // Update or create a Expense
+     * const expense = await prisma.expense.upsert({
+     *   create: {
+     *     // ... data to create a Expense
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Expense we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ExpenseUpsertArgs>(args: SelectSubset<T, ExpenseUpsertArgs<ExtArgs>>): Prisma__ExpenseClient<$Result.GetResult<Prisma.$ExpensePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Expenses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExpenseCountArgs} args - Arguments to filter Expenses to count.
+     * @example
+     * // Count the number of Expenses
+     * const count = await prisma.expense.count({
+     *   where: {
+     *     // ... the filter for the Expenses we want to count
+     *   }
+     * })
+    **/
+    count<T extends ExpenseCountArgs>(
+      args?: Subset<T, ExpenseCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ExpenseCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Expense.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExpenseAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ExpenseAggregateArgs>(args: Subset<T, ExpenseAggregateArgs>): Prisma.PrismaPromise<GetExpenseAggregateType<T>>
+
+    /**
+     * Group by Expense.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExpenseGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ExpenseGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ExpenseGroupByArgs['orderBy'] }
+        : { orderBy?: ExpenseGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ExpenseGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetExpenseGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Expense model
+   */
+  readonly fields: ExpenseFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Expense.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ExpenseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    buyerFirm<T extends BuyerFirmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BuyerFirmDefaultArgs<ExtArgs>>): Prisma__BuyerFirmClient<$Result.GetResult<Prisma.$BuyerFirmPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Expense model
+   */
+  interface ExpenseFieldRefs {
+    readonly id: FieldRef<"Expense", 'String'>
+    readonly buyerFirmId: FieldRef<"Expense", 'String'>
+    readonly title: FieldRef<"Expense", 'String'>
+    readonly amount: FieldRef<"Expense", 'Float'>
+    readonly category: FieldRef<"Expense", 'String'>
+    readonly date: FieldRef<"Expense", 'DateTime'>
+    readonly notes: FieldRef<"Expense", 'String'>
+    readonly createdAt: FieldRef<"Expense", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Expense findUnique
+   */
+  export type ExpenseFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Expense
+     */
+    select?: ExpenseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Expense
+     */
+    omit?: ExpenseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExpenseInclude<ExtArgs> | null
+    /**
+     * Filter, which Expense to fetch.
+     */
+    where: ExpenseWhereUniqueInput
+  }
+
+  /**
+   * Expense findUniqueOrThrow
+   */
+  export type ExpenseFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Expense
+     */
+    select?: ExpenseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Expense
+     */
+    omit?: ExpenseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExpenseInclude<ExtArgs> | null
+    /**
+     * Filter, which Expense to fetch.
+     */
+    where: ExpenseWhereUniqueInput
+  }
+
+  /**
+   * Expense findFirst
+   */
+  export type ExpenseFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Expense
+     */
+    select?: ExpenseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Expense
+     */
+    omit?: ExpenseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExpenseInclude<ExtArgs> | null
+    /**
+     * Filter, which Expense to fetch.
+     */
+    where?: ExpenseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Expenses to fetch.
+     */
+    orderBy?: ExpenseOrderByWithRelationInput | ExpenseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Expenses.
+     */
+    cursor?: ExpenseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Expenses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Expenses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Expenses.
+     */
+    distinct?: ExpenseScalarFieldEnum | ExpenseScalarFieldEnum[]
+  }
+
+  /**
+   * Expense findFirstOrThrow
+   */
+  export type ExpenseFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Expense
+     */
+    select?: ExpenseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Expense
+     */
+    omit?: ExpenseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExpenseInclude<ExtArgs> | null
+    /**
+     * Filter, which Expense to fetch.
+     */
+    where?: ExpenseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Expenses to fetch.
+     */
+    orderBy?: ExpenseOrderByWithRelationInput | ExpenseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Expenses.
+     */
+    cursor?: ExpenseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Expenses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Expenses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Expenses.
+     */
+    distinct?: ExpenseScalarFieldEnum | ExpenseScalarFieldEnum[]
+  }
+
+  /**
+   * Expense findMany
+   */
+  export type ExpenseFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Expense
+     */
+    select?: ExpenseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Expense
+     */
+    omit?: ExpenseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExpenseInclude<ExtArgs> | null
+    /**
+     * Filter, which Expenses to fetch.
+     */
+    where?: ExpenseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Expenses to fetch.
+     */
+    orderBy?: ExpenseOrderByWithRelationInput | ExpenseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Expenses.
+     */
+    cursor?: ExpenseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Expenses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Expenses.
+     */
+    skip?: number
+    distinct?: ExpenseScalarFieldEnum | ExpenseScalarFieldEnum[]
+  }
+
+  /**
+   * Expense create
+   */
+  export type ExpenseCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Expense
+     */
+    select?: ExpenseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Expense
+     */
+    omit?: ExpenseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExpenseInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Expense.
+     */
+    data: XOR<ExpenseCreateInput, ExpenseUncheckedCreateInput>
+  }
+
+  /**
+   * Expense createMany
+   */
+  export type ExpenseCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Expenses.
+     */
+    data: ExpenseCreateManyInput | ExpenseCreateManyInput[]
+  }
+
+  /**
+   * Expense createManyAndReturn
+   */
+  export type ExpenseCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Expense
+     */
+    select?: ExpenseSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Expense
+     */
+    omit?: ExpenseOmit<ExtArgs> | null
+    /**
+     * The data used to create many Expenses.
+     */
+    data: ExpenseCreateManyInput | ExpenseCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExpenseIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Expense update
+   */
+  export type ExpenseUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Expense
+     */
+    select?: ExpenseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Expense
+     */
+    omit?: ExpenseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExpenseInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Expense.
+     */
+    data: XOR<ExpenseUpdateInput, ExpenseUncheckedUpdateInput>
+    /**
+     * Choose, which Expense to update.
+     */
+    where: ExpenseWhereUniqueInput
+  }
+
+  /**
+   * Expense updateMany
+   */
+  export type ExpenseUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Expenses.
+     */
+    data: XOR<ExpenseUpdateManyMutationInput, ExpenseUncheckedUpdateManyInput>
+    /**
+     * Filter which Expenses to update
+     */
+    where?: ExpenseWhereInput
+    /**
+     * Limit how many Expenses to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Expense updateManyAndReturn
+   */
+  export type ExpenseUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Expense
+     */
+    select?: ExpenseSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Expense
+     */
+    omit?: ExpenseOmit<ExtArgs> | null
+    /**
+     * The data used to update Expenses.
+     */
+    data: XOR<ExpenseUpdateManyMutationInput, ExpenseUncheckedUpdateManyInput>
+    /**
+     * Filter which Expenses to update
+     */
+    where?: ExpenseWhereInput
+    /**
+     * Limit how many Expenses to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExpenseIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Expense upsert
+   */
+  export type ExpenseUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Expense
+     */
+    select?: ExpenseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Expense
+     */
+    omit?: ExpenseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExpenseInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Expense to update in case it exists.
+     */
+    where: ExpenseWhereUniqueInput
+    /**
+     * In case the Expense found by the `where` argument doesn't exist, create a new Expense with this data.
+     */
+    create: XOR<ExpenseCreateInput, ExpenseUncheckedCreateInput>
+    /**
+     * In case the Expense was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ExpenseUpdateInput, ExpenseUncheckedUpdateInput>
+  }
+
+  /**
+   * Expense delete
+   */
+  export type ExpenseDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Expense
+     */
+    select?: ExpenseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Expense
+     */
+    omit?: ExpenseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExpenseInclude<ExtArgs> | null
+    /**
+     * Filter which Expense to delete.
+     */
+    where: ExpenseWhereUniqueInput
+  }
+
+  /**
+   * Expense deleteMany
+   */
+  export type ExpenseDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Expenses to delete
+     */
+    where?: ExpenseWhereInput
+    /**
+     * Limit how many Expenses to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Expense without action
+   */
+  export type ExpenseDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Expense
+     */
+    select?: ExpenseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Expense
+     */
+    omit?: ExpenseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExpenseInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model GrowerItemCharge
+   */
+
+  export type AggregateGrowerItemCharge = {
+    _count: GrowerItemChargeCountAggregateOutputType | null
+    _avg: GrowerItemChargeAvgAggregateOutputType | null
+    _sum: GrowerItemChargeSumAggregateOutputType | null
+    _min: GrowerItemChargeMinAggregateOutputType | null
+    _max: GrowerItemChargeMaxAggregateOutputType | null
+  }
+
+  export type GrowerItemChargeAvgAggregateOutputType = {
+    quantity: number | null
+    rate: number | null
+    amount: number | null
+  }
+
+  export type GrowerItemChargeSumAggregateOutputType = {
+    quantity: number | null
+    rate: number | null
+    amount: number | null
+  }
+
+  export type GrowerItemChargeMinAggregateOutputType = {
+    id: string | null
+    growerId: string | null
+    buyerFirmId: string | null
+    itemName: string | null
+    quantity: number | null
+    rate: number | null
+    amount: number | null
+    notes: string | null
+    issuedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type GrowerItemChargeMaxAggregateOutputType = {
+    id: string | null
+    growerId: string | null
+    buyerFirmId: string | null
+    itemName: string | null
+    quantity: number | null
+    rate: number | null
+    amount: number | null
+    notes: string | null
+    issuedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type GrowerItemChargeCountAggregateOutputType = {
+    id: number
+    growerId: number
+    buyerFirmId: number
+    itemName: number
+    quantity: number
+    rate: number
+    amount: number
+    notes: number
+    issuedAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type GrowerItemChargeAvgAggregateInputType = {
+    quantity?: true
+    rate?: true
+    amount?: true
+  }
+
+  export type GrowerItemChargeSumAggregateInputType = {
+    quantity?: true
+    rate?: true
+    amount?: true
+  }
+
+  export type GrowerItemChargeMinAggregateInputType = {
+    id?: true
+    growerId?: true
+    buyerFirmId?: true
+    itemName?: true
+    quantity?: true
+    rate?: true
+    amount?: true
+    notes?: true
+    issuedAt?: true
+    createdAt?: true
+  }
+
+  export type GrowerItemChargeMaxAggregateInputType = {
+    id?: true
+    growerId?: true
+    buyerFirmId?: true
+    itemName?: true
+    quantity?: true
+    rate?: true
+    amount?: true
+    notes?: true
+    issuedAt?: true
+    createdAt?: true
+  }
+
+  export type GrowerItemChargeCountAggregateInputType = {
+    id?: true
+    growerId?: true
+    buyerFirmId?: true
+    itemName?: true
+    quantity?: true
+    rate?: true
+    amount?: true
+    notes?: true
+    issuedAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type GrowerItemChargeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GrowerItemCharge to aggregate.
+     */
+    where?: GrowerItemChargeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GrowerItemCharges to fetch.
+     */
+    orderBy?: GrowerItemChargeOrderByWithRelationInput | GrowerItemChargeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GrowerItemChargeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GrowerItemCharges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GrowerItemCharges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GrowerItemCharges
+    **/
+    _count?: true | GrowerItemChargeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GrowerItemChargeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GrowerItemChargeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GrowerItemChargeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GrowerItemChargeMaxAggregateInputType
+  }
+
+  export type GetGrowerItemChargeAggregateType<T extends GrowerItemChargeAggregateArgs> = {
+        [P in keyof T & keyof AggregateGrowerItemCharge]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGrowerItemCharge[P]>
+      : GetScalarType<T[P], AggregateGrowerItemCharge[P]>
+  }
+
+
+
+
+  export type GrowerItemChargeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GrowerItemChargeWhereInput
+    orderBy?: GrowerItemChargeOrderByWithAggregationInput | GrowerItemChargeOrderByWithAggregationInput[]
+    by: GrowerItemChargeScalarFieldEnum[] | GrowerItemChargeScalarFieldEnum
+    having?: GrowerItemChargeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GrowerItemChargeCountAggregateInputType | true
+    _avg?: GrowerItemChargeAvgAggregateInputType
+    _sum?: GrowerItemChargeSumAggregateInputType
+    _min?: GrowerItemChargeMinAggregateInputType
+    _max?: GrowerItemChargeMaxAggregateInputType
+  }
+
+  export type GrowerItemChargeGroupByOutputType = {
+    id: string
+    growerId: string
+    buyerFirmId: string
+    itemName: string
+    quantity: number
+    rate: number
+    amount: number
+    notes: string | null
+    issuedAt: Date
+    createdAt: Date
+    _count: GrowerItemChargeCountAggregateOutputType | null
+    _avg: GrowerItemChargeAvgAggregateOutputType | null
+    _sum: GrowerItemChargeSumAggregateOutputType | null
+    _min: GrowerItemChargeMinAggregateOutputType | null
+    _max: GrowerItemChargeMaxAggregateOutputType | null
+  }
+
+  type GetGrowerItemChargeGroupByPayload<T extends GrowerItemChargeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GrowerItemChargeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GrowerItemChargeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GrowerItemChargeGroupByOutputType[P]>
+            : GetScalarType<T[P], GrowerItemChargeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GrowerItemChargeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    growerId?: boolean
+    buyerFirmId?: boolean
+    itemName?: boolean
+    quantity?: boolean
+    rate?: boolean
+    amount?: boolean
+    notes?: boolean
+    issuedAt?: boolean
+    createdAt?: boolean
+    grower?: boolean | GrowerDefaultArgs<ExtArgs>
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["growerItemCharge"]>
+
+  export type GrowerItemChargeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    growerId?: boolean
+    buyerFirmId?: boolean
+    itemName?: boolean
+    quantity?: boolean
+    rate?: boolean
+    amount?: boolean
+    notes?: boolean
+    issuedAt?: boolean
+    createdAt?: boolean
+    grower?: boolean | GrowerDefaultArgs<ExtArgs>
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["growerItemCharge"]>
+
+  export type GrowerItemChargeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    growerId?: boolean
+    buyerFirmId?: boolean
+    itemName?: boolean
+    quantity?: boolean
+    rate?: boolean
+    amount?: boolean
+    notes?: boolean
+    issuedAt?: boolean
+    createdAt?: boolean
+    grower?: boolean | GrowerDefaultArgs<ExtArgs>
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["growerItemCharge"]>
+
+  export type GrowerItemChargeSelectScalar = {
+    id?: boolean
+    growerId?: boolean
+    buyerFirmId?: boolean
+    itemName?: boolean
+    quantity?: boolean
+    rate?: boolean
+    amount?: boolean
+    notes?: boolean
+    issuedAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type GrowerItemChargeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "growerId" | "buyerFirmId" | "itemName" | "quantity" | "rate" | "amount" | "notes" | "issuedAt" | "createdAt", ExtArgs["result"]["growerItemCharge"]>
+  export type GrowerItemChargeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    grower?: boolean | GrowerDefaultArgs<ExtArgs>
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }
+  export type GrowerItemChargeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    grower?: boolean | GrowerDefaultArgs<ExtArgs>
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }
+  export type GrowerItemChargeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    grower?: boolean | GrowerDefaultArgs<ExtArgs>
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }
+
+  export type $GrowerItemChargePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GrowerItemCharge"
+    objects: {
+      grower: Prisma.$GrowerPayload<ExtArgs>
+      buyerFirm: Prisma.$BuyerFirmPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      growerId: string
+      buyerFirmId: string
+      itemName: string
+      quantity: number
+      rate: number
+      amount: number
+      notes: string | null
+      issuedAt: Date
+      createdAt: Date
+    }, ExtArgs["result"]["growerItemCharge"]>
+    composites: {}
+  }
+
+  type GrowerItemChargeGetPayload<S extends boolean | null | undefined | GrowerItemChargeDefaultArgs> = $Result.GetResult<Prisma.$GrowerItemChargePayload, S>
+
+  type GrowerItemChargeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GrowerItemChargeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GrowerItemChargeCountAggregateInputType | true
+    }
+
+  export interface GrowerItemChargeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GrowerItemCharge'], meta: { name: 'GrowerItemCharge' } }
+    /**
+     * Find zero or one GrowerItemCharge that matches the filter.
+     * @param {GrowerItemChargeFindUniqueArgs} args - Arguments to find a GrowerItemCharge
+     * @example
+     * // Get one GrowerItemCharge
+     * const growerItemCharge = await prisma.growerItemCharge.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GrowerItemChargeFindUniqueArgs>(args: SelectSubset<T, GrowerItemChargeFindUniqueArgs<ExtArgs>>): Prisma__GrowerItemChargeClient<$Result.GetResult<Prisma.$GrowerItemChargePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one GrowerItemCharge that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GrowerItemChargeFindUniqueOrThrowArgs} args - Arguments to find a GrowerItemCharge
+     * @example
+     * // Get one GrowerItemCharge
+     * const growerItemCharge = await prisma.growerItemCharge.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GrowerItemChargeFindUniqueOrThrowArgs>(args: SelectSubset<T, GrowerItemChargeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GrowerItemChargeClient<$Result.GetResult<Prisma.$GrowerItemChargePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GrowerItemCharge that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrowerItemChargeFindFirstArgs} args - Arguments to find a GrowerItemCharge
+     * @example
+     * // Get one GrowerItemCharge
+     * const growerItemCharge = await prisma.growerItemCharge.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GrowerItemChargeFindFirstArgs>(args?: SelectSubset<T, GrowerItemChargeFindFirstArgs<ExtArgs>>): Prisma__GrowerItemChargeClient<$Result.GetResult<Prisma.$GrowerItemChargePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GrowerItemCharge that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrowerItemChargeFindFirstOrThrowArgs} args - Arguments to find a GrowerItemCharge
+     * @example
+     * // Get one GrowerItemCharge
+     * const growerItemCharge = await prisma.growerItemCharge.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GrowerItemChargeFindFirstOrThrowArgs>(args?: SelectSubset<T, GrowerItemChargeFindFirstOrThrowArgs<ExtArgs>>): Prisma__GrowerItemChargeClient<$Result.GetResult<Prisma.$GrowerItemChargePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more GrowerItemCharges that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrowerItemChargeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GrowerItemCharges
+     * const growerItemCharges = await prisma.growerItemCharge.findMany()
+     * 
+     * // Get first 10 GrowerItemCharges
+     * const growerItemCharges = await prisma.growerItemCharge.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const growerItemChargeWithIdOnly = await prisma.growerItemCharge.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GrowerItemChargeFindManyArgs>(args?: SelectSubset<T, GrowerItemChargeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GrowerItemChargePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a GrowerItemCharge.
+     * @param {GrowerItemChargeCreateArgs} args - Arguments to create a GrowerItemCharge.
+     * @example
+     * // Create one GrowerItemCharge
+     * const GrowerItemCharge = await prisma.growerItemCharge.create({
+     *   data: {
+     *     // ... data to create a GrowerItemCharge
+     *   }
+     * })
+     * 
+     */
+    create<T extends GrowerItemChargeCreateArgs>(args: SelectSubset<T, GrowerItemChargeCreateArgs<ExtArgs>>): Prisma__GrowerItemChargeClient<$Result.GetResult<Prisma.$GrowerItemChargePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many GrowerItemCharges.
+     * @param {GrowerItemChargeCreateManyArgs} args - Arguments to create many GrowerItemCharges.
+     * @example
+     * // Create many GrowerItemCharges
+     * const growerItemCharge = await prisma.growerItemCharge.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GrowerItemChargeCreateManyArgs>(args?: SelectSubset<T, GrowerItemChargeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GrowerItemCharges and returns the data saved in the database.
+     * @param {GrowerItemChargeCreateManyAndReturnArgs} args - Arguments to create many GrowerItemCharges.
+     * @example
+     * // Create many GrowerItemCharges
+     * const growerItemCharge = await prisma.growerItemCharge.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GrowerItemCharges and only return the `id`
+     * const growerItemChargeWithIdOnly = await prisma.growerItemCharge.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GrowerItemChargeCreateManyAndReturnArgs>(args?: SelectSubset<T, GrowerItemChargeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GrowerItemChargePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a GrowerItemCharge.
+     * @param {GrowerItemChargeDeleteArgs} args - Arguments to delete one GrowerItemCharge.
+     * @example
+     * // Delete one GrowerItemCharge
+     * const GrowerItemCharge = await prisma.growerItemCharge.delete({
+     *   where: {
+     *     // ... filter to delete one GrowerItemCharge
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GrowerItemChargeDeleteArgs>(args: SelectSubset<T, GrowerItemChargeDeleteArgs<ExtArgs>>): Prisma__GrowerItemChargeClient<$Result.GetResult<Prisma.$GrowerItemChargePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one GrowerItemCharge.
+     * @param {GrowerItemChargeUpdateArgs} args - Arguments to update one GrowerItemCharge.
+     * @example
+     * // Update one GrowerItemCharge
+     * const growerItemCharge = await prisma.growerItemCharge.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GrowerItemChargeUpdateArgs>(args: SelectSubset<T, GrowerItemChargeUpdateArgs<ExtArgs>>): Prisma__GrowerItemChargeClient<$Result.GetResult<Prisma.$GrowerItemChargePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more GrowerItemCharges.
+     * @param {GrowerItemChargeDeleteManyArgs} args - Arguments to filter GrowerItemCharges to delete.
+     * @example
+     * // Delete a few GrowerItemCharges
+     * const { count } = await prisma.growerItemCharge.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GrowerItemChargeDeleteManyArgs>(args?: SelectSubset<T, GrowerItemChargeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GrowerItemCharges.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrowerItemChargeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GrowerItemCharges
+     * const growerItemCharge = await prisma.growerItemCharge.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GrowerItemChargeUpdateManyArgs>(args: SelectSubset<T, GrowerItemChargeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GrowerItemCharges and returns the data updated in the database.
+     * @param {GrowerItemChargeUpdateManyAndReturnArgs} args - Arguments to update many GrowerItemCharges.
+     * @example
+     * // Update many GrowerItemCharges
+     * const growerItemCharge = await prisma.growerItemCharge.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GrowerItemCharges and only return the `id`
+     * const growerItemChargeWithIdOnly = await prisma.growerItemCharge.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GrowerItemChargeUpdateManyAndReturnArgs>(args: SelectSubset<T, GrowerItemChargeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GrowerItemChargePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one GrowerItemCharge.
+     * @param {GrowerItemChargeUpsertArgs} args - Arguments to update or create a GrowerItemCharge.
+     * @example
+     * // Update or create a GrowerItemCharge
+     * const growerItemCharge = await prisma.growerItemCharge.upsert({
+     *   create: {
+     *     // ... data to create a GrowerItemCharge
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GrowerItemCharge we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GrowerItemChargeUpsertArgs>(args: SelectSubset<T, GrowerItemChargeUpsertArgs<ExtArgs>>): Prisma__GrowerItemChargeClient<$Result.GetResult<Prisma.$GrowerItemChargePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of GrowerItemCharges.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrowerItemChargeCountArgs} args - Arguments to filter GrowerItemCharges to count.
+     * @example
+     * // Count the number of GrowerItemCharges
+     * const count = await prisma.growerItemCharge.count({
+     *   where: {
+     *     // ... the filter for the GrowerItemCharges we want to count
+     *   }
+     * })
+    **/
+    count<T extends GrowerItemChargeCountArgs>(
+      args?: Subset<T, GrowerItemChargeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GrowerItemChargeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GrowerItemCharge.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrowerItemChargeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GrowerItemChargeAggregateArgs>(args: Subset<T, GrowerItemChargeAggregateArgs>): Prisma.PrismaPromise<GetGrowerItemChargeAggregateType<T>>
+
+    /**
+     * Group by GrowerItemCharge.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrowerItemChargeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GrowerItemChargeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GrowerItemChargeGroupByArgs['orderBy'] }
+        : { orderBy?: GrowerItemChargeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GrowerItemChargeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGrowerItemChargeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GrowerItemCharge model
+   */
+  readonly fields: GrowerItemChargeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GrowerItemCharge.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GrowerItemChargeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    grower<T extends GrowerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GrowerDefaultArgs<ExtArgs>>): Prisma__GrowerClient<$Result.GetResult<Prisma.$GrowerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    buyerFirm<T extends BuyerFirmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BuyerFirmDefaultArgs<ExtArgs>>): Prisma__BuyerFirmClient<$Result.GetResult<Prisma.$BuyerFirmPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GrowerItemCharge model
+   */
+  interface GrowerItemChargeFieldRefs {
+    readonly id: FieldRef<"GrowerItemCharge", 'String'>
+    readonly growerId: FieldRef<"GrowerItemCharge", 'String'>
+    readonly buyerFirmId: FieldRef<"GrowerItemCharge", 'String'>
+    readonly itemName: FieldRef<"GrowerItemCharge", 'String'>
+    readonly quantity: FieldRef<"GrowerItemCharge", 'Float'>
+    readonly rate: FieldRef<"GrowerItemCharge", 'Float'>
+    readonly amount: FieldRef<"GrowerItemCharge", 'Float'>
+    readonly notes: FieldRef<"GrowerItemCharge", 'String'>
+    readonly issuedAt: FieldRef<"GrowerItemCharge", 'DateTime'>
+    readonly createdAt: FieldRef<"GrowerItemCharge", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GrowerItemCharge findUnique
+   */
+  export type GrowerItemChargeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrowerItemCharge
+     */
+    select?: GrowerItemChargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrowerItemCharge
+     */
+    omit?: GrowerItemChargeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrowerItemChargeInclude<ExtArgs> | null
+    /**
+     * Filter, which GrowerItemCharge to fetch.
+     */
+    where: GrowerItemChargeWhereUniqueInput
+  }
+
+  /**
+   * GrowerItemCharge findUniqueOrThrow
+   */
+  export type GrowerItemChargeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrowerItemCharge
+     */
+    select?: GrowerItemChargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrowerItemCharge
+     */
+    omit?: GrowerItemChargeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrowerItemChargeInclude<ExtArgs> | null
+    /**
+     * Filter, which GrowerItemCharge to fetch.
+     */
+    where: GrowerItemChargeWhereUniqueInput
+  }
+
+  /**
+   * GrowerItemCharge findFirst
+   */
+  export type GrowerItemChargeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrowerItemCharge
+     */
+    select?: GrowerItemChargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrowerItemCharge
+     */
+    omit?: GrowerItemChargeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrowerItemChargeInclude<ExtArgs> | null
+    /**
+     * Filter, which GrowerItemCharge to fetch.
+     */
+    where?: GrowerItemChargeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GrowerItemCharges to fetch.
+     */
+    orderBy?: GrowerItemChargeOrderByWithRelationInput | GrowerItemChargeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GrowerItemCharges.
+     */
+    cursor?: GrowerItemChargeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GrowerItemCharges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GrowerItemCharges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GrowerItemCharges.
+     */
+    distinct?: GrowerItemChargeScalarFieldEnum | GrowerItemChargeScalarFieldEnum[]
+  }
+
+  /**
+   * GrowerItemCharge findFirstOrThrow
+   */
+  export type GrowerItemChargeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrowerItemCharge
+     */
+    select?: GrowerItemChargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrowerItemCharge
+     */
+    omit?: GrowerItemChargeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrowerItemChargeInclude<ExtArgs> | null
+    /**
+     * Filter, which GrowerItemCharge to fetch.
+     */
+    where?: GrowerItemChargeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GrowerItemCharges to fetch.
+     */
+    orderBy?: GrowerItemChargeOrderByWithRelationInput | GrowerItemChargeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GrowerItemCharges.
+     */
+    cursor?: GrowerItemChargeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GrowerItemCharges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GrowerItemCharges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GrowerItemCharges.
+     */
+    distinct?: GrowerItemChargeScalarFieldEnum | GrowerItemChargeScalarFieldEnum[]
+  }
+
+  /**
+   * GrowerItemCharge findMany
+   */
+  export type GrowerItemChargeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrowerItemCharge
+     */
+    select?: GrowerItemChargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrowerItemCharge
+     */
+    omit?: GrowerItemChargeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrowerItemChargeInclude<ExtArgs> | null
+    /**
+     * Filter, which GrowerItemCharges to fetch.
+     */
+    where?: GrowerItemChargeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GrowerItemCharges to fetch.
+     */
+    orderBy?: GrowerItemChargeOrderByWithRelationInput | GrowerItemChargeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GrowerItemCharges.
+     */
+    cursor?: GrowerItemChargeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GrowerItemCharges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GrowerItemCharges.
+     */
+    skip?: number
+    distinct?: GrowerItemChargeScalarFieldEnum | GrowerItemChargeScalarFieldEnum[]
+  }
+
+  /**
+   * GrowerItemCharge create
+   */
+  export type GrowerItemChargeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrowerItemCharge
+     */
+    select?: GrowerItemChargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrowerItemCharge
+     */
+    omit?: GrowerItemChargeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrowerItemChargeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GrowerItemCharge.
+     */
+    data: XOR<GrowerItemChargeCreateInput, GrowerItemChargeUncheckedCreateInput>
+  }
+
+  /**
+   * GrowerItemCharge createMany
+   */
+  export type GrowerItemChargeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GrowerItemCharges.
+     */
+    data: GrowerItemChargeCreateManyInput | GrowerItemChargeCreateManyInput[]
+  }
+
+  /**
+   * GrowerItemCharge createManyAndReturn
+   */
+  export type GrowerItemChargeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrowerItemCharge
+     */
+    select?: GrowerItemChargeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrowerItemCharge
+     */
+    omit?: GrowerItemChargeOmit<ExtArgs> | null
+    /**
+     * The data used to create many GrowerItemCharges.
+     */
+    data: GrowerItemChargeCreateManyInput | GrowerItemChargeCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrowerItemChargeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GrowerItemCharge update
+   */
+  export type GrowerItemChargeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrowerItemCharge
+     */
+    select?: GrowerItemChargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrowerItemCharge
+     */
+    omit?: GrowerItemChargeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrowerItemChargeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GrowerItemCharge.
+     */
+    data: XOR<GrowerItemChargeUpdateInput, GrowerItemChargeUncheckedUpdateInput>
+    /**
+     * Choose, which GrowerItemCharge to update.
+     */
+    where: GrowerItemChargeWhereUniqueInput
+  }
+
+  /**
+   * GrowerItemCharge updateMany
+   */
+  export type GrowerItemChargeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GrowerItemCharges.
+     */
+    data: XOR<GrowerItemChargeUpdateManyMutationInput, GrowerItemChargeUncheckedUpdateManyInput>
+    /**
+     * Filter which GrowerItemCharges to update
+     */
+    where?: GrowerItemChargeWhereInput
+    /**
+     * Limit how many GrowerItemCharges to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GrowerItemCharge updateManyAndReturn
+   */
+  export type GrowerItemChargeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrowerItemCharge
+     */
+    select?: GrowerItemChargeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrowerItemCharge
+     */
+    omit?: GrowerItemChargeOmit<ExtArgs> | null
+    /**
+     * The data used to update GrowerItemCharges.
+     */
+    data: XOR<GrowerItemChargeUpdateManyMutationInput, GrowerItemChargeUncheckedUpdateManyInput>
+    /**
+     * Filter which GrowerItemCharges to update
+     */
+    where?: GrowerItemChargeWhereInput
+    /**
+     * Limit how many GrowerItemCharges to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrowerItemChargeIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GrowerItemCharge upsert
+   */
+  export type GrowerItemChargeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrowerItemCharge
+     */
+    select?: GrowerItemChargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrowerItemCharge
+     */
+    omit?: GrowerItemChargeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrowerItemChargeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GrowerItemCharge to update in case it exists.
+     */
+    where: GrowerItemChargeWhereUniqueInput
+    /**
+     * In case the GrowerItemCharge found by the `where` argument doesn't exist, create a new GrowerItemCharge with this data.
+     */
+    create: XOR<GrowerItemChargeCreateInput, GrowerItemChargeUncheckedCreateInput>
+    /**
+     * In case the GrowerItemCharge was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GrowerItemChargeUpdateInput, GrowerItemChargeUncheckedUpdateInput>
+  }
+
+  /**
+   * GrowerItemCharge delete
+   */
+  export type GrowerItemChargeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrowerItemCharge
+     */
+    select?: GrowerItemChargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrowerItemCharge
+     */
+    omit?: GrowerItemChargeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrowerItemChargeInclude<ExtArgs> | null
+    /**
+     * Filter which GrowerItemCharge to delete.
+     */
+    where: GrowerItemChargeWhereUniqueInput
+  }
+
+  /**
+   * GrowerItemCharge deleteMany
+   */
+  export type GrowerItemChargeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GrowerItemCharges to delete
+     */
+    where?: GrowerItemChargeWhereInput
+    /**
+     * Limit how many GrowerItemCharges to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GrowerItemCharge without action
+   */
+  export type GrowerItemChargeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrowerItemCharge
+     */
+    select?: GrowerItemChargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrowerItemCharge
+     */
+    omit?: GrowerItemChargeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrowerItemChargeInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -14965,6 +17558,36 @@ export namespace Prisma {
   export type SellerPaymentScalarFieldEnum = (typeof SellerPaymentScalarFieldEnum)[keyof typeof SellerPaymentScalarFieldEnum]
 
 
+  export const ExpenseScalarFieldEnum: {
+    id: 'id',
+    buyerFirmId: 'buyerFirmId',
+    title: 'title',
+    amount: 'amount',
+    category: 'category',
+    date: 'date',
+    notes: 'notes',
+    createdAt: 'createdAt'
+  };
+
+  export type ExpenseScalarFieldEnum = (typeof ExpenseScalarFieldEnum)[keyof typeof ExpenseScalarFieldEnum]
+
+
+  export const GrowerItemChargeScalarFieldEnum: {
+    id: 'id',
+    growerId: 'growerId',
+    buyerFirmId: 'buyerFirmId',
+    itemName: 'itemName',
+    quantity: 'quantity',
+    rate: 'rate',
+    amount: 'amount',
+    notes: 'notes',
+    issuedAt: 'issuedAt',
+    createdAt: 'createdAt'
+  };
+
+  export type GrowerItemChargeScalarFieldEnum = (typeof GrowerItemChargeScalarFieldEnum)[keyof typeof GrowerItemChargeScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -15044,6 +17667,8 @@ export namespace Prisma {
     payments?: PaymentListRelationFilter
     sellerPayments?: SellerPaymentListRelationFilter
     draftTransactions?: DraftTransactionListRelationFilter
+    expenses?: ExpenseListRelationFilter
+    itemCharges?: GrowerItemChargeListRelationFilter
   }
 
   export type BuyerFirmOrderByWithRelationInput = {
@@ -15063,6 +17688,8 @@ export namespace Prisma {
     payments?: PaymentOrderByRelationAggregateInput
     sellerPayments?: SellerPaymentOrderByRelationAggregateInput
     draftTransactions?: DraftTransactionOrderByRelationAggregateInput
+    expenses?: ExpenseOrderByRelationAggregateInput
+    itemCharges?: GrowerItemChargeOrderByRelationAggregateInput
   }
 
   export type BuyerFirmWhereUniqueInput = Prisma.AtLeast<{
@@ -15085,6 +17712,8 @@ export namespace Prisma {
     payments?: PaymentListRelationFilter
     sellerPayments?: SellerPaymentListRelationFilter
     draftTransactions?: DraftTransactionListRelationFilter
+    expenses?: ExpenseListRelationFilter
+    itemCharges?: GrowerItemChargeListRelationFilter
   }, "id" | "uniqueId">
 
   export type BuyerFirmOrderByWithAggregationInput = {
@@ -15197,6 +17826,7 @@ export namespace Prisma {
     notifications?: NotificationListRelationFilter
     agreements?: AgreementListRelationFilter
     draftTransactions?: DraftTransactionListRelationFilter
+    itemCharges?: GrowerItemChargeListRelationFilter
   }
 
   export type GrowerOrderByWithRelationInput = {
@@ -15212,6 +17842,7 @@ export namespace Prisma {
     notifications?: NotificationOrderByRelationAggregateInput
     agreements?: AgreementOrderByRelationAggregateInput
     draftTransactions?: DraftTransactionOrderByRelationAggregateInput
+    itemCharges?: GrowerItemChargeOrderByRelationAggregateInput
   }
 
   export type GrowerWhereUniqueInput = Prisma.AtLeast<{
@@ -15231,6 +17862,7 @@ export namespace Prisma {
     notifications?: NotificationListRelationFilter
     agreements?: AgreementListRelationFilter
     draftTransactions?: DraftTransactionListRelationFilter
+    itemCharges?: GrowerItemChargeListRelationFilter
   }, "id" | "mobile_buyerFirmId">
 
   export type GrowerOrderByWithAggregationInput = {
@@ -15893,6 +18525,163 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"SellerPayment"> | Date | string
   }
 
+  export type ExpenseWhereInput = {
+    AND?: ExpenseWhereInput | ExpenseWhereInput[]
+    OR?: ExpenseWhereInput[]
+    NOT?: ExpenseWhereInput | ExpenseWhereInput[]
+    id?: StringFilter<"Expense"> | string
+    buyerFirmId?: StringFilter<"Expense"> | string
+    title?: StringFilter<"Expense"> | string
+    amount?: FloatFilter<"Expense"> | number
+    category?: StringFilter<"Expense"> | string
+    date?: DateTimeFilter<"Expense"> | Date | string
+    notes?: StringNullableFilter<"Expense"> | string | null
+    createdAt?: DateTimeFilter<"Expense"> | Date | string
+    buyerFirm?: XOR<BuyerFirmScalarRelationFilter, BuyerFirmWhereInput>
+  }
+
+  export type ExpenseOrderByWithRelationInput = {
+    id?: SortOrder
+    buyerFirmId?: SortOrder
+    title?: SortOrder
+    amount?: SortOrder
+    category?: SortOrder
+    date?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    buyerFirm?: BuyerFirmOrderByWithRelationInput
+  }
+
+  export type ExpenseWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ExpenseWhereInput | ExpenseWhereInput[]
+    OR?: ExpenseWhereInput[]
+    NOT?: ExpenseWhereInput | ExpenseWhereInput[]
+    buyerFirmId?: StringFilter<"Expense"> | string
+    title?: StringFilter<"Expense"> | string
+    amount?: FloatFilter<"Expense"> | number
+    category?: StringFilter<"Expense"> | string
+    date?: DateTimeFilter<"Expense"> | Date | string
+    notes?: StringNullableFilter<"Expense"> | string | null
+    createdAt?: DateTimeFilter<"Expense"> | Date | string
+    buyerFirm?: XOR<BuyerFirmScalarRelationFilter, BuyerFirmWhereInput>
+  }, "id">
+
+  export type ExpenseOrderByWithAggregationInput = {
+    id?: SortOrder
+    buyerFirmId?: SortOrder
+    title?: SortOrder
+    amount?: SortOrder
+    category?: SortOrder
+    date?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: ExpenseCountOrderByAggregateInput
+    _avg?: ExpenseAvgOrderByAggregateInput
+    _max?: ExpenseMaxOrderByAggregateInput
+    _min?: ExpenseMinOrderByAggregateInput
+    _sum?: ExpenseSumOrderByAggregateInput
+  }
+
+  export type ExpenseScalarWhereWithAggregatesInput = {
+    AND?: ExpenseScalarWhereWithAggregatesInput | ExpenseScalarWhereWithAggregatesInput[]
+    OR?: ExpenseScalarWhereWithAggregatesInput[]
+    NOT?: ExpenseScalarWhereWithAggregatesInput | ExpenseScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Expense"> | string
+    buyerFirmId?: StringWithAggregatesFilter<"Expense"> | string
+    title?: StringWithAggregatesFilter<"Expense"> | string
+    amount?: FloatWithAggregatesFilter<"Expense"> | number
+    category?: StringWithAggregatesFilter<"Expense"> | string
+    date?: DateTimeWithAggregatesFilter<"Expense"> | Date | string
+    notes?: StringNullableWithAggregatesFilter<"Expense"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Expense"> | Date | string
+  }
+
+  export type GrowerItemChargeWhereInput = {
+    AND?: GrowerItemChargeWhereInput | GrowerItemChargeWhereInput[]
+    OR?: GrowerItemChargeWhereInput[]
+    NOT?: GrowerItemChargeWhereInput | GrowerItemChargeWhereInput[]
+    id?: StringFilter<"GrowerItemCharge"> | string
+    growerId?: StringFilter<"GrowerItemCharge"> | string
+    buyerFirmId?: StringFilter<"GrowerItemCharge"> | string
+    itemName?: StringFilter<"GrowerItemCharge"> | string
+    quantity?: FloatFilter<"GrowerItemCharge"> | number
+    rate?: FloatFilter<"GrowerItemCharge"> | number
+    amount?: FloatFilter<"GrowerItemCharge"> | number
+    notes?: StringNullableFilter<"GrowerItemCharge"> | string | null
+    issuedAt?: DateTimeFilter<"GrowerItemCharge"> | Date | string
+    createdAt?: DateTimeFilter<"GrowerItemCharge"> | Date | string
+    grower?: XOR<GrowerScalarRelationFilter, GrowerWhereInput>
+    buyerFirm?: XOR<BuyerFirmScalarRelationFilter, BuyerFirmWhereInput>
+  }
+
+  export type GrowerItemChargeOrderByWithRelationInput = {
+    id?: SortOrder
+    growerId?: SortOrder
+    buyerFirmId?: SortOrder
+    itemName?: SortOrder
+    quantity?: SortOrder
+    rate?: SortOrder
+    amount?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    issuedAt?: SortOrder
+    createdAt?: SortOrder
+    grower?: GrowerOrderByWithRelationInput
+    buyerFirm?: BuyerFirmOrderByWithRelationInput
+  }
+
+  export type GrowerItemChargeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: GrowerItemChargeWhereInput | GrowerItemChargeWhereInput[]
+    OR?: GrowerItemChargeWhereInput[]
+    NOT?: GrowerItemChargeWhereInput | GrowerItemChargeWhereInput[]
+    growerId?: StringFilter<"GrowerItemCharge"> | string
+    buyerFirmId?: StringFilter<"GrowerItemCharge"> | string
+    itemName?: StringFilter<"GrowerItemCharge"> | string
+    quantity?: FloatFilter<"GrowerItemCharge"> | number
+    rate?: FloatFilter<"GrowerItemCharge"> | number
+    amount?: FloatFilter<"GrowerItemCharge"> | number
+    notes?: StringNullableFilter<"GrowerItemCharge"> | string | null
+    issuedAt?: DateTimeFilter<"GrowerItemCharge"> | Date | string
+    createdAt?: DateTimeFilter<"GrowerItemCharge"> | Date | string
+    grower?: XOR<GrowerScalarRelationFilter, GrowerWhereInput>
+    buyerFirm?: XOR<BuyerFirmScalarRelationFilter, BuyerFirmWhereInput>
+  }, "id">
+
+  export type GrowerItemChargeOrderByWithAggregationInput = {
+    id?: SortOrder
+    growerId?: SortOrder
+    buyerFirmId?: SortOrder
+    itemName?: SortOrder
+    quantity?: SortOrder
+    rate?: SortOrder
+    amount?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    issuedAt?: SortOrder
+    createdAt?: SortOrder
+    _count?: GrowerItemChargeCountOrderByAggregateInput
+    _avg?: GrowerItemChargeAvgOrderByAggregateInput
+    _max?: GrowerItemChargeMaxOrderByAggregateInput
+    _min?: GrowerItemChargeMinOrderByAggregateInput
+    _sum?: GrowerItemChargeSumOrderByAggregateInput
+  }
+
+  export type GrowerItemChargeScalarWhereWithAggregatesInput = {
+    AND?: GrowerItemChargeScalarWhereWithAggregatesInput | GrowerItemChargeScalarWhereWithAggregatesInput[]
+    OR?: GrowerItemChargeScalarWhereWithAggregatesInput[]
+    NOT?: GrowerItemChargeScalarWhereWithAggregatesInput | GrowerItemChargeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"GrowerItemCharge"> | string
+    growerId?: StringWithAggregatesFilter<"GrowerItemCharge"> | string
+    buyerFirmId?: StringWithAggregatesFilter<"GrowerItemCharge"> | string
+    itemName?: StringWithAggregatesFilter<"GrowerItemCharge"> | string
+    quantity?: FloatWithAggregatesFilter<"GrowerItemCharge"> | number
+    rate?: FloatWithAggregatesFilter<"GrowerItemCharge"> | number
+    amount?: FloatWithAggregatesFilter<"GrowerItemCharge"> | number
+    notes?: StringNullableWithAggregatesFilter<"GrowerItemCharge"> | string | null
+    issuedAt?: DateTimeWithAggregatesFilter<"GrowerItemCharge"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"GrowerItemCharge"> | Date | string
+  }
+
   export type BuyerFirmCreateInput = {
     id?: string
     uniqueId: string
@@ -15910,6 +18699,8 @@ export namespace Prisma {
     payments?: PaymentCreateNestedManyWithoutBuyerFirmInput
     sellerPayments?: SellerPaymentCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionCreateNestedManyWithoutBuyerFirmInput
+    expenses?: ExpenseCreateNestedManyWithoutBuyerFirmInput
+    itemCharges?: GrowerItemChargeCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmUncheckedCreateInput = {
@@ -15929,6 +18720,8 @@ export namespace Prisma {
     payments?: PaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
     sellerPayments?: SellerPaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutBuyerFirmInput
+    itemCharges?: GrowerItemChargeUncheckedCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmUpdateInput = {
@@ -15948,6 +18741,8 @@ export namespace Prisma {
     payments?: PaymentUpdateManyWithoutBuyerFirmNestedInput
     sellerPayments?: SellerPaymentUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUpdateManyWithoutBuyerFirmNestedInput
+    expenses?: ExpenseUpdateManyWithoutBuyerFirmNestedInput
+    itemCharges?: GrowerItemChargeUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type BuyerFirmUncheckedUpdateInput = {
@@ -15967,6 +18762,8 @@ export namespace Prisma {
     payments?: PaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
     sellerPayments?: SellerPaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    itemCharges?: GrowerItemChargeUncheckedUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type BuyerFirmCreateManyInput = {
@@ -16083,6 +18880,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutGrowerInput
     agreements?: AgreementCreateNestedManyWithoutGrowerInput
     draftTransactions?: DraftTransactionCreateNestedManyWithoutGrowerInput
+    itemCharges?: GrowerItemChargeCreateNestedManyWithoutGrowerInput
   }
 
   export type GrowerUncheckedCreateInput = {
@@ -16097,6 +18895,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutGrowerInput
     agreements?: AgreementUncheckedCreateNestedManyWithoutGrowerInput
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutGrowerInput
+    itemCharges?: GrowerItemChargeUncheckedCreateNestedManyWithoutGrowerInput
   }
 
   export type GrowerUpdateInput = {
@@ -16111,6 +18910,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutGrowerNestedInput
     agreements?: AgreementUpdateManyWithoutGrowerNestedInput
     draftTransactions?: DraftTransactionUpdateManyWithoutGrowerNestedInput
+    itemCharges?: GrowerItemChargeUpdateManyWithoutGrowerNestedInput
   }
 
   export type GrowerUncheckedUpdateInput = {
@@ -16125,6 +18925,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutGrowerNestedInput
     agreements?: AgreementUncheckedUpdateManyWithoutGrowerNestedInput
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutGrowerNestedInput
+    itemCharges?: GrowerItemChargeUncheckedUpdateManyWithoutGrowerNestedInput
   }
 
   export type GrowerCreateManyInput = {
@@ -16823,6 +19624,171 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ExpenseCreateInput = {
+    id?: string
+    title: string
+    amount: number
+    category: string
+    date?: Date | string
+    notes?: string | null
+    createdAt?: Date | string
+    buyerFirm: BuyerFirmCreateNestedOneWithoutExpensesInput
+  }
+
+  export type ExpenseUncheckedCreateInput = {
+    id?: string
+    buyerFirmId: string
+    title: string
+    amount: number
+    category: string
+    date?: Date | string
+    notes?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ExpenseUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    category?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    buyerFirm?: BuyerFirmUpdateOneRequiredWithoutExpensesNestedInput
+  }
+
+  export type ExpenseUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    buyerFirmId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    category?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExpenseCreateManyInput = {
+    id?: string
+    buyerFirmId: string
+    title: string
+    amount: number
+    category: string
+    date?: Date | string
+    notes?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ExpenseUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    category?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExpenseUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    buyerFirmId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    category?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GrowerItemChargeCreateInput = {
+    id?: string
+    itemName: string
+    quantity?: number
+    rate: number
+    amount: number
+    notes?: string | null
+    issuedAt?: Date | string
+    createdAt?: Date | string
+    grower: GrowerCreateNestedOneWithoutItemChargesInput
+    buyerFirm: BuyerFirmCreateNestedOneWithoutItemChargesInput
+  }
+
+  export type GrowerItemChargeUncheckedCreateInput = {
+    id?: string
+    growerId: string
+    buyerFirmId: string
+    itemName: string
+    quantity?: number
+    rate: number
+    amount: number
+    notes?: string | null
+    issuedAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type GrowerItemChargeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    itemName?: StringFieldUpdateOperationsInput | string
+    quantity?: FloatFieldUpdateOperationsInput | number
+    rate?: FloatFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    issuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    grower?: GrowerUpdateOneRequiredWithoutItemChargesNestedInput
+    buyerFirm?: BuyerFirmUpdateOneRequiredWithoutItemChargesNestedInput
+  }
+
+  export type GrowerItemChargeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    growerId?: StringFieldUpdateOperationsInput | string
+    buyerFirmId?: StringFieldUpdateOperationsInput | string
+    itemName?: StringFieldUpdateOperationsInput | string
+    quantity?: FloatFieldUpdateOperationsInput | number
+    rate?: FloatFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    issuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GrowerItemChargeCreateManyInput = {
+    id?: string
+    growerId: string
+    buyerFirmId: string
+    itemName: string
+    quantity?: number
+    rate: number
+    amount: number
+    notes?: string | null
+    issuedAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type GrowerItemChargeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    itemName?: StringFieldUpdateOperationsInput | string
+    quantity?: FloatFieldUpdateOperationsInput | number
+    rate?: FloatFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    issuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GrowerItemChargeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    growerId?: StringFieldUpdateOperationsInput | string
+    buyerFirmId?: StringFieldUpdateOperationsInput | string
+    itemName?: StringFieldUpdateOperationsInput | string
+    quantity?: FloatFieldUpdateOperationsInput | number
+    rate?: FloatFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    issuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -16915,6 +19881,18 @@ export namespace Prisma {
     none?: DraftTransactionWhereInput
   }
 
+  export type ExpenseListRelationFilter = {
+    every?: ExpenseWhereInput
+    some?: ExpenseWhereInput
+    none?: ExpenseWhereInput
+  }
+
+  export type GrowerItemChargeListRelationFilter = {
+    every?: GrowerItemChargeWhereInput
+    some?: GrowerItemChargeWhereInput
+    none?: GrowerItemChargeWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -16945,6 +19923,14 @@ export namespace Prisma {
   }
 
   export type DraftTransactionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ExpenseOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GrowerItemChargeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -17545,6 +20531,98 @@ export namespace Prisma {
     amount?: SortOrder
   }
 
+  export type ExpenseCountOrderByAggregateInput = {
+    id?: SortOrder
+    buyerFirmId?: SortOrder
+    title?: SortOrder
+    amount?: SortOrder
+    category?: SortOrder
+    date?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ExpenseAvgOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type ExpenseMaxOrderByAggregateInput = {
+    id?: SortOrder
+    buyerFirmId?: SortOrder
+    title?: SortOrder
+    amount?: SortOrder
+    category?: SortOrder
+    date?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ExpenseMinOrderByAggregateInput = {
+    id?: SortOrder
+    buyerFirmId?: SortOrder
+    title?: SortOrder
+    amount?: SortOrder
+    category?: SortOrder
+    date?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ExpenseSumOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type GrowerItemChargeCountOrderByAggregateInput = {
+    id?: SortOrder
+    growerId?: SortOrder
+    buyerFirmId?: SortOrder
+    itemName?: SortOrder
+    quantity?: SortOrder
+    rate?: SortOrder
+    amount?: SortOrder
+    notes?: SortOrder
+    issuedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GrowerItemChargeAvgOrderByAggregateInput = {
+    quantity?: SortOrder
+    rate?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type GrowerItemChargeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    growerId?: SortOrder
+    buyerFirmId?: SortOrder
+    itemName?: SortOrder
+    quantity?: SortOrder
+    rate?: SortOrder
+    amount?: SortOrder
+    notes?: SortOrder
+    issuedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GrowerItemChargeMinOrderByAggregateInput = {
+    id?: SortOrder
+    growerId?: SortOrder
+    buyerFirmId?: SortOrder
+    itemName?: SortOrder
+    quantity?: SortOrder
+    rate?: SortOrder
+    amount?: SortOrder
+    notes?: SortOrder
+    issuedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GrowerItemChargeSumOrderByAggregateInput = {
+    quantity?: SortOrder
+    rate?: SortOrder
+    amount?: SortOrder
+  }
+
   export type UserCreateNestedManyWithoutBuyerFirmInput = {
     create?: XOR<UserCreateWithoutBuyerFirmInput, UserUncheckedCreateWithoutBuyerFirmInput> | UserCreateWithoutBuyerFirmInput[] | UserUncheckedCreateWithoutBuyerFirmInput[]
     connectOrCreate?: UserCreateOrConnectWithoutBuyerFirmInput | UserCreateOrConnectWithoutBuyerFirmInput[]
@@ -17594,6 +20672,20 @@ export namespace Prisma {
     connect?: DraftTransactionWhereUniqueInput | DraftTransactionWhereUniqueInput[]
   }
 
+  export type ExpenseCreateNestedManyWithoutBuyerFirmInput = {
+    create?: XOR<ExpenseCreateWithoutBuyerFirmInput, ExpenseUncheckedCreateWithoutBuyerFirmInput> | ExpenseCreateWithoutBuyerFirmInput[] | ExpenseUncheckedCreateWithoutBuyerFirmInput[]
+    connectOrCreate?: ExpenseCreateOrConnectWithoutBuyerFirmInput | ExpenseCreateOrConnectWithoutBuyerFirmInput[]
+    createMany?: ExpenseCreateManyBuyerFirmInputEnvelope
+    connect?: ExpenseWhereUniqueInput | ExpenseWhereUniqueInput[]
+  }
+
+  export type GrowerItemChargeCreateNestedManyWithoutBuyerFirmInput = {
+    create?: XOR<GrowerItemChargeCreateWithoutBuyerFirmInput, GrowerItemChargeUncheckedCreateWithoutBuyerFirmInput> | GrowerItemChargeCreateWithoutBuyerFirmInput[] | GrowerItemChargeUncheckedCreateWithoutBuyerFirmInput[]
+    connectOrCreate?: GrowerItemChargeCreateOrConnectWithoutBuyerFirmInput | GrowerItemChargeCreateOrConnectWithoutBuyerFirmInput[]
+    createMany?: GrowerItemChargeCreateManyBuyerFirmInputEnvelope
+    connect?: GrowerItemChargeWhereUniqueInput | GrowerItemChargeWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutBuyerFirmInput = {
     create?: XOR<UserCreateWithoutBuyerFirmInput, UserUncheckedCreateWithoutBuyerFirmInput> | UserCreateWithoutBuyerFirmInput[] | UserUncheckedCreateWithoutBuyerFirmInput[]
     connectOrCreate?: UserCreateOrConnectWithoutBuyerFirmInput | UserCreateOrConnectWithoutBuyerFirmInput[]
@@ -17641,6 +20733,20 @@ export namespace Prisma {
     connectOrCreate?: DraftTransactionCreateOrConnectWithoutBuyerFirmInput | DraftTransactionCreateOrConnectWithoutBuyerFirmInput[]
     createMany?: DraftTransactionCreateManyBuyerFirmInputEnvelope
     connect?: DraftTransactionWhereUniqueInput | DraftTransactionWhereUniqueInput[]
+  }
+
+  export type ExpenseUncheckedCreateNestedManyWithoutBuyerFirmInput = {
+    create?: XOR<ExpenseCreateWithoutBuyerFirmInput, ExpenseUncheckedCreateWithoutBuyerFirmInput> | ExpenseCreateWithoutBuyerFirmInput[] | ExpenseUncheckedCreateWithoutBuyerFirmInput[]
+    connectOrCreate?: ExpenseCreateOrConnectWithoutBuyerFirmInput | ExpenseCreateOrConnectWithoutBuyerFirmInput[]
+    createMany?: ExpenseCreateManyBuyerFirmInputEnvelope
+    connect?: ExpenseWhereUniqueInput | ExpenseWhereUniqueInput[]
+  }
+
+  export type GrowerItemChargeUncheckedCreateNestedManyWithoutBuyerFirmInput = {
+    create?: XOR<GrowerItemChargeCreateWithoutBuyerFirmInput, GrowerItemChargeUncheckedCreateWithoutBuyerFirmInput> | GrowerItemChargeCreateWithoutBuyerFirmInput[] | GrowerItemChargeUncheckedCreateWithoutBuyerFirmInput[]
+    connectOrCreate?: GrowerItemChargeCreateOrConnectWithoutBuyerFirmInput | GrowerItemChargeCreateOrConnectWithoutBuyerFirmInput[]
+    createMany?: GrowerItemChargeCreateManyBuyerFirmInputEnvelope
+    connect?: GrowerItemChargeWhereUniqueInput | GrowerItemChargeWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -17757,6 +20863,34 @@ export namespace Prisma {
     deleteMany?: DraftTransactionScalarWhereInput | DraftTransactionScalarWhereInput[]
   }
 
+  export type ExpenseUpdateManyWithoutBuyerFirmNestedInput = {
+    create?: XOR<ExpenseCreateWithoutBuyerFirmInput, ExpenseUncheckedCreateWithoutBuyerFirmInput> | ExpenseCreateWithoutBuyerFirmInput[] | ExpenseUncheckedCreateWithoutBuyerFirmInput[]
+    connectOrCreate?: ExpenseCreateOrConnectWithoutBuyerFirmInput | ExpenseCreateOrConnectWithoutBuyerFirmInput[]
+    upsert?: ExpenseUpsertWithWhereUniqueWithoutBuyerFirmInput | ExpenseUpsertWithWhereUniqueWithoutBuyerFirmInput[]
+    createMany?: ExpenseCreateManyBuyerFirmInputEnvelope
+    set?: ExpenseWhereUniqueInput | ExpenseWhereUniqueInput[]
+    disconnect?: ExpenseWhereUniqueInput | ExpenseWhereUniqueInput[]
+    delete?: ExpenseWhereUniqueInput | ExpenseWhereUniqueInput[]
+    connect?: ExpenseWhereUniqueInput | ExpenseWhereUniqueInput[]
+    update?: ExpenseUpdateWithWhereUniqueWithoutBuyerFirmInput | ExpenseUpdateWithWhereUniqueWithoutBuyerFirmInput[]
+    updateMany?: ExpenseUpdateManyWithWhereWithoutBuyerFirmInput | ExpenseUpdateManyWithWhereWithoutBuyerFirmInput[]
+    deleteMany?: ExpenseScalarWhereInput | ExpenseScalarWhereInput[]
+  }
+
+  export type GrowerItemChargeUpdateManyWithoutBuyerFirmNestedInput = {
+    create?: XOR<GrowerItemChargeCreateWithoutBuyerFirmInput, GrowerItemChargeUncheckedCreateWithoutBuyerFirmInput> | GrowerItemChargeCreateWithoutBuyerFirmInput[] | GrowerItemChargeUncheckedCreateWithoutBuyerFirmInput[]
+    connectOrCreate?: GrowerItemChargeCreateOrConnectWithoutBuyerFirmInput | GrowerItemChargeCreateOrConnectWithoutBuyerFirmInput[]
+    upsert?: GrowerItemChargeUpsertWithWhereUniqueWithoutBuyerFirmInput | GrowerItemChargeUpsertWithWhereUniqueWithoutBuyerFirmInput[]
+    createMany?: GrowerItemChargeCreateManyBuyerFirmInputEnvelope
+    set?: GrowerItemChargeWhereUniqueInput | GrowerItemChargeWhereUniqueInput[]
+    disconnect?: GrowerItemChargeWhereUniqueInput | GrowerItemChargeWhereUniqueInput[]
+    delete?: GrowerItemChargeWhereUniqueInput | GrowerItemChargeWhereUniqueInput[]
+    connect?: GrowerItemChargeWhereUniqueInput | GrowerItemChargeWhereUniqueInput[]
+    update?: GrowerItemChargeUpdateWithWhereUniqueWithoutBuyerFirmInput | GrowerItemChargeUpdateWithWhereUniqueWithoutBuyerFirmInput[]
+    updateMany?: GrowerItemChargeUpdateManyWithWhereWithoutBuyerFirmInput | GrowerItemChargeUpdateManyWithWhereWithoutBuyerFirmInput[]
+    deleteMany?: GrowerItemChargeScalarWhereInput | GrowerItemChargeScalarWhereInput[]
+  }
+
   export type UserUncheckedUpdateManyWithoutBuyerFirmNestedInput = {
     create?: XOR<UserCreateWithoutBuyerFirmInput, UserUncheckedCreateWithoutBuyerFirmInput> | UserCreateWithoutBuyerFirmInput[] | UserUncheckedCreateWithoutBuyerFirmInput[]
     connectOrCreate?: UserCreateOrConnectWithoutBuyerFirmInput | UserCreateOrConnectWithoutBuyerFirmInput[]
@@ -17853,6 +20987,34 @@ export namespace Prisma {
     update?: DraftTransactionUpdateWithWhereUniqueWithoutBuyerFirmInput | DraftTransactionUpdateWithWhereUniqueWithoutBuyerFirmInput[]
     updateMany?: DraftTransactionUpdateManyWithWhereWithoutBuyerFirmInput | DraftTransactionUpdateManyWithWhereWithoutBuyerFirmInput[]
     deleteMany?: DraftTransactionScalarWhereInput | DraftTransactionScalarWhereInput[]
+  }
+
+  export type ExpenseUncheckedUpdateManyWithoutBuyerFirmNestedInput = {
+    create?: XOR<ExpenseCreateWithoutBuyerFirmInput, ExpenseUncheckedCreateWithoutBuyerFirmInput> | ExpenseCreateWithoutBuyerFirmInput[] | ExpenseUncheckedCreateWithoutBuyerFirmInput[]
+    connectOrCreate?: ExpenseCreateOrConnectWithoutBuyerFirmInput | ExpenseCreateOrConnectWithoutBuyerFirmInput[]
+    upsert?: ExpenseUpsertWithWhereUniqueWithoutBuyerFirmInput | ExpenseUpsertWithWhereUniqueWithoutBuyerFirmInput[]
+    createMany?: ExpenseCreateManyBuyerFirmInputEnvelope
+    set?: ExpenseWhereUniqueInput | ExpenseWhereUniqueInput[]
+    disconnect?: ExpenseWhereUniqueInput | ExpenseWhereUniqueInput[]
+    delete?: ExpenseWhereUniqueInput | ExpenseWhereUniqueInput[]
+    connect?: ExpenseWhereUniqueInput | ExpenseWhereUniqueInput[]
+    update?: ExpenseUpdateWithWhereUniqueWithoutBuyerFirmInput | ExpenseUpdateWithWhereUniqueWithoutBuyerFirmInput[]
+    updateMany?: ExpenseUpdateManyWithWhereWithoutBuyerFirmInput | ExpenseUpdateManyWithWhereWithoutBuyerFirmInput[]
+    deleteMany?: ExpenseScalarWhereInput | ExpenseScalarWhereInput[]
+  }
+
+  export type GrowerItemChargeUncheckedUpdateManyWithoutBuyerFirmNestedInput = {
+    create?: XOR<GrowerItemChargeCreateWithoutBuyerFirmInput, GrowerItemChargeUncheckedCreateWithoutBuyerFirmInput> | GrowerItemChargeCreateWithoutBuyerFirmInput[] | GrowerItemChargeUncheckedCreateWithoutBuyerFirmInput[]
+    connectOrCreate?: GrowerItemChargeCreateOrConnectWithoutBuyerFirmInput | GrowerItemChargeCreateOrConnectWithoutBuyerFirmInput[]
+    upsert?: GrowerItemChargeUpsertWithWhereUniqueWithoutBuyerFirmInput | GrowerItemChargeUpsertWithWhereUniqueWithoutBuyerFirmInput[]
+    createMany?: GrowerItemChargeCreateManyBuyerFirmInputEnvelope
+    set?: GrowerItemChargeWhereUniqueInput | GrowerItemChargeWhereUniqueInput[]
+    disconnect?: GrowerItemChargeWhereUniqueInput | GrowerItemChargeWhereUniqueInput[]
+    delete?: GrowerItemChargeWhereUniqueInput | GrowerItemChargeWhereUniqueInput[]
+    connect?: GrowerItemChargeWhereUniqueInput | GrowerItemChargeWhereUniqueInput[]
+    update?: GrowerItemChargeUpdateWithWhereUniqueWithoutBuyerFirmInput | GrowerItemChargeUpdateWithWhereUniqueWithoutBuyerFirmInput[]
+    updateMany?: GrowerItemChargeUpdateManyWithWhereWithoutBuyerFirmInput | GrowerItemChargeUpdateManyWithWhereWithoutBuyerFirmInput[]
+    deleteMany?: GrowerItemChargeScalarWhereInput | GrowerItemChargeScalarWhereInput[]
   }
 
   export type BuyerFirmCreateNestedOneWithoutUsersInput = {
@@ -17952,6 +21114,13 @@ export namespace Prisma {
     connect?: DraftTransactionWhereUniqueInput | DraftTransactionWhereUniqueInput[]
   }
 
+  export type GrowerItemChargeCreateNestedManyWithoutGrowerInput = {
+    create?: XOR<GrowerItemChargeCreateWithoutGrowerInput, GrowerItemChargeUncheckedCreateWithoutGrowerInput> | GrowerItemChargeCreateWithoutGrowerInput[] | GrowerItemChargeUncheckedCreateWithoutGrowerInput[]
+    connectOrCreate?: GrowerItemChargeCreateOrConnectWithoutGrowerInput | GrowerItemChargeCreateOrConnectWithoutGrowerInput[]
+    createMany?: GrowerItemChargeCreateManyGrowerInputEnvelope
+    connect?: GrowerItemChargeWhereUniqueInput | GrowerItemChargeWhereUniqueInput[]
+  }
+
   export type TransactionUncheckedCreateNestedManyWithoutGrowerInput = {
     create?: XOR<TransactionCreateWithoutGrowerInput, TransactionUncheckedCreateWithoutGrowerInput> | TransactionCreateWithoutGrowerInput[] | TransactionUncheckedCreateWithoutGrowerInput[]
     connectOrCreate?: TransactionCreateOrConnectWithoutGrowerInput | TransactionCreateOrConnectWithoutGrowerInput[]
@@ -17985,6 +21154,13 @@ export namespace Prisma {
     connectOrCreate?: DraftTransactionCreateOrConnectWithoutGrowerInput | DraftTransactionCreateOrConnectWithoutGrowerInput[]
     createMany?: DraftTransactionCreateManyGrowerInputEnvelope
     connect?: DraftTransactionWhereUniqueInput | DraftTransactionWhereUniqueInput[]
+  }
+
+  export type GrowerItemChargeUncheckedCreateNestedManyWithoutGrowerInput = {
+    create?: XOR<GrowerItemChargeCreateWithoutGrowerInput, GrowerItemChargeUncheckedCreateWithoutGrowerInput> | GrowerItemChargeCreateWithoutGrowerInput[] | GrowerItemChargeUncheckedCreateWithoutGrowerInput[]
+    connectOrCreate?: GrowerItemChargeCreateOrConnectWithoutGrowerInput | GrowerItemChargeCreateOrConnectWithoutGrowerInput[]
+    createMany?: GrowerItemChargeCreateManyGrowerInputEnvelope
+    connect?: GrowerItemChargeWhereUniqueInput | GrowerItemChargeWhereUniqueInput[]
   }
 
   export type BuyerFirmUpdateOneRequiredWithoutGrowersNestedInput = {
@@ -18065,6 +21241,20 @@ export namespace Prisma {
     deleteMany?: DraftTransactionScalarWhereInput | DraftTransactionScalarWhereInput[]
   }
 
+  export type GrowerItemChargeUpdateManyWithoutGrowerNestedInput = {
+    create?: XOR<GrowerItemChargeCreateWithoutGrowerInput, GrowerItemChargeUncheckedCreateWithoutGrowerInput> | GrowerItemChargeCreateWithoutGrowerInput[] | GrowerItemChargeUncheckedCreateWithoutGrowerInput[]
+    connectOrCreate?: GrowerItemChargeCreateOrConnectWithoutGrowerInput | GrowerItemChargeCreateOrConnectWithoutGrowerInput[]
+    upsert?: GrowerItemChargeUpsertWithWhereUniqueWithoutGrowerInput | GrowerItemChargeUpsertWithWhereUniqueWithoutGrowerInput[]
+    createMany?: GrowerItemChargeCreateManyGrowerInputEnvelope
+    set?: GrowerItemChargeWhereUniqueInput | GrowerItemChargeWhereUniqueInput[]
+    disconnect?: GrowerItemChargeWhereUniqueInput | GrowerItemChargeWhereUniqueInput[]
+    delete?: GrowerItemChargeWhereUniqueInput | GrowerItemChargeWhereUniqueInput[]
+    connect?: GrowerItemChargeWhereUniqueInput | GrowerItemChargeWhereUniqueInput[]
+    update?: GrowerItemChargeUpdateWithWhereUniqueWithoutGrowerInput | GrowerItemChargeUpdateWithWhereUniqueWithoutGrowerInput[]
+    updateMany?: GrowerItemChargeUpdateManyWithWhereWithoutGrowerInput | GrowerItemChargeUpdateManyWithWhereWithoutGrowerInput[]
+    deleteMany?: GrowerItemChargeScalarWhereInput | GrowerItemChargeScalarWhereInput[]
+  }
+
   export type TransactionUncheckedUpdateManyWithoutGrowerNestedInput = {
     create?: XOR<TransactionCreateWithoutGrowerInput, TransactionUncheckedCreateWithoutGrowerInput> | TransactionCreateWithoutGrowerInput[] | TransactionUncheckedCreateWithoutGrowerInput[]
     connectOrCreate?: TransactionCreateOrConnectWithoutGrowerInput | TransactionCreateOrConnectWithoutGrowerInput[]
@@ -18133,6 +21323,20 @@ export namespace Prisma {
     update?: DraftTransactionUpdateWithWhereUniqueWithoutGrowerInput | DraftTransactionUpdateWithWhereUniqueWithoutGrowerInput[]
     updateMany?: DraftTransactionUpdateManyWithWhereWithoutGrowerInput | DraftTransactionUpdateManyWithWhereWithoutGrowerInput[]
     deleteMany?: DraftTransactionScalarWhereInput | DraftTransactionScalarWhereInput[]
+  }
+
+  export type GrowerItemChargeUncheckedUpdateManyWithoutGrowerNestedInput = {
+    create?: XOR<GrowerItemChargeCreateWithoutGrowerInput, GrowerItemChargeUncheckedCreateWithoutGrowerInput> | GrowerItemChargeCreateWithoutGrowerInput[] | GrowerItemChargeUncheckedCreateWithoutGrowerInput[]
+    connectOrCreate?: GrowerItemChargeCreateOrConnectWithoutGrowerInput | GrowerItemChargeCreateOrConnectWithoutGrowerInput[]
+    upsert?: GrowerItemChargeUpsertWithWhereUniqueWithoutGrowerInput | GrowerItemChargeUpsertWithWhereUniqueWithoutGrowerInput[]
+    createMany?: GrowerItemChargeCreateManyGrowerInputEnvelope
+    set?: GrowerItemChargeWhereUniqueInput | GrowerItemChargeWhereUniqueInput[]
+    disconnect?: GrowerItemChargeWhereUniqueInput | GrowerItemChargeWhereUniqueInput[]
+    delete?: GrowerItemChargeWhereUniqueInput | GrowerItemChargeWhereUniqueInput[]
+    connect?: GrowerItemChargeWhereUniqueInput | GrowerItemChargeWhereUniqueInput[]
+    update?: GrowerItemChargeUpdateWithWhereUniqueWithoutGrowerInput | GrowerItemChargeUpdateWithWhereUniqueWithoutGrowerInput[]
+    updateMany?: GrowerItemChargeUpdateManyWithWhereWithoutGrowerInput | GrowerItemChargeUpdateManyWithWhereWithoutGrowerInput[]
+    deleteMany?: GrowerItemChargeScalarWhereInput | GrowerItemChargeScalarWhereInput[]
   }
 
   export type GrowerCreateNestedOneWithoutTransactionsInput = {
@@ -18477,6 +21681,48 @@ export namespace Prisma {
     update?: XOR<XOR<BuyerFirmUpdateToOneWithWhereWithoutSellerPaymentsInput, BuyerFirmUpdateWithoutSellerPaymentsInput>, BuyerFirmUncheckedUpdateWithoutSellerPaymentsInput>
   }
 
+  export type BuyerFirmCreateNestedOneWithoutExpensesInput = {
+    create?: XOR<BuyerFirmCreateWithoutExpensesInput, BuyerFirmUncheckedCreateWithoutExpensesInput>
+    connectOrCreate?: BuyerFirmCreateOrConnectWithoutExpensesInput
+    connect?: BuyerFirmWhereUniqueInput
+  }
+
+  export type BuyerFirmUpdateOneRequiredWithoutExpensesNestedInput = {
+    create?: XOR<BuyerFirmCreateWithoutExpensesInput, BuyerFirmUncheckedCreateWithoutExpensesInput>
+    connectOrCreate?: BuyerFirmCreateOrConnectWithoutExpensesInput
+    upsert?: BuyerFirmUpsertWithoutExpensesInput
+    connect?: BuyerFirmWhereUniqueInput
+    update?: XOR<XOR<BuyerFirmUpdateToOneWithWhereWithoutExpensesInput, BuyerFirmUpdateWithoutExpensesInput>, BuyerFirmUncheckedUpdateWithoutExpensesInput>
+  }
+
+  export type GrowerCreateNestedOneWithoutItemChargesInput = {
+    create?: XOR<GrowerCreateWithoutItemChargesInput, GrowerUncheckedCreateWithoutItemChargesInput>
+    connectOrCreate?: GrowerCreateOrConnectWithoutItemChargesInput
+    connect?: GrowerWhereUniqueInput
+  }
+
+  export type BuyerFirmCreateNestedOneWithoutItemChargesInput = {
+    create?: XOR<BuyerFirmCreateWithoutItemChargesInput, BuyerFirmUncheckedCreateWithoutItemChargesInput>
+    connectOrCreate?: BuyerFirmCreateOrConnectWithoutItemChargesInput
+    connect?: BuyerFirmWhereUniqueInput
+  }
+
+  export type GrowerUpdateOneRequiredWithoutItemChargesNestedInput = {
+    create?: XOR<GrowerCreateWithoutItemChargesInput, GrowerUncheckedCreateWithoutItemChargesInput>
+    connectOrCreate?: GrowerCreateOrConnectWithoutItemChargesInput
+    upsert?: GrowerUpsertWithoutItemChargesInput
+    connect?: GrowerWhereUniqueInput
+    update?: XOR<XOR<GrowerUpdateToOneWithWhereWithoutItemChargesInput, GrowerUpdateWithoutItemChargesInput>, GrowerUncheckedUpdateWithoutItemChargesInput>
+  }
+
+  export type BuyerFirmUpdateOneRequiredWithoutItemChargesNestedInput = {
+    create?: XOR<BuyerFirmCreateWithoutItemChargesInput, BuyerFirmUncheckedCreateWithoutItemChargesInput>
+    connectOrCreate?: BuyerFirmCreateOrConnectWithoutItemChargesInput
+    upsert?: BuyerFirmUpsertWithoutItemChargesInput
+    connect?: BuyerFirmWhereUniqueInput
+    update?: XOR<XOR<BuyerFirmUpdateToOneWithWhereWithoutItemChargesInput, BuyerFirmUpdateWithoutItemChargesInput>, BuyerFirmUncheckedUpdateWithoutItemChargesInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -18689,6 +21935,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutGrowerInput
     agreements?: AgreementCreateNestedManyWithoutGrowerInput
     draftTransactions?: DraftTransactionCreateNestedManyWithoutGrowerInput
+    itemCharges?: GrowerItemChargeCreateNestedManyWithoutGrowerInput
   }
 
   export type GrowerUncheckedCreateWithoutBuyerFirmInput = {
@@ -18702,6 +21949,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutGrowerInput
     agreements?: AgreementUncheckedCreateNestedManyWithoutGrowerInput
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutGrowerInput
+    itemCharges?: GrowerItemChargeUncheckedCreateNestedManyWithoutGrowerInput
   }
 
   export type GrowerCreateOrConnectWithoutBuyerFirmInput = {
@@ -18886,6 +22134,68 @@ export namespace Prisma {
 
   export type DraftTransactionCreateManyBuyerFirmInputEnvelope = {
     data: DraftTransactionCreateManyBuyerFirmInput | DraftTransactionCreateManyBuyerFirmInput[]
+  }
+
+  export type ExpenseCreateWithoutBuyerFirmInput = {
+    id?: string
+    title: string
+    amount: number
+    category: string
+    date?: Date | string
+    notes?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ExpenseUncheckedCreateWithoutBuyerFirmInput = {
+    id?: string
+    title: string
+    amount: number
+    category: string
+    date?: Date | string
+    notes?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ExpenseCreateOrConnectWithoutBuyerFirmInput = {
+    where: ExpenseWhereUniqueInput
+    create: XOR<ExpenseCreateWithoutBuyerFirmInput, ExpenseUncheckedCreateWithoutBuyerFirmInput>
+  }
+
+  export type ExpenseCreateManyBuyerFirmInputEnvelope = {
+    data: ExpenseCreateManyBuyerFirmInput | ExpenseCreateManyBuyerFirmInput[]
+  }
+
+  export type GrowerItemChargeCreateWithoutBuyerFirmInput = {
+    id?: string
+    itemName: string
+    quantity?: number
+    rate: number
+    amount: number
+    notes?: string | null
+    issuedAt?: Date | string
+    createdAt?: Date | string
+    grower: GrowerCreateNestedOneWithoutItemChargesInput
+  }
+
+  export type GrowerItemChargeUncheckedCreateWithoutBuyerFirmInput = {
+    id?: string
+    growerId: string
+    itemName: string
+    quantity?: number
+    rate: number
+    amount: number
+    notes?: string | null
+    issuedAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type GrowerItemChargeCreateOrConnectWithoutBuyerFirmInput = {
+    where: GrowerItemChargeWhereUniqueInput
+    create: XOR<GrowerItemChargeCreateWithoutBuyerFirmInput, GrowerItemChargeUncheckedCreateWithoutBuyerFirmInput>
+  }
+
+  export type GrowerItemChargeCreateManyBuyerFirmInputEnvelope = {
+    data: GrowerItemChargeCreateManyBuyerFirmInput | GrowerItemChargeCreateManyBuyerFirmInput[]
   }
 
   export type UserUpsertWithWhereUniqueWithoutBuyerFirmInput = {
@@ -19106,6 +22416,68 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"DraftTransaction"> | Date | string
   }
 
+  export type ExpenseUpsertWithWhereUniqueWithoutBuyerFirmInput = {
+    where: ExpenseWhereUniqueInput
+    update: XOR<ExpenseUpdateWithoutBuyerFirmInput, ExpenseUncheckedUpdateWithoutBuyerFirmInput>
+    create: XOR<ExpenseCreateWithoutBuyerFirmInput, ExpenseUncheckedCreateWithoutBuyerFirmInput>
+  }
+
+  export type ExpenseUpdateWithWhereUniqueWithoutBuyerFirmInput = {
+    where: ExpenseWhereUniqueInput
+    data: XOR<ExpenseUpdateWithoutBuyerFirmInput, ExpenseUncheckedUpdateWithoutBuyerFirmInput>
+  }
+
+  export type ExpenseUpdateManyWithWhereWithoutBuyerFirmInput = {
+    where: ExpenseScalarWhereInput
+    data: XOR<ExpenseUpdateManyMutationInput, ExpenseUncheckedUpdateManyWithoutBuyerFirmInput>
+  }
+
+  export type ExpenseScalarWhereInput = {
+    AND?: ExpenseScalarWhereInput | ExpenseScalarWhereInput[]
+    OR?: ExpenseScalarWhereInput[]
+    NOT?: ExpenseScalarWhereInput | ExpenseScalarWhereInput[]
+    id?: StringFilter<"Expense"> | string
+    buyerFirmId?: StringFilter<"Expense"> | string
+    title?: StringFilter<"Expense"> | string
+    amount?: FloatFilter<"Expense"> | number
+    category?: StringFilter<"Expense"> | string
+    date?: DateTimeFilter<"Expense"> | Date | string
+    notes?: StringNullableFilter<"Expense"> | string | null
+    createdAt?: DateTimeFilter<"Expense"> | Date | string
+  }
+
+  export type GrowerItemChargeUpsertWithWhereUniqueWithoutBuyerFirmInput = {
+    where: GrowerItemChargeWhereUniqueInput
+    update: XOR<GrowerItemChargeUpdateWithoutBuyerFirmInput, GrowerItemChargeUncheckedUpdateWithoutBuyerFirmInput>
+    create: XOR<GrowerItemChargeCreateWithoutBuyerFirmInput, GrowerItemChargeUncheckedCreateWithoutBuyerFirmInput>
+  }
+
+  export type GrowerItemChargeUpdateWithWhereUniqueWithoutBuyerFirmInput = {
+    where: GrowerItemChargeWhereUniqueInput
+    data: XOR<GrowerItemChargeUpdateWithoutBuyerFirmInput, GrowerItemChargeUncheckedUpdateWithoutBuyerFirmInput>
+  }
+
+  export type GrowerItemChargeUpdateManyWithWhereWithoutBuyerFirmInput = {
+    where: GrowerItemChargeScalarWhereInput
+    data: XOR<GrowerItemChargeUpdateManyMutationInput, GrowerItemChargeUncheckedUpdateManyWithoutBuyerFirmInput>
+  }
+
+  export type GrowerItemChargeScalarWhereInput = {
+    AND?: GrowerItemChargeScalarWhereInput | GrowerItemChargeScalarWhereInput[]
+    OR?: GrowerItemChargeScalarWhereInput[]
+    NOT?: GrowerItemChargeScalarWhereInput | GrowerItemChargeScalarWhereInput[]
+    id?: StringFilter<"GrowerItemCharge"> | string
+    growerId?: StringFilter<"GrowerItemCharge"> | string
+    buyerFirmId?: StringFilter<"GrowerItemCharge"> | string
+    itemName?: StringFilter<"GrowerItemCharge"> | string
+    quantity?: FloatFilter<"GrowerItemCharge"> | number
+    rate?: FloatFilter<"GrowerItemCharge"> | number
+    amount?: FloatFilter<"GrowerItemCharge"> | number
+    notes?: StringNullableFilter<"GrowerItemCharge"> | string | null
+    issuedAt?: DateTimeFilter<"GrowerItemCharge"> | Date | string
+    createdAt?: DateTimeFilter<"GrowerItemCharge"> | Date | string
+  }
+
   export type BuyerFirmCreateWithoutUsersInput = {
     id?: string
     uniqueId: string
@@ -19122,6 +22494,8 @@ export namespace Prisma {
     payments?: PaymentCreateNestedManyWithoutBuyerFirmInput
     sellerPayments?: SellerPaymentCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionCreateNestedManyWithoutBuyerFirmInput
+    expenses?: ExpenseCreateNestedManyWithoutBuyerFirmInput
+    itemCharges?: GrowerItemChargeCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmUncheckedCreateWithoutUsersInput = {
@@ -19140,6 +22514,8 @@ export namespace Prisma {
     payments?: PaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
     sellerPayments?: SellerPaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutBuyerFirmInput
+    itemCharges?: GrowerItemChargeUncheckedCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmCreateOrConnectWithoutUsersInput = {
@@ -19211,6 +22587,8 @@ export namespace Prisma {
     payments?: PaymentUpdateManyWithoutBuyerFirmNestedInput
     sellerPayments?: SellerPaymentUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUpdateManyWithoutBuyerFirmNestedInput
+    expenses?: ExpenseUpdateManyWithoutBuyerFirmNestedInput
+    itemCharges?: GrowerItemChargeUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type BuyerFirmUncheckedUpdateWithoutUsersInput = {
@@ -19229,6 +22607,8 @@ export namespace Prisma {
     payments?: PaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
     sellerPayments?: SellerPaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    itemCharges?: GrowerItemChargeUncheckedUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type DraftTransactionUpsertWithWhereUniqueWithoutCreatedByInput = {
@@ -19263,6 +22643,8 @@ export namespace Prisma {
     payments?: PaymentCreateNestedManyWithoutBuyerFirmInput
     sellerPayments?: SellerPaymentCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionCreateNestedManyWithoutBuyerFirmInput
+    expenses?: ExpenseCreateNestedManyWithoutBuyerFirmInput
+    itemCharges?: GrowerItemChargeCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmUncheckedCreateWithoutGrowersInput = {
@@ -19281,6 +22663,8 @@ export namespace Prisma {
     payments?: PaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
     sellerPayments?: SellerPaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutBuyerFirmInput
+    itemCharges?: GrowerItemChargeUncheckedCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmCreateOrConnectWithoutGrowersInput = {
@@ -19461,6 +22845,39 @@ export namespace Prisma {
     data: DraftTransactionCreateManyGrowerInput | DraftTransactionCreateManyGrowerInput[]
   }
 
+  export type GrowerItemChargeCreateWithoutGrowerInput = {
+    id?: string
+    itemName: string
+    quantity?: number
+    rate: number
+    amount: number
+    notes?: string | null
+    issuedAt?: Date | string
+    createdAt?: Date | string
+    buyerFirm: BuyerFirmCreateNestedOneWithoutItemChargesInput
+  }
+
+  export type GrowerItemChargeUncheckedCreateWithoutGrowerInput = {
+    id?: string
+    buyerFirmId: string
+    itemName: string
+    quantity?: number
+    rate: number
+    amount: number
+    notes?: string | null
+    issuedAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type GrowerItemChargeCreateOrConnectWithoutGrowerInput = {
+    where: GrowerItemChargeWhereUniqueInput
+    create: XOR<GrowerItemChargeCreateWithoutGrowerInput, GrowerItemChargeUncheckedCreateWithoutGrowerInput>
+  }
+
+  export type GrowerItemChargeCreateManyGrowerInputEnvelope = {
+    data: GrowerItemChargeCreateManyGrowerInput | GrowerItemChargeCreateManyGrowerInput[]
+  }
+
   export type BuyerFirmUpsertWithoutGrowersInput = {
     update: XOR<BuyerFirmUpdateWithoutGrowersInput, BuyerFirmUncheckedUpdateWithoutGrowersInput>
     create: XOR<BuyerFirmCreateWithoutGrowersInput, BuyerFirmUncheckedCreateWithoutGrowersInput>
@@ -19488,6 +22905,8 @@ export namespace Prisma {
     payments?: PaymentUpdateManyWithoutBuyerFirmNestedInput
     sellerPayments?: SellerPaymentUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUpdateManyWithoutBuyerFirmNestedInput
+    expenses?: ExpenseUpdateManyWithoutBuyerFirmNestedInput
+    itemCharges?: GrowerItemChargeUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type BuyerFirmUncheckedUpdateWithoutGrowersInput = {
@@ -19506,6 +22925,8 @@ export namespace Prisma {
     payments?: PaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
     sellerPayments?: SellerPaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    itemCharges?: GrowerItemChargeUncheckedUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type TransactionUpsertWithWhereUniqueWithoutGrowerInput = {
@@ -19615,6 +23036,22 @@ export namespace Prisma {
     data: XOR<DraftTransactionUpdateManyMutationInput, DraftTransactionUncheckedUpdateManyWithoutGrowerInput>
   }
 
+  export type GrowerItemChargeUpsertWithWhereUniqueWithoutGrowerInput = {
+    where: GrowerItemChargeWhereUniqueInput
+    update: XOR<GrowerItemChargeUpdateWithoutGrowerInput, GrowerItemChargeUncheckedUpdateWithoutGrowerInput>
+    create: XOR<GrowerItemChargeCreateWithoutGrowerInput, GrowerItemChargeUncheckedCreateWithoutGrowerInput>
+  }
+
+  export type GrowerItemChargeUpdateWithWhereUniqueWithoutGrowerInput = {
+    where: GrowerItemChargeWhereUniqueInput
+    data: XOR<GrowerItemChargeUpdateWithoutGrowerInput, GrowerItemChargeUncheckedUpdateWithoutGrowerInput>
+  }
+
+  export type GrowerItemChargeUpdateManyWithWhereWithoutGrowerInput = {
+    where: GrowerItemChargeScalarWhereInput
+    data: XOR<GrowerItemChargeUpdateManyMutationInput, GrowerItemChargeUncheckedUpdateManyWithoutGrowerInput>
+  }
+
   export type GrowerCreateWithoutTransactionsInput = {
     id?: string
     name: string
@@ -19626,6 +23063,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutGrowerInput
     agreements?: AgreementCreateNestedManyWithoutGrowerInput
     draftTransactions?: DraftTransactionCreateNestedManyWithoutGrowerInput
+    itemCharges?: GrowerItemChargeCreateNestedManyWithoutGrowerInput
   }
 
   export type GrowerUncheckedCreateWithoutTransactionsInput = {
@@ -19639,6 +23077,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutGrowerInput
     agreements?: AgreementUncheckedCreateNestedManyWithoutGrowerInput
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutGrowerInput
+    itemCharges?: GrowerItemChargeUncheckedCreateNestedManyWithoutGrowerInput
   }
 
   export type GrowerCreateOrConnectWithoutTransactionsInput = {
@@ -19689,6 +23128,8 @@ export namespace Prisma {
     payments?: PaymentCreateNestedManyWithoutBuyerFirmInput
     sellerPayments?: SellerPaymentCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionCreateNestedManyWithoutBuyerFirmInput
+    expenses?: ExpenseCreateNestedManyWithoutBuyerFirmInput
+    itemCharges?: GrowerItemChargeCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmUncheckedCreateWithoutTransactionsInput = {
@@ -19707,6 +23148,8 @@ export namespace Prisma {
     payments?: PaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
     sellerPayments?: SellerPaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutBuyerFirmInput
+    itemCharges?: GrowerItemChargeUncheckedCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmCreateOrConnectWithoutTransactionsInput = {
@@ -19736,6 +23179,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutGrowerNestedInput
     agreements?: AgreementUpdateManyWithoutGrowerNestedInput
     draftTransactions?: DraftTransactionUpdateManyWithoutGrowerNestedInput
+    itemCharges?: GrowerItemChargeUpdateManyWithoutGrowerNestedInput
   }
 
   export type GrowerUncheckedUpdateWithoutTransactionsInput = {
@@ -19749,6 +23193,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutGrowerNestedInput
     agreements?: AgreementUncheckedUpdateManyWithoutGrowerNestedInput
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutGrowerNestedInput
+    itemCharges?: GrowerItemChargeUncheckedUpdateManyWithoutGrowerNestedInput
   }
 
   export type SellerUpsertWithoutTransactionsInput = {
@@ -19811,6 +23256,8 @@ export namespace Prisma {
     payments?: PaymentUpdateManyWithoutBuyerFirmNestedInput
     sellerPayments?: SellerPaymentUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUpdateManyWithoutBuyerFirmNestedInput
+    expenses?: ExpenseUpdateManyWithoutBuyerFirmNestedInput
+    itemCharges?: GrowerItemChargeUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type BuyerFirmUncheckedUpdateWithoutTransactionsInput = {
@@ -19829,6 +23276,8 @@ export namespace Prisma {
     payments?: PaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
     sellerPayments?: SellerPaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    itemCharges?: GrowerItemChargeUncheckedUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type GrowerCreateWithoutPaymentsInput = {
@@ -19842,6 +23291,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutGrowerInput
     agreements?: AgreementCreateNestedManyWithoutGrowerInput
     draftTransactions?: DraftTransactionCreateNestedManyWithoutGrowerInput
+    itemCharges?: GrowerItemChargeCreateNestedManyWithoutGrowerInput
   }
 
   export type GrowerUncheckedCreateWithoutPaymentsInput = {
@@ -19855,6 +23305,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutGrowerInput
     agreements?: AgreementUncheckedCreateNestedManyWithoutGrowerInput
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutGrowerInput
+    itemCharges?: GrowerItemChargeUncheckedCreateNestedManyWithoutGrowerInput
   }
 
   export type GrowerCreateOrConnectWithoutPaymentsInput = {
@@ -19878,6 +23329,8 @@ export namespace Prisma {
     transactions?: TransactionCreateNestedManyWithoutBuyerFirmInput
     sellerPayments?: SellerPaymentCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionCreateNestedManyWithoutBuyerFirmInput
+    expenses?: ExpenseCreateNestedManyWithoutBuyerFirmInput
+    itemCharges?: GrowerItemChargeCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmUncheckedCreateWithoutPaymentsInput = {
@@ -19896,6 +23349,8 @@ export namespace Prisma {
     transactions?: TransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
     sellerPayments?: SellerPaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutBuyerFirmInput
+    itemCharges?: GrowerItemChargeUncheckedCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmCreateOrConnectWithoutPaymentsInput = {
@@ -19925,6 +23380,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutGrowerNestedInput
     agreements?: AgreementUpdateManyWithoutGrowerNestedInput
     draftTransactions?: DraftTransactionUpdateManyWithoutGrowerNestedInput
+    itemCharges?: GrowerItemChargeUpdateManyWithoutGrowerNestedInput
   }
 
   export type GrowerUncheckedUpdateWithoutPaymentsInput = {
@@ -19938,6 +23394,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutGrowerNestedInput
     agreements?: AgreementUncheckedUpdateManyWithoutGrowerNestedInput
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutGrowerNestedInput
+    itemCharges?: GrowerItemChargeUncheckedUpdateManyWithoutGrowerNestedInput
   }
 
   export type BuyerFirmUpsertWithoutPaymentsInput = {
@@ -19967,6 +23424,8 @@ export namespace Prisma {
     transactions?: TransactionUpdateManyWithoutBuyerFirmNestedInput
     sellerPayments?: SellerPaymentUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUpdateManyWithoutBuyerFirmNestedInput
+    expenses?: ExpenseUpdateManyWithoutBuyerFirmNestedInput
+    itemCharges?: GrowerItemChargeUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type BuyerFirmUncheckedUpdateWithoutPaymentsInput = {
@@ -19985,6 +23444,8 @@ export namespace Prisma {
     transactions?: TransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
     sellerPayments?: SellerPaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    itemCharges?: GrowerItemChargeUncheckedUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type GrowerCreateWithoutNotificationsInput = {
@@ -19998,6 +23459,7 @@ export namespace Prisma {
     payments?: PaymentCreateNestedManyWithoutGrowerInput
     agreements?: AgreementCreateNestedManyWithoutGrowerInput
     draftTransactions?: DraftTransactionCreateNestedManyWithoutGrowerInput
+    itemCharges?: GrowerItemChargeCreateNestedManyWithoutGrowerInput
   }
 
   export type GrowerUncheckedCreateWithoutNotificationsInput = {
@@ -20011,6 +23473,7 @@ export namespace Prisma {
     payments?: PaymentUncheckedCreateNestedManyWithoutGrowerInput
     agreements?: AgreementUncheckedCreateNestedManyWithoutGrowerInput
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutGrowerInput
+    itemCharges?: GrowerItemChargeUncheckedCreateNestedManyWithoutGrowerInput
   }
 
   export type GrowerCreateOrConnectWithoutNotificationsInput = {
@@ -20040,6 +23503,7 @@ export namespace Prisma {
     payments?: PaymentUpdateManyWithoutGrowerNestedInput
     agreements?: AgreementUpdateManyWithoutGrowerNestedInput
     draftTransactions?: DraftTransactionUpdateManyWithoutGrowerNestedInput
+    itemCharges?: GrowerItemChargeUpdateManyWithoutGrowerNestedInput
   }
 
   export type GrowerUncheckedUpdateWithoutNotificationsInput = {
@@ -20053,6 +23517,7 @@ export namespace Prisma {
     payments?: PaymentUncheckedUpdateManyWithoutGrowerNestedInput
     agreements?: AgreementUncheckedUpdateManyWithoutGrowerNestedInput
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutGrowerNestedInput
+    itemCharges?: GrowerItemChargeUncheckedUpdateManyWithoutGrowerNestedInput
   }
 
   export type GrowerCreateWithoutAgreementsInput = {
@@ -20066,6 +23531,7 @@ export namespace Prisma {
     payments?: PaymentCreateNestedManyWithoutGrowerInput
     notifications?: NotificationCreateNestedManyWithoutGrowerInput
     draftTransactions?: DraftTransactionCreateNestedManyWithoutGrowerInput
+    itemCharges?: GrowerItemChargeCreateNestedManyWithoutGrowerInput
   }
 
   export type GrowerUncheckedCreateWithoutAgreementsInput = {
@@ -20079,6 +23545,7 @@ export namespace Prisma {
     payments?: PaymentUncheckedCreateNestedManyWithoutGrowerInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutGrowerInput
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutGrowerInput
+    itemCharges?: GrowerItemChargeUncheckedCreateNestedManyWithoutGrowerInput
   }
 
   export type GrowerCreateOrConnectWithoutAgreementsInput = {
@@ -20108,6 +23575,7 @@ export namespace Prisma {
     payments?: PaymentUpdateManyWithoutGrowerNestedInput
     notifications?: NotificationUpdateManyWithoutGrowerNestedInput
     draftTransactions?: DraftTransactionUpdateManyWithoutGrowerNestedInput
+    itemCharges?: GrowerItemChargeUpdateManyWithoutGrowerNestedInput
   }
 
   export type GrowerUncheckedUpdateWithoutAgreementsInput = {
@@ -20121,6 +23589,7 @@ export namespace Prisma {
     payments?: PaymentUncheckedUpdateManyWithoutGrowerNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutGrowerNestedInput
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutGrowerNestedInput
+    itemCharges?: GrowerItemChargeUncheckedUpdateManyWithoutGrowerNestedInput
   }
 
   export type GrowerCreateWithoutDraftTransactionsInput = {
@@ -20134,6 +23603,7 @@ export namespace Prisma {
     payments?: PaymentCreateNestedManyWithoutGrowerInput
     notifications?: NotificationCreateNestedManyWithoutGrowerInput
     agreements?: AgreementCreateNestedManyWithoutGrowerInput
+    itemCharges?: GrowerItemChargeCreateNestedManyWithoutGrowerInput
   }
 
   export type GrowerUncheckedCreateWithoutDraftTransactionsInput = {
@@ -20147,6 +23617,7 @@ export namespace Prisma {
     payments?: PaymentUncheckedCreateNestedManyWithoutGrowerInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutGrowerInput
     agreements?: AgreementUncheckedCreateNestedManyWithoutGrowerInput
+    itemCharges?: GrowerItemChargeUncheckedCreateNestedManyWithoutGrowerInput
   }
 
   export type GrowerCreateOrConnectWithoutDraftTransactionsInput = {
@@ -20197,6 +23668,8 @@ export namespace Prisma {
     transactions?: TransactionCreateNestedManyWithoutBuyerFirmInput
     payments?: PaymentCreateNestedManyWithoutBuyerFirmInput
     sellerPayments?: SellerPaymentCreateNestedManyWithoutBuyerFirmInput
+    expenses?: ExpenseCreateNestedManyWithoutBuyerFirmInput
+    itemCharges?: GrowerItemChargeCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmUncheckedCreateWithoutDraftTransactionsInput = {
@@ -20215,6 +23688,8 @@ export namespace Prisma {
     transactions?: TransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
     payments?: PaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
     sellerPayments?: SellerPaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutBuyerFirmInput
+    itemCharges?: GrowerItemChargeUncheckedCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmCreateOrConnectWithoutDraftTransactionsInput = {
@@ -20267,6 +23742,7 @@ export namespace Prisma {
     payments?: PaymentUpdateManyWithoutGrowerNestedInput
     notifications?: NotificationUpdateManyWithoutGrowerNestedInput
     agreements?: AgreementUpdateManyWithoutGrowerNestedInput
+    itemCharges?: GrowerItemChargeUpdateManyWithoutGrowerNestedInput
   }
 
   export type GrowerUncheckedUpdateWithoutDraftTransactionsInput = {
@@ -20280,6 +23756,7 @@ export namespace Prisma {
     payments?: PaymentUncheckedUpdateManyWithoutGrowerNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutGrowerNestedInput
     agreements?: AgreementUncheckedUpdateManyWithoutGrowerNestedInput
+    itemCharges?: GrowerItemChargeUncheckedUpdateManyWithoutGrowerNestedInput
   }
 
   export type SellerUpsertWithoutDraftTransactionsInput = {
@@ -20342,6 +23819,8 @@ export namespace Prisma {
     transactions?: TransactionUpdateManyWithoutBuyerFirmNestedInput
     payments?: PaymentUpdateManyWithoutBuyerFirmNestedInput
     sellerPayments?: SellerPaymentUpdateManyWithoutBuyerFirmNestedInput
+    expenses?: ExpenseUpdateManyWithoutBuyerFirmNestedInput
+    itemCharges?: GrowerItemChargeUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type BuyerFirmUncheckedUpdateWithoutDraftTransactionsInput = {
@@ -20360,6 +23839,8 @@ export namespace Prisma {
     transactions?: TransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
     sellerPayments?: SellerPaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    itemCharges?: GrowerItemChargeUncheckedUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type UserUpsertWithoutDraftTransactionsInput = {
@@ -20407,6 +23888,8 @@ export namespace Prisma {
     payments?: PaymentCreateNestedManyWithoutBuyerFirmInput
     sellerPayments?: SellerPaymentCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionCreateNestedManyWithoutBuyerFirmInput
+    expenses?: ExpenseCreateNestedManyWithoutBuyerFirmInput
+    itemCharges?: GrowerItemChargeCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmUncheckedCreateWithoutSellersInput = {
@@ -20425,6 +23908,8 @@ export namespace Prisma {
     payments?: PaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
     sellerPayments?: SellerPaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutBuyerFirmInput
+    itemCharges?: GrowerItemChargeUncheckedCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmCreateOrConnectWithoutSellersInput = {
@@ -20576,6 +24061,8 @@ export namespace Prisma {
     payments?: PaymentUpdateManyWithoutBuyerFirmNestedInput
     sellerPayments?: SellerPaymentUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUpdateManyWithoutBuyerFirmNestedInput
+    expenses?: ExpenseUpdateManyWithoutBuyerFirmNestedInput
+    itemCharges?: GrowerItemChargeUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type BuyerFirmUncheckedUpdateWithoutSellersInput = {
@@ -20594,6 +24081,8 @@ export namespace Prisma {
     payments?: PaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
     sellerPayments?: SellerPaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    itemCharges?: GrowerItemChargeUncheckedUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type TransactionUpsertWithWhereUniqueWithoutSellerInput = {
@@ -20687,6 +24176,8 @@ export namespace Prisma {
     transactions?: TransactionCreateNestedManyWithoutBuyerFirmInput
     payments?: PaymentCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionCreateNestedManyWithoutBuyerFirmInput
+    expenses?: ExpenseCreateNestedManyWithoutBuyerFirmInput
+    itemCharges?: GrowerItemChargeCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmUncheckedCreateWithoutSellerPaymentsInput = {
@@ -20705,6 +24196,8 @@ export namespace Prisma {
     transactions?: TransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
     payments?: PaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutBuyerFirmInput
+    itemCharges?: GrowerItemChargeUncheckedCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmCreateOrConnectWithoutSellerPaymentsInput = {
@@ -20772,6 +24265,8 @@ export namespace Prisma {
     transactions?: TransactionUpdateManyWithoutBuyerFirmNestedInput
     payments?: PaymentUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUpdateManyWithoutBuyerFirmNestedInput
+    expenses?: ExpenseUpdateManyWithoutBuyerFirmNestedInput
+    itemCharges?: GrowerItemChargeUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type BuyerFirmUncheckedUpdateWithoutSellerPaymentsInput = {
@@ -20790,6 +24285,272 @@ export namespace Prisma {
     transactions?: TransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    itemCharges?: GrowerItemChargeUncheckedUpdateManyWithoutBuyerFirmNestedInput
+  }
+
+  export type BuyerFirmCreateWithoutExpensesInput = {
+    id?: string
+    uniqueId: string
+    firmName: string
+    ownerName: string
+    mobile: string
+    subscriptionPlan?: string
+    subscriptionExpiry?: Date | string | null
+    createdAt?: Date | string
+    logoUrl?: string | null
+    users?: UserCreateNestedManyWithoutBuyerFirmInput
+    growers?: GrowerCreateNestedManyWithoutBuyerFirmInput
+    sellers?: SellerCreateNestedManyWithoutBuyerFirmInput
+    transactions?: TransactionCreateNestedManyWithoutBuyerFirmInput
+    payments?: PaymentCreateNestedManyWithoutBuyerFirmInput
+    sellerPayments?: SellerPaymentCreateNestedManyWithoutBuyerFirmInput
+    draftTransactions?: DraftTransactionCreateNestedManyWithoutBuyerFirmInput
+    itemCharges?: GrowerItemChargeCreateNestedManyWithoutBuyerFirmInput
+  }
+
+  export type BuyerFirmUncheckedCreateWithoutExpensesInput = {
+    id?: string
+    uniqueId: string
+    firmName: string
+    ownerName: string
+    mobile: string
+    subscriptionPlan?: string
+    subscriptionExpiry?: Date | string | null
+    createdAt?: Date | string
+    logoUrl?: string | null
+    users?: UserUncheckedCreateNestedManyWithoutBuyerFirmInput
+    growers?: GrowerUncheckedCreateNestedManyWithoutBuyerFirmInput
+    sellers?: SellerUncheckedCreateNestedManyWithoutBuyerFirmInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
+    sellerPayments?: SellerPaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
+    draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
+    itemCharges?: GrowerItemChargeUncheckedCreateNestedManyWithoutBuyerFirmInput
+  }
+
+  export type BuyerFirmCreateOrConnectWithoutExpensesInput = {
+    where: BuyerFirmWhereUniqueInput
+    create: XOR<BuyerFirmCreateWithoutExpensesInput, BuyerFirmUncheckedCreateWithoutExpensesInput>
+  }
+
+  export type BuyerFirmUpsertWithoutExpensesInput = {
+    update: XOR<BuyerFirmUpdateWithoutExpensesInput, BuyerFirmUncheckedUpdateWithoutExpensesInput>
+    create: XOR<BuyerFirmCreateWithoutExpensesInput, BuyerFirmUncheckedCreateWithoutExpensesInput>
+    where?: BuyerFirmWhereInput
+  }
+
+  export type BuyerFirmUpdateToOneWithWhereWithoutExpensesInput = {
+    where?: BuyerFirmWhereInput
+    data: XOR<BuyerFirmUpdateWithoutExpensesInput, BuyerFirmUncheckedUpdateWithoutExpensesInput>
+  }
+
+  export type BuyerFirmUpdateWithoutExpensesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    uniqueId?: StringFieldUpdateOperationsInput | string
+    firmName?: StringFieldUpdateOperationsInput | string
+    ownerName?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    subscriptionPlan?: StringFieldUpdateOperationsInput | string
+    subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    users?: UserUpdateManyWithoutBuyerFirmNestedInput
+    growers?: GrowerUpdateManyWithoutBuyerFirmNestedInput
+    sellers?: SellerUpdateManyWithoutBuyerFirmNestedInput
+    transactions?: TransactionUpdateManyWithoutBuyerFirmNestedInput
+    payments?: PaymentUpdateManyWithoutBuyerFirmNestedInput
+    sellerPayments?: SellerPaymentUpdateManyWithoutBuyerFirmNestedInput
+    draftTransactions?: DraftTransactionUpdateManyWithoutBuyerFirmNestedInput
+    itemCharges?: GrowerItemChargeUpdateManyWithoutBuyerFirmNestedInput
+  }
+
+  export type BuyerFirmUncheckedUpdateWithoutExpensesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    uniqueId?: StringFieldUpdateOperationsInput | string
+    firmName?: StringFieldUpdateOperationsInput | string
+    ownerName?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    subscriptionPlan?: StringFieldUpdateOperationsInput | string
+    subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    users?: UserUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    growers?: GrowerUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    sellers?: SellerUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    sellerPayments?: SellerPaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    itemCharges?: GrowerItemChargeUncheckedUpdateManyWithoutBuyerFirmNestedInput
+  }
+
+  export type GrowerCreateWithoutItemChargesInput = {
+    id?: string
+    name: string
+    mobile: string
+    address?: string | null
+    createdAt?: Date | string
+    buyerFirm: BuyerFirmCreateNestedOneWithoutGrowersInput
+    transactions?: TransactionCreateNestedManyWithoutGrowerInput
+    payments?: PaymentCreateNestedManyWithoutGrowerInput
+    notifications?: NotificationCreateNestedManyWithoutGrowerInput
+    agreements?: AgreementCreateNestedManyWithoutGrowerInput
+    draftTransactions?: DraftTransactionCreateNestedManyWithoutGrowerInput
+  }
+
+  export type GrowerUncheckedCreateWithoutItemChargesInput = {
+    id?: string
+    name: string
+    mobile: string
+    address?: string | null
+    buyerFirmId: string
+    createdAt?: Date | string
+    transactions?: TransactionUncheckedCreateNestedManyWithoutGrowerInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutGrowerInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutGrowerInput
+    agreements?: AgreementUncheckedCreateNestedManyWithoutGrowerInput
+    draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutGrowerInput
+  }
+
+  export type GrowerCreateOrConnectWithoutItemChargesInput = {
+    where: GrowerWhereUniqueInput
+    create: XOR<GrowerCreateWithoutItemChargesInput, GrowerUncheckedCreateWithoutItemChargesInput>
+  }
+
+  export type BuyerFirmCreateWithoutItemChargesInput = {
+    id?: string
+    uniqueId: string
+    firmName: string
+    ownerName: string
+    mobile: string
+    subscriptionPlan?: string
+    subscriptionExpiry?: Date | string | null
+    createdAt?: Date | string
+    logoUrl?: string | null
+    users?: UserCreateNestedManyWithoutBuyerFirmInput
+    growers?: GrowerCreateNestedManyWithoutBuyerFirmInput
+    sellers?: SellerCreateNestedManyWithoutBuyerFirmInput
+    transactions?: TransactionCreateNestedManyWithoutBuyerFirmInput
+    payments?: PaymentCreateNestedManyWithoutBuyerFirmInput
+    sellerPayments?: SellerPaymentCreateNestedManyWithoutBuyerFirmInput
+    draftTransactions?: DraftTransactionCreateNestedManyWithoutBuyerFirmInput
+    expenses?: ExpenseCreateNestedManyWithoutBuyerFirmInput
+  }
+
+  export type BuyerFirmUncheckedCreateWithoutItemChargesInput = {
+    id?: string
+    uniqueId: string
+    firmName: string
+    ownerName: string
+    mobile: string
+    subscriptionPlan?: string
+    subscriptionExpiry?: Date | string | null
+    createdAt?: Date | string
+    logoUrl?: string | null
+    users?: UserUncheckedCreateNestedManyWithoutBuyerFirmInput
+    growers?: GrowerUncheckedCreateNestedManyWithoutBuyerFirmInput
+    sellers?: SellerUncheckedCreateNestedManyWithoutBuyerFirmInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
+    sellerPayments?: SellerPaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
+    draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutBuyerFirmInput
+  }
+
+  export type BuyerFirmCreateOrConnectWithoutItemChargesInput = {
+    where: BuyerFirmWhereUniqueInput
+    create: XOR<BuyerFirmCreateWithoutItemChargesInput, BuyerFirmUncheckedCreateWithoutItemChargesInput>
+  }
+
+  export type GrowerUpsertWithoutItemChargesInput = {
+    update: XOR<GrowerUpdateWithoutItemChargesInput, GrowerUncheckedUpdateWithoutItemChargesInput>
+    create: XOR<GrowerCreateWithoutItemChargesInput, GrowerUncheckedCreateWithoutItemChargesInput>
+    where?: GrowerWhereInput
+  }
+
+  export type GrowerUpdateToOneWithWhereWithoutItemChargesInput = {
+    where?: GrowerWhereInput
+    data: XOR<GrowerUpdateWithoutItemChargesInput, GrowerUncheckedUpdateWithoutItemChargesInput>
+  }
+
+  export type GrowerUpdateWithoutItemChargesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    buyerFirm?: BuyerFirmUpdateOneRequiredWithoutGrowersNestedInput
+    transactions?: TransactionUpdateManyWithoutGrowerNestedInput
+    payments?: PaymentUpdateManyWithoutGrowerNestedInput
+    notifications?: NotificationUpdateManyWithoutGrowerNestedInput
+    agreements?: AgreementUpdateManyWithoutGrowerNestedInput
+    draftTransactions?: DraftTransactionUpdateManyWithoutGrowerNestedInput
+  }
+
+  export type GrowerUncheckedUpdateWithoutItemChargesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerFirmId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: TransactionUncheckedUpdateManyWithoutGrowerNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutGrowerNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutGrowerNestedInput
+    agreements?: AgreementUncheckedUpdateManyWithoutGrowerNestedInput
+    draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutGrowerNestedInput
+  }
+
+  export type BuyerFirmUpsertWithoutItemChargesInput = {
+    update: XOR<BuyerFirmUpdateWithoutItemChargesInput, BuyerFirmUncheckedUpdateWithoutItemChargesInput>
+    create: XOR<BuyerFirmCreateWithoutItemChargesInput, BuyerFirmUncheckedCreateWithoutItemChargesInput>
+    where?: BuyerFirmWhereInput
+  }
+
+  export type BuyerFirmUpdateToOneWithWhereWithoutItemChargesInput = {
+    where?: BuyerFirmWhereInput
+    data: XOR<BuyerFirmUpdateWithoutItemChargesInput, BuyerFirmUncheckedUpdateWithoutItemChargesInput>
+  }
+
+  export type BuyerFirmUpdateWithoutItemChargesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    uniqueId?: StringFieldUpdateOperationsInput | string
+    firmName?: StringFieldUpdateOperationsInput | string
+    ownerName?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    subscriptionPlan?: StringFieldUpdateOperationsInput | string
+    subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    users?: UserUpdateManyWithoutBuyerFirmNestedInput
+    growers?: GrowerUpdateManyWithoutBuyerFirmNestedInput
+    sellers?: SellerUpdateManyWithoutBuyerFirmNestedInput
+    transactions?: TransactionUpdateManyWithoutBuyerFirmNestedInput
+    payments?: PaymentUpdateManyWithoutBuyerFirmNestedInput
+    sellerPayments?: SellerPaymentUpdateManyWithoutBuyerFirmNestedInput
+    draftTransactions?: DraftTransactionUpdateManyWithoutBuyerFirmNestedInput
+    expenses?: ExpenseUpdateManyWithoutBuyerFirmNestedInput
+  }
+
+  export type BuyerFirmUncheckedUpdateWithoutItemChargesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    uniqueId?: StringFieldUpdateOperationsInput | string
+    firmName?: StringFieldUpdateOperationsInput | string
+    ownerName?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    subscriptionPlan?: StringFieldUpdateOperationsInput | string
+    subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    users?: UserUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    growers?: GrowerUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    sellers?: SellerUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    sellerPayments?: SellerPaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type UserCreateManyBuyerFirmInput = {
@@ -20870,6 +24631,28 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type ExpenseCreateManyBuyerFirmInput = {
+    id?: string
+    title: string
+    amount: number
+    category: string
+    date?: Date | string
+    notes?: string | null
+    createdAt?: Date | string
+  }
+
+  export type GrowerItemChargeCreateManyBuyerFirmInput = {
+    id?: string
+    growerId: string
+    itemName: string
+    quantity?: number
+    rate: number
+    amount: number
+    notes?: string | null
+    issuedAt?: Date | string
+    createdAt?: Date | string
+  }
+
   export type UserUpdateWithoutBuyerFirmInput = {
     id?: StringFieldUpdateOperationsInput | string
     mobile?: StringFieldUpdateOperationsInput | string
@@ -20907,6 +24690,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutGrowerNestedInput
     agreements?: AgreementUpdateManyWithoutGrowerNestedInput
     draftTransactions?: DraftTransactionUpdateManyWithoutGrowerNestedInput
+    itemCharges?: GrowerItemChargeUpdateManyWithoutGrowerNestedInput
   }
 
   export type GrowerUncheckedUpdateWithoutBuyerFirmInput = {
@@ -20920,6 +24704,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutGrowerNestedInput
     agreements?: AgreementUncheckedUpdateManyWithoutGrowerNestedInput
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutGrowerNestedInput
+    itemCharges?: GrowerItemChargeUncheckedUpdateManyWithoutGrowerNestedInput
   }
 
   export type GrowerUncheckedUpdateManyWithoutBuyerFirmInput = {
@@ -21122,6 +24907,72 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ExpenseUpdateWithoutBuyerFirmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    category?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExpenseUncheckedUpdateWithoutBuyerFirmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    category?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExpenseUncheckedUpdateManyWithoutBuyerFirmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    category?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GrowerItemChargeUpdateWithoutBuyerFirmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    itemName?: StringFieldUpdateOperationsInput | string
+    quantity?: FloatFieldUpdateOperationsInput | number
+    rate?: FloatFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    issuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    grower?: GrowerUpdateOneRequiredWithoutItemChargesNestedInput
+  }
+
+  export type GrowerItemChargeUncheckedUpdateWithoutBuyerFirmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    growerId?: StringFieldUpdateOperationsInput | string
+    itemName?: StringFieldUpdateOperationsInput | string
+    quantity?: FloatFieldUpdateOperationsInput | number
+    rate?: FloatFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    issuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GrowerItemChargeUncheckedUpdateManyWithoutBuyerFirmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    growerId?: StringFieldUpdateOperationsInput | string
+    itemName?: StringFieldUpdateOperationsInput | string
+    quantity?: FloatFieldUpdateOperationsInput | number
+    rate?: FloatFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    issuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type DraftTransactionCreateManyCreatedByInput = {
     id?: string
     growerId?: string | null
@@ -21239,6 +25090,18 @@ export namespace Prisma {
     notes?: string | null
     createdById: string
     status?: string
+    createdAt?: Date | string
+  }
+
+  export type GrowerItemChargeCreateManyGrowerInput = {
+    id?: string
+    buyerFirmId: string
+    itemName: string
+    quantity?: number
+    rate: number
+    amount: number
+    notes?: string | null
+    issuedAt?: Date | string
     createdAt?: Date | string
   }
 
@@ -21431,6 +25294,42 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdById?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GrowerItemChargeUpdateWithoutGrowerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    itemName?: StringFieldUpdateOperationsInput | string
+    quantity?: FloatFieldUpdateOperationsInput | number
+    rate?: FloatFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    issuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    buyerFirm?: BuyerFirmUpdateOneRequiredWithoutItemChargesNestedInput
+  }
+
+  export type GrowerItemChargeUncheckedUpdateWithoutGrowerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    buyerFirmId?: StringFieldUpdateOperationsInput | string
+    itemName?: StringFieldUpdateOperationsInput | string
+    quantity?: FloatFieldUpdateOperationsInput | number
+    rate?: FloatFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    issuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GrowerItemChargeUncheckedUpdateManyWithoutGrowerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    buyerFirmId?: StringFieldUpdateOperationsInput | string
+    itemName?: StringFieldUpdateOperationsInput | string
+    quantity?: FloatFieldUpdateOperationsInput | number
+    rate?: FloatFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    issuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

@@ -29,6 +29,16 @@ type Payment = {
   paidAt: string;
 };
 
+type ItemCharge = {
+  id: string;
+  itemName: string;
+  quantity: number;
+  rate: number;
+  amount: number;
+  notes: string | null;
+  issuedAt: string;
+};
+
 type GrowerDetail = {
   id: string;
   name: string;
@@ -36,6 +46,7 @@ type GrowerDetail = {
   address: string | null;
   transactions: Txn[];
   payments: Payment[];
+  itemCharges: ItemCharge[];
   buyerFirm: { logoUrl: string | null; firmName: string };
 };
 
@@ -72,6 +83,12 @@ export default function GrowerPrintPage({ params }: { params: Promise<{ id: stri
         credit: 0,
         debit: p.amount,
       })),
+      ...(data.itemCharges ?? []).map((c) => ({
+        date: new Date(c.issuedAt),
+        description: `Material Issued: ${c.itemName} (${c.quantity} @ ₹${c.rate}/unit) ${c.notes ? `- ${c.notes}` : ""}`,
+        credit: 0,
+        debit: c.amount,
+      })),
     ];
 
     // Sort chronologically (oldest first)
@@ -106,10 +123,19 @@ export default function GrowerPrintPage({ params }: { params: Promise<{ id: stri
     return data.transactions.reduce((sum, t) => sum + t.totalAmount, 0);
   }, [data]);
 
-  const totalDebit = useMemo(() => {
+  const totalPaymentsTaken = useMemo(() => {
     if (!data) return 0;
     return (data.payments ?? []).reduce((sum, p) => sum + p.amount, 0);
   }, [data]);
+
+  const totalItemCharges = useMemo(() => {
+    if (!data) return 0;
+    return (data.itemCharges ?? []).reduce((sum, c) => sum + c.amount, 0);
+  }, [data]);
+
+  const totalDebit = useMemo(() => {
+    return totalPaymentsTaken + totalItemCharges;
+  }, [totalPaymentsTaken, totalItemCharges]);
 
   const netBalance = totalCredit - totalDebit;
 
@@ -236,7 +262,9 @@ export default function GrowerPrintPage({ params }: { params: Promise<{ id: stri
               <Text color="gray.600" fontWeight="bold">Net Crop Credits (Cr):</Text>
               <Text fontWeight="bold" textAlign="right" color="green.700">{inr(totalCredit)}</Text>
               <Text color="gray.600">Total Cash Advances (Dr):</Text>
-              <Text fontWeight="semibold" textAlign="right" color="indigo.700">{inr(totalDebit)}</Text>
+              <Text fontWeight="semibold" textAlign="right" color="indigo.700">{inr(totalPaymentsTaken)}</Text>
+              <Text color="gray.600">Total Material Charges (Dr):</Text>
+              <Text fontWeight="semibold" textAlign="right" color="amber.750">{inr(totalItemCharges)}</Text>
             </SimpleGrid>
             <Box borderTopWidth="1px" mt={2} pt={2}>
               <Flex justify="space-between" align="center">

@@ -244,6 +244,30 @@ exports.Prisma.SellerPaymentScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.ExpenseScalarFieldEnum = {
+  id: 'id',
+  buyerFirmId: 'buyerFirmId',
+  title: 'title',
+  amount: 'amount',
+  category: 'category',
+  date: 'date',
+  notes: 'notes',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.GrowerItemChargeScalarFieldEnum = {
+  id: 'id',
+  growerId: 'growerId',
+  buyerFirmId: 'buyerFirmId',
+  itemName: 'itemName',
+  quantity: 'quantity',
+  rate: 'rate',
+  amount: 'amount',
+  notes: 'notes',
+  issuedAt: 'issuedAt',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -266,7 +290,9 @@ exports.Prisma.ModelName = {
   Agreement: 'Agreement',
   DraftTransaction: 'DraftTransaction',
   Seller: 'Seller',
-  SellerPayment: 'SellerPayment'
+  SellerPayment: 'SellerPayment',
+  Expense: 'Expense',
+  GrowerItemCharge: 'GrowerItemCharge'
 };
 
 /**

@@ -8,6 +8,8 @@ const PROTECTED_PREFIXES = [
   "/migration",
   "/reports",
   "/settings",
+  "/expenses",
+  "/grower-charges",
 ];
 
 const SESSION_COOKIE = "hortitrack_session";
@@ -76,5 +78,7 @@ export const config = {
     "/reports/:path*",
     "/settings/:path*",
     "/hamaal/:path*",
+    "/expenses/:path*",
+    "/grower-charges/:path*",
   ],
 };

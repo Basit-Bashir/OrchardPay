@@ -25,6 +25,8 @@ model BuyerFirm {
   sellerPayments     SellerPayment[]
   draftTransactions  DraftTransaction[]
   logoUrl            String?
+  expenses           Expense[]
+  itemCharges        GrowerItemCharge[]
 }
 
 model User {
@@ -52,6 +54,7 @@ model Grower {
   notifications     Notification[]
   agreements        Agreement[]
   draftTransactions DraftTransaction[]
+  itemCharges       GrowerItemCharge[]
   createdAt         DateTime           @default(now())
 
   @@unique([mobile, buyerFirmId])
@@ -171,5 +174,32 @@ model SellerPayment {
   amount      Float
   notes       String?
   paidAt      DateTime  @default(now())
+  createdAt   DateTime  @default(now())
+}
+
+model Expense {
+  id          String    @id @default(cuid())
+  buyerFirmId String
+  buyerFirm   BuyerFirm @relation(fields: [buyerFirmId], references: [id], onDelete: Cascade)
+  title       String
+  amount      Float
+  category    String // e.g. "Office", "Personal", "Rent", "Utilities", "Travel", "Salaries", "Others"
+  date        DateTime  @default(now())
+  notes       String?
+  createdAt   DateTime  @default(now())
+}
+
+model GrowerItemCharge {
+  id          String    @id @default(cuid())
+  growerId    String
+  grower      Grower    @relation(fields: [growerId], references: [id], onDelete: Cascade)
+  buyerFirmId String
+  buyerFirm   BuyerFirm @relation(fields: [buyerFirmId], references: [id], onDelete: Cascade)
+  itemName    String // e.g. "Pesticides", "Cardboard Boxes", "Tapes", "Rough Papers", "Others"
+  quantity    Float     @default(1)
+  rate        Float
+  amount      Float
+  notes       String?
+  issuedAt    DateTime  @default(now())
   createdAt   DateTime  @default(now())
 }

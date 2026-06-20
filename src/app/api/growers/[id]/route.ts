@@ -19,6 +19,7 @@ export async function GET(_req: Request, { params }: Ctx) {
       include: {
         transactions: { orderBy: { receivedAt: "desc" } },
         payments: { orderBy: { paidAt: "desc" } },
+        itemCharges: { orderBy: { issuedAt: "desc" } },
         buyerFirm: { select: { logoUrl: true, firmName: true } },
       },
     });
