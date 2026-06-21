@@ -917,6 +917,19 @@ export default function GrowerDetailPage({ params }: { params: Promise<{ id: str
                 <Text color="green.800">Net Credit:</Text>
                 <Text color="green.800">{inr(selectedTxn.totalAmount)}</Text>
               </Flex>
+
+              <Button
+                colorPalette="green"
+                variant="outline"
+                size="sm"
+                w="full"
+                mt={3}
+                onClick={() => {
+                  window.open(`/growers/${id}/print?txnId=${selectedTxn.id}`, "_blank");
+                }}
+              >
+                Print Invoice / Receipt
+              </Button>
             </Stack>
           </Box>
         </Box>

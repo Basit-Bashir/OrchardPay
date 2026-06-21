@@ -112,7 +112,7 @@ function NewTransactionForm() {
   }, [items]);
 
   const expenseCalculations = useMemo(() => {
-    if (sellerId) {
+    if (sellerId && !growerId) {
       return {
         commission: 0,
         labour: 0,
@@ -149,7 +149,7 @@ function NewTransactionForm() {
       totalDeductions,
       netAmount,
     };
-  }, [sellerId, grandTotal, totalQuantity, freight, commissionRate, labourRate, associationRate, printingCharge, miscellaneousRate]);
+  }, [growerId, sellerId, grandTotal, totalQuantity, freight, commissionRate, labourRate, associationRate, printingCharge, miscellaneousRate]);
 
   async function submit() {
     setError("");
@@ -212,7 +212,7 @@ function NewTransactionForm() {
           {/* Parties Selector */}
           <Box mt={-2}>
             <Text fontSize="xs" color="gray.500" fontStyle="italic">
-              * Note: A transaction can only be created for either a Grower (inward purchase) or a Seller (outward sale), but not both. Selecting one automatically resets the other.
+              * Note: You can select a Grower (inward lot purchase), a Seller (outward lot sale), or both simultaneously (if the grower lot was immediately sold to a seller).
             </Text>
           </Box>
           <SimpleGrid columns={{ base: 1, md: 2 }} gap={4}>
@@ -220,12 +220,7 @@ function NewTransactionForm() {
               <Text fontSize="sm" fontWeight="semibold" mb={2} color="gray.700">Grower (Seller to Mandi)</Text>
               <Select
                 value={growerId}
-                onChange={(e) => {
-                  const val = e.target.value;
-                  setGrowerId(val);
-                  if (val) setSellerId("");
-                }}
-                disabled={!!sellerId}
+                onChange={(e) => setGrowerId(e.target.value)}
                 w="full"
                 px={3}
                 py={2}
@@ -244,12 +239,7 @@ function NewTransactionForm() {
               <Text fontSize="sm" fontWeight="semibold" mb={2} color="gray.700">Seller / Buyer (Purchaser from Mandi)</Text>
               <Select
                 value={sellerId}
-                onChange={(e) => {
-                  const val = e.target.value;
-                  setSellerId(val);
-                  if (val) setGrowerId("");
-                }}
-                disabled={!!growerId}
+                onChange={(e) => setSellerId(e.target.value)}
                 w="full"
                 px={3}
                 py={2}
@@ -363,7 +353,7 @@ function NewTransactionForm() {
           </Box>
 
           {/* Expenses & Deductions Inputs */}
-          {!sellerId && (
+          {growerId && (
             <Box bg="white" p={6} borderRadius="xl" shadow="sm" borderWidth="1px">
               <Heading size="md" mb={4} color="gray.700">Expenses &amp; Deductions</Heading>
               <SimpleGrid columns={{ base: 1, md: 3 }} gap={4}>
@@ -447,18 +437,10 @@ function NewTransactionForm() {
                 <Text fontWeight="semibold" color="green.900">₹{grandTotal.toLocaleString("en-IN")}</Text>
               </Flex>
               
-              {sellerId ? (
-                <Box borderTopWidth="1px" borderColor="green.200" pt={3} mt={1}>
-                  <Text fontSize="xs" color="green.700" fontStyle="italic">No deductions applicable for Seller transactions.</Text>
-                  <Flex justify="space-between" borderTopWidth="1px" borderColor="green.300" pt={3} mt={3} align="center">
-                    <Text fontWeight="extrabold" fontSize="md" color="green.900">Net Due from Seller:</Text>
-                    <Text fontWeight="black" fontSize="2xl" color="green.900">₹{grandTotal.toLocaleString("en-IN")}</Text>
-                  </Flex>
-                </Box>
-              ) : (
+              {growerId && (
                 <>
                   <Box borderTopWidth="1px" borderColor="green.100" pt={2} pb={1}>
-                    <Text fontSize="xs" fontWeight="bold" color="green.700" mb={1}>DEDUCTIONS</Text>
+                    <Text fontSize="xs" fontWeight="bold" color="green.700" mb={1}>DEDUCTIONS (GROWER)</Text>
                   </Box>
 
                   <Flex justify="space-between" pl={2}>
@@ -497,6 +479,20 @@ function NewTransactionForm() {
                   </Flex>
                 </>
               )}
+
+              {sellerId && (
+                <Box borderTopWidth="1px" borderColor="green.250" pt={3} mt={growerId ? 3 : 1}>
+                  {!growerId && (
+                    <Text fontSize="xs" color="green.700" fontStyle="italic" mb={2}>
+                      No deductions applicable for Seller transactions.
+                    </Text>
+                  )}
+                  <Flex justify="space-between" align="center">
+                    <Text fontWeight="extrabold" fontSize="md" color="green.900">Net Due from Seller:</Text>
+                    <Text fontWeight="black" fontSize="2xl" color="green.900">₹{grandTotal.toLocaleString("en-IN")}</Text>
+                  </Flex>
+                </Box>
+              )}
             </Stack>
           </Box>
 
@@ -508,7 +504,7 @@ function NewTransactionForm() {
 
           {/* Submit Action */}
           <Button colorPalette="green" onClick={submit} loading={loading} alignSelf="flex-start" size="lg" px={8}>
-            {sellerId ? "Add to seller" : "Save & notify grower"}
+            {sellerId && !growerId ? "Add to seller" : "Save & notify grower"}
           </Button>
         </Stack>
       )}

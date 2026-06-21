@@ -29,10 +29,32 @@ export async function POST(req: Request) {
     const parsed = draftTransactionSchema.safeParse(body);
     if (!parsed.success) return fail(parsed.error.issues[0]?.message ?? "Invalid input");
 
-    const { growerId, sellerId, fruitType, quantity, unit, rate, notes } = parsed.data;
+    const { growerId, sellerId, newSellerName, fruitType, quantity, unit, rate, notes } = parsed.data;
 
-    if ((growerId && sellerId) || (!growerId && !sellerId)) {
-      return fail("Select either a Grower or a Seller, but not both", 400);
+    if (!growerId && !sellerId && !newSellerName) {
+      return fail("Select at least a Grower or a Seller", 400);
+    }
+
+    let finalSellerId = sellerId || null;
+    if (!finalSellerId && newSellerName && newSellerName.trim()) {
+      const nameClean = newSellerName.trim();
+      const existing = await prisma.seller.findFirst({
+        where: { name: nameClean, buyerFirmId: session.buyerFirmId },
+      });
+      if (existing) {
+        finalSellerId = existing.id;
+      } else {
+        // Generate clean unique 10-digit dummy mobile starting with 9
+        const dummyMobile = `9${Math.floor(100000000 + Math.random() * 900000000)}`;
+        const newSeller = await prisma.seller.create({
+          data: {
+            name: nameClean,
+            mobile: dummyMobile,
+            buyerFirmId: session.buyerFirmId,
+          },
+        });
+        finalSellerId = newSeller.id;
+      }
     }
 
     if (growerId) {
@@ -42,9 +64,9 @@ export async function POST(req: Request) {
       if (!grower) return fail("Grower not found", 404);
     }
 
-    if (sellerId) {
+    if (finalSellerId) {
       const seller = await prisma.seller.findFirst({
-        where: { id: sellerId, buyerFirmId: session.buyerFirmId },
+        where: { id: finalSellerId, buyerFirmId: session.buyerFirmId },
       });
       if (!seller) return fail("Seller not found", 404);
     }
@@ -52,7 +74,7 @@ export async function POST(req: Request) {
     const draft = await prisma.draftTransaction.create({
       data: {
         growerId: growerId || null,
-        sellerId: sellerId || null,
+        sellerId: finalSellerId,
         buyerFirmId: session.buyerFirmId,
         fruitType,
         quantity,

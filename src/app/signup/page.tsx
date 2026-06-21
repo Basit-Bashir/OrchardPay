@@ -21,6 +21,7 @@ function SignupInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const planParam = searchParams.get("plan");
+  const phoneParam = searchParams.get("phone") || "";
 
   const [selectedPlan, setSelectedPlan] = useState<string>(planParam || "");
   const [step, setStep] = useState<"plan" | "details" | "otp">(
@@ -28,7 +29,15 @@ function SignupInner() {
   );
   const [firmName, setFirmName] = useState("");
   const [ownerName, setOwnerName] = useState("");
-  const [mobile, setMobile] = useState("+91");
+
+  // Format and auto-fill mobile number from the phone query param
+  const initialMobile = phoneParam
+    ? (phoneParam.startsWith("+")
+        ? phoneParam
+        : (phoneParam.length === 10 ? `+91${phoneParam}` : phoneParam))
+    : "+91";
+
+  const [mobile, setMobile] = useState(initialMobile);
   const [otp, setOtp] = useState("");
   const [uniqueId, setUniqueId] = useState("");
   const [devOtp, setDevOtp] = useState<string | undefined>();

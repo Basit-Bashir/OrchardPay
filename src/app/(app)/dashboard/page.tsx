@@ -363,7 +363,7 @@ export default async function DashboardPage() {
             label="Recoverable Advances" 
             value={formatINR(totalGrowersOweUs)} 
             subtext="Unsettled grower cash advances"
-            gradientColor="indigo.500" 
+            gradientColor="#6366f1" 
             icon={Money01Icon}
           />
           <StatCard 
@@ -422,10 +422,10 @@ export default async function DashboardPage() {
       <DashboardCharts trendData={monthsData} />
 
       {/* Split Columns Grid */}
-      <SimpleGrid columns={{ base: 1, lg: 12 }} gap={8} alignItems="start">
+      <Box display="grid" gridTemplateColumns={{ base: "1fr", lg: "repeat(12, 1fr)" }} gap={8} alignItems="start">
         
         {/* Column 1: Recent Deliveries & Rankings (8 cols) */}
-        <Stack style={{ gridColumn: "span 8" }} gap={8}>
+        <Stack gridColumn={{ base: "span 12", lg: "span 8" }} gap={8}>
           
           {/* Deliveries Table */}
           <Box bg="white" borderRadius="2xl" shadow="sm" borderWidth="1px" overflow="hidden">
@@ -552,7 +552,7 @@ export default async function DashboardPage() {
         </Stack>
  
         {/* Right Column: Advances, Quick Actions (4 cols) */}
-        <Stack style={{ gridColumn: "span 4" }} gap={8}>
+        <Stack gridColumn={{ base: "span 12", lg: "span 4" }} gap={8}>
           
           {/* Quick Actions Card */}
           <Box bg="white" p={6} borderRadius="2xl" shadow="sm" borderWidth="1px">
@@ -564,7 +564,7 @@ export default async function DashboardPage() {
                   Record New Transaction
                 </NextLink>
               </Button>
-              <Button asChild colorPalette="indigo" size="lg" w="full" justifyContent="flex-start" variant="solid">
+              <Button asChild colorPalette="purple" size="lg" w="full" justifyContent="flex-start" variant="solid">
                 <NextLink href="/growers" style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                   <HugeiconsIcon icon={CoinsIcon} size={20} />
                   Pay Grower Advance
@@ -627,7 +627,7 @@ export default async function DashboardPage() {
  
         </Stack>
  
-      </SimpleGrid>
+      </Box>
     </Stack>
   );
 }

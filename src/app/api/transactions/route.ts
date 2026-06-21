@@ -62,8 +62,8 @@ export async function POST(req: Request) {
       draftId,
     } = parsed.data;
 
-    if ((growerId && sellerId) || (!growerId && !sellerId)) {
-      return fail("Select either a Grower or a Seller, but not both", 400);
+    if (!growerId && !sellerId) {
+      return fail("Select at least a Grower or a Seller", 400);
     }
 
     let growerName = "";
@@ -114,27 +114,75 @@ export async function POST(req: Request) {
         totalAmount = Math.round((grossAmount - totalExpenses) * 100) / 100;
       }
 
-      const txn = await prisma.transaction.create({
-        data: {
-          growerId: growerId || null,
-          sellerId: sellerId || null,
-          buyerFirmId: session.buyerFirmId,
-          fruitType: item.fruitType,
-          quantity: item.quantity,
-          unit: item.unit,
-          rate: item.rate,
-          grossAmount,
-          commission,
-          labour,
-          freight: itemFreight,
-          association,
-          printing: itemPrinting,
-          miscellaneous,
-          totalAmount,
-          notes: notes || null,
-        },
-      });
-      createdTxns.push(txn);
+      if (growerId && sellerId) {
+        // 1. Create Grower Transaction (Inward lot purchase - with deductions)
+        const growerTxn = await prisma.transaction.create({
+          data: {
+            growerId,
+            sellerId: null,
+            buyerFirmId: session.buyerFirmId,
+            fruitType: item.fruitType,
+            quantity: item.quantity,
+            unit: item.unit,
+            rate: item.rate,
+            grossAmount,
+            commission,
+            labour,
+            freight: itemFreight,
+            association,
+            printing: itemPrinting,
+            miscellaneous,
+            totalAmount, // Net amount credited to grower
+            notes: notes || null,
+          },
+        });
+        createdTxns.push(growerTxn);
+
+        // 2. Create Seller Transaction (Outward lot sale - with no deductions)
+        await prisma.transaction.create({
+          data: {
+            growerId: null,
+            sellerId,
+            buyerFirmId: session.buyerFirmId,
+            fruitType: item.fruitType,
+            quantity: item.quantity,
+            unit: item.unit,
+            rate: item.rate,
+            grossAmount,
+            commission: 0,
+            labour: 0,
+            freight: 0,
+            association: 0,
+            printing: 0,
+            miscellaneous: 0,
+            totalAmount: grossAmount, // Full gross amount charged to seller
+            notes: notes || null,
+          },
+        });
+      } else {
+        // Standard code for either growerId or sellerId only
+        const txn = await prisma.transaction.create({
+          data: {
+            growerId: growerId || null,
+            sellerId: sellerId || null,
+            buyerFirmId: session.buyerFirmId,
+            fruitType: item.fruitType,
+            quantity: item.quantity,
+            unit: item.unit,
+            rate: item.rate,
+            grossAmount,
+            commission,
+            labour,
+            freight: itemFreight,
+            association,
+            printing: itemPrinting,
+            miscellaneous,
+            totalAmount,
+            notes: notes || null,
+          },
+        });
+        createdTxns.push(txn);
+      }
     }
 
     if (growerId && growerMobile) {

@@ -261,7 +261,7 @@ export function DashboardCharts({ trendData }: { trendData: MonthTrend[] }) {
 
         <Flex gap={4} fontSize="xs" fontWeight="semibold" mb={3} px={2}>
           <Flex align="center" gap={1.5}>
-            <Box w="3" h="3" bg="indigo.500" borderRadius="full" />
+            <Box w="3" h="3" bg="#6366f1" borderRadius="full" />
             <Text color="gray.600">Grower Advances (Outflow)</Text>
           </Flex>
           <Flex align="center" gap={1.5}>
@@ -416,7 +416,7 @@ export function DashboardCharts({ trendData }: { trendData: MonthTrend[] }) {
               </Text>
               <Stack gap={0.5}>
                 <Flex justify="space-between" align="center">
-                  <Text color="indigo.300">Paid Out:</Text>
+                  <Text color="#818cf8">Paid Out:</Text>
                   <Text fontWeight="bold">{inr(trendData[activeBarIdx].paid)}</Text>
                 </Flex>
                 <Flex justify="space-between" align="center">

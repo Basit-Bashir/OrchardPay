@@ -9,6 +9,7 @@ import { api } from "@/lib/client";
 const Select = chakra("select");
 
 type Grower = { id: string; name: string; mobile: string };
+type Seller = { id: string; name: string; mobile: string };
 
 type Draft = {
   id: string;
@@ -33,6 +34,12 @@ export default function HamaalPage() {
     queryFn: () => api<Grower[]>("/api/growers"),
   });
 
+  // Query: Sellers List
+  const { data: sellers } = useQuery({
+    queryKey: ["sellers", ""],
+    queryFn: () => api<Seller[]>("/api/sellers"),
+  });
+
   // Query: Hamaal's Drafts History
   const { data: drafts, isLoading: loadingDrafts } = useQuery({
     queryKey: ["hamaal-drafts"],
@@ -49,6 +56,11 @@ export default function HamaalPage() {
   const [growerId, setGrowerId] = useState("");
   const [growerSearch, setGrowerSearch] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const [sellerId, setSellerId] = useState("");
+  const [sellerSearch, setSellerSearch] = useState("");
+  const [showSellerSuggestions, setShowSellerSuggestions] = useState(false);
+
   const [fruitType, setFruitType] = useState("");
   const [quantity, setQuantity] = useState("");
   const [unit, setUnit] = useState("peti");
@@ -67,6 +79,16 @@ export default function HamaalPage() {
       g.mobile.includes(query)
     );
   }, [growers, growerSearch]);
+
+  const filteredSellers = useMemo(() => {
+    if (!sellers) return [];
+    const query = sellerSearch.toLowerCase().trim();
+    if (!query) return sellers;
+    return sellers.filter(s => 
+      s.name.toLowerCase().includes(query) || 
+      s.mobile.includes(query)
+    );
+  }, [sellers, sellerSearch]);
 
   async function handleLogout() {
     await api("/api/auth/logout", { method: "POST" });
@@ -90,6 +112,19 @@ export default function HamaalPage() {
         }
       }
 
+      let finalSellerId = sellerId;
+      let finalNewSellerName = undefined;
+      if (!finalSellerId && sellerSearch.trim()) {
+        const match = sellers?.find(
+          (s) => s.name.toLowerCase() === sellerSearch.trim().toLowerCase()
+        );
+        if (match) {
+          finalSellerId = match.id;
+        } else {
+          finalNewSellerName = sellerSearch.trim();
+        }
+      }
+
       if (!finalGrowerId) throw new Error("Please select a valid grower from the suggestions");
       if (!fruitType.trim()) throw new Error("Fruit type is required");
       const qtyNum = parseFloat(quantity);
@@ -102,6 +137,8 @@ export default function HamaalPage() {
         method: "POST",
         body: JSON.stringify({
           growerId: finalGrowerId,
+          sellerId: finalSellerId || undefined,
+          newSellerName: finalNewSellerName || undefined,
           fruitType: fruitType.trim(),
           quantity: qtyNum,
           unit,
@@ -114,6 +151,8 @@ export default function HamaalPage() {
       setSuccessMsg(`Submitted successfully! Recorded ${qtyNum} ${unit} of ${fruitType}${ratePart}.`);
       setGrowerId("");
       setGrowerSearch("");
+      setSellerId("");
+      setSellerSearch("");
       setFruitType("");
       setQuantity("");
       setRate("");
@@ -121,6 +160,8 @@ export default function HamaalPage() {
 
       // Invalidate query to refresh history feed
       queryClient.invalidateQueries({ queryKey: ["hamaal-drafts"] });
+      // Invalidate sellers query in case a new seller was created
+      queryClient.invalidateQueries({ queryKey: ["sellers", ""] });
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -281,6 +322,66 @@ export default function HamaalPage() {
                         )}
                       </Box>
 
+                      <Box position="relative">
+                        <Text fontSize="sm" fontWeight="semibold" mb={1} color="gray.700">Seller / Buyer (Optional)</Text>
+                        <Input
+                          value={sellerSearch}
+                          onChange={(e) => {
+                            setSellerSearch(e.target.value);
+                            setSellerId("");
+                            setShowSellerSuggestions(true);
+                          }}
+                          onFocus={() => setShowSellerSuggestions(true)}
+                          onBlur={() => setShowSellerSuggestions(false)}
+                          placeholder="Type registered seller name/mobile, or enter a new seller..."
+                          bg="white"
+                        />
+
+                        {showSellerSuggestions && sellerSearch.trim() && (
+                          <Box
+                            position="absolute"
+                            top="100%"
+                            left="0"
+                            right="0"
+                            bg="white"
+                            borderWidth="1px"
+                            borderColor="gray.200"
+                            borderRadius="md"
+                            shadow="md"
+                            zIndex="10"
+                            maxH="200px"
+                            overflowY="auto"
+                            mt={1}
+                          >
+                            {filteredSellers.length === 0 ? (
+                              <Box px={3} py={2} fontSize="sm" color="gray.500">
+                                No registered sellers found. Submitting will register this name.
+                              </Box>
+                            ) : (
+                              filteredSellers.map((s) => (
+                                <Box
+                                  key={s.id}
+                                  px={3}
+                                  py={2}
+                                  fontSize="sm"
+                                  cursor="pointer"
+                                  _hover={{ bg: "gray.50" }}
+                                  onMouseDown={(e) => {
+                                    e.preventDefault();
+                                    setSellerSearch(s.name);
+                                    setSellerId(s.id);
+                                    setShowSellerSuggestions(false);
+                                  }}
+                                >
+                                  <Text fontWeight="semibold" color="gray.800">{s.name}</Text>
+                                  <Text fontSize="xs" color="gray.500">{s.mobile}</Text>
+                                </Box>
+                              ))
+                            )}
+                          </Box>
+                        )}
+                      </Box>
+
                       <Box>
                         <Text fontSize="sm" fontWeight="semibold" mb={1} color="gray.700">Fruit Type</Text>
                         <Input
@@ -390,7 +491,9 @@ export default function HamaalPage() {
                     <Box key={d.id} bg="white" p={4} borderRadius="xl" shadow="xs" borderWidth="1px">
                       <Flex justify="space-between" align="start">
                         <Stack gap={0.5}>
-                          <Text fontWeight="semibold" color="gray.800" fontSize="sm">{d.grower?.name || d.seller?.name || "—"}</Text>
+                          <Text fontWeight="semibold" color="gray.800" fontSize="sm">
+                            {d.grower?.name || "—"}{d.seller?.name ? ` → ${d.seller.name}` : ""}
+                          </Text>
                           <Text color="green.750" fontWeight="bold" fontSize="xs">
                             {d.quantity} {d.unit} of {d.fruitType} {d.rate ? `@ ₹${d.rate}/${d.unit}` : ""}
                           </Text>

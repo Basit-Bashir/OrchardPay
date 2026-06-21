@@ -400,7 +400,7 @@ export default function SellerDetailPage({ params }: { params: Promise<{ id: str
             onClick={(e) => e.stopPropagation()}
           >
             <Flex justify="space-between" align="center" mb={4} borderBottomWidth="1px" pb={3}>
-              <Heading size="md" color="gray.800">Deductions Breakdown</Heading>
+              <Heading size="md" color="gray.800">Transaction Details</Heading>
               <Button size="xs" variant="ghost" onClick={() => setSelectedTxn(null)}>
                 ✕
               </Button>
@@ -423,52 +423,15 @@ export default function SellerDetailPage({ params }: { params: Promise<{ id: str
 
               <Box borderTopWidth="1px" my={1} />
 
-              <Flex justify="space-between" fontSize="xs" pl={2}>
-                <Text color="gray.500">Commission (12%):</Text>
-                <Text color="red.600">-{inr(selectedTxn.commission)}</Text>
-              </Flex>
-
-              <Flex justify="space-between" fontSize="xs" pl={2}>
-                <Text color="gray.500">Labour (₹3/unit):</Text>
-                <Text color="red.600">-{inr(selectedTxn.labour)}</Text>
-              </Flex>
-
-              <Flex justify="space-between" fontSize="xs" pl={2}>
-                <Text color="gray.500">Freight:</Text>
-                <Text color="red.600">-{inr(selectedTxn.freight)}</Text>
-              </Flex>
-
-              <Flex justify="space-between" fontSize="xs" pl={2}>
-                <Text color="gray.500">Association (0.10%):</Text>
-                <Text color="red.600">-{inr(selectedTxn.association)}</Text>
-              </Flex>
-
-              <Flex justify="space-between" fontSize="xs" pl={2}>
-                <Text color="gray.500">Printing:</Text>
-                <Text color="red.600">-{inr(selectedTxn.printing)}</Text>
-              </Flex>
-
-              <Flex justify="space-between" fontSize="xs" pl={2}>
-                <Text color="gray.500">Miscellaneous (0.90%):</Text>
-                <Text color="red.600">-{inr(selectedTxn.miscellaneous)}</Text>
-              </Flex>
-
-              <Box borderTopWidth="1px" my={1} />
-
-              <Flex justify="space-between" fontWeight="bold">
-                <Text color="gray.700">Total Deductions:</Text>
-                <Text color="red.700">
-                  {inr(
-                    Math.round(
-                      ((selectedTxn.grossAmount || selectedTxn.quantity * selectedTxn.rate) - selectedTxn.totalAmount) * 100
-                    ) / 100
-                  )}
+              <Box bg="green.50" p={3} borderRadius="md" my={1}>
+                <Text fontSize="xs" color="green.800" fontStyle="italic">
+                  No deductions are applicable for Seller transactions. The seller is charged the full gross amount.
                 </Text>
-              </Flex>
+              </Box>
 
               <Flex justify="space-between" fontWeight="bold" fontSize="md" mt={1} pt={2} borderTopWidth="1px" borderColor="gray.100">
-                <Text color="gray.800">Net Transaction Total:</Text>
-                <Text color="green.700">{inr(selectedTxn.totalAmount)}</Text>
+                <Text color="gray.800">Total Purchase Amount:</Text>
+                <Text color="red.700">{inr(selectedTxn.totalAmount)}</Text>
               </Flex>
             </Stack>
           </Box>
