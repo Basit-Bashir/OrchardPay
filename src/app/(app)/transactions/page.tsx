@@ -252,7 +252,11 @@ export default function TransactionsPage() {
                         <Text color="gray.400">—</Text>
                       )}
                     </Box>
-                    <Box as="td" px={6} py={3}>{t.fruitType}</Box>
+                    <Box as="td" px={6} py={3}>
+                      <NextLink href={`/transactions/${t.id}`} style={{ color: "var(--chakra-colors-green-600)", fontWeight: 600 }}>
+                        {t.fruitType}
+                      </NextLink>
+                    </Box>
                     <Box as="td" px={6} py={3}>{t.quantity} {t.unit}</Box>
                     <Box as="td" px={6} py={3}>{inr(t.rate)}/{t.unit}</Box>
                     <Box as="td" px={6} py={3} fontWeight="medium">{inr(t.totalAmount)}</Box>

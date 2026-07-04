@@ -21,7 +21,8 @@ import {
   Tick01Icon,
   PlusSignIcon,
   BanknoteIcon,
-  CoinsIcon
+  CoinsIcon,
+  Comment01Icon
 } from "@hugeicons/core-free-icons";
 
 const Select = chakra("select");
@@ -35,6 +36,7 @@ const NAV = [
   { href: "/expenses", label: "Expenses", icon: BanknoteIcon },
   { href: "/migration", label: "Data migration", icon: PackageIcon },
   { href: "/reports", label: "Reports", icon: Document },
+  { href: "/sms-logs", label: "SMS Logs", icon: Comment01Icon },
   { href: "/settings", label: "Settings", icon: Settings01Icon },
 ];
 

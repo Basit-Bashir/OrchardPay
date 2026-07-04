@@ -1089,8 +1089,15 @@ export default function LandingPage() {
             <Stack gap={3}>
               <Text fontWeight="black" color="white" fontSize="xs" textTransform="uppercase" letterSpacing="wider">Resources</Text>
               <chakra.a href="#faq" fontSize="xs" color="gray.500" _hover={{ color: "green.400" }} transition="color 0.2s">Support FAQ</chakra.a>
-              <chakra.a href="#" fontSize="xs" color="gray.500" _hover={{ color: "green.400" }} transition="color 0.2s">Privacy Policy</chakra.a>
-              <chakra.a href="#" fontSize="xs" color="gray.500" _hover={{ color: "green.400" }} transition="color 0.2s">Terms of Service</chakra.a>
+              <chakra.a asChild fontSize="xs" color="gray.500" _hover={{ color: "green.400" }} transition="color 0.2s">
+                <NextLink href="/refund-policy">Refund Policy</NextLink>
+              </chakra.a>
+              <chakra.a asChild fontSize="xs" color="gray.500" _hover={{ color: "green.400" }} transition="color 0.2s">
+                <NextLink href="/privacy-policy">Privacy Policy</NextLink>
+              </chakra.a>
+              <chakra.a asChild fontSize="xs" color="gray.500" _hover={{ color: "green.400" }} transition="color 0.2s">
+                <NextLink href="/terms-of-service">Terms of Service</NextLink>
+              </chakra.a>
             </Stack>
 
             {/* Links Column 3 */}

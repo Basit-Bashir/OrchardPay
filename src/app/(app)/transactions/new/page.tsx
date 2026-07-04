@@ -152,6 +152,20 @@ function NewTransactionForm() {
   }, [growerId, sellerId, grandTotal, totalQuantity, freight, commissionRate, labourRate, associationRate, printingCharge, miscellaneousRate]);
 
   async function submit() {
+    console.log("[Client] 'Save & notify grower' clicked.");
+    console.log("[Client] Submitting transaction details:", {
+      growerId,
+      sellerId,
+      items,
+      freight,
+      commissionRate,
+      labourRate,
+      associationRate,
+      printingCharge,
+      miscellaneousRate,
+      notes,
+      draftId,
+    });
     setError("");
     setLoading(true);
     try {
@@ -161,7 +175,8 @@ function NewTransactionForm() {
       if (items.some(item => !item.fruitType || !item.quantity || !item.rate)) {
         throw new Error("Please fill in Fruit Type, Quantity, and Rate for all items.");
       }
-      await api("/api/transactions", {
+      console.log("[Client] Sending POST request to /api/transactions...");
+      const response = await api("/api/transactions", {
         method: "POST",
         body: JSON.stringify({
           growerId: growerId || undefined,
@@ -182,8 +197,10 @@ function NewTransactionForm() {
           draftId: draftId || undefined,
         }),
       });
+      console.log("[Client] POST request successful. Response:", response);
       router.push("/transactions");
     } catch (e) {
+      console.error("[Client] Transaction submit failed:", e);
       setError((e as Error).message);
       setLoading(false);
     }
