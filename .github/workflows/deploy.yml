@@ -26,4 +26,4 @@ jobs:
             npm install
             npm run build
             /home/zahid/.npm-global/bin/pm2 restart ORCHAD-WEB
-          EOF
+         EOF
