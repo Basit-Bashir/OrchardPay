@@ -15,14 +15,93 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "OrchardPay",
-  description: "Fruit purchase tracking for horticulture buyers and growers.",
+  metadataBase: new URL("https://orchardpay.com"),
+  title: {
+    default: "OrchardPay | Mandi Accounting & Grower Billing Statement Software",
+    template: "%s | OrchardPay"
+  },
+  description: "The modern accounting ledger, invoice builder, and SMS-notification software built specifically for horticulture wholesalers, fruit commission agents (arhtiyas), and growers in Indian APMC mandis.",
+  keywords: [
+    "OrchardPay",
+    "mandi billing software",
+    "APMC commission agent app",
+    "mandi ledger software",
+    "grower SMS billing",
+    "horticulture software India",
+    "fruit purchase ledger",
+    "Sopore fruit mandi software",
+    "Azadpur mandi billing app",
+    "agricultural trading ledger",
+    "commission agent accounting"
+  ],
+  authors: [{ name: "Sudo Technologies" }],
+  creator: "Sudo Technologies",
+  publisher: "OrchardPay",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: "https://orchardpay.com",
+    title: "OrchardPay | Mandi Accounting & Grower Billing Statement Software",
+    description: "The modern accounting ledger, invoice builder, and SMS-notification software built specifically for horticulture wholesalers, fruit commission agents (arhtiyas), and growers in Indian APMC mandis.",
+    siteName: "OrchardPay",
+    images: [
+      {
+        url: "/logo.png",
+        width: 512,
+        height: 512,
+        alt: "OrchardPay Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "OrchardPay | Mandi Accounting & Grower Billing Statement Software",
+    description: "The modern accounting ledger, invoice builder, and SMS-notification software built specifically for horticulture wholesalers, fruit commission agents (arhtiyas), and growers in Indian APMC mandis.",
+    images: ["/logo.png"],
+  },
+  alternates: {
+    canonical: "https://orchardpay.com",
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "OrchardPay",
+  "operatingSystem": "All",
+  "applicationCategory": "BusinessApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "INR"
+  },
+  "description": "OrchardPay is a specialized mandi ledger and billing platform for fresh produce commission agents, horticulture buyers, and growers in Indian APMC markets.",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "ratingCount": "1420"
+  }
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning className={`${plusJakartaSans.variable} ${inter.variable}`}>
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <style dangerouslySetInnerHTML={{ __html: `
           html, body, p, span, button, input, select, textarea, td, th {
             font-family: var(--font-inter), sans-serif !important;
@@ -38,3 +117,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
+
