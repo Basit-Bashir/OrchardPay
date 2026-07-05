@@ -37,6 +37,11 @@ export const metadata: Metadata = {
   authors: [{ name: "Sudo Technologies" }],
   creator: "Sudo Technologies",
   publisher: "OrchardPay",
+  icons: {
+    icon: "/orchard_pay_logo.png",
+    shortcut: "/orchard_pay_logo.png",
+    apple: "/orchard_pay_logo.png",
+  },
   robots: {
     index: true,
     follow: true,
@@ -57,7 +62,7 @@ export const metadata: Metadata = {
     siteName: "OrchardPay",
     images: [
       {
-        url: "/logo.png",
+        url: "/orchard_pay_logo.png",
         width: 512,
         height: 512,
         alt: "OrchardPay Logo",
@@ -68,7 +73,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "OrchardPay | Mandi Accounting & Grower Billing Statement Software",
     description: "The modern accounting ledger, invoice builder, and SMS-notification software built specifically for horticulture wholesalers, fruit commission agents (arhtiyas), and growers in Indian APMC mandis.",
-    images: ["/logo.png"],
+    images: ["/orchard_pay_logo.png"],
   },
   alternates: {
     canonical: "https://orchardpay.com",

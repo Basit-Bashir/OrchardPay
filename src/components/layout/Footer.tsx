@@ -12,21 +12,11 @@ export function Footer() {
           {/* Logo Column */}
           <Stack gap={5}>
             <Flex align="center" gap={2.5}>
-              <Box
-                bg="green.500"
-                w="28px"
-                h="28px"
-                borderRadius="lg"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                color="white"
-                fontWeight="black"
-                fontSize="md"
-                shadow="sm"
-              >
-                O
-              </Box>
+              <img
+                src="/orchard_pay_logo.png"
+                alt="OrchardPay Logo"
+                style={{ width: "28px", height: "28px", objectFit: "contain" }}
+              />
               <Text fontWeight="extrabold" color="white" fontSize="md">OrchardPay</Text>
             </Flex>
             <Text fontSize="xs" color="gray.500" lineHeight="relaxed">

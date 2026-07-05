@@ -62,10 +62,13 @@ function LoginInner() {
       <Flex flex="1" align="center" justify="center" py={8}>
         <Container maxW="md">
           <Box bg="white" p={8} borderRadius="xl" shadow="md">
-            <Heading size="lg" color="green.700" mb={1}>
+            <Flex justify="center" mb={4}>
+              <img src="/orchard_pay_logo.png" alt="OrchardPay Logo" style={{ width: "64px", height: "64px", objectFit: "contain" }} />
+            </Flex>
+            <Heading size="lg" color="green.700" mb={1} textAlign="center">
               Log in to OrchardPay
             </Heading>
-            <Text color="gray.500" mb={6}>
+            <Text color="gray.500" mb={6} textAlign="center">
               {step === "mobile"
                 ? "Enter your registered mobile number."
                 : `Enter the 6-digit code sent to ${mobile}.`}

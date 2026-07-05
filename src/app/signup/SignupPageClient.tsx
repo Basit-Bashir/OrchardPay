@@ -82,10 +82,13 @@ function SignupInner() {
       <Flex flex="1" align="center" justify="center" py={8}>
         <Container maxW="md">
           <Box bg="white" p={8} borderRadius="xl" shadow="md">
-            <Heading size="lg" color="green.700" mb={1}>
+            <Flex justify="center" mb={4}>
+              <img src="/orchard_pay_logo.png" alt="OrchardPay Logo" style={{ width: "64px", height: "64px", objectFit: "contain" }} />
+            </Flex>
+            <Heading size="lg" color="green.700" mb={1} textAlign="center">
               {step === "plan" ? "Select your plan" : "Create your firm account"}
             </Heading>
-            <Text color="gray.500" mb={6}>
+            <Text color="gray.500" mb={6} textAlign="center">
               {step === "plan"
                 ? "Choose the plan that fits your business needs."
                 : step === "details"

@@ -139,7 +139,7 @@ export default function AgreementPrintPage({
         zIndex={0}
         width="450px"
         height="450px"
-        backgroundImage={`url('${data.grower.buyerFirm?.logoUrl || '/logo.png'}')`}
+        backgroundImage={`url('${data.grower.buyerFirm?.logoUrl || '/orchard_pay_logo.png'}')`}
         backgroundPosition="center"
         backgroundRepeat="no-repeat"
         backgroundSize="contain"

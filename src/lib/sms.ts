@@ -98,7 +98,10 @@ async function sendViaFast2Sms(to: string, body: string): Promise<SendResult> {
 }
 
 export async function sendSms(to: string, body: string): Promise<SendResult> {
-  const provider = process.env.SMS_PROVIDER ?? "console";
+  let provider = process.env.SMS_PROVIDER ?? "console";
+  if (provider === "fast2sms" && !process.env.FAST2SMS_API_KEY) {
+    provider = "console";
+  }
   console.log(`[SMS] Initiating dispatch to ${to} using provider: "${provider}"`);
   let result: SendResult;
 

@@ -33,21 +33,11 @@ export function Navbar() {
           {/* Logo */}
           <NextLink href="/" style={{ textDecoration: "none" }}>
             <Flex align="center" gap={2} cursor="pointer">
-              <Box
-                bg="linear-gradient(135deg, var(--chakra-colors-green-500), var(--chakra-colors-teal-600))"
-                w="32px"
-                h="32px"
-                borderRadius="lg"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                color="white"
-                fontWeight="bold"
-                fontSize="lg"
-                shadow="sm"
-              >
-                O
-              </Box>
+              <img
+                src="/orchard_pay_logo.png"
+                alt="OrchardPay Logo"
+                style={{ width: "32px", height: "32px", objectFit: "contain" }}
+              />
               <Heading
                 size="md"
                 fontWeight="bold"

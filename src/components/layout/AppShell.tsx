@@ -108,7 +108,14 @@ export function AppShell({
   const sidebarContent = (
     <>
       <Flex align="center" justify="space-between" mb={1}>
-        <Heading size="md">OrchardPay</Heading>
+        <Flex align="center" gap={2}>
+          <img
+            src="/orchard_pay_logo.png"
+            alt="OrchardPay Logo"
+            style={{ width: "28px", height: "28px", objectFit: "contain" }}
+          />
+          <Heading size="md" color="white">OrchardPay</Heading>
+        </Flex>
         {/* Close button – only visible on mobile */}
         <IconButton
           aria-label="Close menu"
