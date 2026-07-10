@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://orchardpay.com";
+  const baseUrl = "https://orchardpay.tech";
   const routes = [
     "",
     "/login",

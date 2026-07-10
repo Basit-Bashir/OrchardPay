@@ -25,6 +25,6 @@ export default function robots(): MetadataRoute.Robots {
         "/api/",
       ],
     },
-    sitemap: "https://orchardpay.com/sitemap.xml",
+    sitemap: "https://orchardpay.tech/sitemap.xml",
   };
 }

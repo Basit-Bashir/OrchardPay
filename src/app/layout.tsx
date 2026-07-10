@@ -15,7 +15,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://orchardpay.com"),
+  metadataBase: new URL("https://orchardpay.tech"),
   title: {
     default: "OrchardPay | Mandi Accounting & Grower Billing Statement Software",
     template: "%s | OrchardPay"
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://orchardpay.com",
+    url: "https://orchardpay.tech",
     title: "OrchardPay | Mandi Accounting & Grower Billing Statement Software",
     description: "The modern accounting ledger, invoice builder, and SMS-notification software built specifically for horticulture wholesalers, fruit commission agents (arhtiyas), and growers in Indian APMC mandis.",
     siteName: "OrchardPay",
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
     images: ["/orchard_pay_logo.png"],
   },
   alternates: {
-    canonical: "https://orchardpay.com",
+    canonical: "https://orchardpay.tech",
   },
 };
 
