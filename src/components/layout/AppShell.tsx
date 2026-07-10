@@ -37,6 +37,8 @@ const NAV = [
   { href: "/migration", label: "Data migration", icon: PackageIcon },
   { href: "/reports", label: "Reports", icon: Document },
   { href: "/sms-logs", label: "SMS Logs", icon: Comment01Icon },
+  { href: "/deductions", label: "Deductions", icon: CoinsIcon },
+  { href: "/bank-details", label: "Bank Details", icon: BanknoteIcon },
   { href: "/settings", label: "Settings", icon: Settings01Icon },
 ];
 

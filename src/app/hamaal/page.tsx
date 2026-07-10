@@ -8,7 +8,7 @@ import { api } from "@/lib/client";
 
 const Select = chakra("select");
 
-type Grower = { id: string; name: string; mobile: string };
+type Grower = { id: string; name: string; mobile: string; codeName?: string | null };
 type Seller = { id: string; name: string; mobile: string };
 
 type Draft = {
@@ -76,7 +76,8 @@ export default function HamaalPage() {
     if (!query) return growers;
     return growers.filter(g => 
       g.name.toLowerCase().includes(query) || 
-      g.mobile.includes(query)
+      g.mobile.includes(query) ||
+      (g.codeName && g.codeName.toLowerCase().includes(query))
     );
   }, [growers, growerSearch]);
 
@@ -272,7 +273,7 @@ export default function HamaalPage() {
                           }}
                           onFocus={() => setShowSuggestions(true)}
                           onBlur={() => setShowSuggestions(false)}
-                          placeholder="Type grower name or mobile number..."
+                          placeholder="Type grower name, mobile number, or code..."
                           bg="white"
                           required
                         />
@@ -303,7 +304,6 @@ export default function HamaalPage() {
                                   key={g.id}
                                   px={3}
                                   py={2}
-                                  fontSize="sm"
                                   cursor="pointer"
                                   _hover={{ bg: "gray.50" }}
                                   onMouseDown={(e) => {
@@ -313,7 +313,9 @@ export default function HamaalPage() {
                                     setShowSuggestions(false);
                                   }}
                                 >
-                                  <Text fontWeight="semibold" color="gray.800">{g.name}</Text>
+                                  <Text fontWeight="semibold" color="gray.800">
+                                      {g.name} {g.codeName ? `(Code: ${g.codeName})` : ""}
+                                  </Text>
                                   <Text fontSize="xs" color="gray.500">{g.mobile}</Text>
                                 </Box>
                               ))

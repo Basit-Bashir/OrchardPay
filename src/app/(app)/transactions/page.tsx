@@ -168,7 +168,9 @@ export default function TransactionsPage() {
           >
             <option value="">All Growers</option>
             {growers?.map((g) => (
-              <option key={g.id} value={g.id}>{g.name}</option>
+              <option key={g.id} value={g.id}>
+                {g.name}{g.codeName ? ` (Code: ${g.codeName})` : ""}
+              </option>
             ))}
           </Select>
         </Box>

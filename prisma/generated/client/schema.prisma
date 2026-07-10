@@ -27,6 +27,11 @@ model BuyerFirm {
   logoUrl            String?
   expenses           Expense[]
   itemCharges        GrowerItemCharge[]
+  deductionsConfig   String?
+  bankName           String?
+  bankAccNumber      String?
+  bankAddress        String?
+  bankAccounts       BankAccount[]
 }
 
 model User {
@@ -47,6 +52,7 @@ model Grower {
   name              String
   mobile            String
   address           String?
+  codeName          String?
   buyerFirmId       String
   buyerFirm         BuyerFirm          @relation(fields: [buyerFirmId], references: [id], onDelete: Cascade)
   transactions      Transaction[]
@@ -84,18 +90,24 @@ model Transaction {
   notes         String?
   notified      Boolean   @default(false)
   createdAt     DateTime  @default(now())
+  deductions    String?
 }
 
 model Payment {
-  id          String    @id @default(cuid())
-  growerId    String
-  grower      Grower    @relation(fields: [growerId], references: [id], onDelete: Cascade)
-  buyerFirmId String
-  buyerFirm   BuyerFirm @relation(fields: [buyerFirmId], references: [id], onDelete: Cascade)
-  amount      Float
-  notes       String?
-  paidAt      DateTime  @default(now())
-  createdAt   DateTime  @default(now())
+  id               String    @id @default(cuid())
+  growerId         String
+  grower           Grower    @relation(fields: [growerId], references: [id], onDelete: Cascade)
+  buyerFirmId      String
+  buyerFirm        BuyerFirm @relation(fields: [buyerFirmId], references: [id], onDelete: Cascade)
+  amount           Float
+  notes            String?
+  paidAt           DateTime  @default(now())
+  createdAt        DateTime  @default(now())
+  method           String?   @default("CASH") // CASH, BANK_TRANSFER, ONLINE_TRANSFER
+  bankTransferType String? // CHECK, TRANSFER
+  bankName         String?
+  bankAccNumber    String?
+  bankAddress      String?
 }
 
 model Otp {
@@ -201,5 +213,16 @@ model GrowerItemCharge {
   amount      Float
   notes       String?
   issuedAt    DateTime  @default(now())
+  createdAt   DateTime  @default(now())
+}
+
+model BankAccount {
+  id          String    @id @default(cuid())
+  buyerFirmId String
+  buyerFirm   BuyerFirm @relation(fields: [buyerFirmId], references: [id], onDelete: Cascade)
+  bankName    String
+  accNumber   String
+  bankAddress String?
+  isPrimary   Boolean   @default(false)
   createdAt   DateTime  @default(now())
 }

@@ -20,7 +20,18 @@ export async function GET(_req: Request, { params }: Ctx) {
         transactions: { orderBy: { receivedAt: "desc" } },
         payments: { orderBy: { paidAt: "desc" } },
         itemCharges: { orderBy: { issuedAt: "desc" } },
-        buyerFirm: { select: { logoUrl: true, firmName: true } },
+        buyerFirm: { 
+          select: { 
+            logoUrl: true, 
+            firmName: true, 
+            bankName: true, 
+            bankAccNumber: true, 
+            bankAddress: true,
+            bankAccounts: {
+              orderBy: { createdAt: "desc" }
+            }
+          } 
+        },
       },
     });
     if (!grower) return fail("Grower not found", 404);
@@ -37,10 +48,10 @@ export async function PATCH(req: Request, { params }: Ctx) {
     const parsed = growerSchema.safeParse(await req.json());
     if (!parsed.success) return fail(parsed.error.issues[0]?.message ?? "Invalid input");
 
-    const { name, mobile, address } = parsed.data;
+    const { name, mobile, address, codeName } = parsed.data;
     const updated = await prisma.grower.update({
       where: { id },
-      data: { name, mobile, address: address || null },
+      data: { name, mobile, address: address || null, codeName: codeName || null },
     });
     return ok(updated);
   });

@@ -7,7 +7,7 @@ import { api } from "@/lib/client";
 
 const Select = chakra("select");
 
-type Grower = { id: string; name: string; mobile: string };
+type Grower = { id: string; name: string; mobile: string; codeName?: string | null };
 type Seller = { id: string; name: string; mobile: string };
 
 type Txn = {
@@ -32,6 +32,11 @@ type Payment = {
   paidAt: string;
   growerId: string;
   grower?: { name: string; mobile: string };
+  method?: string | null;
+  bankTransferType?: string | null;
+  bankName?: string | null;
+  bankAccNumber?: string | null;
+  bankAddress?: string | null;
 };
 
 type SellerPayment = {
@@ -184,14 +189,34 @@ export default function ReportsPage() {
           credit: t.totalAmount,
           debit: 0,
         })),
-        ...filteredPayments.map((p) => ({
-          id: p.id,
-          date: new Date(p.paidAt),
-          type: "Advance Cash",
-          description: p.notes ? `Payment: ${p.notes}` : "Cash Advance Paid",
-          credit: 0,
-          debit: p.amount,
-        })),
+        ...filteredPayments.map((p) => {
+          let desc = "Cash Advance Paid";
+          if (p.method === "BANK_TRANSFER") {
+            const typeStr = p.bankTransferType === "CHECK" ? "Check" : "Transfer";
+            desc = `Bank Transfer (${typeStr})`;
+            if (p.bankName) {
+              desc += ` [${p.bankName}${p.bankAccNumber ? ` A/c: ${p.bankAccNumber}` : ""}]`;
+            }
+          } else if (p.method === "ONLINE_TRANSFER") {
+            desc = `Online Transfer`;
+            if (p.bankName) {
+              desc += ` [${p.bankName}${p.bankAccNumber ? ` A/c: ${p.bankAccNumber}` : ""}]`;
+            }
+          } else if (p.method === "CASH") {
+            desc = `Cash Advance Paid (Cash)`;
+          }
+          if (p.notes) {
+            desc = `${desc} - ${p.notes}`;
+          }
+          return {
+            id: p.id,
+            date: new Date(p.paidAt),
+            type: "Advance Cash",
+            description: desc,
+            credit: 0,
+            debit: p.amount,
+          };
+        }),
         ...filteredCharges.map((c) => ({
           id: c.id,
           date: new Date(c.issuedAt),
@@ -499,7 +524,11 @@ export default function ReportsPage() {
             <Select value={growerId} onChange={(e) => setGrowerId(e.target.value)}
               px={3} py={1.5} borderWidth="1px" borderRadius="md" bg="white" h="32px" fontSize="sm" style={{ width: "180px" }}>
               <option value="">All Growers</option>
-              {growers?.map((g) => <option key={g.id} value={g.id}>{g.name}</option>)}
+              {growers?.map((g) => (
+                <option key={g.id} value={g.id}>
+                  {g.name}{g.codeName ? ` (Code: ${g.codeName})` : ""}
+                </option>
+              ))}
             </Select>
           </Box>
         )}

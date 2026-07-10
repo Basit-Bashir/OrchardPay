@@ -12,7 +12,13 @@ export async function GET(req: Request) {
       where: {
         buyerFirmId: session.buyerFirmId,
         ...(q
-          ? { OR: [{ name: { contains: q } }, { mobile: { contains: q } }] }
+          ? {
+              OR: [
+                { name: { contains: q } },
+                { mobile: { contains: q } },
+                { codeName: { contains: q } },
+              ],
+            }
           : {}),
       },
       orderBy: { createdAt: "desc" },
@@ -29,14 +35,20 @@ export async function POST(req: Request) {
     const parsed = growerSchema.safeParse(await req.json());
     if (!parsed.success) return fail(parsed.error.issues[0]?.message ?? "Invalid input");
 
-    const { name, mobile, address } = parsed.data;
+    const { name, mobile, address, codeName } = parsed.data;
     const existing = await prisma.grower.findUnique({
       where: { mobile_buyerFirmId: { mobile, buyerFirmId: session.buyerFirmId } },
     });
     if (existing) return fail("A grower with this mobile already exists.", 409);
 
     const grower = await prisma.grower.create({
-      data: { name, mobile, address: address || null, buyerFirmId: session.buyerFirmId },
+      data: {
+        name,
+        mobile,
+        address: address || null,
+        codeName: codeName || null,
+        buyerFirmId: session.buyerFirmId,
+      },
     });
     return ok(grower, 201);
   });

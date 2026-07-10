@@ -12,6 +12,7 @@ type Grower = {
   name: string;
   mobile: string;
   address: string | null;
+  codeName: string | null;
   _count: { transactions: number };
 };
 
@@ -41,7 +42,7 @@ export default function GrowersPage() {
 
       <Input
         maxW="sm"
-        placeholder="Search by name or mobile"
+        placeholder="Search by name, mobile or code name"
         value={q}
         onChange={(e) => setQ(e.target.value)}
         bg="white"
@@ -58,6 +59,7 @@ export default function GrowersPage() {
               <Box as="thead" bg="gray.50">
                 <Box as="tr" textAlign="left" color="gray.500">
                   <Box as="th" px={6} py={3} fontWeight="medium">Name</Box>
+                  <Box as="th" px={6} py={3} fontWeight="medium">Code Name</Box>
                   <Box as="th" px={6} py={3} fontWeight="medium">Mobile</Box>
                   <Box as="th" px={6} py={3} fontWeight="medium">Address</Box>
                   <Box as="th" px={6} py={3} fontWeight="medium">Transactions</Box>
@@ -72,6 +74,7 @@ export default function GrowersPage() {
                         {g.name}
                       </NextLink>
                     </Box>
+                    <Box as="td" px={6} py={3} fontWeight="medium" color="gray.700">{g.codeName ?? "—"}</Box>
                     <Box as="td" px={6} py={3}>{g.mobile}</Box>
                     <Box as="td" px={6} py={3} color="gray.500">{g.address ?? "—"}</Box>
                     <Box as="td" px={6} py={3}>{g._count.transactions}</Box>

@@ -25,6 +25,7 @@ export const growerSchema = z.object({
   name: z.string().trim().min(2, "Name is required"),
   mobile,
   address: z.string().trim().optional().or(z.literal("")),
+  codeName: z.string().trim().optional().or(z.literal("")),
 });
 
 export const sellerSchema = z.object({
@@ -75,6 +76,11 @@ export const paymentSchema = z.object({
   amount: z.coerce.number().positive("Amount must be greater than 0"),
   notes: z.string().trim().optional().or(z.literal("")),
   paidAt: z.coerce.date().optional(),
+  method: z.string().optional().nullable(),
+  bankTransferType: z.string().optional().nullable(),
+  bankName: z.string().optional().nullable(),
+  bankAccNumber: z.string().optional().nullable(),
+  bankAddress: z.string().optional().nullable(),
 });
 
 export const sellerPaymentSchema = z.object({
@@ -114,10 +120,22 @@ export const migrationImportSchema = z.object({
 });
 
 export const updateFirmSchema = z.object({
-  firmName: z.string().trim().min(2),
-  ownerName: z.string().trim().min(2),
+  firmName: z.string().trim().min(2).optional(),
+  ownerName: z.string().trim().min(2).optional(),
   logoUrl: z.string().trim().optional().nullable(),
+  deductionsConfig: z.string().trim().optional().nullable(),
+  bankName: z.string().trim().optional().nullable(),
+  bankAccNumber: z.string().trim().optional().nullable(),
+  bankAddress: z.string().trim().optional().nullable(),
 });
+
+export const DEFAULT_DEDUCTIONS = JSON.stringify([
+  { id: "commission", name: "Commission", type: "percentage", value: 12 },
+  { id: "labour", name: "Labour", type: "fixed_per_unit", value: 3 },
+  { id: "association", name: "Association", type: "percentage", value: 0.10 },
+  { id: "printing", name: "Printing", type: "fixed_flat", value: 1 },
+  { id: "miscellaneous", name: "Miscellaneous", type: "percentage", value: 0.90 }
+]);
 
 export const staffSchema = z.object({
   name: z.string().trim().min(2, "Name is required"),
@@ -149,3 +167,13 @@ export type SellerPaymentInput = z.infer<typeof sellerPaymentSchema>;
 export type MigrationRow = z.infer<typeof migrationRowSchema>;
 export type ExpenseInput = z.infer<typeof expenseSchema>;
 export type GrowerItemChargeInput = z.infer<typeof growerItemChargeSchema>;
+
+export const bankAccountSchema = z.object({
+  bankName: z.string().trim().min(2, "Bank name is required"),
+  accNumber: z.string().trim().min(2, "Account number is required"),
+  bankAddress: z.string().trim().optional().or(z.literal("")),
+  isPrimary: z.boolean().optional(),
+});
+
+export type BankAccountInput = z.infer<typeof bankAccountSchema>;
+

@@ -15,6 +15,7 @@ type Grower = {
   id: string;
   name: string;
   mobile: string;
+  codeName?: string | null;
 };
 
 type ItemCharge = {
@@ -327,7 +328,7 @@ export default function GrowerChargesPage() {
             <option value="">All Growers</option>
             {growers?.map((g) => (
               <option key={g.id} value={g.id}>
-                {g.name}
+                {g.name}{g.codeName ? ` (Code: ${g.codeName})` : ""}
               </option>
             ))}
           </Select>
@@ -515,7 +516,7 @@ export default function GrowerChargesPage() {
                   <option value="">Select a grower…</option>
                   {growers?.map((g) => (
                     <option key={g.id} value={g.id}>
-                      {g.name} ({g.mobile})
+                      {g.name} {g.codeName ? `(Code: ${g.codeName}) ` : ""}({g.mobile})
                     </option>
                   ))}
                 </Select>

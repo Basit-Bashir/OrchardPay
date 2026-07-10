@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { ok, fail, handle } from "@/lib/api";
-import { otpRequestSchema } from "@/lib/validations";
+import { otpRequestSchema, DEFAULT_DEDUCTIONS } from "@/lib/validations";
 import { requestOtp } from "@/lib/otp";
 
 export async function POST(req: Request) {
@@ -22,6 +22,7 @@ export async function POST(req: Request) {
               ownerName: "Demo Owner",
               mobile: "+919898989898",
               subscriptionPlan: "premium",
+              deductionsConfig: DEFAULT_DEDUCTIONS,
             }
           });
         }

@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useState } from "react";
+import { use, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Box, Button, Flex, Heading, Input, Spinner, Stack, Text, Textarea, SimpleGrid, chakra } from "@chakra-ui/react";
@@ -32,6 +32,11 @@ type Payment = {
   amount: number;
   notes: string | null;
   paidAt: string;
+  method?: string | null;
+  bankTransferType?: string | null;
+  bankName?: string | null;
+  bankAccNumber?: string | null;
+  bankAddress?: string | null;
 };
 
 type ItemCharge = {
@@ -49,9 +54,24 @@ type GrowerDetail = {
   name: string;
   mobile: string;
   address: string | null;
+  codeName: string | null;
   transactions: Txn[];
   payments: Payment[];
   itemCharges: ItemCharge[];
+  buyerFirm?: {
+    logoUrl: string | null;
+    firmName: string;
+    bankName?: string | null;
+    bankAccNumber?: string | null;
+    bankAddress?: string | null;
+    bankAccounts?: Array<{
+      id: string;
+      bankName: string;
+      accNumber: string;
+      bankAddress: string | null;
+      isPrimary: boolean;
+    }>;
+  } | null;
 };
 
 type Agreement = {
@@ -83,6 +103,12 @@ export default function GrowerDetailPage({ params }: { params: Promise<{ id: str
   const [payLoading, setPayLoading] = useState(false);
   const [selectedTxn, setSelectedTxn] = useState<Txn | null>(null);
 
+  const [payMethod, setPayMethod] = useState("CASH");
+  const [payBankTransferType, setPayBankTransferType] = useState("TRANSFER");
+  const [payBankName, setPayBankName] = useState("");
+  const [payBankAccNumber, setPayBankAccNumber] = useState("");
+  const [payBankAddress, setPayBankAddress] = useState("");
+
   // Form states for item charges
   const [itemCategory, setItemCategory] = useState("Pesticides");
   const [itemCustomName, setItemCustomName] = useState("");
@@ -99,6 +125,19 @@ export default function GrowerDetailPage({ params }: { params: Promise<{ id: str
     queryKey: ["grower", id],
     queryFn: () => api<GrowerDetail>(`/api/growers/${id}`),
   });
+
+  useEffect(() => {
+    if (data?.buyerFirm?.bankAccounts && data.buyerFirm.bankAccounts.length > 0) {
+      const primary = data.buyerFirm.bankAccounts.find((a) => a.isPrimary) || data.buyerFirm.bankAccounts[0];
+      setPayBankName(primary.bankName);
+      setPayBankAccNumber(primary.accNumber);
+      setPayBankAddress(primary.bankAddress ?? "");
+    } else if (data?.buyerFirm) {
+      setPayBankName(data.buyerFirm.bankName ?? "");
+      setPayBankAccNumber(data.buyerFirm.bankAccNumber ?? "");
+      setPayBankAddress(data.buyerFirm.bankAddress ?? "");
+    }
+  }, [data]);
 
   async function handleRecordItemCharge(e: React.FormEvent) {
     e.preventDefault();
@@ -261,11 +300,32 @@ export default function GrowerDetailPage({ params }: { params: Promise<{ id: str
           amount: parseFloat(payAmount),
           notes: payNotes,
           paidAt: payDate ? new Date(payDate) : undefined,
+          method: payMethod,
+          bankTransferType: payMethod === "BANK_TRANSFER" ? payBankTransferType : null,
+          bankName: (payMethod === "BANK_TRANSFER" || payMethod === "ONLINE_TRANSFER") ? payBankName : null,
+          bankAccNumber: (payMethod === "BANK_TRANSFER" || payMethod === "ONLINE_TRANSFER") ? payBankAccNumber : null,
+          bankAddress: (payMethod === "BANK_TRANSFER" || payMethod === "ONLINE_TRANSFER") ? payBankAddress : null,
         }),
       });
       setPayAmount("");
       setPayNotes("");
       setPayDate(new Date().toISOString().split("T")[0]);
+      setPayMethod("CASH");
+      setPayBankTransferType("TRANSFER");
+      if (data?.buyerFirm?.bankAccounts && data.buyerFirm.bankAccounts.length > 0) {
+        const primary = data.buyerFirm.bankAccounts.find((a) => a.isPrimary) || data.buyerFirm.bankAccounts[0];
+        setPayBankName(primary.bankName);
+        setPayBankAccNumber(primary.accNumber);
+        setPayBankAddress(primary.bankAddress ?? "");
+      } else if (data?.buyerFirm) {
+        setPayBankName(data.buyerFirm.bankName ?? "");
+        setPayBankAccNumber(data.buyerFirm.bankAccNumber ?? "");
+        setPayBankAddress(data.buyerFirm.bankAddress ?? "");
+      } else {
+        setPayBankName("");
+        setPayBankAccNumber("");
+        setPayBankAddress("");
+      }
       await queryClient.invalidateQueries({ queryKey: ["grower", id] });
     } catch (err) {
       setPayError((err as Error).message);
@@ -287,14 +347,23 @@ export default function GrowerDetailPage({ params }: { params: Promise<{ id: str
       {/* Header section */}
       <Flex justify="space-between" align="center" wrap="wrap" gap={4}>
         <Box>
-          <Heading size="lg" color="gray.800">{data.name}</Heading>
+          <Heading size="lg" color="gray.800">
+            {data.name} {data.codeName && <Box as="span" color="green.600" fontSize="lg" fontWeight="semibold">({data.codeName})</Box>}
+          </Heading>
           <Text fontSize="sm" color="gray.500">{data.mobile} {data.address ? `· ${data.address}` : ""}</Text>
         </Box>
-        <Button asChild colorPalette="green" variant="outline">
-          <a href={`/growers/${data.id}/print`} target="_blank" rel="noopener noreferrer">
-            Print Statement
-          </a>
-        </Button>
+        <Flex gap={3}>
+          <Button asChild colorPalette="amber" variant="outline">
+            <a href={`/growers/${data.id}/print?type=watak`} target="_blank" rel="noopener noreferrer">
+              Watak
+            </a>
+          </Button>
+          <Button asChild colorPalette="green" variant="outline">
+            <a href={`/growers/${data.id}/print`} target="_blank" rel="noopener noreferrer">
+              Print Statement
+            </a>
+          </Button>
+        </Flex>
       </Flex>
 
       {/* Account Ledger Cards */}
@@ -522,6 +591,7 @@ export default function GrowerDetailPage({ params }: { params: Promise<{ id: str
                   <Box as="thead" bg="gray.50">
                     <Box as="tr" textAlign="left" color="gray.500">
                       <Box as="th" px={6} py={3} fontWeight="semibold">Amount Paid</Box>
+                      <Box as="th" px={6} py={3} fontWeight="semibold">Payment Method</Box>
                       <Box as="th" px={6} py={3} fontWeight="semibold">Date Taken</Box>
                       <Box as="th" px={6} py={3} fontWeight="semibold">Notes</Box>
                     </Box>
@@ -530,6 +600,36 @@ export default function GrowerDetailPage({ params }: { params: Promise<{ id: str
                     {data.payments.map((p) => (
                       <Box as="tr" key={p.id} borderTopWidth="1px" _hover={{ bg: "gray.50/50" }}>
                         <Box as="td" px={6} py={3} fontWeight="semibold" color="indigo.700">{inr(p.amount)}</Box>
+                        <Box as="td" px={6} py={3} color="gray.700">
+                          {(() => {
+                            if (p.method === "BANK_TRANSFER") {
+                              const typeStr = p.bankTransferType === "CHECK" ? "Check" : "Transfer";
+                              return (
+                                <Box>
+                                  <Text fontWeight="medium" fontSize="xs">Bank Transfer ({typeStr})</Text>
+                                  {p.bankName && (
+                                    <Text fontSize="10px" color="gray.500">
+                                      {p.bankName} {p.bankAccNumber ? `· A/c: ${p.bankAccNumber}` : ""}
+                                    </Text>
+                                  )}
+                                </Box>
+                              );
+                            }
+                            if (p.method === "ONLINE_TRANSFER") {
+                              return (
+                                <Box>
+                                  <Text fontWeight="medium" fontSize="xs">Online Transfer</Text>
+                                  {p.bankName && (
+                                    <Text fontSize="10px" color="gray.500">
+                                      {p.bankName} {p.bankAccNumber ? `· A/c: ${p.bankAccNumber}` : ""}
+                                    </Text>
+                                  )}
+                                </Box>
+                              );
+                            }
+                            return <Text fontWeight="medium" fontSize="xs">Cash</Text>;
+                          })()}
+                        </Box>
                         <Box as="td" px={6} py={3} color="gray.600">
                           {new Date(p.paidAt).toLocaleDateString("en-IN")}
                         </Box>
@@ -685,9 +785,118 @@ export default function GrowerDetailPage({ params }: { params: Promise<{ id: str
                   />
                 </Box>
                 <Box>
+                  <Text fontSize="sm" fontWeight="medium" mb={1} color="gray.600">Payment Method</Text>
+                  <Select
+                    value={payMethod}
+                    onChange={(e) => setPayMethod(e.target.value)}
+                    w="full"
+                    px={3}
+                    py={2}
+                    borderWidth="1px"
+                    borderRadius="md"
+                    bg="white"
+                  >
+                    <option value="CASH">Cash</option>
+                    <option value="BANK_TRANSFER">Bank Transfer</option>
+                    <option value="ONLINE_TRANSFER">Online Transfer</option>
+                  </Select>
+                </Box>
+
+                {payMethod === "BANK_TRANSFER" && (
+                  <Box>
+                    <Text fontSize="sm" fontWeight="medium" mb={1} color="gray.600">Transfer Option</Text>
+                    <Select
+                      value={payBankTransferType}
+                      onChange={(e) => setPayBankTransferType(e.target.value)}
+                      w="full"
+                      px={3}
+                      py={2}
+                      borderWidth="1px"
+                      borderRadius="md"
+                      bg="white"
+                    >
+                      <option value="TRANSFER">Direct Bank Transfer</option>
+                      <option value="CHECK">Check</option>
+                    </Select>
+                  </Box>
+                )}
+
+                {(payMethod === "BANK_TRANSFER" || payMethod === "ONLINE_TRANSFER") && (
+                  <Stack gap={3} p={3} bg="gray.50" borderRadius="lg" borderLeftWidth="4px" borderLeftColor="green.500">
+                    <Text fontSize="xs" fontWeight="bold" color="gray.500" textTransform="uppercase">
+                      Transaction Bank Details
+                    </Text>
+
+                    {data?.buyerFirm?.bankAccounts && data.buyerFirm.bankAccounts.length > 0 && (
+                      <Box>
+                        <Text fontSize="xs" fontWeight="medium" mb={1} color="gray.600">Select Saved Account</Text>
+                        <Select
+                          w="full"
+                          px={2.5}
+                          py={1.5}
+                          borderWidth="1px"
+                          borderRadius="md"
+                          bg="white"
+                          fontSize="xs"
+                          h="32px"
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            const acc = data?.buyerFirm?.bankAccounts?.find((a) => a.id === val);
+                            if (acc) {
+                              setPayBankName(acc.bankName);
+                              setPayBankAccNumber(acc.accNumber);
+                              setPayBankAddress(acc.bankAddress ?? "");
+                            }
+                          }}
+                        >
+                          <option value="">Choose an account...</option>
+                          {data.buyerFirm.bankAccounts.map((acc) => (
+                            <option key={acc.id} value={acc.id}>
+                              {acc.bankName} (A/c: {acc.accNumber}){acc.isPrimary ? " [Primary]" : ""}
+                            </option>
+                          ))}
+                        </Select>
+                      </Box>
+                    )}
+
+                    <Box>
+                      <Text fontSize="xs" fontWeight="medium" mb={1} color="gray.600">Bank Name</Text>
+                      <Input 
+                        size="sm"
+                        placeholder="Enter bank name" 
+                        value={payBankName}
+                        onChange={(e) => setPayBankName(e.target.value)}
+                        bg="white"
+                      />
+                    </Box>
+                    <Box>
+                      <Text fontSize="xs" fontWeight="medium" mb={1} color="gray.600">Account Number</Text>
+                      <Input 
+                        size="sm"
+                        placeholder="Enter account number" 
+                        value={payBankAccNumber}
+                        onChange={(e) => setPayBankAccNumber(e.target.value)}
+                        bg="white"
+                      />
+                    </Box>
+                    <Box>
+                      <Text fontSize="xs" fontWeight="medium" mb={1} color="gray.600">Bank Branch / Address</Text>
+                      <Textarea 
+                        size="sm"
+                        placeholder="Enter branch/address" 
+                        value={payBankAddress}
+                        onChange={(e) => setPayBankAddress(e.target.value)}
+                        rows={2}
+                        bg="white"
+                      />
+                    </Box>
+                  </Stack>
+                )}
+
+                <Box>
                   <Text fontSize="sm" fontWeight="medium" mb={1} color="gray.600">Notes / Remarks</Text>
                   <Textarea 
-                    placeholder="Optional details (e.g. Cash advance for harvest, Bank transfer)" 
+                    placeholder="Optional details (e.g. Cash advance for harvest)" 
                     value={payNotes}
                     onChange={(e) => setPayNotes(e.target.value)}
                     rows={2}
@@ -808,7 +1017,7 @@ export default function GrowerDetailPage({ params }: { params: Promise<{ id: str
           <Box bg="white" p={6} borderRadius="xl" shadow="sm" borderWidth="1px">
             <Heading size="md" mb={4} color="gray.700">Edit Grower Details</Heading>
             <GrowerForm
-              initial={{ name: data.name, mobile: data.mobile, address: data.address ?? "" }}
+              initial={{ name: data.name, mobile: data.mobile, address: data.address ?? "", codeName: data.codeName ?? "" }}
               submitLabel="Save changes"
               onSubmit={async (values) => {
                 await api(`/api/growers/${id}`, { method: "PATCH", body: JSON.stringify(values) });

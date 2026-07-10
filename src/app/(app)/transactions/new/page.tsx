@@ -9,7 +9,8 @@ import { api } from "@/lib/client";
 
 const Select = chakra("select");
 
-type Grower = { id: string; name: string };
+type Grower = { id: string; name: string; mobile: string; codeName: string | null };
+type Seller = { id: string; name: string; mobile: string };
 
 type FormItem = {
   fruitType: string;
@@ -36,28 +37,71 @@ function NewTransactionForm() {
 
   const { data: sellers } = useQuery({
     queryKey: ["sellers", ""],
-    queryFn: () => api<any[]>("/api/sellers"),
+    queryFn: () => api<Seller[]>("/api/sellers"),
+  });
+
+  const { data: firm } = useQuery({
+    queryKey: ["firm"],
+    queryFn: () => api<{ deductionsConfig?: string | null }>("/api/firm"),
   });
 
   const [growerId, setGrowerId] = useState("");
   const [sellerId, setSellerId] = useState("");
+  const [growerSearch, setGrowerSearch] = useState("");
+  const [sellerSearch, setSellerSearch] = useState("");
+  const [showGrowerSuggestions, setShowGrowerSuggestions] = useState(false);
+  const [showSellerSuggestions, setShowSellerSuggestions] = useState(false);
   const [items, setItems] = useState<FormItem[]>([
     { fruitType: "", quantity: "", unit: "kg", rate: "" }
   ]);
   const [freight, setFreight] = useState("");
-  const [commissionRate, setCommissionRate] = useState("12");
-  const [labourRate, setLabourRate] = useState("3");
-  const [associationRate, setAssociationRate] = useState("0.10");
-  const [printingCharge, setPrintingCharge] = useState("1");
-  const [miscellaneousRate, setMiscellaneousRate] = useState("0.90");
+  const [deductionsList, setDeductionsList] = useState<Array<{ name: string; type: "percentage" | "fixed_per_unit" | "fixed_flat"; value: string }>>([]);
   const [notes, setNotes] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    if (firm) {
+      let list: Array<{ name: string; type: "percentage" | "fixed_per_unit" | "fixed_flat"; value: string }> = [];
+      if (firm.deductionsConfig) {
+        try {
+          const parsed = JSON.parse(firm.deductionsConfig);
+          if (Array.isArray(parsed)) {
+            list = parsed.map((d: any) => ({
+              name: d.name,
+              type: d.type,
+              value: String(d.value),
+            }));
+          }
+        } catch (e) {
+          console.error("Failed to parse deductions config:", e);
+        }
+      }
+      if (list.length === 0) {
+        list = [
+          { name: "Commission", type: "percentage" as const, value: "12" },
+          { name: "Labour", type: "fixed_per_unit" as const, value: "3" },
+          { name: "Association", type: "percentage" as const, value: "0.10" },
+          { name: "Printing", type: "fixed_flat" as const, value: "1" },
+          { name: "Miscellaneous", type: "percentage" as const, value: "0.90" }
+        ];
+      }
+      setDeductionsList(list);
+    }
+  }, [firm]);
+
+  useEffect(() => {
     if (draft) {
-      if (draft.growerId) setGrowerId(draft.growerId);
-      if (draft.sellerId) setSellerId(draft.sellerId);
+      if (draft.growerId) {
+        setGrowerId(draft.growerId);
+        const match = growers?.find((g) => g.id === draft.growerId);
+        if (match) setGrowerSearch(match.name);
+      }
+      if (draft.sellerId) {
+        setSellerId(draft.sellerId);
+        const match = sellers?.find((s) => s.id === draft.sellerId);
+        if (match) setSellerSearch(match.name);
+      }
       if (draft.fruitType) {
         setItems([
           {
@@ -70,7 +114,7 @@ function NewTransactionForm() {
       }
       if (draft.notes) setNotes(draft.notes);
     }
-  }, [draft]);
+  }, [draft, growers, sellers]);
 
   const addItem = () => {
     setItems([...items, { fruitType: "", quantity: "", unit: "kg", rate: "" }]);
@@ -104,6 +148,29 @@ function NewTransactionForm() {
     return totals.reduce((sum, val) => sum + val, 0);
   }, [totals]);
 
+  const filteredGrowers = useMemo(() => {
+    if (!growers) return [];
+    const query = growerSearch.toLowerCase().trim();
+    if (!query) return growers;
+    return growers.filter(
+      (g) =>
+        g.name.toLowerCase().includes(query) ||
+        g.mobile.includes(query) ||
+        (g.codeName && g.codeName.toLowerCase().includes(query))
+    );
+  }, [growers, growerSearch]);
+
+  const filteredSellers = useMemo(() => {
+    if (!sellers) return [];
+    const query = sellerSearch.toLowerCase().trim();
+    if (!query) return sellers;
+    return sellers.filter(
+      (s) =>
+        s.name.toLowerCase().includes(query) ||
+        s.mobile.includes(query)
+    );
+  }, [sellers, sellerSearch]);
+
   const totalQuantity = useMemo(() => {
     return items.reduce((sum, item) => {
       const q = parseFloat(item.quantity);
@@ -114,42 +181,45 @@ function NewTransactionForm() {
   const expenseCalculations = useMemo(() => {
     if (sellerId && !growerId) {
       return {
-        commission: 0,
-        labour: 0,
-        freight: 0,
-        association: 0,
-        printing: 0,
-        miscellaneous: 0,
+        itemsList: [],
         totalDeductions: 0,
         netAmount: grandTotal,
       };
     }
 
     const fVal = parseFloat(freight) || 0;
-    const cRate = parseFloat(commissionRate) || 0;
-    const lRate = parseFloat(labourRate) || 0;
-    const aRate = parseFloat(associationRate) || 0;
-    const pCharge = parseFloat(printingCharge) || 0;
-    const mRate = parseFloat(miscellaneousRate) || 0;
+    let itemsList = [];
+    let totalDeductions = 0;
 
-    const commission = Math.round(grandTotal * (cRate / 100) * 100) / 100;
-    const labour = Math.round(totalQuantity * lRate * 100) / 100;
-    const association = Math.round(grandTotal * (aRate / 100) * 100) / 100;
-    const miscellaneous = Math.round(grandTotal * (mRate / 100) * 100) / 100;
-    const totalDeductions = Math.round((commission + labour + fVal + association + pCharge + miscellaneous) * 100) / 100;
+    for (const d of deductionsList) {
+      let amount = 0;
+      const dValue = parseFloat(d.value) || 0;
+      if (d.type === "percentage") {
+        amount = Math.round(grandTotal * (dValue / 100) * 100) / 100;
+      } else if (d.type === "fixed_per_unit") {
+        amount = Math.round(totalQuantity * dValue * 100) / 100;
+      } else if (d.type === "fixed_flat") {
+        amount = dValue;
+      }
+      itemsList.push({ name: d.name, type: d.type, value: dValue, amount });
+      totalDeductions += amount;
+    }
+
+    // Add freight if present
+    if (fVal > 0 && !itemsList.some((d) => d.name.toLowerCase() === "freight")) {
+      itemsList.push({ name: "Freight", type: "fixed_flat", value: fVal, amount: fVal });
+      totalDeductions += fVal;
+    }
+
+    totalDeductions = Math.round(totalDeductions * 100) / 100;
     const netAmount = Math.round((grandTotal - totalDeductions) * 100) / 100;
 
     return {
-      commission,
-      labour,
-      freight: fVal,
-      association,
-      printing: pCharge,
-      miscellaneous,
+      itemsList,
       totalDeductions,
       netAmount,
     };
-  }, [growerId, sellerId, grandTotal, totalQuantity, freight, commissionRate, labourRate, associationRate, printingCharge, miscellaneousRate]);
+  }, [growerId, sellerId, grandTotal, totalQuantity, freight, deductionsList]);
 
   async function submit() {
     console.log("[Client] 'Save & notify grower' clicked.");
@@ -158,11 +228,7 @@ function NewTransactionForm() {
       sellerId,
       items,
       freight,
-      commissionRate,
-      labourRate,
-      associationRate,
-      printingCharge,
-      miscellaneousRate,
+      deductionsList,
       notes,
       draftId,
     });
@@ -188,12 +254,12 @@ function NewTransactionForm() {
             rate: parseFloat(item.rate),
           })),
           freight: parseFloat(freight) || 0,
-          commissionRate: parseFloat(commissionRate) || 0,
-          labourRate: parseFloat(labourRate) || 0,
-          associationRate: parseFloat(associationRate) || 0,
-          printingCharge: parseFloat(printingCharge) || 0,
-          miscellaneousRate: parseFloat(miscellaneousRate) || 0,
-          notes,
+          deductions: deductionsList.map(d => ({
+            name: d.name,
+            type: d.type,
+            value: parseFloat(d.value) || 0,
+          })),
+          notes: notes || undefined,
           draftId: draftId || undefined,
         }),
       });
@@ -233,42 +299,124 @@ function NewTransactionForm() {
             </Text>
           </Box>
           <SimpleGrid columns={{ base: 1, md: 2 }} gap={4}>
-            <Box bg="white" p={6} borderRadius="xl" shadow="sm" borderWidth="1px">
+            <Box bg="white" p={6} borderRadius="xl" shadow="sm" borderWidth="1px" position="relative">
               <Text fontSize="sm" fontWeight="semibold" mb={2} color="gray.700">Grower (Seller to Mandi)</Text>
-              <Select
-                value={growerId}
-                onChange={(e) => setGrowerId(e.target.value)}
-                w="full"
-                px={3}
-                py={2}
-                borderWidth="1px"
-                borderRadius="md"
+              <Input
+                value={growerSearch}
+                onChange={(e) => {
+                  setGrowerSearch(e.target.value);
+                  setGrowerId("");
+                  setShowGrowerSuggestions(true);
+                }}
+                onFocus={() => setShowGrowerSuggestions(true)}
+                onBlur={() => setShowGrowerSuggestions(false)}
+                placeholder="Search grower by name, code or mobile..."
                 bg="white"
-              >
-                <option value="">Select a grower…</option>
-                {growers?.map((g) => (
-                  <option key={g.id} value={g.id}>{g.name}</option>
-                ))}
-              </Select>
+                w="full"
+              />
+              {showGrowerSuggestions && growerSearch.trim() && (
+                <Box
+                  position="absolute"
+                  top="100%"
+                  left={6}
+                  right={6}
+                  bg="white"
+                  borderWidth="1px"
+                  borderColor="gray.200"
+                  borderRadius="md"
+                  shadow="md"
+                  zIndex="10"
+                  maxH="200px"
+                  overflowY="auto"
+                  mt={1}
+                >
+                  {filteredGrowers.length === 0 ? (
+                    <Box px={3} py={2} fontSize="sm" color="gray.500">
+                      No growers found.
+                    </Box>
+                  ) : (
+                    filteredGrowers.map((g) => (
+                      <Box
+                        key={g.id}
+                        px={3}
+                        py={2}
+                        cursor="pointer"
+                        _hover={{ bg: "gray.50" }}
+                        onMouseDown={(e) => {
+                          e.preventDefault();
+                          setGrowerSearch(g.name);
+                          setGrowerId(g.id);
+                          setShowGrowerSuggestions(false);
+                        }}
+                      >
+                        <Text fontSize="sm" fontWeight="semibold" color="gray.800">
+                          {g.name} {g.codeName ? `(Code: ${g.codeName})` : ""}
+                        </Text>
+                        <Text fontSize="xs" color="gray.500">{g.mobile}</Text>
+                      </Box>
+                    ))
+                  )}
+                </Box>
+              )}
             </Box>
 
-            <Box bg="white" p={6} borderRadius="xl" shadow="sm" borderWidth="1px">
+            <Box bg="white" p={6} borderRadius="xl" shadow="sm" borderWidth="1px" position="relative">
               <Text fontSize="sm" fontWeight="semibold" mb={2} color="gray.700">Seller / Buyer (Purchaser from Mandi)</Text>
-              <Select
-                value={sellerId}
-                onChange={(e) => setSellerId(e.target.value)}
-                w="full"
-                px={3}
-                py={2}
-                borderWidth="1px"
-                borderRadius="md"
+              <Input
+                value={sellerSearch}
+                onChange={(e) => {
+                  setSellerSearch(e.target.value);
+                  setSellerId("");
+                  setShowSellerSuggestions(true);
+                }}
+                onFocus={() => setShowSellerSuggestions(true)}
+                onBlur={() => setShowSellerSuggestions(false)}
+                placeholder="Search seller by name or mobile..."
                 bg="white"
-              >
-                <option value="">Select a seller/buyer…</option>
-                {sellers?.map((s) => (
-                  <option key={s.id} value={s.id}>{s.name}</option>
-                ))}
-              </Select>
+                w="full"
+              />
+              {showSellerSuggestions && sellerSearch.trim() && (
+                <Box
+                  position="absolute"
+                  top="100%"
+                  left={6}
+                  right={6}
+                  bg="white"
+                  borderWidth="1px"
+                  borderColor="gray.200"
+                  borderRadius="md"
+                  shadow="md"
+                  zIndex="10"
+                  maxH="200px"
+                  overflowY="auto"
+                  mt={1}
+                >
+                  {filteredSellers.length === 0 ? (
+                    <Box px={3} py={2} fontSize="sm" color="gray.500">
+                      No sellers found.
+                    </Box>
+                  ) : (
+                    filteredSellers.map((s) => (
+                      <Box
+                        key={s.id}
+                        px={3}
+                        py={2}
+                        cursor="pointer"
+                        _hover={{ bg: "gray.50" }}
+                        onMouseDown={(e) => {
+                          e.preventDefault();
+                          setSellerSearch(s.name);
+                          setSellerId(s.id);
+                          setShowSellerSuggestions(false);
+                        }}
+                      >
+                        <Text fontSize="sm" fontWeight="semibold" color="gray.800">{s.name}</Text>
+                        <Text fontSize="xs" color="gray.500">{s.mobile}</Text>
+                      </Box>
+                    ))
+                  )}
+                </Box>
+              )}
             </Box>
           </SimpleGrid>
 
@@ -385,61 +533,26 @@ function NewTransactionForm() {
                     bg="white"
                   />
                 </Box>
-                <Box>
-                  <Text fontSize="xs" mb={1} color="gray.600" fontWeight="medium">Commission Rate (%)</Text>
-                  <Input 
-                    type="number"
-                    placeholder="12"
-                    value={commissionRate}
-                    onChange={(e) => setCommissionRate(e.target.value)}
-                    size="sm"
-                    bg="white"
-                  />
-                </Box>
-                <Box>
-                  <Text fontSize="xs" mb={1} color="gray.600" fontWeight="medium">Labour Rate (₹/unit)</Text>
-                  <Input 
-                    type="number"
-                    placeholder="3"
-                    value={labourRate}
-                    onChange={(e) => setLabourRate(e.target.value)}
-                    size="sm"
-                    bg="white"
-                  />
-                </Box>
-                <Box>
-                  <Text fontSize="xs" mb={1} color="gray.600" fontWeight="medium">Association Fee (%)</Text>
-                  <Input 
-                    type="number"
-                    placeholder="0.10"
-                    value={associationRate}
-                    onChange={(e) => setAssociationRate(e.target.value)}
-                    size="sm"
-                    bg="white"
-                  />
-                </Box>
-                <Box>
-                  <Text fontSize="xs" mb={1} color="gray.600" fontWeight="medium">Printing Charge (₹)</Text>
-                  <Input 
-                    type="number"
-                    placeholder="1"
-                    value={printingCharge}
-                    onChange={(e) => setPrintingCharge(e.target.value)}
-                    size="sm"
-                    bg="white"
-                  />
-                </Box>
-                <Box>
-                  <Text fontSize="xs" mb={1} color="gray.600" fontWeight="medium">Miscellaneous Rate (%)</Text>
-                  <Input 
-                    type="number"
-                    placeholder="0.90"
-                    value={miscellaneousRate}
-                    onChange={(e) => setMiscellaneousRate(e.target.value)}
-                    size="sm"
-                    bg="white"
-                  />
-                </Box>
+                {deductionsList.map((d, idx) => (
+                  <Box key={idx}>
+                    <Text fontSize="xs" mb={1} color="gray.600" fontWeight="medium">
+                      {d.name} {d.type === "percentage" ? "(%)" : d.type === "fixed_per_unit" ? "(₹/unit)" : "(₹)"}
+                    </Text>
+                    <Input 
+                      type="number"
+                      step="any"
+                      placeholder={d.name}
+                      value={d.value}
+                      onChange={(e) => {
+                        const newList = [...deductionsList];
+                        newList[idx] = { ...newList[idx], value: e.target.value };
+                        setDeductionsList(newList);
+                      }}
+                      size="sm"
+                      bg="white"
+                    />
+                  </Box>
+                ))}
               </SimpleGrid>
             </Box>
           )}
@@ -460,30 +573,14 @@ function NewTransactionForm() {
                     <Text fontSize="xs" fontWeight="bold" color="green.700" mb={1}>DEDUCTIONS (GROWER)</Text>
                   </Box>
 
-                  <Flex justify="space-between" pl={2}>
-                    <Text fontSize="xs" color="green.800">Commission ({commissionRate}%):</Text>
-                    <Text fontSize="xs" color="green.900">-₹{expenseCalculations.commission.toLocaleString("en-IN")}</Text>
-                  </Flex>
-                  <Flex justify="space-between" pl={2}>
-                    <Text fontSize="xs" color="green.800">Labour (₹{labourRate}/unit):</Text>
-                    <Text fontSize="xs" color="green.900">-₹{expenseCalculations.labour.toLocaleString("en-IN")}</Text>
-                  </Flex>
-                  <Flex justify="space-between" pl={2}>
-                    <Text fontSize="xs" color="green.800">Freight:</Text>
-                    <Text fontSize="xs" color="green.900">-₹{expenseCalculations.freight.toLocaleString("en-IN")}</Text>
-                  </Flex>
-                  <Flex justify="space-between" pl={2}>
-                    <Text fontSize="xs" color="green.800">Association ({associationRate}%):</Text>
-                    <Text fontSize="xs" color="green.900">-₹{expenseCalculations.association.toLocaleString("en-IN")}</Text>
-                  </Flex>
-                  <Flex justify="space-between" pl={2}>
-                    <Text fontSize="xs" color="green.800">Printing:</Text>
-                    <Text fontSize="xs" color="green.900">-₹{expenseCalculations.printing.toLocaleString("en-IN")}</Text>
-                  </Flex>
-                  <Flex justify="space-between" pl={2}>
-                    <Text fontSize="xs" color="green.800">Miscellaneous ({miscellaneousRate}%):</Text>
-                    <Text fontSize="xs" color="green.900">-₹{expenseCalculations.miscellaneous.toLocaleString("en-IN")}</Text>
-                  </Flex>
+                  {expenseCalculations.itemsList.map((d, idx) => (
+                    <Flex justify="space-between" pl={2} key={idx}>
+                      <Text fontSize="xs" color="green.800">
+                        {d.name} {d.type === "percentage" ? `(${d.value}%)` : d.type === "fixed_per_unit" ? `(₹${d.value}/unit)` : ""}:
+                      </Text>
+                      <Text fontSize="xs" color="green.900">-₹{d.amount.toLocaleString("en-IN")}</Text>
+                    </Flex>
+                  ))}
 
                   <Flex justify="space-between" borderTopWidth="1px" borderColor="green.200" pt={2} mt={1}>
                     <Text fontWeight="bold" color="green.800">Total Deductions:</Text>

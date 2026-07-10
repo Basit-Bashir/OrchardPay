@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { ok, fail, handle } from "@/lib/api";
 import { requireSession, setSessionCookie } from "@/lib/auth";
-import { updateFirmSchema } from "@/lib/validations";
+import { updateFirmSchema, DEFAULT_DEDUCTIONS } from "@/lib/validations";
 import { generateBuyerFirmId } from "@/lib/uniqueId";
 
 export async function GET() {
@@ -12,7 +12,8 @@ export async function GET() {
       select: {
         uniqueId: true, firmName: true, ownerName: true, mobile: true,
         subscriptionPlan: true, subscriptionExpiry: true, createdAt: true,
-        logoUrl: true,
+        logoUrl: true, deductionsConfig: true,
+        bankName: true, bankAccNumber: true, bankAddress: true,
       },
     });
     if (!firm) return fail("Firm not found", 404);
@@ -29,7 +30,10 @@ export async function PATCH(req: Request) {
     const firm = await prisma.buyerFirm.update({
       where: { id: session.buyerFirmId },
       data: parsed.data,
-      select: { firmName: true, ownerName: true, logoUrl: true },
+      select: { 
+        firmName: true, ownerName: true, logoUrl: true, deductionsConfig: true,
+        bankName: true, bankAccNumber: true, bankAddress: true
+      },
     });
     return ok(firm);
   });
@@ -70,6 +74,7 @@ export async function POST(req: Request) {
             role: "buyer",
           },
         },
+        deductionsConfig: DEFAULT_DEDUCTIONS,
       },
     });
 

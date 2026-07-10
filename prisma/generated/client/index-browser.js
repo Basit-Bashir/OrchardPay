@@ -127,7 +127,11 @@ exports.Prisma.BuyerFirmScalarFieldEnum = {
   subscriptionPlan: 'subscriptionPlan',
   subscriptionExpiry: 'subscriptionExpiry',
   createdAt: 'createdAt',
-  logoUrl: 'logoUrl'
+  logoUrl: 'logoUrl',
+  deductionsConfig: 'deductionsConfig',
+  bankName: 'bankName',
+  bankAccNumber: 'bankAccNumber',
+  bankAddress: 'bankAddress'
 };
 
 exports.Prisma.UserScalarFieldEnum = {
@@ -144,6 +148,7 @@ exports.Prisma.GrowerScalarFieldEnum = {
   name: 'name',
   mobile: 'mobile',
   address: 'address',
+  codeName: 'codeName',
   buyerFirmId: 'buyerFirmId',
   createdAt: 'createdAt'
 };
@@ -168,7 +173,8 @@ exports.Prisma.TransactionScalarFieldEnum = {
   receivedAt: 'receivedAt',
   notes: 'notes',
   notified: 'notified',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  deductions: 'deductions'
 };
 
 exports.Prisma.PaymentScalarFieldEnum = {
@@ -178,7 +184,12 @@ exports.Prisma.PaymentScalarFieldEnum = {
   amount: 'amount',
   notes: 'notes',
   paidAt: 'paidAt',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  method: 'method',
+  bankTransferType: 'bankTransferType',
+  bankName: 'bankName',
+  bankAccNumber: 'bankAccNumber',
+  bankAddress: 'bankAddress'
 };
 
 exports.Prisma.OtpScalarFieldEnum = {
@@ -268,6 +279,16 @@ exports.Prisma.GrowerItemChargeScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.BankAccountScalarFieldEnum = {
+  id: 'id',
+  buyerFirmId: 'buyerFirmId',
+  bankName: 'bankName',
+  accNumber: 'accNumber',
+  bankAddress: 'bankAddress',
+  isPrimary: 'isPrimary',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -292,7 +313,8 @@ exports.Prisma.ModelName = {
   Seller: 'Seller',
   SellerPayment: 'SellerPayment',
   Expense: 'Expense',
-  GrowerItemCharge: 'GrowerItemCharge'
+  GrowerItemCharge: 'GrowerItemCharge',
+  BankAccount: 'BankAccount'
 };
 
 /**

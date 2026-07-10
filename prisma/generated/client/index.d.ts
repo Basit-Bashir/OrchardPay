@@ -78,6 +78,11 @@ export type Expense = $Result.DefaultSelection<Prisma.$ExpensePayload>
  * 
  */
 export type GrowerItemCharge = $Result.DefaultSelection<Prisma.$GrowerItemChargePayload>
+/**
+ * Model BankAccount
+ * 
+ */
+export type BankAccount = $Result.DefaultSelection<Prisma.$BankAccountPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -326,6 +331,16 @@ export class PrismaClient<
     * ```
     */
   get growerItemCharge(): Prisma.GrowerItemChargeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.bankAccount`: Exposes CRUD operations for the **BankAccount** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BankAccounts
+    * const bankAccounts = await prisma.bankAccount.findMany()
+    * ```
+    */
+  get bankAccount(): Prisma.BankAccountDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -779,7 +794,8 @@ export namespace Prisma {
     Seller: 'Seller',
     SellerPayment: 'SellerPayment',
     Expense: 'Expense',
-    GrowerItemCharge: 'GrowerItemCharge'
+    GrowerItemCharge: 'GrowerItemCharge',
+    BankAccount: 'BankAccount'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -798,7 +814,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "buyerFirm" | "user" | "grower" | "transaction" | "payment" | "otp" | "notification" | "agreement" | "draftTransaction" | "seller" | "sellerPayment" | "expense" | "growerItemCharge"
+      modelProps: "buyerFirm" | "user" | "grower" | "transaction" | "payment" | "otp" | "notification" | "agreement" | "draftTransaction" | "seller" | "sellerPayment" | "expense" | "growerItemCharge" | "bankAccount"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1764,6 +1780,80 @@ export namespace Prisma {
           }
         }
       }
+      BankAccount: {
+        payload: Prisma.$BankAccountPayload<ExtArgs>
+        fields: Prisma.BankAccountFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BankAccountFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankAccountPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BankAccountFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankAccountPayload>
+          }
+          findFirst: {
+            args: Prisma.BankAccountFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankAccountPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BankAccountFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankAccountPayload>
+          }
+          findMany: {
+            args: Prisma.BankAccountFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankAccountPayload>[]
+          }
+          create: {
+            args: Prisma.BankAccountCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankAccountPayload>
+          }
+          createMany: {
+            args: Prisma.BankAccountCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BankAccountCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankAccountPayload>[]
+          }
+          delete: {
+            args: Prisma.BankAccountDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankAccountPayload>
+          }
+          update: {
+            args: Prisma.BankAccountUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankAccountPayload>
+          }
+          deleteMany: {
+            args: Prisma.BankAccountDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BankAccountUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.BankAccountUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankAccountPayload>[]
+          }
+          upsert: {
+            args: Prisma.BankAccountUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankAccountPayload>
+          }
+          aggregate: {
+            args: Prisma.BankAccountAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBankAccount>
+          }
+          groupBy: {
+            args: Prisma.BankAccountGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BankAccountGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BankAccountCountArgs<ExtArgs>
+            result: $Utils.Optional<BankAccountCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1873,6 +1963,7 @@ export namespace Prisma {
     sellerPayment?: SellerPaymentOmit
     expense?: ExpenseOmit
     growerItemCharge?: GrowerItemChargeOmit
+    bankAccount?: BankAccountOmit
   }
 
   /* Types for Logging */
@@ -1962,6 +2053,7 @@ export namespace Prisma {
     draftTransactions: number
     expenses: number
     itemCharges: number
+    bankAccounts: number
   }
 
   export type BuyerFirmCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1974,6 +2066,7 @@ export namespace Prisma {
     draftTransactions?: boolean | BuyerFirmCountOutputTypeCountDraftTransactionsArgs
     expenses?: boolean | BuyerFirmCountOutputTypeCountExpensesArgs
     itemCharges?: boolean | BuyerFirmCountOutputTypeCountItemChargesArgs
+    bankAccounts?: boolean | BuyerFirmCountOutputTypeCountBankAccountsArgs
   }
 
   // Custom InputTypes
@@ -2048,6 +2141,13 @@ export namespace Prisma {
    */
   export type BuyerFirmCountOutputTypeCountItemChargesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: GrowerItemChargeWhereInput
+  }
+
+  /**
+   * BuyerFirmCountOutputType without action
+   */
+  export type BuyerFirmCountOutputTypeCountBankAccountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BankAccountWhereInput
   }
 
 
@@ -2231,6 +2331,10 @@ export namespace Prisma {
     subscriptionExpiry: Date | null
     createdAt: Date | null
     logoUrl: string | null
+    deductionsConfig: string | null
+    bankName: string | null
+    bankAccNumber: string | null
+    bankAddress: string | null
   }
 
   export type BuyerFirmMaxAggregateOutputType = {
@@ -2243,6 +2347,10 @@ export namespace Prisma {
     subscriptionExpiry: Date | null
     createdAt: Date | null
     logoUrl: string | null
+    deductionsConfig: string | null
+    bankName: string | null
+    bankAccNumber: string | null
+    bankAddress: string | null
   }
 
   export type BuyerFirmCountAggregateOutputType = {
@@ -2255,6 +2363,10 @@ export namespace Prisma {
     subscriptionExpiry: number
     createdAt: number
     logoUrl: number
+    deductionsConfig: number
+    bankName: number
+    bankAccNumber: number
+    bankAddress: number
     _all: number
   }
 
@@ -2269,6 +2381,10 @@ export namespace Prisma {
     subscriptionExpiry?: true
     createdAt?: true
     logoUrl?: true
+    deductionsConfig?: true
+    bankName?: true
+    bankAccNumber?: true
+    bankAddress?: true
   }
 
   export type BuyerFirmMaxAggregateInputType = {
@@ -2281,6 +2397,10 @@ export namespace Prisma {
     subscriptionExpiry?: true
     createdAt?: true
     logoUrl?: true
+    deductionsConfig?: true
+    bankName?: true
+    bankAccNumber?: true
+    bankAddress?: true
   }
 
   export type BuyerFirmCountAggregateInputType = {
@@ -2293,6 +2413,10 @@ export namespace Prisma {
     subscriptionExpiry?: true
     createdAt?: true
     logoUrl?: true
+    deductionsConfig?: true
+    bankName?: true
+    bankAccNumber?: true
+    bankAddress?: true
     _all?: true
   }
 
@@ -2378,6 +2502,10 @@ export namespace Prisma {
     subscriptionExpiry: Date | null
     createdAt: Date
     logoUrl: string | null
+    deductionsConfig: string | null
+    bankName: string | null
+    bankAccNumber: string | null
+    bankAddress: string | null
     _count: BuyerFirmCountAggregateOutputType | null
     _min: BuyerFirmMinAggregateOutputType | null
     _max: BuyerFirmMaxAggregateOutputType | null
@@ -2407,6 +2535,10 @@ export namespace Prisma {
     subscriptionExpiry?: boolean
     createdAt?: boolean
     logoUrl?: boolean
+    deductionsConfig?: boolean
+    bankName?: boolean
+    bankAccNumber?: boolean
+    bankAddress?: boolean
     users?: boolean | BuyerFirm$usersArgs<ExtArgs>
     growers?: boolean | BuyerFirm$growersArgs<ExtArgs>
     sellers?: boolean | BuyerFirm$sellersArgs<ExtArgs>
@@ -2416,6 +2548,7 @@ export namespace Prisma {
     draftTransactions?: boolean | BuyerFirm$draftTransactionsArgs<ExtArgs>
     expenses?: boolean | BuyerFirm$expensesArgs<ExtArgs>
     itemCharges?: boolean | BuyerFirm$itemChargesArgs<ExtArgs>
+    bankAccounts?: boolean | BuyerFirm$bankAccountsArgs<ExtArgs>
     _count?: boolean | BuyerFirmCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["buyerFirm"]>
 
@@ -2429,6 +2562,10 @@ export namespace Prisma {
     subscriptionExpiry?: boolean
     createdAt?: boolean
     logoUrl?: boolean
+    deductionsConfig?: boolean
+    bankName?: boolean
+    bankAccNumber?: boolean
+    bankAddress?: boolean
   }, ExtArgs["result"]["buyerFirm"]>
 
   export type BuyerFirmSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2441,6 +2578,10 @@ export namespace Prisma {
     subscriptionExpiry?: boolean
     createdAt?: boolean
     logoUrl?: boolean
+    deductionsConfig?: boolean
+    bankName?: boolean
+    bankAccNumber?: boolean
+    bankAddress?: boolean
   }, ExtArgs["result"]["buyerFirm"]>
 
   export type BuyerFirmSelectScalar = {
@@ -2453,9 +2594,13 @@ export namespace Prisma {
     subscriptionExpiry?: boolean
     createdAt?: boolean
     logoUrl?: boolean
+    deductionsConfig?: boolean
+    bankName?: boolean
+    bankAccNumber?: boolean
+    bankAddress?: boolean
   }
 
-  export type BuyerFirmOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "uniqueId" | "firmName" | "ownerName" | "mobile" | "subscriptionPlan" | "subscriptionExpiry" | "createdAt" | "logoUrl", ExtArgs["result"]["buyerFirm"]>
+  export type BuyerFirmOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "uniqueId" | "firmName" | "ownerName" | "mobile" | "subscriptionPlan" | "subscriptionExpiry" | "createdAt" | "logoUrl" | "deductionsConfig" | "bankName" | "bankAccNumber" | "bankAddress", ExtArgs["result"]["buyerFirm"]>
   export type BuyerFirmInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | BuyerFirm$usersArgs<ExtArgs>
     growers?: boolean | BuyerFirm$growersArgs<ExtArgs>
@@ -2466,6 +2611,7 @@ export namespace Prisma {
     draftTransactions?: boolean | BuyerFirm$draftTransactionsArgs<ExtArgs>
     expenses?: boolean | BuyerFirm$expensesArgs<ExtArgs>
     itemCharges?: boolean | BuyerFirm$itemChargesArgs<ExtArgs>
+    bankAccounts?: boolean | BuyerFirm$bankAccountsArgs<ExtArgs>
     _count?: boolean | BuyerFirmCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BuyerFirmIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2483,6 +2629,7 @@ export namespace Prisma {
       draftTransactions: Prisma.$DraftTransactionPayload<ExtArgs>[]
       expenses: Prisma.$ExpensePayload<ExtArgs>[]
       itemCharges: Prisma.$GrowerItemChargePayload<ExtArgs>[]
+      bankAccounts: Prisma.$BankAccountPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2494,6 +2641,10 @@ export namespace Prisma {
       subscriptionExpiry: Date | null
       createdAt: Date
       logoUrl: string | null
+      deductionsConfig: string | null
+      bankName: string | null
+      bankAccNumber: string | null
+      bankAddress: string | null
     }, ExtArgs["result"]["buyerFirm"]>
     composites: {}
   }
@@ -2897,6 +3048,7 @@ export namespace Prisma {
     draftTransactions<T extends BuyerFirm$draftTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, BuyerFirm$draftTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DraftTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     expenses<T extends BuyerFirm$expensesArgs<ExtArgs> = {}>(args?: Subset<T, BuyerFirm$expensesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExpensePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     itemCharges<T extends BuyerFirm$itemChargesArgs<ExtArgs> = {}>(args?: Subset<T, BuyerFirm$itemChargesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GrowerItemChargePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    bankAccounts<T extends BuyerFirm$bankAccountsArgs<ExtArgs> = {}>(args?: Subset<T, BuyerFirm$bankAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2935,6 +3087,10 @@ export namespace Prisma {
     readonly subscriptionExpiry: FieldRef<"BuyerFirm", 'DateTime'>
     readonly createdAt: FieldRef<"BuyerFirm", 'DateTime'>
     readonly logoUrl: FieldRef<"BuyerFirm", 'String'>
+    readonly deductionsConfig: FieldRef<"BuyerFirm", 'String'>
+    readonly bankName: FieldRef<"BuyerFirm", 'String'>
+    readonly bankAccNumber: FieldRef<"BuyerFirm", 'String'>
+    readonly bankAddress: FieldRef<"BuyerFirm", 'String'>
   }
     
 
@@ -3534,6 +3690,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: GrowerItemChargeScalarFieldEnum | GrowerItemChargeScalarFieldEnum[]
+  }
+
+  /**
+   * BuyerFirm.bankAccounts
+   */
+  export type BuyerFirm$bankAccountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BankAccount
+     */
+    omit?: BankAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountInclude<ExtArgs> | null
+    where?: BankAccountWhereInput
+    orderBy?: BankAccountOrderByWithRelationInput | BankAccountOrderByWithRelationInput[]
+    cursor?: BankAccountWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BankAccountScalarFieldEnum | BankAccountScalarFieldEnum[]
   }
 
   /**
@@ -4669,6 +4849,7 @@ export namespace Prisma {
     name: string | null
     mobile: string | null
     address: string | null
+    codeName: string | null
     buyerFirmId: string | null
     createdAt: Date | null
   }
@@ -4678,6 +4859,7 @@ export namespace Prisma {
     name: string | null
     mobile: string | null
     address: string | null
+    codeName: string | null
     buyerFirmId: string | null
     createdAt: Date | null
   }
@@ -4687,6 +4869,7 @@ export namespace Prisma {
     name: number
     mobile: number
     address: number
+    codeName: number
     buyerFirmId: number
     createdAt: number
     _all: number
@@ -4698,6 +4881,7 @@ export namespace Prisma {
     name?: true
     mobile?: true
     address?: true
+    codeName?: true
     buyerFirmId?: true
     createdAt?: true
   }
@@ -4707,6 +4891,7 @@ export namespace Prisma {
     name?: true
     mobile?: true
     address?: true
+    codeName?: true
     buyerFirmId?: true
     createdAt?: true
   }
@@ -4716,6 +4901,7 @@ export namespace Prisma {
     name?: true
     mobile?: true
     address?: true
+    codeName?: true
     buyerFirmId?: true
     createdAt?: true
     _all?: true
@@ -4798,6 +4984,7 @@ export namespace Prisma {
     name: string
     mobile: string
     address: string | null
+    codeName: string | null
     buyerFirmId: string
     createdAt: Date
     _count: GrowerCountAggregateOutputType | null
@@ -4824,6 +5011,7 @@ export namespace Prisma {
     name?: boolean
     mobile?: boolean
     address?: boolean
+    codeName?: boolean
     buyerFirmId?: boolean
     createdAt?: boolean
     buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
@@ -4841,6 +5029,7 @@ export namespace Prisma {
     name?: boolean
     mobile?: boolean
     address?: boolean
+    codeName?: boolean
     buyerFirmId?: boolean
     createdAt?: boolean
     buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
@@ -4851,6 +5040,7 @@ export namespace Prisma {
     name?: boolean
     mobile?: boolean
     address?: boolean
+    codeName?: boolean
     buyerFirmId?: boolean
     createdAt?: boolean
     buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
@@ -4861,11 +5051,12 @@ export namespace Prisma {
     name?: boolean
     mobile?: boolean
     address?: boolean
+    codeName?: boolean
     buyerFirmId?: boolean
     createdAt?: boolean
   }
 
-  export type GrowerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "mobile" | "address" | "buyerFirmId" | "createdAt", ExtArgs["result"]["grower"]>
+  export type GrowerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "mobile" | "address" | "codeName" | "buyerFirmId" | "createdAt", ExtArgs["result"]["grower"]>
   export type GrowerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
     transactions?: boolean | Grower$transactionsArgs<ExtArgs>
@@ -4899,6 +5090,7 @@ export namespace Prisma {
       name: string
       mobile: string
       address: string | null
+      codeName: string | null
       buyerFirmId: string
       createdAt: Date
     }, ExtArgs["result"]["grower"]>
@@ -5335,6 +5527,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Grower", 'String'>
     readonly mobile: FieldRef<"Grower", 'String'>
     readonly address: FieldRef<"Grower", 'String'>
+    readonly codeName: FieldRef<"Grower", 'String'>
     readonly buyerFirmId: FieldRef<"Grower", 'String'>
     readonly createdAt: FieldRef<"Grower", 'DateTime'>
   }
@@ -5952,6 +6145,7 @@ export namespace Prisma {
     notes: string | null
     notified: boolean | null
     createdAt: Date | null
+    deductions: string | null
   }
 
   export type TransactionMaxAggregateOutputType = {
@@ -5975,6 +6169,7 @@ export namespace Prisma {
     notes: string | null
     notified: boolean | null
     createdAt: Date | null
+    deductions: string | null
   }
 
   export type TransactionCountAggregateOutputType = {
@@ -5998,6 +6193,7 @@ export namespace Prisma {
     notes: number
     notified: number
     createdAt: number
+    deductions: number
     _all: number
   }
 
@@ -6049,6 +6245,7 @@ export namespace Prisma {
     notes?: true
     notified?: true
     createdAt?: true
+    deductions?: true
   }
 
   export type TransactionMaxAggregateInputType = {
@@ -6072,6 +6269,7 @@ export namespace Prisma {
     notes?: true
     notified?: true
     createdAt?: true
+    deductions?: true
   }
 
   export type TransactionCountAggregateInputType = {
@@ -6095,6 +6293,7 @@ export namespace Prisma {
     notes?: true
     notified?: true
     createdAt?: true
+    deductions?: true
     _all?: true
   }
 
@@ -6205,6 +6404,7 @@ export namespace Prisma {
     notes: string | null
     notified: boolean
     createdAt: Date
+    deductions: string | null
     _count: TransactionCountAggregateOutputType | null
     _avg: TransactionAvgAggregateOutputType | null
     _sum: TransactionSumAggregateOutputType | null
@@ -6247,6 +6447,7 @@ export namespace Prisma {
     notes?: boolean
     notified?: boolean
     createdAt?: boolean
+    deductions?: boolean
     grower?: boolean | Transaction$growerArgs<ExtArgs>
     seller?: boolean | Transaction$sellerArgs<ExtArgs>
     buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
@@ -6273,6 +6474,7 @@ export namespace Prisma {
     notes?: boolean
     notified?: boolean
     createdAt?: boolean
+    deductions?: boolean
     grower?: boolean | Transaction$growerArgs<ExtArgs>
     seller?: boolean | Transaction$sellerArgs<ExtArgs>
     buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
@@ -6299,6 +6501,7 @@ export namespace Prisma {
     notes?: boolean
     notified?: boolean
     createdAt?: boolean
+    deductions?: boolean
     grower?: boolean | Transaction$growerArgs<ExtArgs>
     seller?: boolean | Transaction$sellerArgs<ExtArgs>
     buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
@@ -6325,9 +6528,10 @@ export namespace Prisma {
     notes?: boolean
     notified?: boolean
     createdAt?: boolean
+    deductions?: boolean
   }
 
-  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "growerId" | "sellerId" | "buyerFirmId" | "fruitType" | "quantity" | "unit" | "rate" | "grossAmount" | "commission" | "labour" | "freight" | "association" | "printing" | "miscellaneous" | "totalAmount" | "receivedAt" | "notes" | "notified" | "createdAt", ExtArgs["result"]["transaction"]>
+  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "growerId" | "sellerId" | "buyerFirmId" | "fruitType" | "quantity" | "unit" | "rate" | "grossAmount" | "commission" | "labour" | "freight" | "association" | "printing" | "miscellaneous" | "totalAmount" | "receivedAt" | "notes" | "notified" | "createdAt" | "deductions", ExtArgs["result"]["transaction"]>
   export type TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     grower?: boolean | Transaction$growerArgs<ExtArgs>
     seller?: boolean | Transaction$sellerArgs<ExtArgs>
@@ -6372,6 +6576,7 @@ export namespace Prisma {
       notes: string | null
       notified: boolean
       createdAt: Date
+      deductions: string | null
     }, ExtArgs["result"]["transaction"]>
     composites: {}
   }
@@ -6818,6 +7023,7 @@ export namespace Prisma {
     readonly notes: FieldRef<"Transaction", 'String'>
     readonly notified: FieldRef<"Transaction", 'Boolean'>
     readonly createdAt: FieldRef<"Transaction", 'DateTime'>
+    readonly deductions: FieldRef<"Transaction", 'String'>
   }
     
 
@@ -7296,6 +7502,11 @@ export namespace Prisma {
     notes: string | null
     paidAt: Date | null
     createdAt: Date | null
+    method: string | null
+    bankTransferType: string | null
+    bankName: string | null
+    bankAccNumber: string | null
+    bankAddress: string | null
   }
 
   export type PaymentMaxAggregateOutputType = {
@@ -7306,6 +7517,11 @@ export namespace Prisma {
     notes: string | null
     paidAt: Date | null
     createdAt: Date | null
+    method: string | null
+    bankTransferType: string | null
+    bankName: string | null
+    bankAccNumber: string | null
+    bankAddress: string | null
   }
 
   export type PaymentCountAggregateOutputType = {
@@ -7316,6 +7532,11 @@ export namespace Prisma {
     notes: number
     paidAt: number
     createdAt: number
+    method: number
+    bankTransferType: number
+    bankName: number
+    bankAccNumber: number
+    bankAddress: number
     _all: number
   }
 
@@ -7336,6 +7557,11 @@ export namespace Prisma {
     notes?: true
     paidAt?: true
     createdAt?: true
+    method?: true
+    bankTransferType?: true
+    bankName?: true
+    bankAccNumber?: true
+    bankAddress?: true
   }
 
   export type PaymentMaxAggregateInputType = {
@@ -7346,6 +7572,11 @@ export namespace Prisma {
     notes?: true
     paidAt?: true
     createdAt?: true
+    method?: true
+    bankTransferType?: true
+    bankName?: true
+    bankAccNumber?: true
+    bankAddress?: true
   }
 
   export type PaymentCountAggregateInputType = {
@@ -7356,6 +7587,11 @@ export namespace Prisma {
     notes?: true
     paidAt?: true
     createdAt?: true
+    method?: true
+    bankTransferType?: true
+    bankName?: true
+    bankAccNumber?: true
+    bankAddress?: true
     _all?: true
   }
 
@@ -7453,6 +7689,11 @@ export namespace Prisma {
     notes: string | null
     paidAt: Date
     createdAt: Date
+    method: string | null
+    bankTransferType: string | null
+    bankName: string | null
+    bankAccNumber: string | null
+    bankAddress: string | null
     _count: PaymentCountAggregateOutputType | null
     _avg: PaymentAvgAggregateOutputType | null
     _sum: PaymentSumAggregateOutputType | null
@@ -7482,6 +7723,11 @@ export namespace Prisma {
     notes?: boolean
     paidAt?: boolean
     createdAt?: boolean
+    method?: boolean
+    bankTransferType?: boolean
+    bankName?: boolean
+    bankAccNumber?: boolean
+    bankAddress?: boolean
     grower?: boolean | GrowerDefaultArgs<ExtArgs>
     buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["payment"]>
@@ -7494,6 +7740,11 @@ export namespace Prisma {
     notes?: boolean
     paidAt?: boolean
     createdAt?: boolean
+    method?: boolean
+    bankTransferType?: boolean
+    bankName?: boolean
+    bankAccNumber?: boolean
+    bankAddress?: boolean
     grower?: boolean | GrowerDefaultArgs<ExtArgs>
     buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["payment"]>
@@ -7506,6 +7757,11 @@ export namespace Prisma {
     notes?: boolean
     paidAt?: boolean
     createdAt?: boolean
+    method?: boolean
+    bankTransferType?: boolean
+    bankName?: boolean
+    bankAccNumber?: boolean
+    bankAddress?: boolean
     grower?: boolean | GrowerDefaultArgs<ExtArgs>
     buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["payment"]>
@@ -7518,9 +7774,14 @@ export namespace Prisma {
     notes?: boolean
     paidAt?: boolean
     createdAt?: boolean
+    method?: boolean
+    bankTransferType?: boolean
+    bankName?: boolean
+    bankAccNumber?: boolean
+    bankAddress?: boolean
   }
 
-  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "growerId" | "buyerFirmId" | "amount" | "notes" | "paidAt" | "createdAt", ExtArgs["result"]["payment"]>
+  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "growerId" | "buyerFirmId" | "amount" | "notes" | "paidAt" | "createdAt" | "method" | "bankTransferType" | "bankName" | "bankAccNumber" | "bankAddress", ExtArgs["result"]["payment"]>
   export type PaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     grower?: boolean | GrowerDefaultArgs<ExtArgs>
     buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
@@ -7548,6 +7809,11 @@ export namespace Prisma {
       notes: string | null
       paidAt: Date
       createdAt: Date
+      method: string | null
+      bankTransferType: string | null
+      bankName: string | null
+      bankAccNumber: string | null
+      bankAddress: string | null
     }, ExtArgs["result"]["payment"]>
     composites: {}
   }
@@ -7980,6 +8246,11 @@ export namespace Prisma {
     readonly notes: FieldRef<"Payment", 'String'>
     readonly paidAt: FieldRef<"Payment", 'DateTime'>
     readonly createdAt: FieldRef<"Payment", 'DateTime'>
+    readonly method: FieldRef<"Payment", 'String'>
+    readonly bankTransferType: FieldRef<"Payment", 'String'>
+    readonly bankName: FieldRef<"Payment", 'String'>
+    readonly bankAccNumber: FieldRef<"Payment", 'String'>
+    readonly bankAddress: FieldRef<"Payment", 'String'>
   }
     
 
@@ -17389,6 +17660,1088 @@ export namespace Prisma {
 
 
   /**
+   * Model BankAccount
+   */
+
+  export type AggregateBankAccount = {
+    _count: BankAccountCountAggregateOutputType | null
+    _min: BankAccountMinAggregateOutputType | null
+    _max: BankAccountMaxAggregateOutputType | null
+  }
+
+  export type BankAccountMinAggregateOutputType = {
+    id: string | null
+    buyerFirmId: string | null
+    bankName: string | null
+    accNumber: string | null
+    bankAddress: string | null
+    isPrimary: boolean | null
+    createdAt: Date | null
+  }
+
+  export type BankAccountMaxAggregateOutputType = {
+    id: string | null
+    buyerFirmId: string | null
+    bankName: string | null
+    accNumber: string | null
+    bankAddress: string | null
+    isPrimary: boolean | null
+    createdAt: Date | null
+  }
+
+  export type BankAccountCountAggregateOutputType = {
+    id: number
+    buyerFirmId: number
+    bankName: number
+    accNumber: number
+    bankAddress: number
+    isPrimary: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type BankAccountMinAggregateInputType = {
+    id?: true
+    buyerFirmId?: true
+    bankName?: true
+    accNumber?: true
+    bankAddress?: true
+    isPrimary?: true
+    createdAt?: true
+  }
+
+  export type BankAccountMaxAggregateInputType = {
+    id?: true
+    buyerFirmId?: true
+    bankName?: true
+    accNumber?: true
+    bankAddress?: true
+    isPrimary?: true
+    createdAt?: true
+  }
+
+  export type BankAccountCountAggregateInputType = {
+    id?: true
+    buyerFirmId?: true
+    bankName?: true
+    accNumber?: true
+    bankAddress?: true
+    isPrimary?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type BankAccountAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BankAccount to aggregate.
+     */
+    where?: BankAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BankAccounts to fetch.
+     */
+    orderBy?: BankAccountOrderByWithRelationInput | BankAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BankAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BankAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BankAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BankAccounts
+    **/
+    _count?: true | BankAccountCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BankAccountMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BankAccountMaxAggregateInputType
+  }
+
+  export type GetBankAccountAggregateType<T extends BankAccountAggregateArgs> = {
+        [P in keyof T & keyof AggregateBankAccount]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBankAccount[P]>
+      : GetScalarType<T[P], AggregateBankAccount[P]>
+  }
+
+
+
+
+  export type BankAccountGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BankAccountWhereInput
+    orderBy?: BankAccountOrderByWithAggregationInput | BankAccountOrderByWithAggregationInput[]
+    by: BankAccountScalarFieldEnum[] | BankAccountScalarFieldEnum
+    having?: BankAccountScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BankAccountCountAggregateInputType | true
+    _min?: BankAccountMinAggregateInputType
+    _max?: BankAccountMaxAggregateInputType
+  }
+
+  export type BankAccountGroupByOutputType = {
+    id: string
+    buyerFirmId: string
+    bankName: string
+    accNumber: string
+    bankAddress: string | null
+    isPrimary: boolean
+    createdAt: Date
+    _count: BankAccountCountAggregateOutputType | null
+    _min: BankAccountMinAggregateOutputType | null
+    _max: BankAccountMaxAggregateOutputType | null
+  }
+
+  type GetBankAccountGroupByPayload<T extends BankAccountGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BankAccountGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BankAccountGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BankAccountGroupByOutputType[P]>
+            : GetScalarType<T[P], BankAccountGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BankAccountSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    buyerFirmId?: boolean
+    bankName?: boolean
+    accNumber?: boolean
+    bankAddress?: boolean
+    isPrimary?: boolean
+    createdAt?: boolean
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bankAccount"]>
+
+  export type BankAccountSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    buyerFirmId?: boolean
+    bankName?: boolean
+    accNumber?: boolean
+    bankAddress?: boolean
+    isPrimary?: boolean
+    createdAt?: boolean
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bankAccount"]>
+
+  export type BankAccountSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    buyerFirmId?: boolean
+    bankName?: boolean
+    accNumber?: boolean
+    bankAddress?: boolean
+    isPrimary?: boolean
+    createdAt?: boolean
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bankAccount"]>
+
+  export type BankAccountSelectScalar = {
+    id?: boolean
+    buyerFirmId?: boolean
+    bankName?: boolean
+    accNumber?: boolean
+    bankAddress?: boolean
+    isPrimary?: boolean
+    createdAt?: boolean
+  }
+
+  export type BankAccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "buyerFirmId" | "bankName" | "accNumber" | "bankAddress" | "isPrimary" | "createdAt", ExtArgs["result"]["bankAccount"]>
+  export type BankAccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }
+  export type BankAccountIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }
+  export type BankAccountIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    buyerFirm?: boolean | BuyerFirmDefaultArgs<ExtArgs>
+  }
+
+  export type $BankAccountPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BankAccount"
+    objects: {
+      buyerFirm: Prisma.$BuyerFirmPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      buyerFirmId: string
+      bankName: string
+      accNumber: string
+      bankAddress: string | null
+      isPrimary: boolean
+      createdAt: Date
+    }, ExtArgs["result"]["bankAccount"]>
+    composites: {}
+  }
+
+  type BankAccountGetPayload<S extends boolean | null | undefined | BankAccountDefaultArgs> = $Result.GetResult<Prisma.$BankAccountPayload, S>
+
+  type BankAccountCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BankAccountFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BankAccountCountAggregateInputType | true
+    }
+
+  export interface BankAccountDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BankAccount'], meta: { name: 'BankAccount' } }
+    /**
+     * Find zero or one BankAccount that matches the filter.
+     * @param {BankAccountFindUniqueArgs} args - Arguments to find a BankAccount
+     * @example
+     * // Get one BankAccount
+     * const bankAccount = await prisma.bankAccount.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BankAccountFindUniqueArgs>(args: SelectSubset<T, BankAccountFindUniqueArgs<ExtArgs>>): Prisma__BankAccountClient<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one BankAccount that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BankAccountFindUniqueOrThrowArgs} args - Arguments to find a BankAccount
+     * @example
+     * // Get one BankAccount
+     * const bankAccount = await prisma.bankAccount.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BankAccountFindUniqueOrThrowArgs>(args: SelectSubset<T, BankAccountFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BankAccountClient<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BankAccount that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankAccountFindFirstArgs} args - Arguments to find a BankAccount
+     * @example
+     * // Get one BankAccount
+     * const bankAccount = await prisma.bankAccount.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BankAccountFindFirstArgs>(args?: SelectSubset<T, BankAccountFindFirstArgs<ExtArgs>>): Prisma__BankAccountClient<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BankAccount that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankAccountFindFirstOrThrowArgs} args - Arguments to find a BankAccount
+     * @example
+     * // Get one BankAccount
+     * const bankAccount = await prisma.bankAccount.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BankAccountFindFirstOrThrowArgs>(args?: SelectSubset<T, BankAccountFindFirstOrThrowArgs<ExtArgs>>): Prisma__BankAccountClient<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more BankAccounts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankAccountFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BankAccounts
+     * const bankAccounts = await prisma.bankAccount.findMany()
+     * 
+     * // Get first 10 BankAccounts
+     * const bankAccounts = await prisma.bankAccount.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const bankAccountWithIdOnly = await prisma.bankAccount.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BankAccountFindManyArgs>(args?: SelectSubset<T, BankAccountFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a BankAccount.
+     * @param {BankAccountCreateArgs} args - Arguments to create a BankAccount.
+     * @example
+     * // Create one BankAccount
+     * const BankAccount = await prisma.bankAccount.create({
+     *   data: {
+     *     // ... data to create a BankAccount
+     *   }
+     * })
+     * 
+     */
+    create<T extends BankAccountCreateArgs>(args: SelectSubset<T, BankAccountCreateArgs<ExtArgs>>): Prisma__BankAccountClient<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many BankAccounts.
+     * @param {BankAccountCreateManyArgs} args - Arguments to create many BankAccounts.
+     * @example
+     * // Create many BankAccounts
+     * const bankAccount = await prisma.bankAccount.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BankAccountCreateManyArgs>(args?: SelectSubset<T, BankAccountCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BankAccounts and returns the data saved in the database.
+     * @param {BankAccountCreateManyAndReturnArgs} args - Arguments to create many BankAccounts.
+     * @example
+     * // Create many BankAccounts
+     * const bankAccount = await prisma.bankAccount.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BankAccounts and only return the `id`
+     * const bankAccountWithIdOnly = await prisma.bankAccount.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BankAccountCreateManyAndReturnArgs>(args?: SelectSubset<T, BankAccountCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a BankAccount.
+     * @param {BankAccountDeleteArgs} args - Arguments to delete one BankAccount.
+     * @example
+     * // Delete one BankAccount
+     * const BankAccount = await prisma.bankAccount.delete({
+     *   where: {
+     *     // ... filter to delete one BankAccount
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BankAccountDeleteArgs>(args: SelectSubset<T, BankAccountDeleteArgs<ExtArgs>>): Prisma__BankAccountClient<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one BankAccount.
+     * @param {BankAccountUpdateArgs} args - Arguments to update one BankAccount.
+     * @example
+     * // Update one BankAccount
+     * const bankAccount = await prisma.bankAccount.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BankAccountUpdateArgs>(args: SelectSubset<T, BankAccountUpdateArgs<ExtArgs>>): Prisma__BankAccountClient<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more BankAccounts.
+     * @param {BankAccountDeleteManyArgs} args - Arguments to filter BankAccounts to delete.
+     * @example
+     * // Delete a few BankAccounts
+     * const { count } = await prisma.bankAccount.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BankAccountDeleteManyArgs>(args?: SelectSubset<T, BankAccountDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BankAccounts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankAccountUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BankAccounts
+     * const bankAccount = await prisma.bankAccount.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BankAccountUpdateManyArgs>(args: SelectSubset<T, BankAccountUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BankAccounts and returns the data updated in the database.
+     * @param {BankAccountUpdateManyAndReturnArgs} args - Arguments to update many BankAccounts.
+     * @example
+     * // Update many BankAccounts
+     * const bankAccount = await prisma.bankAccount.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more BankAccounts and only return the `id`
+     * const bankAccountWithIdOnly = await prisma.bankAccount.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BankAccountUpdateManyAndReturnArgs>(args: SelectSubset<T, BankAccountUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one BankAccount.
+     * @param {BankAccountUpsertArgs} args - Arguments to update or create a BankAccount.
+     * @example
+     * // Update or create a BankAccount
+     * const bankAccount = await prisma.bankAccount.upsert({
+     *   create: {
+     *     // ... data to create a BankAccount
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BankAccount we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BankAccountUpsertArgs>(args: SelectSubset<T, BankAccountUpsertArgs<ExtArgs>>): Prisma__BankAccountClient<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of BankAccounts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankAccountCountArgs} args - Arguments to filter BankAccounts to count.
+     * @example
+     * // Count the number of BankAccounts
+     * const count = await prisma.bankAccount.count({
+     *   where: {
+     *     // ... the filter for the BankAccounts we want to count
+     *   }
+     * })
+    **/
+    count<T extends BankAccountCountArgs>(
+      args?: Subset<T, BankAccountCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BankAccountCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BankAccount.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankAccountAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BankAccountAggregateArgs>(args: Subset<T, BankAccountAggregateArgs>): Prisma.PrismaPromise<GetBankAccountAggregateType<T>>
+
+    /**
+     * Group by BankAccount.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankAccountGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BankAccountGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BankAccountGroupByArgs['orderBy'] }
+        : { orderBy?: BankAccountGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BankAccountGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBankAccountGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BankAccount model
+   */
+  readonly fields: BankAccountFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BankAccount.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BankAccountClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    buyerFirm<T extends BuyerFirmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BuyerFirmDefaultArgs<ExtArgs>>): Prisma__BuyerFirmClient<$Result.GetResult<Prisma.$BuyerFirmPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BankAccount model
+   */
+  interface BankAccountFieldRefs {
+    readonly id: FieldRef<"BankAccount", 'String'>
+    readonly buyerFirmId: FieldRef<"BankAccount", 'String'>
+    readonly bankName: FieldRef<"BankAccount", 'String'>
+    readonly accNumber: FieldRef<"BankAccount", 'String'>
+    readonly bankAddress: FieldRef<"BankAccount", 'String'>
+    readonly isPrimary: FieldRef<"BankAccount", 'Boolean'>
+    readonly createdAt: FieldRef<"BankAccount", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BankAccount findUnique
+   */
+  export type BankAccountFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BankAccount
+     */
+    omit?: BankAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which BankAccount to fetch.
+     */
+    where: BankAccountWhereUniqueInput
+  }
+
+  /**
+   * BankAccount findUniqueOrThrow
+   */
+  export type BankAccountFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BankAccount
+     */
+    omit?: BankAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which BankAccount to fetch.
+     */
+    where: BankAccountWhereUniqueInput
+  }
+
+  /**
+   * BankAccount findFirst
+   */
+  export type BankAccountFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BankAccount
+     */
+    omit?: BankAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which BankAccount to fetch.
+     */
+    where?: BankAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BankAccounts to fetch.
+     */
+    orderBy?: BankAccountOrderByWithRelationInput | BankAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BankAccounts.
+     */
+    cursor?: BankAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BankAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BankAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BankAccounts.
+     */
+    distinct?: BankAccountScalarFieldEnum | BankAccountScalarFieldEnum[]
+  }
+
+  /**
+   * BankAccount findFirstOrThrow
+   */
+  export type BankAccountFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BankAccount
+     */
+    omit?: BankAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which BankAccount to fetch.
+     */
+    where?: BankAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BankAccounts to fetch.
+     */
+    orderBy?: BankAccountOrderByWithRelationInput | BankAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BankAccounts.
+     */
+    cursor?: BankAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BankAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BankAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BankAccounts.
+     */
+    distinct?: BankAccountScalarFieldEnum | BankAccountScalarFieldEnum[]
+  }
+
+  /**
+   * BankAccount findMany
+   */
+  export type BankAccountFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BankAccount
+     */
+    omit?: BankAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which BankAccounts to fetch.
+     */
+    where?: BankAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BankAccounts to fetch.
+     */
+    orderBy?: BankAccountOrderByWithRelationInput | BankAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BankAccounts.
+     */
+    cursor?: BankAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BankAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BankAccounts.
+     */
+    skip?: number
+    distinct?: BankAccountScalarFieldEnum | BankAccountScalarFieldEnum[]
+  }
+
+  /**
+   * BankAccount create
+   */
+  export type BankAccountCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BankAccount
+     */
+    omit?: BankAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BankAccount.
+     */
+    data: XOR<BankAccountCreateInput, BankAccountUncheckedCreateInput>
+  }
+
+  /**
+   * BankAccount createMany
+   */
+  export type BankAccountCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BankAccounts.
+     */
+    data: BankAccountCreateManyInput | BankAccountCreateManyInput[]
+  }
+
+  /**
+   * BankAccount createManyAndReturn
+   */
+  export type BankAccountCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BankAccount
+     */
+    omit?: BankAccountOmit<ExtArgs> | null
+    /**
+     * The data used to create many BankAccounts.
+     */
+    data: BankAccountCreateManyInput | BankAccountCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BankAccount update
+   */
+  export type BankAccountUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BankAccount
+     */
+    omit?: BankAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BankAccount.
+     */
+    data: XOR<BankAccountUpdateInput, BankAccountUncheckedUpdateInput>
+    /**
+     * Choose, which BankAccount to update.
+     */
+    where: BankAccountWhereUniqueInput
+  }
+
+  /**
+   * BankAccount updateMany
+   */
+  export type BankAccountUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BankAccounts.
+     */
+    data: XOR<BankAccountUpdateManyMutationInput, BankAccountUncheckedUpdateManyInput>
+    /**
+     * Filter which BankAccounts to update
+     */
+    where?: BankAccountWhereInput
+    /**
+     * Limit how many BankAccounts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BankAccount updateManyAndReturn
+   */
+  export type BankAccountUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BankAccount
+     */
+    omit?: BankAccountOmit<ExtArgs> | null
+    /**
+     * The data used to update BankAccounts.
+     */
+    data: XOR<BankAccountUpdateManyMutationInput, BankAccountUncheckedUpdateManyInput>
+    /**
+     * Filter which BankAccounts to update
+     */
+    where?: BankAccountWhereInput
+    /**
+     * Limit how many BankAccounts to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BankAccount upsert
+   */
+  export type BankAccountUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BankAccount
+     */
+    omit?: BankAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BankAccount to update in case it exists.
+     */
+    where: BankAccountWhereUniqueInput
+    /**
+     * In case the BankAccount found by the `where` argument doesn't exist, create a new BankAccount with this data.
+     */
+    create: XOR<BankAccountCreateInput, BankAccountUncheckedCreateInput>
+    /**
+     * In case the BankAccount was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BankAccountUpdateInput, BankAccountUncheckedUpdateInput>
+  }
+
+  /**
+   * BankAccount delete
+   */
+  export type BankAccountDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BankAccount
+     */
+    omit?: BankAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountInclude<ExtArgs> | null
+    /**
+     * Filter which BankAccount to delete.
+     */
+    where: BankAccountWhereUniqueInput
+  }
+
+  /**
+   * BankAccount deleteMany
+   */
+  export type BankAccountDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BankAccounts to delete
+     */
+    where?: BankAccountWhereInput
+    /**
+     * Limit how many BankAccounts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BankAccount without action
+   */
+  export type BankAccountDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BankAccount
+     */
+    omit?: BankAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -17408,7 +18761,11 @@ export namespace Prisma {
     subscriptionPlan: 'subscriptionPlan',
     subscriptionExpiry: 'subscriptionExpiry',
     createdAt: 'createdAt',
-    logoUrl: 'logoUrl'
+    logoUrl: 'logoUrl',
+    deductionsConfig: 'deductionsConfig',
+    bankName: 'bankName',
+    bankAccNumber: 'bankAccNumber',
+    bankAddress: 'bankAddress'
   };
 
   export type BuyerFirmScalarFieldEnum = (typeof BuyerFirmScalarFieldEnum)[keyof typeof BuyerFirmScalarFieldEnum]
@@ -17431,6 +18788,7 @@ export namespace Prisma {
     name: 'name',
     mobile: 'mobile',
     address: 'address',
+    codeName: 'codeName',
     buyerFirmId: 'buyerFirmId',
     createdAt: 'createdAt'
   };
@@ -17458,7 +18816,8 @@ export namespace Prisma {
     receivedAt: 'receivedAt',
     notes: 'notes',
     notified: 'notified',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    deductions: 'deductions'
   };
 
   export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
@@ -17471,7 +18830,12 @@ export namespace Prisma {
     amount: 'amount',
     notes: 'notes',
     paidAt: 'paidAt',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    method: 'method',
+    bankTransferType: 'bankTransferType',
+    bankName: 'bankName',
+    bankAccNumber: 'bankAccNumber',
+    bankAddress: 'bankAddress'
   };
 
   export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
@@ -17588,6 +18952,19 @@ export namespace Prisma {
   export type GrowerItemChargeScalarFieldEnum = (typeof GrowerItemChargeScalarFieldEnum)[keyof typeof GrowerItemChargeScalarFieldEnum]
 
 
+  export const BankAccountScalarFieldEnum: {
+    id: 'id',
+    buyerFirmId: 'buyerFirmId',
+    bankName: 'bankName',
+    accNumber: 'accNumber',
+    bankAddress: 'bankAddress',
+    isPrimary: 'isPrimary',
+    createdAt: 'createdAt'
+  };
+
+  export type BankAccountScalarFieldEnum = (typeof BankAccountScalarFieldEnum)[keyof typeof BankAccountScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -17660,6 +19037,10 @@ export namespace Prisma {
     subscriptionExpiry?: DateTimeNullableFilter<"BuyerFirm"> | Date | string | null
     createdAt?: DateTimeFilter<"BuyerFirm"> | Date | string
     logoUrl?: StringNullableFilter<"BuyerFirm"> | string | null
+    deductionsConfig?: StringNullableFilter<"BuyerFirm"> | string | null
+    bankName?: StringNullableFilter<"BuyerFirm"> | string | null
+    bankAccNumber?: StringNullableFilter<"BuyerFirm"> | string | null
+    bankAddress?: StringNullableFilter<"BuyerFirm"> | string | null
     users?: UserListRelationFilter
     growers?: GrowerListRelationFilter
     sellers?: SellerListRelationFilter
@@ -17669,6 +19050,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionListRelationFilter
     expenses?: ExpenseListRelationFilter
     itemCharges?: GrowerItemChargeListRelationFilter
+    bankAccounts?: BankAccountListRelationFilter
   }
 
   export type BuyerFirmOrderByWithRelationInput = {
@@ -17681,6 +19063,10 @@ export namespace Prisma {
     subscriptionExpiry?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     logoUrl?: SortOrderInput | SortOrder
+    deductionsConfig?: SortOrderInput | SortOrder
+    bankName?: SortOrderInput | SortOrder
+    bankAccNumber?: SortOrderInput | SortOrder
+    bankAddress?: SortOrderInput | SortOrder
     users?: UserOrderByRelationAggregateInput
     growers?: GrowerOrderByRelationAggregateInput
     sellers?: SellerOrderByRelationAggregateInput
@@ -17690,6 +19076,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionOrderByRelationAggregateInput
     expenses?: ExpenseOrderByRelationAggregateInput
     itemCharges?: GrowerItemChargeOrderByRelationAggregateInput
+    bankAccounts?: BankAccountOrderByRelationAggregateInput
   }
 
   export type BuyerFirmWhereUniqueInput = Prisma.AtLeast<{
@@ -17705,6 +19092,10 @@ export namespace Prisma {
     subscriptionExpiry?: DateTimeNullableFilter<"BuyerFirm"> | Date | string | null
     createdAt?: DateTimeFilter<"BuyerFirm"> | Date | string
     logoUrl?: StringNullableFilter<"BuyerFirm"> | string | null
+    deductionsConfig?: StringNullableFilter<"BuyerFirm"> | string | null
+    bankName?: StringNullableFilter<"BuyerFirm"> | string | null
+    bankAccNumber?: StringNullableFilter<"BuyerFirm"> | string | null
+    bankAddress?: StringNullableFilter<"BuyerFirm"> | string | null
     users?: UserListRelationFilter
     growers?: GrowerListRelationFilter
     sellers?: SellerListRelationFilter
@@ -17714,6 +19105,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionListRelationFilter
     expenses?: ExpenseListRelationFilter
     itemCharges?: GrowerItemChargeListRelationFilter
+    bankAccounts?: BankAccountListRelationFilter
   }, "id" | "uniqueId">
 
   export type BuyerFirmOrderByWithAggregationInput = {
@@ -17726,6 +19118,10 @@ export namespace Prisma {
     subscriptionExpiry?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     logoUrl?: SortOrderInput | SortOrder
+    deductionsConfig?: SortOrderInput | SortOrder
+    bankName?: SortOrderInput | SortOrder
+    bankAccNumber?: SortOrderInput | SortOrder
+    bankAddress?: SortOrderInput | SortOrder
     _count?: BuyerFirmCountOrderByAggregateInput
     _max?: BuyerFirmMaxOrderByAggregateInput
     _min?: BuyerFirmMinOrderByAggregateInput
@@ -17744,6 +19140,10 @@ export namespace Prisma {
     subscriptionExpiry?: DateTimeNullableWithAggregatesFilter<"BuyerFirm"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"BuyerFirm"> | Date | string
     logoUrl?: StringNullableWithAggregatesFilter<"BuyerFirm"> | string | null
+    deductionsConfig?: StringNullableWithAggregatesFilter<"BuyerFirm"> | string | null
+    bankName?: StringNullableWithAggregatesFilter<"BuyerFirm"> | string | null
+    bankAccNumber?: StringNullableWithAggregatesFilter<"BuyerFirm"> | string | null
+    bankAddress?: StringNullableWithAggregatesFilter<"BuyerFirm"> | string | null
   }
 
   export type UserWhereInput = {
@@ -17818,6 +19218,7 @@ export namespace Prisma {
     name?: StringFilter<"Grower"> | string
     mobile?: StringFilter<"Grower"> | string
     address?: StringNullableFilter<"Grower"> | string | null
+    codeName?: StringNullableFilter<"Grower"> | string | null
     buyerFirmId?: StringFilter<"Grower"> | string
     createdAt?: DateTimeFilter<"Grower"> | Date | string
     buyerFirm?: XOR<BuyerFirmScalarRelationFilter, BuyerFirmWhereInput>
@@ -17834,6 +19235,7 @@ export namespace Prisma {
     name?: SortOrder
     mobile?: SortOrder
     address?: SortOrderInput | SortOrder
+    codeName?: SortOrderInput | SortOrder
     buyerFirmId?: SortOrder
     createdAt?: SortOrder
     buyerFirm?: BuyerFirmOrderByWithRelationInput
@@ -17854,6 +19256,7 @@ export namespace Prisma {
     name?: StringFilter<"Grower"> | string
     mobile?: StringFilter<"Grower"> | string
     address?: StringNullableFilter<"Grower"> | string | null
+    codeName?: StringNullableFilter<"Grower"> | string | null
     buyerFirmId?: StringFilter<"Grower"> | string
     createdAt?: DateTimeFilter<"Grower"> | Date | string
     buyerFirm?: XOR<BuyerFirmScalarRelationFilter, BuyerFirmWhereInput>
@@ -17870,6 +19273,7 @@ export namespace Prisma {
     name?: SortOrder
     mobile?: SortOrder
     address?: SortOrderInput | SortOrder
+    codeName?: SortOrderInput | SortOrder
     buyerFirmId?: SortOrder
     createdAt?: SortOrder
     _count?: GrowerCountOrderByAggregateInput
@@ -17885,6 +19289,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Grower"> | string
     mobile?: StringWithAggregatesFilter<"Grower"> | string
     address?: StringNullableWithAggregatesFilter<"Grower"> | string | null
+    codeName?: StringNullableWithAggregatesFilter<"Grower"> | string | null
     buyerFirmId?: StringWithAggregatesFilter<"Grower"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Grower"> | Date | string
   }
@@ -17913,6 +19318,7 @@ export namespace Prisma {
     notes?: StringNullableFilter<"Transaction"> | string | null
     notified?: BoolFilter<"Transaction"> | boolean
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
+    deductions?: StringNullableFilter<"Transaction"> | string | null
     grower?: XOR<GrowerNullableScalarRelationFilter, GrowerWhereInput> | null
     seller?: XOR<SellerNullableScalarRelationFilter, SellerWhereInput> | null
     buyerFirm?: XOR<BuyerFirmScalarRelationFilter, BuyerFirmWhereInput>
@@ -17939,6 +19345,7 @@ export namespace Prisma {
     notes?: SortOrderInput | SortOrder
     notified?: SortOrder
     createdAt?: SortOrder
+    deductions?: SortOrderInput | SortOrder
     grower?: GrowerOrderByWithRelationInput
     seller?: SellerOrderByWithRelationInput
     buyerFirm?: BuyerFirmOrderByWithRelationInput
@@ -17968,6 +19375,7 @@ export namespace Prisma {
     notes?: StringNullableFilter<"Transaction"> | string | null
     notified?: BoolFilter<"Transaction"> | boolean
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
+    deductions?: StringNullableFilter<"Transaction"> | string | null
     grower?: XOR<GrowerNullableScalarRelationFilter, GrowerWhereInput> | null
     seller?: XOR<SellerNullableScalarRelationFilter, SellerWhereInput> | null
     buyerFirm?: XOR<BuyerFirmScalarRelationFilter, BuyerFirmWhereInput>
@@ -17994,6 +19402,7 @@ export namespace Prisma {
     notes?: SortOrderInput | SortOrder
     notified?: SortOrder
     createdAt?: SortOrder
+    deductions?: SortOrderInput | SortOrder
     _count?: TransactionCountOrderByAggregateInput
     _avg?: TransactionAvgOrderByAggregateInput
     _max?: TransactionMaxOrderByAggregateInput
@@ -18025,6 +19434,7 @@ export namespace Prisma {
     notes?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     notified?: BoolWithAggregatesFilter<"Transaction"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
+    deductions?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
   }
 
   export type PaymentWhereInput = {
@@ -18038,6 +19448,11 @@ export namespace Prisma {
     notes?: StringNullableFilter<"Payment"> | string | null
     paidAt?: DateTimeFilter<"Payment"> | Date | string
     createdAt?: DateTimeFilter<"Payment"> | Date | string
+    method?: StringNullableFilter<"Payment"> | string | null
+    bankTransferType?: StringNullableFilter<"Payment"> | string | null
+    bankName?: StringNullableFilter<"Payment"> | string | null
+    bankAccNumber?: StringNullableFilter<"Payment"> | string | null
+    bankAddress?: StringNullableFilter<"Payment"> | string | null
     grower?: XOR<GrowerScalarRelationFilter, GrowerWhereInput>
     buyerFirm?: XOR<BuyerFirmScalarRelationFilter, BuyerFirmWhereInput>
   }
@@ -18050,6 +19465,11 @@ export namespace Prisma {
     notes?: SortOrderInput | SortOrder
     paidAt?: SortOrder
     createdAt?: SortOrder
+    method?: SortOrderInput | SortOrder
+    bankTransferType?: SortOrderInput | SortOrder
+    bankName?: SortOrderInput | SortOrder
+    bankAccNumber?: SortOrderInput | SortOrder
+    bankAddress?: SortOrderInput | SortOrder
     grower?: GrowerOrderByWithRelationInput
     buyerFirm?: BuyerFirmOrderByWithRelationInput
   }
@@ -18065,6 +19485,11 @@ export namespace Prisma {
     notes?: StringNullableFilter<"Payment"> | string | null
     paidAt?: DateTimeFilter<"Payment"> | Date | string
     createdAt?: DateTimeFilter<"Payment"> | Date | string
+    method?: StringNullableFilter<"Payment"> | string | null
+    bankTransferType?: StringNullableFilter<"Payment"> | string | null
+    bankName?: StringNullableFilter<"Payment"> | string | null
+    bankAccNumber?: StringNullableFilter<"Payment"> | string | null
+    bankAddress?: StringNullableFilter<"Payment"> | string | null
     grower?: XOR<GrowerScalarRelationFilter, GrowerWhereInput>
     buyerFirm?: XOR<BuyerFirmScalarRelationFilter, BuyerFirmWhereInput>
   }, "id">
@@ -18077,6 +19502,11 @@ export namespace Prisma {
     notes?: SortOrderInput | SortOrder
     paidAt?: SortOrder
     createdAt?: SortOrder
+    method?: SortOrderInput | SortOrder
+    bankTransferType?: SortOrderInput | SortOrder
+    bankName?: SortOrderInput | SortOrder
+    bankAccNumber?: SortOrderInput | SortOrder
+    bankAddress?: SortOrderInput | SortOrder
     _count?: PaymentCountOrderByAggregateInput
     _avg?: PaymentAvgOrderByAggregateInput
     _max?: PaymentMaxOrderByAggregateInput
@@ -18095,6 +19525,11 @@ export namespace Prisma {
     notes?: StringNullableWithAggregatesFilter<"Payment"> | string | null
     paidAt?: DateTimeWithAggregatesFilter<"Payment"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"Payment"> | Date | string
+    method?: StringNullableWithAggregatesFilter<"Payment"> | string | null
+    bankTransferType?: StringNullableWithAggregatesFilter<"Payment"> | string | null
+    bankName?: StringNullableWithAggregatesFilter<"Payment"> | string | null
+    bankAccNumber?: StringNullableWithAggregatesFilter<"Payment"> | string | null
+    bankAddress?: StringNullableWithAggregatesFilter<"Payment"> | string | null
   }
 
   export type OtpWhereInput = {
@@ -18682,6 +20117,71 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"GrowerItemCharge"> | Date | string
   }
 
+  export type BankAccountWhereInput = {
+    AND?: BankAccountWhereInput | BankAccountWhereInput[]
+    OR?: BankAccountWhereInput[]
+    NOT?: BankAccountWhereInput | BankAccountWhereInput[]
+    id?: StringFilter<"BankAccount"> | string
+    buyerFirmId?: StringFilter<"BankAccount"> | string
+    bankName?: StringFilter<"BankAccount"> | string
+    accNumber?: StringFilter<"BankAccount"> | string
+    bankAddress?: StringNullableFilter<"BankAccount"> | string | null
+    isPrimary?: BoolFilter<"BankAccount"> | boolean
+    createdAt?: DateTimeFilter<"BankAccount"> | Date | string
+    buyerFirm?: XOR<BuyerFirmScalarRelationFilter, BuyerFirmWhereInput>
+  }
+
+  export type BankAccountOrderByWithRelationInput = {
+    id?: SortOrder
+    buyerFirmId?: SortOrder
+    bankName?: SortOrder
+    accNumber?: SortOrder
+    bankAddress?: SortOrderInput | SortOrder
+    isPrimary?: SortOrder
+    createdAt?: SortOrder
+    buyerFirm?: BuyerFirmOrderByWithRelationInput
+  }
+
+  export type BankAccountWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BankAccountWhereInput | BankAccountWhereInput[]
+    OR?: BankAccountWhereInput[]
+    NOT?: BankAccountWhereInput | BankAccountWhereInput[]
+    buyerFirmId?: StringFilter<"BankAccount"> | string
+    bankName?: StringFilter<"BankAccount"> | string
+    accNumber?: StringFilter<"BankAccount"> | string
+    bankAddress?: StringNullableFilter<"BankAccount"> | string | null
+    isPrimary?: BoolFilter<"BankAccount"> | boolean
+    createdAt?: DateTimeFilter<"BankAccount"> | Date | string
+    buyerFirm?: XOR<BuyerFirmScalarRelationFilter, BuyerFirmWhereInput>
+  }, "id">
+
+  export type BankAccountOrderByWithAggregationInput = {
+    id?: SortOrder
+    buyerFirmId?: SortOrder
+    bankName?: SortOrder
+    accNumber?: SortOrder
+    bankAddress?: SortOrderInput | SortOrder
+    isPrimary?: SortOrder
+    createdAt?: SortOrder
+    _count?: BankAccountCountOrderByAggregateInput
+    _max?: BankAccountMaxOrderByAggregateInput
+    _min?: BankAccountMinOrderByAggregateInput
+  }
+
+  export type BankAccountScalarWhereWithAggregatesInput = {
+    AND?: BankAccountScalarWhereWithAggregatesInput | BankAccountScalarWhereWithAggregatesInput[]
+    OR?: BankAccountScalarWhereWithAggregatesInput[]
+    NOT?: BankAccountScalarWhereWithAggregatesInput | BankAccountScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BankAccount"> | string
+    buyerFirmId?: StringWithAggregatesFilter<"BankAccount"> | string
+    bankName?: StringWithAggregatesFilter<"BankAccount"> | string
+    accNumber?: StringWithAggregatesFilter<"BankAccount"> | string
+    bankAddress?: StringNullableWithAggregatesFilter<"BankAccount"> | string | null
+    isPrimary?: BoolWithAggregatesFilter<"BankAccount"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"BankAccount"> | Date | string
+  }
+
   export type BuyerFirmCreateInput = {
     id?: string
     uniqueId: string
@@ -18692,6 +20192,10 @@ export namespace Prisma {
     subscriptionExpiry?: Date | string | null
     createdAt?: Date | string
     logoUrl?: string | null
+    deductionsConfig?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
     users?: UserCreateNestedManyWithoutBuyerFirmInput
     growers?: GrowerCreateNestedManyWithoutBuyerFirmInput
     sellers?: SellerCreateNestedManyWithoutBuyerFirmInput
@@ -18701,6 +20205,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionCreateNestedManyWithoutBuyerFirmInput
     expenses?: ExpenseCreateNestedManyWithoutBuyerFirmInput
     itemCharges?: GrowerItemChargeCreateNestedManyWithoutBuyerFirmInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmUncheckedCreateInput = {
@@ -18713,6 +20218,10 @@ export namespace Prisma {
     subscriptionExpiry?: Date | string | null
     createdAt?: Date | string
     logoUrl?: string | null
+    deductionsConfig?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
     users?: UserUncheckedCreateNestedManyWithoutBuyerFirmInput
     growers?: GrowerUncheckedCreateNestedManyWithoutBuyerFirmInput
     sellers?: SellerUncheckedCreateNestedManyWithoutBuyerFirmInput
@@ -18722,6 +20231,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
     expenses?: ExpenseUncheckedCreateNestedManyWithoutBuyerFirmInput
     itemCharges?: GrowerItemChargeUncheckedCreateNestedManyWithoutBuyerFirmInput
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmUpdateInput = {
@@ -18734,6 +20244,10 @@ export namespace Prisma {
     subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionsConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateManyWithoutBuyerFirmNestedInput
     growers?: GrowerUpdateManyWithoutBuyerFirmNestedInput
     sellers?: SellerUpdateManyWithoutBuyerFirmNestedInput
@@ -18743,6 +20257,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionUpdateManyWithoutBuyerFirmNestedInput
     expenses?: ExpenseUpdateManyWithoutBuyerFirmNestedInput
     itemCharges?: GrowerItemChargeUpdateManyWithoutBuyerFirmNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type BuyerFirmUncheckedUpdateInput = {
@@ -18755,6 +20270,10 @@ export namespace Prisma {
     subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionsConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutBuyerFirmNestedInput
     growers?: GrowerUncheckedUpdateManyWithoutBuyerFirmNestedInput
     sellers?: SellerUncheckedUpdateManyWithoutBuyerFirmNestedInput
@@ -18764,6 +20283,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
     expenses?: ExpenseUncheckedUpdateManyWithoutBuyerFirmNestedInput
     itemCharges?: GrowerItemChargeUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type BuyerFirmCreateManyInput = {
@@ -18776,6 +20296,10 @@ export namespace Prisma {
     subscriptionExpiry?: Date | string | null
     createdAt?: Date | string
     logoUrl?: string | null
+    deductionsConfig?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
   }
 
   export type BuyerFirmUpdateManyMutationInput = {
@@ -18788,6 +20312,10 @@ export namespace Prisma {
     subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionsConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BuyerFirmUncheckedUpdateManyInput = {
@@ -18800,6 +20328,10 @@ export namespace Prisma {
     subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionsConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserCreateInput = {
@@ -18873,6 +20405,7 @@ export namespace Prisma {
     name: string
     mobile: string
     address?: string | null
+    codeName?: string | null
     createdAt?: Date | string
     buyerFirm: BuyerFirmCreateNestedOneWithoutGrowersInput
     transactions?: TransactionCreateNestedManyWithoutGrowerInput
@@ -18888,6 +20421,7 @@ export namespace Prisma {
     name: string
     mobile: string
     address?: string | null
+    codeName?: string | null
     buyerFirmId: string
     createdAt?: Date | string
     transactions?: TransactionUncheckedCreateNestedManyWithoutGrowerInput
@@ -18903,6 +20437,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     mobile?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    codeName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buyerFirm?: BuyerFirmUpdateOneRequiredWithoutGrowersNestedInput
     transactions?: TransactionUpdateManyWithoutGrowerNestedInput
@@ -18918,6 +20453,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     mobile?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    codeName?: NullableStringFieldUpdateOperationsInput | string | null
     buyerFirmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     transactions?: TransactionUncheckedUpdateManyWithoutGrowerNestedInput
@@ -18933,6 +20469,7 @@ export namespace Prisma {
     name: string
     mobile: string
     address?: string | null
+    codeName?: string | null
     buyerFirmId: string
     createdAt?: Date | string
   }
@@ -18942,6 +20479,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     mobile?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    codeName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -18950,6 +20488,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     mobile?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    codeName?: NullableStringFieldUpdateOperationsInput | string | null
     buyerFirmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -18972,6 +20511,7 @@ export namespace Prisma {
     notes?: string | null
     notified?: boolean
     createdAt?: Date | string
+    deductions?: string | null
     grower?: GrowerCreateNestedOneWithoutTransactionsInput
     seller?: SellerCreateNestedOneWithoutTransactionsInput
     buyerFirm: BuyerFirmCreateNestedOneWithoutTransactionsInput
@@ -18998,6 +20538,7 @@ export namespace Prisma {
     notes?: string | null
     notified?: boolean
     createdAt?: Date | string
+    deductions?: string | null
   }
 
   export type TransactionUpdateInput = {
@@ -19018,6 +20559,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     notified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deductions?: NullableStringFieldUpdateOperationsInput | string | null
     grower?: GrowerUpdateOneWithoutTransactionsNestedInput
     seller?: SellerUpdateOneWithoutTransactionsNestedInput
     buyerFirm?: BuyerFirmUpdateOneRequiredWithoutTransactionsNestedInput
@@ -19044,6 +20586,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     notified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deductions?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TransactionCreateManyInput = {
@@ -19067,6 +20610,7 @@ export namespace Prisma {
     notes?: string | null
     notified?: boolean
     createdAt?: Date | string
+    deductions?: string | null
   }
 
   export type TransactionUpdateManyMutationInput = {
@@ -19087,6 +20631,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     notified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deductions?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TransactionUncheckedUpdateManyInput = {
@@ -19110,6 +20655,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     notified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deductions?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PaymentCreateInput = {
@@ -19118,6 +20664,11 @@ export namespace Prisma {
     notes?: string | null
     paidAt?: Date | string
     createdAt?: Date | string
+    method?: string | null
+    bankTransferType?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
     grower: GrowerCreateNestedOneWithoutPaymentsInput
     buyerFirm: BuyerFirmCreateNestedOneWithoutPaymentsInput
   }
@@ -19130,6 +20681,11 @@ export namespace Prisma {
     notes?: string | null
     paidAt?: Date | string
     createdAt?: Date | string
+    method?: string | null
+    bankTransferType?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
   }
 
   export type PaymentUpdateInput = {
@@ -19138,6 +20694,11 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    method?: NullableStringFieldUpdateOperationsInput | string | null
+    bankTransferType?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
     grower?: GrowerUpdateOneRequiredWithoutPaymentsNestedInput
     buyerFirm?: BuyerFirmUpdateOneRequiredWithoutPaymentsNestedInput
   }
@@ -19150,6 +20711,11 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    method?: NullableStringFieldUpdateOperationsInput | string | null
+    bankTransferType?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PaymentCreateManyInput = {
@@ -19160,6 +20726,11 @@ export namespace Prisma {
     notes?: string | null
     paidAt?: Date | string
     createdAt?: Date | string
+    method?: string | null
+    bankTransferType?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
   }
 
   export type PaymentUpdateManyMutationInput = {
@@ -19168,6 +20739,11 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    method?: NullableStringFieldUpdateOperationsInput | string | null
+    bankTransferType?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PaymentUncheckedUpdateManyInput = {
@@ -19178,6 +20754,11 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    method?: NullableStringFieldUpdateOperationsInput | string | null
+    bankTransferType?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type OtpCreateInput = {
@@ -19789,6 +21370,75 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type BankAccountCreateInput = {
+    id?: string
+    bankName: string
+    accNumber: string
+    bankAddress?: string | null
+    isPrimary?: boolean
+    createdAt?: Date | string
+    buyerFirm: BuyerFirmCreateNestedOneWithoutBankAccountsInput
+  }
+
+  export type BankAccountUncheckedCreateInput = {
+    id?: string
+    buyerFirmId: string
+    bankName: string
+    accNumber: string
+    bankAddress?: string | null
+    isPrimary?: boolean
+    createdAt?: Date | string
+  }
+
+  export type BankAccountUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bankName?: StringFieldUpdateOperationsInput | string
+    accNumber?: StringFieldUpdateOperationsInput | string
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    buyerFirm?: BuyerFirmUpdateOneRequiredWithoutBankAccountsNestedInput
+  }
+
+  export type BankAccountUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    buyerFirmId?: StringFieldUpdateOperationsInput | string
+    bankName?: StringFieldUpdateOperationsInput | string
+    accNumber?: StringFieldUpdateOperationsInput | string
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BankAccountCreateManyInput = {
+    id?: string
+    buyerFirmId: string
+    bankName: string
+    accNumber: string
+    bankAddress?: string | null
+    isPrimary?: boolean
+    createdAt?: Date | string
+  }
+
+  export type BankAccountUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bankName?: StringFieldUpdateOperationsInput | string
+    accNumber?: StringFieldUpdateOperationsInput | string
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BankAccountUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    buyerFirmId?: StringFieldUpdateOperationsInput | string
+    bankName?: StringFieldUpdateOperationsInput | string
+    accNumber?: StringFieldUpdateOperationsInput | string
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -19893,6 +21543,12 @@ export namespace Prisma {
     none?: GrowerItemChargeWhereInput
   }
 
+  export type BankAccountListRelationFilter = {
+    every?: BankAccountWhereInput
+    some?: BankAccountWhereInput
+    none?: BankAccountWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -19934,6 +21590,10 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type BankAccountOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type BuyerFirmCountOrderByAggregateInput = {
     id?: SortOrder
     uniqueId?: SortOrder
@@ -19944,6 +21604,10 @@ export namespace Prisma {
     subscriptionExpiry?: SortOrder
     createdAt?: SortOrder
     logoUrl?: SortOrder
+    deductionsConfig?: SortOrder
+    bankName?: SortOrder
+    bankAccNumber?: SortOrder
+    bankAddress?: SortOrder
   }
 
   export type BuyerFirmMaxOrderByAggregateInput = {
@@ -19956,6 +21620,10 @@ export namespace Prisma {
     subscriptionExpiry?: SortOrder
     createdAt?: SortOrder
     logoUrl?: SortOrder
+    deductionsConfig?: SortOrder
+    bankName?: SortOrder
+    bankAccNumber?: SortOrder
+    bankAddress?: SortOrder
   }
 
   export type BuyerFirmMinOrderByAggregateInput = {
@@ -19968,6 +21636,10 @@ export namespace Prisma {
     subscriptionExpiry?: SortOrder
     createdAt?: SortOrder
     logoUrl?: SortOrder
+    deductionsConfig?: SortOrder
+    bankName?: SortOrder
+    bankAccNumber?: SortOrder
+    bankAddress?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -20099,6 +21771,7 @@ export namespace Prisma {
     name?: SortOrder
     mobile?: SortOrder
     address?: SortOrder
+    codeName?: SortOrder
     buyerFirmId?: SortOrder
     createdAt?: SortOrder
   }
@@ -20108,6 +21781,7 @@ export namespace Prisma {
     name?: SortOrder
     mobile?: SortOrder
     address?: SortOrder
+    codeName?: SortOrder
     buyerFirmId?: SortOrder
     createdAt?: SortOrder
   }
@@ -20117,6 +21791,7 @@ export namespace Prisma {
     name?: SortOrder
     mobile?: SortOrder
     address?: SortOrder
+    codeName?: SortOrder
     buyerFirmId?: SortOrder
     createdAt?: SortOrder
   }
@@ -20168,6 +21843,7 @@ export namespace Prisma {
     notes?: SortOrder
     notified?: SortOrder
     createdAt?: SortOrder
+    deductions?: SortOrder
   }
 
   export type TransactionAvgOrderByAggregateInput = {
@@ -20204,6 +21880,7 @@ export namespace Prisma {
     notes?: SortOrder
     notified?: SortOrder
     createdAt?: SortOrder
+    deductions?: SortOrder
   }
 
   export type TransactionMinOrderByAggregateInput = {
@@ -20227,6 +21904,7 @@ export namespace Prisma {
     notes?: SortOrder
     notified?: SortOrder
     createdAt?: SortOrder
+    deductions?: SortOrder
   }
 
   export type TransactionSumOrderByAggregateInput = {
@@ -20279,6 +21957,11 @@ export namespace Prisma {
     notes?: SortOrder
     paidAt?: SortOrder
     createdAt?: SortOrder
+    method?: SortOrder
+    bankTransferType?: SortOrder
+    bankName?: SortOrder
+    bankAccNumber?: SortOrder
+    bankAddress?: SortOrder
   }
 
   export type PaymentAvgOrderByAggregateInput = {
@@ -20293,6 +21976,11 @@ export namespace Prisma {
     notes?: SortOrder
     paidAt?: SortOrder
     createdAt?: SortOrder
+    method?: SortOrder
+    bankTransferType?: SortOrder
+    bankName?: SortOrder
+    bankAccNumber?: SortOrder
+    bankAddress?: SortOrder
   }
 
   export type PaymentMinOrderByAggregateInput = {
@@ -20303,6 +21991,11 @@ export namespace Prisma {
     notes?: SortOrder
     paidAt?: SortOrder
     createdAt?: SortOrder
+    method?: SortOrder
+    bankTransferType?: SortOrder
+    bankName?: SortOrder
+    bankAccNumber?: SortOrder
+    bankAddress?: SortOrder
   }
 
   export type PaymentSumOrderByAggregateInput = {
@@ -20623,6 +22316,36 @@ export namespace Prisma {
     amount?: SortOrder
   }
 
+  export type BankAccountCountOrderByAggregateInput = {
+    id?: SortOrder
+    buyerFirmId?: SortOrder
+    bankName?: SortOrder
+    accNumber?: SortOrder
+    bankAddress?: SortOrder
+    isPrimary?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BankAccountMaxOrderByAggregateInput = {
+    id?: SortOrder
+    buyerFirmId?: SortOrder
+    bankName?: SortOrder
+    accNumber?: SortOrder
+    bankAddress?: SortOrder
+    isPrimary?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BankAccountMinOrderByAggregateInput = {
+    id?: SortOrder
+    buyerFirmId?: SortOrder
+    bankName?: SortOrder
+    accNumber?: SortOrder
+    bankAddress?: SortOrder
+    isPrimary?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type UserCreateNestedManyWithoutBuyerFirmInput = {
     create?: XOR<UserCreateWithoutBuyerFirmInput, UserUncheckedCreateWithoutBuyerFirmInput> | UserCreateWithoutBuyerFirmInput[] | UserUncheckedCreateWithoutBuyerFirmInput[]
     connectOrCreate?: UserCreateOrConnectWithoutBuyerFirmInput | UserCreateOrConnectWithoutBuyerFirmInput[]
@@ -20686,6 +22409,13 @@ export namespace Prisma {
     connect?: GrowerItemChargeWhereUniqueInput | GrowerItemChargeWhereUniqueInput[]
   }
 
+  export type BankAccountCreateNestedManyWithoutBuyerFirmInput = {
+    create?: XOR<BankAccountCreateWithoutBuyerFirmInput, BankAccountUncheckedCreateWithoutBuyerFirmInput> | BankAccountCreateWithoutBuyerFirmInput[] | BankAccountUncheckedCreateWithoutBuyerFirmInput[]
+    connectOrCreate?: BankAccountCreateOrConnectWithoutBuyerFirmInput | BankAccountCreateOrConnectWithoutBuyerFirmInput[]
+    createMany?: BankAccountCreateManyBuyerFirmInputEnvelope
+    connect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutBuyerFirmInput = {
     create?: XOR<UserCreateWithoutBuyerFirmInput, UserUncheckedCreateWithoutBuyerFirmInput> | UserCreateWithoutBuyerFirmInput[] | UserUncheckedCreateWithoutBuyerFirmInput[]
     connectOrCreate?: UserCreateOrConnectWithoutBuyerFirmInput | UserCreateOrConnectWithoutBuyerFirmInput[]
@@ -20747,6 +22477,13 @@ export namespace Prisma {
     connectOrCreate?: GrowerItemChargeCreateOrConnectWithoutBuyerFirmInput | GrowerItemChargeCreateOrConnectWithoutBuyerFirmInput[]
     createMany?: GrowerItemChargeCreateManyBuyerFirmInputEnvelope
     connect?: GrowerItemChargeWhereUniqueInput | GrowerItemChargeWhereUniqueInput[]
+  }
+
+  export type BankAccountUncheckedCreateNestedManyWithoutBuyerFirmInput = {
+    create?: XOR<BankAccountCreateWithoutBuyerFirmInput, BankAccountUncheckedCreateWithoutBuyerFirmInput> | BankAccountCreateWithoutBuyerFirmInput[] | BankAccountUncheckedCreateWithoutBuyerFirmInput[]
+    connectOrCreate?: BankAccountCreateOrConnectWithoutBuyerFirmInput | BankAccountCreateOrConnectWithoutBuyerFirmInput[]
+    createMany?: BankAccountCreateManyBuyerFirmInputEnvelope
+    connect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -20891,6 +22628,20 @@ export namespace Prisma {
     deleteMany?: GrowerItemChargeScalarWhereInput | GrowerItemChargeScalarWhereInput[]
   }
 
+  export type BankAccountUpdateManyWithoutBuyerFirmNestedInput = {
+    create?: XOR<BankAccountCreateWithoutBuyerFirmInput, BankAccountUncheckedCreateWithoutBuyerFirmInput> | BankAccountCreateWithoutBuyerFirmInput[] | BankAccountUncheckedCreateWithoutBuyerFirmInput[]
+    connectOrCreate?: BankAccountCreateOrConnectWithoutBuyerFirmInput | BankAccountCreateOrConnectWithoutBuyerFirmInput[]
+    upsert?: BankAccountUpsertWithWhereUniqueWithoutBuyerFirmInput | BankAccountUpsertWithWhereUniqueWithoutBuyerFirmInput[]
+    createMany?: BankAccountCreateManyBuyerFirmInputEnvelope
+    set?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    disconnect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    delete?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    connect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    update?: BankAccountUpdateWithWhereUniqueWithoutBuyerFirmInput | BankAccountUpdateWithWhereUniqueWithoutBuyerFirmInput[]
+    updateMany?: BankAccountUpdateManyWithWhereWithoutBuyerFirmInput | BankAccountUpdateManyWithWhereWithoutBuyerFirmInput[]
+    deleteMany?: BankAccountScalarWhereInput | BankAccountScalarWhereInput[]
+  }
+
   export type UserUncheckedUpdateManyWithoutBuyerFirmNestedInput = {
     create?: XOR<UserCreateWithoutBuyerFirmInput, UserUncheckedCreateWithoutBuyerFirmInput> | UserCreateWithoutBuyerFirmInput[] | UserUncheckedCreateWithoutBuyerFirmInput[]
     connectOrCreate?: UserCreateOrConnectWithoutBuyerFirmInput | UserCreateOrConnectWithoutBuyerFirmInput[]
@@ -21015,6 +22766,20 @@ export namespace Prisma {
     update?: GrowerItemChargeUpdateWithWhereUniqueWithoutBuyerFirmInput | GrowerItemChargeUpdateWithWhereUniqueWithoutBuyerFirmInput[]
     updateMany?: GrowerItemChargeUpdateManyWithWhereWithoutBuyerFirmInput | GrowerItemChargeUpdateManyWithWhereWithoutBuyerFirmInput[]
     deleteMany?: GrowerItemChargeScalarWhereInput | GrowerItemChargeScalarWhereInput[]
+  }
+
+  export type BankAccountUncheckedUpdateManyWithoutBuyerFirmNestedInput = {
+    create?: XOR<BankAccountCreateWithoutBuyerFirmInput, BankAccountUncheckedCreateWithoutBuyerFirmInput> | BankAccountCreateWithoutBuyerFirmInput[] | BankAccountUncheckedCreateWithoutBuyerFirmInput[]
+    connectOrCreate?: BankAccountCreateOrConnectWithoutBuyerFirmInput | BankAccountCreateOrConnectWithoutBuyerFirmInput[]
+    upsert?: BankAccountUpsertWithWhereUniqueWithoutBuyerFirmInput | BankAccountUpsertWithWhereUniqueWithoutBuyerFirmInput[]
+    createMany?: BankAccountCreateManyBuyerFirmInputEnvelope
+    set?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    disconnect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    delete?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    connect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    update?: BankAccountUpdateWithWhereUniqueWithoutBuyerFirmInput | BankAccountUpdateWithWhereUniqueWithoutBuyerFirmInput[]
+    updateMany?: BankAccountUpdateManyWithWhereWithoutBuyerFirmInput | BankAccountUpdateManyWithWhereWithoutBuyerFirmInput[]
+    deleteMany?: BankAccountScalarWhereInput | BankAccountScalarWhereInput[]
   }
 
   export type BuyerFirmCreateNestedOneWithoutUsersInput = {
@@ -21723,6 +23488,20 @@ export namespace Prisma {
     update?: XOR<XOR<BuyerFirmUpdateToOneWithWhereWithoutItemChargesInput, BuyerFirmUpdateWithoutItemChargesInput>, BuyerFirmUncheckedUpdateWithoutItemChargesInput>
   }
 
+  export type BuyerFirmCreateNestedOneWithoutBankAccountsInput = {
+    create?: XOR<BuyerFirmCreateWithoutBankAccountsInput, BuyerFirmUncheckedCreateWithoutBankAccountsInput>
+    connectOrCreate?: BuyerFirmCreateOrConnectWithoutBankAccountsInput
+    connect?: BuyerFirmWhereUniqueInput
+  }
+
+  export type BuyerFirmUpdateOneRequiredWithoutBankAccountsNestedInput = {
+    create?: XOR<BuyerFirmCreateWithoutBankAccountsInput, BuyerFirmUncheckedCreateWithoutBankAccountsInput>
+    connectOrCreate?: BuyerFirmCreateOrConnectWithoutBankAccountsInput
+    upsert?: BuyerFirmUpsertWithoutBankAccountsInput
+    connect?: BuyerFirmWhereUniqueInput
+    update?: XOR<XOR<BuyerFirmUpdateToOneWithWhereWithoutBankAccountsInput, BuyerFirmUpdateWithoutBankAccountsInput>, BuyerFirmUncheckedUpdateWithoutBankAccountsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -21929,6 +23708,7 @@ export namespace Prisma {
     name: string
     mobile: string
     address?: string | null
+    codeName?: string | null
     createdAt?: Date | string
     transactions?: TransactionCreateNestedManyWithoutGrowerInput
     payments?: PaymentCreateNestedManyWithoutGrowerInput
@@ -21943,6 +23723,7 @@ export namespace Prisma {
     name: string
     mobile: string
     address?: string | null
+    codeName?: string | null
     createdAt?: Date | string
     transactions?: TransactionUncheckedCreateNestedManyWithoutGrowerInput
     payments?: PaymentUncheckedCreateNestedManyWithoutGrowerInput
@@ -22010,6 +23791,7 @@ export namespace Prisma {
     notes?: string | null
     notified?: boolean
     createdAt?: Date | string
+    deductions?: string | null
     grower?: GrowerCreateNestedOneWithoutTransactionsInput
     seller?: SellerCreateNestedOneWithoutTransactionsInput
   }
@@ -22034,6 +23816,7 @@ export namespace Prisma {
     notes?: string | null
     notified?: boolean
     createdAt?: Date | string
+    deductions?: string | null
   }
 
   export type TransactionCreateOrConnectWithoutBuyerFirmInput = {
@@ -22051,6 +23834,11 @@ export namespace Prisma {
     notes?: string | null
     paidAt?: Date | string
     createdAt?: Date | string
+    method?: string | null
+    bankTransferType?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
     grower: GrowerCreateNestedOneWithoutPaymentsInput
   }
 
@@ -22061,6 +23849,11 @@ export namespace Prisma {
     notes?: string | null
     paidAt?: Date | string
     createdAt?: Date | string
+    method?: string | null
+    bankTransferType?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
   }
 
   export type PaymentCreateOrConnectWithoutBuyerFirmInput = {
@@ -22198,6 +23991,33 @@ export namespace Prisma {
     data: GrowerItemChargeCreateManyBuyerFirmInput | GrowerItemChargeCreateManyBuyerFirmInput[]
   }
 
+  export type BankAccountCreateWithoutBuyerFirmInput = {
+    id?: string
+    bankName: string
+    accNumber: string
+    bankAddress?: string | null
+    isPrimary?: boolean
+    createdAt?: Date | string
+  }
+
+  export type BankAccountUncheckedCreateWithoutBuyerFirmInput = {
+    id?: string
+    bankName: string
+    accNumber: string
+    bankAddress?: string | null
+    isPrimary?: boolean
+    createdAt?: Date | string
+  }
+
+  export type BankAccountCreateOrConnectWithoutBuyerFirmInput = {
+    where: BankAccountWhereUniqueInput
+    create: XOR<BankAccountCreateWithoutBuyerFirmInput, BankAccountUncheckedCreateWithoutBuyerFirmInput>
+  }
+
+  export type BankAccountCreateManyBuyerFirmInputEnvelope = {
+    data: BankAccountCreateManyBuyerFirmInput | BankAccountCreateManyBuyerFirmInput[]
+  }
+
   export type UserUpsertWithWhereUniqueWithoutBuyerFirmInput = {
     where: UserWhereUniqueInput
     update: XOR<UserUpdateWithoutBuyerFirmInput, UserUncheckedUpdateWithoutBuyerFirmInput>
@@ -22250,6 +24070,7 @@ export namespace Prisma {
     name?: StringFilter<"Grower"> | string
     mobile?: StringFilter<"Grower"> | string
     address?: StringNullableFilter<"Grower"> | string | null
+    codeName?: StringNullableFilter<"Grower"> | string | null
     buyerFirmId?: StringFilter<"Grower"> | string
     createdAt?: DateTimeFilter<"Grower"> | Date | string
   }
@@ -22322,6 +24143,7 @@ export namespace Prisma {
     notes?: StringNullableFilter<"Transaction"> | string | null
     notified?: BoolFilter<"Transaction"> | boolean
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
+    deductions?: StringNullableFilter<"Transaction"> | string | null
   }
 
   export type PaymentUpsertWithWhereUniqueWithoutBuyerFirmInput = {
@@ -22351,6 +24173,11 @@ export namespace Prisma {
     notes?: StringNullableFilter<"Payment"> | string | null
     paidAt?: DateTimeFilter<"Payment"> | Date | string
     createdAt?: DateTimeFilter<"Payment"> | Date | string
+    method?: StringNullableFilter<"Payment"> | string | null
+    bankTransferType?: StringNullableFilter<"Payment"> | string | null
+    bankName?: StringNullableFilter<"Payment"> | string | null
+    bankAccNumber?: StringNullableFilter<"Payment"> | string | null
+    bankAddress?: StringNullableFilter<"Payment"> | string | null
   }
 
   export type SellerPaymentUpsertWithWhereUniqueWithoutBuyerFirmInput = {
@@ -22478,6 +24305,35 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"GrowerItemCharge"> | Date | string
   }
 
+  export type BankAccountUpsertWithWhereUniqueWithoutBuyerFirmInput = {
+    where: BankAccountWhereUniqueInput
+    update: XOR<BankAccountUpdateWithoutBuyerFirmInput, BankAccountUncheckedUpdateWithoutBuyerFirmInput>
+    create: XOR<BankAccountCreateWithoutBuyerFirmInput, BankAccountUncheckedCreateWithoutBuyerFirmInput>
+  }
+
+  export type BankAccountUpdateWithWhereUniqueWithoutBuyerFirmInput = {
+    where: BankAccountWhereUniqueInput
+    data: XOR<BankAccountUpdateWithoutBuyerFirmInput, BankAccountUncheckedUpdateWithoutBuyerFirmInput>
+  }
+
+  export type BankAccountUpdateManyWithWhereWithoutBuyerFirmInput = {
+    where: BankAccountScalarWhereInput
+    data: XOR<BankAccountUpdateManyMutationInput, BankAccountUncheckedUpdateManyWithoutBuyerFirmInput>
+  }
+
+  export type BankAccountScalarWhereInput = {
+    AND?: BankAccountScalarWhereInput | BankAccountScalarWhereInput[]
+    OR?: BankAccountScalarWhereInput[]
+    NOT?: BankAccountScalarWhereInput | BankAccountScalarWhereInput[]
+    id?: StringFilter<"BankAccount"> | string
+    buyerFirmId?: StringFilter<"BankAccount"> | string
+    bankName?: StringFilter<"BankAccount"> | string
+    accNumber?: StringFilter<"BankAccount"> | string
+    bankAddress?: StringNullableFilter<"BankAccount"> | string | null
+    isPrimary?: BoolFilter<"BankAccount"> | boolean
+    createdAt?: DateTimeFilter<"BankAccount"> | Date | string
+  }
+
   export type BuyerFirmCreateWithoutUsersInput = {
     id?: string
     uniqueId: string
@@ -22488,6 +24344,10 @@ export namespace Prisma {
     subscriptionExpiry?: Date | string | null
     createdAt?: Date | string
     logoUrl?: string | null
+    deductionsConfig?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
     growers?: GrowerCreateNestedManyWithoutBuyerFirmInput
     sellers?: SellerCreateNestedManyWithoutBuyerFirmInput
     transactions?: TransactionCreateNestedManyWithoutBuyerFirmInput
@@ -22496,6 +24356,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionCreateNestedManyWithoutBuyerFirmInput
     expenses?: ExpenseCreateNestedManyWithoutBuyerFirmInput
     itemCharges?: GrowerItemChargeCreateNestedManyWithoutBuyerFirmInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmUncheckedCreateWithoutUsersInput = {
@@ -22508,6 +24369,10 @@ export namespace Prisma {
     subscriptionExpiry?: Date | string | null
     createdAt?: Date | string
     logoUrl?: string | null
+    deductionsConfig?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
     growers?: GrowerUncheckedCreateNestedManyWithoutBuyerFirmInput
     sellers?: SellerUncheckedCreateNestedManyWithoutBuyerFirmInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
@@ -22516,6 +24381,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
     expenses?: ExpenseUncheckedCreateNestedManyWithoutBuyerFirmInput
     itemCharges?: GrowerItemChargeUncheckedCreateNestedManyWithoutBuyerFirmInput
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmCreateOrConnectWithoutUsersInput = {
@@ -22581,6 +24447,10 @@ export namespace Prisma {
     subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionsConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
     growers?: GrowerUpdateManyWithoutBuyerFirmNestedInput
     sellers?: SellerUpdateManyWithoutBuyerFirmNestedInput
     transactions?: TransactionUpdateManyWithoutBuyerFirmNestedInput
@@ -22589,6 +24459,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionUpdateManyWithoutBuyerFirmNestedInput
     expenses?: ExpenseUpdateManyWithoutBuyerFirmNestedInput
     itemCharges?: GrowerItemChargeUpdateManyWithoutBuyerFirmNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type BuyerFirmUncheckedUpdateWithoutUsersInput = {
@@ -22601,6 +24472,10 @@ export namespace Prisma {
     subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionsConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
     growers?: GrowerUncheckedUpdateManyWithoutBuyerFirmNestedInput
     sellers?: SellerUncheckedUpdateManyWithoutBuyerFirmNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
@@ -22609,6 +24484,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
     expenses?: ExpenseUncheckedUpdateManyWithoutBuyerFirmNestedInput
     itemCharges?: GrowerItemChargeUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type DraftTransactionUpsertWithWhereUniqueWithoutCreatedByInput = {
@@ -22637,6 +24513,10 @@ export namespace Prisma {
     subscriptionExpiry?: Date | string | null
     createdAt?: Date | string
     logoUrl?: string | null
+    deductionsConfig?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
     users?: UserCreateNestedManyWithoutBuyerFirmInput
     sellers?: SellerCreateNestedManyWithoutBuyerFirmInput
     transactions?: TransactionCreateNestedManyWithoutBuyerFirmInput
@@ -22645,6 +24525,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionCreateNestedManyWithoutBuyerFirmInput
     expenses?: ExpenseCreateNestedManyWithoutBuyerFirmInput
     itemCharges?: GrowerItemChargeCreateNestedManyWithoutBuyerFirmInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmUncheckedCreateWithoutGrowersInput = {
@@ -22657,6 +24538,10 @@ export namespace Prisma {
     subscriptionExpiry?: Date | string | null
     createdAt?: Date | string
     logoUrl?: string | null
+    deductionsConfig?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
     users?: UserUncheckedCreateNestedManyWithoutBuyerFirmInput
     sellers?: SellerUncheckedCreateNestedManyWithoutBuyerFirmInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
@@ -22665,6 +24550,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
     expenses?: ExpenseUncheckedCreateNestedManyWithoutBuyerFirmInput
     itemCharges?: GrowerItemChargeUncheckedCreateNestedManyWithoutBuyerFirmInput
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmCreateOrConnectWithoutGrowersInput = {
@@ -22690,6 +24576,7 @@ export namespace Prisma {
     notes?: string | null
     notified?: boolean
     createdAt?: Date | string
+    deductions?: string | null
     seller?: SellerCreateNestedOneWithoutTransactionsInput
     buyerFirm: BuyerFirmCreateNestedOneWithoutTransactionsInput
   }
@@ -22714,6 +24601,7 @@ export namespace Prisma {
     notes?: string | null
     notified?: boolean
     createdAt?: Date | string
+    deductions?: string | null
   }
 
   export type TransactionCreateOrConnectWithoutGrowerInput = {
@@ -22731,6 +24619,11 @@ export namespace Prisma {
     notes?: string | null
     paidAt?: Date | string
     createdAt?: Date | string
+    method?: string | null
+    bankTransferType?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
     buyerFirm: BuyerFirmCreateNestedOneWithoutPaymentsInput
   }
 
@@ -22741,6 +24634,11 @@ export namespace Prisma {
     notes?: string | null
     paidAt?: Date | string
     createdAt?: Date | string
+    method?: string | null
+    bankTransferType?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
   }
 
   export type PaymentCreateOrConnectWithoutGrowerInput = {
@@ -22899,6 +24797,10 @@ export namespace Prisma {
     subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionsConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateManyWithoutBuyerFirmNestedInput
     sellers?: SellerUpdateManyWithoutBuyerFirmNestedInput
     transactions?: TransactionUpdateManyWithoutBuyerFirmNestedInput
@@ -22907,6 +24809,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionUpdateManyWithoutBuyerFirmNestedInput
     expenses?: ExpenseUpdateManyWithoutBuyerFirmNestedInput
     itemCharges?: GrowerItemChargeUpdateManyWithoutBuyerFirmNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type BuyerFirmUncheckedUpdateWithoutGrowersInput = {
@@ -22919,6 +24822,10 @@ export namespace Prisma {
     subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionsConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutBuyerFirmNestedInput
     sellers?: SellerUncheckedUpdateManyWithoutBuyerFirmNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
@@ -22927,6 +24834,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
     expenses?: ExpenseUncheckedUpdateManyWithoutBuyerFirmNestedInput
     itemCharges?: GrowerItemChargeUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type TransactionUpsertWithWhereUniqueWithoutGrowerInput = {
@@ -23057,6 +24965,7 @@ export namespace Prisma {
     name: string
     mobile: string
     address?: string | null
+    codeName?: string | null
     createdAt?: Date | string
     buyerFirm: BuyerFirmCreateNestedOneWithoutGrowersInput
     payments?: PaymentCreateNestedManyWithoutGrowerInput
@@ -23071,6 +24980,7 @@ export namespace Prisma {
     name: string
     mobile: string
     address?: string | null
+    codeName?: string | null
     buyerFirmId: string
     createdAt?: Date | string
     payments?: PaymentUncheckedCreateNestedManyWithoutGrowerInput
@@ -23122,6 +25032,10 @@ export namespace Prisma {
     subscriptionExpiry?: Date | string | null
     createdAt?: Date | string
     logoUrl?: string | null
+    deductionsConfig?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
     users?: UserCreateNestedManyWithoutBuyerFirmInput
     growers?: GrowerCreateNestedManyWithoutBuyerFirmInput
     sellers?: SellerCreateNestedManyWithoutBuyerFirmInput
@@ -23130,6 +25044,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionCreateNestedManyWithoutBuyerFirmInput
     expenses?: ExpenseCreateNestedManyWithoutBuyerFirmInput
     itemCharges?: GrowerItemChargeCreateNestedManyWithoutBuyerFirmInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmUncheckedCreateWithoutTransactionsInput = {
@@ -23142,6 +25057,10 @@ export namespace Prisma {
     subscriptionExpiry?: Date | string | null
     createdAt?: Date | string
     logoUrl?: string | null
+    deductionsConfig?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
     users?: UserUncheckedCreateNestedManyWithoutBuyerFirmInput
     growers?: GrowerUncheckedCreateNestedManyWithoutBuyerFirmInput
     sellers?: SellerUncheckedCreateNestedManyWithoutBuyerFirmInput
@@ -23150,6 +25069,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
     expenses?: ExpenseUncheckedCreateNestedManyWithoutBuyerFirmInput
     itemCharges?: GrowerItemChargeUncheckedCreateNestedManyWithoutBuyerFirmInput
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmCreateOrConnectWithoutTransactionsInput = {
@@ -23173,6 +25093,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     mobile?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    codeName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buyerFirm?: BuyerFirmUpdateOneRequiredWithoutGrowersNestedInput
     payments?: PaymentUpdateManyWithoutGrowerNestedInput
@@ -23187,6 +25108,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     mobile?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    codeName?: NullableStringFieldUpdateOperationsInput | string | null
     buyerFirmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payments?: PaymentUncheckedUpdateManyWithoutGrowerNestedInput
@@ -23250,6 +25172,10 @@ export namespace Prisma {
     subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionsConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateManyWithoutBuyerFirmNestedInput
     growers?: GrowerUpdateManyWithoutBuyerFirmNestedInput
     sellers?: SellerUpdateManyWithoutBuyerFirmNestedInput
@@ -23258,6 +25184,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionUpdateManyWithoutBuyerFirmNestedInput
     expenses?: ExpenseUpdateManyWithoutBuyerFirmNestedInput
     itemCharges?: GrowerItemChargeUpdateManyWithoutBuyerFirmNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type BuyerFirmUncheckedUpdateWithoutTransactionsInput = {
@@ -23270,6 +25197,10 @@ export namespace Prisma {
     subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionsConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutBuyerFirmNestedInput
     growers?: GrowerUncheckedUpdateManyWithoutBuyerFirmNestedInput
     sellers?: SellerUncheckedUpdateManyWithoutBuyerFirmNestedInput
@@ -23278,6 +25209,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
     expenses?: ExpenseUncheckedUpdateManyWithoutBuyerFirmNestedInput
     itemCharges?: GrowerItemChargeUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type GrowerCreateWithoutPaymentsInput = {
@@ -23285,6 +25217,7 @@ export namespace Prisma {
     name: string
     mobile: string
     address?: string | null
+    codeName?: string | null
     createdAt?: Date | string
     buyerFirm: BuyerFirmCreateNestedOneWithoutGrowersInput
     transactions?: TransactionCreateNestedManyWithoutGrowerInput
@@ -23299,6 +25232,7 @@ export namespace Prisma {
     name: string
     mobile: string
     address?: string | null
+    codeName?: string | null
     buyerFirmId: string
     createdAt?: Date | string
     transactions?: TransactionUncheckedCreateNestedManyWithoutGrowerInput
@@ -23323,6 +25257,10 @@ export namespace Prisma {
     subscriptionExpiry?: Date | string | null
     createdAt?: Date | string
     logoUrl?: string | null
+    deductionsConfig?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
     users?: UserCreateNestedManyWithoutBuyerFirmInput
     growers?: GrowerCreateNestedManyWithoutBuyerFirmInput
     sellers?: SellerCreateNestedManyWithoutBuyerFirmInput
@@ -23331,6 +25269,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionCreateNestedManyWithoutBuyerFirmInput
     expenses?: ExpenseCreateNestedManyWithoutBuyerFirmInput
     itemCharges?: GrowerItemChargeCreateNestedManyWithoutBuyerFirmInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmUncheckedCreateWithoutPaymentsInput = {
@@ -23343,6 +25282,10 @@ export namespace Prisma {
     subscriptionExpiry?: Date | string | null
     createdAt?: Date | string
     logoUrl?: string | null
+    deductionsConfig?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
     users?: UserUncheckedCreateNestedManyWithoutBuyerFirmInput
     growers?: GrowerUncheckedCreateNestedManyWithoutBuyerFirmInput
     sellers?: SellerUncheckedCreateNestedManyWithoutBuyerFirmInput
@@ -23351,6 +25294,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
     expenses?: ExpenseUncheckedCreateNestedManyWithoutBuyerFirmInput
     itemCharges?: GrowerItemChargeUncheckedCreateNestedManyWithoutBuyerFirmInput
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmCreateOrConnectWithoutPaymentsInput = {
@@ -23374,6 +25318,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     mobile?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    codeName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buyerFirm?: BuyerFirmUpdateOneRequiredWithoutGrowersNestedInput
     transactions?: TransactionUpdateManyWithoutGrowerNestedInput
@@ -23388,6 +25333,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     mobile?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    codeName?: NullableStringFieldUpdateOperationsInput | string | null
     buyerFirmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     transactions?: TransactionUncheckedUpdateManyWithoutGrowerNestedInput
@@ -23418,6 +25364,10 @@ export namespace Prisma {
     subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionsConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateManyWithoutBuyerFirmNestedInput
     growers?: GrowerUpdateManyWithoutBuyerFirmNestedInput
     sellers?: SellerUpdateManyWithoutBuyerFirmNestedInput
@@ -23426,6 +25376,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionUpdateManyWithoutBuyerFirmNestedInput
     expenses?: ExpenseUpdateManyWithoutBuyerFirmNestedInput
     itemCharges?: GrowerItemChargeUpdateManyWithoutBuyerFirmNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type BuyerFirmUncheckedUpdateWithoutPaymentsInput = {
@@ -23438,6 +25389,10 @@ export namespace Prisma {
     subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionsConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutBuyerFirmNestedInput
     growers?: GrowerUncheckedUpdateManyWithoutBuyerFirmNestedInput
     sellers?: SellerUncheckedUpdateManyWithoutBuyerFirmNestedInput
@@ -23446,6 +25401,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
     expenses?: ExpenseUncheckedUpdateManyWithoutBuyerFirmNestedInput
     itemCharges?: GrowerItemChargeUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type GrowerCreateWithoutNotificationsInput = {
@@ -23453,6 +25409,7 @@ export namespace Prisma {
     name: string
     mobile: string
     address?: string | null
+    codeName?: string | null
     createdAt?: Date | string
     buyerFirm: BuyerFirmCreateNestedOneWithoutGrowersInput
     transactions?: TransactionCreateNestedManyWithoutGrowerInput
@@ -23467,6 +25424,7 @@ export namespace Prisma {
     name: string
     mobile: string
     address?: string | null
+    codeName?: string | null
     buyerFirmId: string
     createdAt?: Date | string
     transactions?: TransactionUncheckedCreateNestedManyWithoutGrowerInput
@@ -23497,6 +25455,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     mobile?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    codeName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buyerFirm?: BuyerFirmUpdateOneRequiredWithoutGrowersNestedInput
     transactions?: TransactionUpdateManyWithoutGrowerNestedInput
@@ -23511,6 +25470,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     mobile?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    codeName?: NullableStringFieldUpdateOperationsInput | string | null
     buyerFirmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     transactions?: TransactionUncheckedUpdateManyWithoutGrowerNestedInput
@@ -23525,6 +25485,7 @@ export namespace Prisma {
     name: string
     mobile: string
     address?: string | null
+    codeName?: string | null
     createdAt?: Date | string
     buyerFirm: BuyerFirmCreateNestedOneWithoutGrowersInput
     transactions?: TransactionCreateNestedManyWithoutGrowerInput
@@ -23539,6 +25500,7 @@ export namespace Prisma {
     name: string
     mobile: string
     address?: string | null
+    codeName?: string | null
     buyerFirmId: string
     createdAt?: Date | string
     transactions?: TransactionUncheckedCreateNestedManyWithoutGrowerInput
@@ -23569,6 +25531,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     mobile?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    codeName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buyerFirm?: BuyerFirmUpdateOneRequiredWithoutGrowersNestedInput
     transactions?: TransactionUpdateManyWithoutGrowerNestedInput
@@ -23583,6 +25546,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     mobile?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    codeName?: NullableStringFieldUpdateOperationsInput | string | null
     buyerFirmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     transactions?: TransactionUncheckedUpdateManyWithoutGrowerNestedInput
@@ -23597,6 +25561,7 @@ export namespace Prisma {
     name: string
     mobile: string
     address?: string | null
+    codeName?: string | null
     createdAt?: Date | string
     buyerFirm: BuyerFirmCreateNestedOneWithoutGrowersInput
     transactions?: TransactionCreateNestedManyWithoutGrowerInput
@@ -23611,6 +25576,7 @@ export namespace Prisma {
     name: string
     mobile: string
     address?: string | null
+    codeName?: string | null
     buyerFirmId: string
     createdAt?: Date | string
     transactions?: TransactionUncheckedCreateNestedManyWithoutGrowerInput
@@ -23662,6 +25628,10 @@ export namespace Prisma {
     subscriptionExpiry?: Date | string | null
     createdAt?: Date | string
     logoUrl?: string | null
+    deductionsConfig?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
     users?: UserCreateNestedManyWithoutBuyerFirmInput
     growers?: GrowerCreateNestedManyWithoutBuyerFirmInput
     sellers?: SellerCreateNestedManyWithoutBuyerFirmInput
@@ -23670,6 +25640,7 @@ export namespace Prisma {
     sellerPayments?: SellerPaymentCreateNestedManyWithoutBuyerFirmInput
     expenses?: ExpenseCreateNestedManyWithoutBuyerFirmInput
     itemCharges?: GrowerItemChargeCreateNestedManyWithoutBuyerFirmInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmUncheckedCreateWithoutDraftTransactionsInput = {
@@ -23682,6 +25653,10 @@ export namespace Prisma {
     subscriptionExpiry?: Date | string | null
     createdAt?: Date | string
     logoUrl?: string | null
+    deductionsConfig?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
     users?: UserUncheckedCreateNestedManyWithoutBuyerFirmInput
     growers?: GrowerUncheckedCreateNestedManyWithoutBuyerFirmInput
     sellers?: SellerUncheckedCreateNestedManyWithoutBuyerFirmInput
@@ -23690,6 +25665,7 @@ export namespace Prisma {
     sellerPayments?: SellerPaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
     expenses?: ExpenseUncheckedCreateNestedManyWithoutBuyerFirmInput
     itemCharges?: GrowerItemChargeUncheckedCreateNestedManyWithoutBuyerFirmInput
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmCreateOrConnectWithoutDraftTransactionsInput = {
@@ -23736,6 +25712,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     mobile?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    codeName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buyerFirm?: BuyerFirmUpdateOneRequiredWithoutGrowersNestedInput
     transactions?: TransactionUpdateManyWithoutGrowerNestedInput
@@ -23750,6 +25727,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     mobile?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    codeName?: NullableStringFieldUpdateOperationsInput | string | null
     buyerFirmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     transactions?: TransactionUncheckedUpdateManyWithoutGrowerNestedInput
@@ -23813,6 +25791,10 @@ export namespace Prisma {
     subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionsConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateManyWithoutBuyerFirmNestedInput
     growers?: GrowerUpdateManyWithoutBuyerFirmNestedInput
     sellers?: SellerUpdateManyWithoutBuyerFirmNestedInput
@@ -23821,6 +25803,7 @@ export namespace Prisma {
     sellerPayments?: SellerPaymentUpdateManyWithoutBuyerFirmNestedInput
     expenses?: ExpenseUpdateManyWithoutBuyerFirmNestedInput
     itemCharges?: GrowerItemChargeUpdateManyWithoutBuyerFirmNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type BuyerFirmUncheckedUpdateWithoutDraftTransactionsInput = {
@@ -23833,6 +25816,10 @@ export namespace Prisma {
     subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionsConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutBuyerFirmNestedInput
     growers?: GrowerUncheckedUpdateManyWithoutBuyerFirmNestedInput
     sellers?: SellerUncheckedUpdateManyWithoutBuyerFirmNestedInput
@@ -23841,6 +25828,7 @@ export namespace Prisma {
     sellerPayments?: SellerPaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
     expenses?: ExpenseUncheckedUpdateManyWithoutBuyerFirmNestedInput
     itemCharges?: GrowerItemChargeUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type UserUpsertWithoutDraftTransactionsInput = {
@@ -23882,6 +25870,10 @@ export namespace Prisma {
     subscriptionExpiry?: Date | string | null
     createdAt?: Date | string
     logoUrl?: string | null
+    deductionsConfig?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
     users?: UserCreateNestedManyWithoutBuyerFirmInput
     growers?: GrowerCreateNestedManyWithoutBuyerFirmInput
     transactions?: TransactionCreateNestedManyWithoutBuyerFirmInput
@@ -23890,6 +25882,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionCreateNestedManyWithoutBuyerFirmInput
     expenses?: ExpenseCreateNestedManyWithoutBuyerFirmInput
     itemCharges?: GrowerItemChargeCreateNestedManyWithoutBuyerFirmInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmUncheckedCreateWithoutSellersInput = {
@@ -23902,6 +25895,10 @@ export namespace Prisma {
     subscriptionExpiry?: Date | string | null
     createdAt?: Date | string
     logoUrl?: string | null
+    deductionsConfig?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
     users?: UserUncheckedCreateNestedManyWithoutBuyerFirmInput
     growers?: GrowerUncheckedCreateNestedManyWithoutBuyerFirmInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
@@ -23910,6 +25907,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
     expenses?: ExpenseUncheckedCreateNestedManyWithoutBuyerFirmInput
     itemCharges?: GrowerItemChargeUncheckedCreateNestedManyWithoutBuyerFirmInput
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmCreateOrConnectWithoutSellersInput = {
@@ -23935,6 +25933,7 @@ export namespace Prisma {
     notes?: string | null
     notified?: boolean
     createdAt?: Date | string
+    deductions?: string | null
     grower?: GrowerCreateNestedOneWithoutTransactionsInput
     buyerFirm: BuyerFirmCreateNestedOneWithoutTransactionsInput
   }
@@ -23959,6 +25958,7 @@ export namespace Prisma {
     notes?: string | null
     notified?: boolean
     createdAt?: Date | string
+    deductions?: string | null
   }
 
   export type TransactionCreateOrConnectWithoutSellerInput = {
@@ -24055,6 +26055,10 @@ export namespace Prisma {
     subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionsConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateManyWithoutBuyerFirmNestedInput
     growers?: GrowerUpdateManyWithoutBuyerFirmNestedInput
     transactions?: TransactionUpdateManyWithoutBuyerFirmNestedInput
@@ -24063,6 +26067,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionUpdateManyWithoutBuyerFirmNestedInput
     expenses?: ExpenseUpdateManyWithoutBuyerFirmNestedInput
     itemCharges?: GrowerItemChargeUpdateManyWithoutBuyerFirmNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type BuyerFirmUncheckedUpdateWithoutSellersInput = {
@@ -24075,6 +26080,10 @@ export namespace Prisma {
     subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionsConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutBuyerFirmNestedInput
     growers?: GrowerUncheckedUpdateManyWithoutBuyerFirmNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
@@ -24083,6 +26092,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
     expenses?: ExpenseUncheckedUpdateManyWithoutBuyerFirmNestedInput
     itemCharges?: GrowerItemChargeUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type TransactionUpsertWithWhereUniqueWithoutSellerInput = {
@@ -24170,6 +26180,10 @@ export namespace Prisma {
     subscriptionExpiry?: Date | string | null
     createdAt?: Date | string
     logoUrl?: string | null
+    deductionsConfig?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
     users?: UserCreateNestedManyWithoutBuyerFirmInput
     growers?: GrowerCreateNestedManyWithoutBuyerFirmInput
     sellers?: SellerCreateNestedManyWithoutBuyerFirmInput
@@ -24178,6 +26192,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionCreateNestedManyWithoutBuyerFirmInput
     expenses?: ExpenseCreateNestedManyWithoutBuyerFirmInput
     itemCharges?: GrowerItemChargeCreateNestedManyWithoutBuyerFirmInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmUncheckedCreateWithoutSellerPaymentsInput = {
@@ -24190,6 +26205,10 @@ export namespace Prisma {
     subscriptionExpiry?: Date | string | null
     createdAt?: Date | string
     logoUrl?: string | null
+    deductionsConfig?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
     users?: UserUncheckedCreateNestedManyWithoutBuyerFirmInput
     growers?: GrowerUncheckedCreateNestedManyWithoutBuyerFirmInput
     sellers?: SellerUncheckedCreateNestedManyWithoutBuyerFirmInput
@@ -24198,6 +26217,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
     expenses?: ExpenseUncheckedCreateNestedManyWithoutBuyerFirmInput
     itemCharges?: GrowerItemChargeUncheckedCreateNestedManyWithoutBuyerFirmInput
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmCreateOrConnectWithoutSellerPaymentsInput = {
@@ -24259,6 +26279,10 @@ export namespace Prisma {
     subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionsConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateManyWithoutBuyerFirmNestedInput
     growers?: GrowerUpdateManyWithoutBuyerFirmNestedInput
     sellers?: SellerUpdateManyWithoutBuyerFirmNestedInput
@@ -24267,6 +26291,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionUpdateManyWithoutBuyerFirmNestedInput
     expenses?: ExpenseUpdateManyWithoutBuyerFirmNestedInput
     itemCharges?: GrowerItemChargeUpdateManyWithoutBuyerFirmNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type BuyerFirmUncheckedUpdateWithoutSellerPaymentsInput = {
@@ -24279,6 +26304,10 @@ export namespace Prisma {
     subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionsConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutBuyerFirmNestedInput
     growers?: GrowerUncheckedUpdateManyWithoutBuyerFirmNestedInput
     sellers?: SellerUncheckedUpdateManyWithoutBuyerFirmNestedInput
@@ -24287,6 +26316,7 @@ export namespace Prisma {
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
     expenses?: ExpenseUncheckedUpdateManyWithoutBuyerFirmNestedInput
     itemCharges?: GrowerItemChargeUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type BuyerFirmCreateWithoutExpensesInput = {
@@ -24299,6 +26329,10 @@ export namespace Prisma {
     subscriptionExpiry?: Date | string | null
     createdAt?: Date | string
     logoUrl?: string | null
+    deductionsConfig?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
     users?: UserCreateNestedManyWithoutBuyerFirmInput
     growers?: GrowerCreateNestedManyWithoutBuyerFirmInput
     sellers?: SellerCreateNestedManyWithoutBuyerFirmInput
@@ -24307,6 +26341,7 @@ export namespace Prisma {
     sellerPayments?: SellerPaymentCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionCreateNestedManyWithoutBuyerFirmInput
     itemCharges?: GrowerItemChargeCreateNestedManyWithoutBuyerFirmInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmUncheckedCreateWithoutExpensesInput = {
@@ -24319,6 +26354,10 @@ export namespace Prisma {
     subscriptionExpiry?: Date | string | null
     createdAt?: Date | string
     logoUrl?: string | null
+    deductionsConfig?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
     users?: UserUncheckedCreateNestedManyWithoutBuyerFirmInput
     growers?: GrowerUncheckedCreateNestedManyWithoutBuyerFirmInput
     sellers?: SellerUncheckedCreateNestedManyWithoutBuyerFirmInput
@@ -24327,6 +26366,7 @@ export namespace Prisma {
     sellerPayments?: SellerPaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
     itemCharges?: GrowerItemChargeUncheckedCreateNestedManyWithoutBuyerFirmInput
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmCreateOrConnectWithoutExpensesInput = {
@@ -24355,6 +26395,10 @@ export namespace Prisma {
     subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionsConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateManyWithoutBuyerFirmNestedInput
     growers?: GrowerUpdateManyWithoutBuyerFirmNestedInput
     sellers?: SellerUpdateManyWithoutBuyerFirmNestedInput
@@ -24363,6 +26407,7 @@ export namespace Prisma {
     sellerPayments?: SellerPaymentUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUpdateManyWithoutBuyerFirmNestedInput
     itemCharges?: GrowerItemChargeUpdateManyWithoutBuyerFirmNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type BuyerFirmUncheckedUpdateWithoutExpensesInput = {
@@ -24375,6 +26420,10 @@ export namespace Prisma {
     subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionsConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutBuyerFirmNestedInput
     growers?: GrowerUncheckedUpdateManyWithoutBuyerFirmNestedInput
     sellers?: SellerUncheckedUpdateManyWithoutBuyerFirmNestedInput
@@ -24383,6 +26432,7 @@ export namespace Prisma {
     sellerPayments?: SellerPaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
     itemCharges?: GrowerItemChargeUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type GrowerCreateWithoutItemChargesInput = {
@@ -24390,6 +26440,7 @@ export namespace Prisma {
     name: string
     mobile: string
     address?: string | null
+    codeName?: string | null
     createdAt?: Date | string
     buyerFirm: BuyerFirmCreateNestedOneWithoutGrowersInput
     transactions?: TransactionCreateNestedManyWithoutGrowerInput
@@ -24404,6 +26455,7 @@ export namespace Prisma {
     name: string
     mobile: string
     address?: string | null
+    codeName?: string | null
     buyerFirmId: string
     createdAt?: Date | string
     transactions?: TransactionUncheckedCreateNestedManyWithoutGrowerInput
@@ -24428,6 +26480,10 @@ export namespace Prisma {
     subscriptionExpiry?: Date | string | null
     createdAt?: Date | string
     logoUrl?: string | null
+    deductionsConfig?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
     users?: UserCreateNestedManyWithoutBuyerFirmInput
     growers?: GrowerCreateNestedManyWithoutBuyerFirmInput
     sellers?: SellerCreateNestedManyWithoutBuyerFirmInput
@@ -24436,6 +26492,7 @@ export namespace Prisma {
     sellerPayments?: SellerPaymentCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionCreateNestedManyWithoutBuyerFirmInput
     expenses?: ExpenseCreateNestedManyWithoutBuyerFirmInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmUncheckedCreateWithoutItemChargesInput = {
@@ -24448,6 +26505,10 @@ export namespace Prisma {
     subscriptionExpiry?: Date | string | null
     createdAt?: Date | string
     logoUrl?: string | null
+    deductionsConfig?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
     users?: UserUncheckedCreateNestedManyWithoutBuyerFirmInput
     growers?: GrowerUncheckedCreateNestedManyWithoutBuyerFirmInput
     sellers?: SellerUncheckedCreateNestedManyWithoutBuyerFirmInput
@@ -24456,6 +26517,7 @@ export namespace Prisma {
     sellerPayments?: SellerPaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
     draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
     expenses?: ExpenseUncheckedCreateNestedManyWithoutBuyerFirmInput
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutBuyerFirmInput
   }
 
   export type BuyerFirmCreateOrConnectWithoutItemChargesInput = {
@@ -24479,6 +26541,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     mobile?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    codeName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buyerFirm?: BuyerFirmUpdateOneRequiredWithoutGrowersNestedInput
     transactions?: TransactionUpdateManyWithoutGrowerNestedInput
@@ -24493,6 +26556,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     mobile?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    codeName?: NullableStringFieldUpdateOperationsInput | string | null
     buyerFirmId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     transactions?: TransactionUncheckedUpdateManyWithoutGrowerNestedInput
@@ -24523,6 +26587,10 @@ export namespace Prisma {
     subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionsConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateManyWithoutBuyerFirmNestedInput
     growers?: GrowerUpdateManyWithoutBuyerFirmNestedInput
     sellers?: SellerUpdateManyWithoutBuyerFirmNestedInput
@@ -24531,6 +26599,7 @@ export namespace Prisma {
     sellerPayments?: SellerPaymentUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUpdateManyWithoutBuyerFirmNestedInput
     expenses?: ExpenseUpdateManyWithoutBuyerFirmNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type BuyerFirmUncheckedUpdateWithoutItemChargesInput = {
@@ -24543,6 +26612,10 @@ export namespace Prisma {
     subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionsConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutBuyerFirmNestedInput
     growers?: GrowerUncheckedUpdateManyWithoutBuyerFirmNestedInput
     sellers?: SellerUncheckedUpdateManyWithoutBuyerFirmNestedInput
@@ -24551,6 +26624,123 @@ export namespace Prisma {
     sellerPayments?: SellerPaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
     draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
     expenses?: ExpenseUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutBuyerFirmNestedInput
+  }
+
+  export type BuyerFirmCreateWithoutBankAccountsInput = {
+    id?: string
+    uniqueId: string
+    firmName: string
+    ownerName: string
+    mobile: string
+    subscriptionPlan?: string
+    subscriptionExpiry?: Date | string | null
+    createdAt?: Date | string
+    logoUrl?: string | null
+    deductionsConfig?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
+    users?: UserCreateNestedManyWithoutBuyerFirmInput
+    growers?: GrowerCreateNestedManyWithoutBuyerFirmInput
+    sellers?: SellerCreateNestedManyWithoutBuyerFirmInput
+    transactions?: TransactionCreateNestedManyWithoutBuyerFirmInput
+    payments?: PaymentCreateNestedManyWithoutBuyerFirmInput
+    sellerPayments?: SellerPaymentCreateNestedManyWithoutBuyerFirmInput
+    draftTransactions?: DraftTransactionCreateNestedManyWithoutBuyerFirmInput
+    expenses?: ExpenseCreateNestedManyWithoutBuyerFirmInput
+    itemCharges?: GrowerItemChargeCreateNestedManyWithoutBuyerFirmInput
+  }
+
+  export type BuyerFirmUncheckedCreateWithoutBankAccountsInput = {
+    id?: string
+    uniqueId: string
+    firmName: string
+    ownerName: string
+    mobile: string
+    subscriptionPlan?: string
+    subscriptionExpiry?: Date | string | null
+    createdAt?: Date | string
+    logoUrl?: string | null
+    deductionsConfig?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
+    users?: UserUncheckedCreateNestedManyWithoutBuyerFirmInput
+    growers?: GrowerUncheckedCreateNestedManyWithoutBuyerFirmInput
+    sellers?: SellerUncheckedCreateNestedManyWithoutBuyerFirmInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
+    sellerPayments?: SellerPaymentUncheckedCreateNestedManyWithoutBuyerFirmInput
+    draftTransactions?: DraftTransactionUncheckedCreateNestedManyWithoutBuyerFirmInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutBuyerFirmInput
+    itemCharges?: GrowerItemChargeUncheckedCreateNestedManyWithoutBuyerFirmInput
+  }
+
+  export type BuyerFirmCreateOrConnectWithoutBankAccountsInput = {
+    where: BuyerFirmWhereUniqueInput
+    create: XOR<BuyerFirmCreateWithoutBankAccountsInput, BuyerFirmUncheckedCreateWithoutBankAccountsInput>
+  }
+
+  export type BuyerFirmUpsertWithoutBankAccountsInput = {
+    update: XOR<BuyerFirmUpdateWithoutBankAccountsInput, BuyerFirmUncheckedUpdateWithoutBankAccountsInput>
+    create: XOR<BuyerFirmCreateWithoutBankAccountsInput, BuyerFirmUncheckedCreateWithoutBankAccountsInput>
+    where?: BuyerFirmWhereInput
+  }
+
+  export type BuyerFirmUpdateToOneWithWhereWithoutBankAccountsInput = {
+    where?: BuyerFirmWhereInput
+    data: XOR<BuyerFirmUpdateWithoutBankAccountsInput, BuyerFirmUncheckedUpdateWithoutBankAccountsInput>
+  }
+
+  export type BuyerFirmUpdateWithoutBankAccountsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    uniqueId?: StringFieldUpdateOperationsInput | string
+    firmName?: StringFieldUpdateOperationsInput | string
+    ownerName?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    subscriptionPlan?: StringFieldUpdateOperationsInput | string
+    subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionsConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    users?: UserUpdateManyWithoutBuyerFirmNestedInput
+    growers?: GrowerUpdateManyWithoutBuyerFirmNestedInput
+    sellers?: SellerUpdateManyWithoutBuyerFirmNestedInput
+    transactions?: TransactionUpdateManyWithoutBuyerFirmNestedInput
+    payments?: PaymentUpdateManyWithoutBuyerFirmNestedInput
+    sellerPayments?: SellerPaymentUpdateManyWithoutBuyerFirmNestedInput
+    draftTransactions?: DraftTransactionUpdateManyWithoutBuyerFirmNestedInput
+    expenses?: ExpenseUpdateManyWithoutBuyerFirmNestedInput
+    itemCharges?: GrowerItemChargeUpdateManyWithoutBuyerFirmNestedInput
+  }
+
+  export type BuyerFirmUncheckedUpdateWithoutBankAccountsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    uniqueId?: StringFieldUpdateOperationsInput | string
+    firmName?: StringFieldUpdateOperationsInput | string
+    ownerName?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    subscriptionPlan?: StringFieldUpdateOperationsInput | string
+    subscriptionExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionsConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    users?: UserUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    growers?: GrowerUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    sellers?: SellerUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    sellerPayments?: SellerPaymentUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    draftTransactions?: DraftTransactionUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutBuyerFirmNestedInput
+    itemCharges?: GrowerItemChargeUncheckedUpdateManyWithoutBuyerFirmNestedInput
   }
 
   export type UserCreateManyBuyerFirmInput = {
@@ -24566,6 +26756,7 @@ export namespace Prisma {
     name: string
     mobile: string
     address?: string | null
+    codeName?: string | null
     createdAt?: Date | string
   }
 
@@ -24597,6 +26788,7 @@ export namespace Prisma {
     notes?: string | null
     notified?: boolean
     createdAt?: Date | string
+    deductions?: string | null
   }
 
   export type PaymentCreateManyBuyerFirmInput = {
@@ -24606,6 +26798,11 @@ export namespace Prisma {
     notes?: string | null
     paidAt?: Date | string
     createdAt?: Date | string
+    method?: string | null
+    bankTransferType?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
   }
 
   export type SellerPaymentCreateManyBuyerFirmInput = {
@@ -24653,6 +26850,15 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type BankAccountCreateManyBuyerFirmInput = {
+    id?: string
+    bankName: string
+    accNumber: string
+    bankAddress?: string | null
+    isPrimary?: boolean
+    createdAt?: Date | string
+  }
+
   export type UserUpdateWithoutBuyerFirmInput = {
     id?: StringFieldUpdateOperationsInput | string
     mobile?: StringFieldUpdateOperationsInput | string
@@ -24684,6 +26890,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     mobile?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    codeName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     transactions?: TransactionUpdateManyWithoutGrowerNestedInput
     payments?: PaymentUpdateManyWithoutGrowerNestedInput
@@ -24698,6 +26905,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     mobile?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    codeName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     transactions?: TransactionUncheckedUpdateManyWithoutGrowerNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutGrowerNestedInput
@@ -24712,6 +26920,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     mobile?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    codeName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -24763,6 +26972,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     notified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deductions?: NullableStringFieldUpdateOperationsInput | string | null
     grower?: GrowerUpdateOneWithoutTransactionsNestedInput
     seller?: SellerUpdateOneWithoutTransactionsNestedInput
   }
@@ -24787,6 +26997,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     notified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deductions?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TransactionUncheckedUpdateManyWithoutBuyerFirmInput = {
@@ -24809,6 +27020,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     notified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deductions?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PaymentUpdateWithoutBuyerFirmInput = {
@@ -24817,6 +27029,11 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    method?: NullableStringFieldUpdateOperationsInput | string | null
+    bankTransferType?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
     grower?: GrowerUpdateOneRequiredWithoutPaymentsNestedInput
   }
 
@@ -24827,6 +27044,11 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    method?: NullableStringFieldUpdateOperationsInput | string | null
+    bankTransferType?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PaymentUncheckedUpdateManyWithoutBuyerFirmInput = {
@@ -24836,6 +27058,11 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    method?: NullableStringFieldUpdateOperationsInput | string | null
+    bankTransferType?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SellerPaymentUpdateWithoutBuyerFirmInput = {
@@ -24973,6 +27200,33 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type BankAccountUpdateWithoutBuyerFirmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bankName?: StringFieldUpdateOperationsInput | string
+    accNumber?: StringFieldUpdateOperationsInput | string
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BankAccountUncheckedUpdateWithoutBuyerFirmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bankName?: StringFieldUpdateOperationsInput | string
+    accNumber?: StringFieldUpdateOperationsInput | string
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BankAccountUncheckedUpdateManyWithoutBuyerFirmInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bankName?: StringFieldUpdateOperationsInput | string
+    accNumber?: StringFieldUpdateOperationsInput | string
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type DraftTransactionCreateManyCreatedByInput = {
     id?: string
     growerId?: string | null
@@ -25049,6 +27303,7 @@ export namespace Prisma {
     notes?: string | null
     notified?: boolean
     createdAt?: Date | string
+    deductions?: string | null
   }
 
   export type PaymentCreateManyGrowerInput = {
@@ -25058,6 +27313,11 @@ export namespace Prisma {
     notes?: string | null
     paidAt?: Date | string
     createdAt?: Date | string
+    method?: string | null
+    bankTransferType?: string | null
+    bankName?: string | null
+    bankAccNumber?: string | null
+    bankAddress?: string | null
   }
 
   export type NotificationCreateManyGrowerInput = {
@@ -25123,6 +27383,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     notified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deductions?: NullableStringFieldUpdateOperationsInput | string | null
     seller?: SellerUpdateOneWithoutTransactionsNestedInput
     buyerFirm?: BuyerFirmUpdateOneRequiredWithoutTransactionsNestedInput
   }
@@ -25147,6 +27408,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     notified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deductions?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TransactionUncheckedUpdateManyWithoutGrowerInput = {
@@ -25169,6 +27431,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     notified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deductions?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PaymentUpdateWithoutGrowerInput = {
@@ -25177,6 +27440,11 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    method?: NullableStringFieldUpdateOperationsInput | string | null
+    bankTransferType?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
     buyerFirm?: BuyerFirmUpdateOneRequiredWithoutPaymentsNestedInput
   }
 
@@ -25187,6 +27455,11 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    method?: NullableStringFieldUpdateOperationsInput | string | null
+    bankTransferType?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PaymentUncheckedUpdateManyWithoutGrowerInput = {
@@ -25196,6 +27469,11 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    method?: NullableStringFieldUpdateOperationsInput | string | null
+    bankTransferType?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAccNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankAddress?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type NotificationUpdateWithoutGrowerInput = {
@@ -25353,6 +27631,7 @@ export namespace Prisma {
     notes?: string | null
     notified?: boolean
     createdAt?: Date | string
+    deductions?: string | null
   }
 
   export type DraftTransactionCreateManySellerInput = {
@@ -25396,6 +27675,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     notified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deductions?: NullableStringFieldUpdateOperationsInput | string | null
     grower?: GrowerUpdateOneWithoutTransactionsNestedInput
     buyerFirm?: BuyerFirmUpdateOneRequiredWithoutTransactionsNestedInput
   }
@@ -25420,6 +27700,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     notified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deductions?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TransactionUncheckedUpdateManyWithoutSellerInput = {
@@ -25442,6 +27723,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     notified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deductions?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type DraftTransactionUpdateWithoutSellerInput = {

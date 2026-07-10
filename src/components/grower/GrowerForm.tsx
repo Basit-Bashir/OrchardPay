@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Box, Button, Input, Stack, Text, Textarea } from "@chakra-ui/react";
 import { PhoneInput } from "@/components/common/PhoneInput";
 
-export type GrowerValues = { name: string; mobile: string; address: string };
+export type GrowerValues = { name: string; mobile: string; address: string; codeName: string };
 
 export function GrowerForm({
   initial,
@@ -18,6 +18,7 @@ export function GrowerForm({
   const [name, setName] = useState(initial?.name ?? "");
   const [mobile, setMobile] = useState(initial?.mobile ?? "+91");
   const [address, setAddress] = useState(initial?.address ?? "");
+  const [codeName, setCodeName] = useState(initial?.codeName ?? "");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -25,7 +26,7 @@ export function GrowerForm({
     setError("");
     setLoading(true);
     try {
-      await onSubmit({ name, mobile, address });
+      await onSubmit({ name, mobile, address, codeName });
     } catch (e) {
       setError((e as Error).message);
       setLoading(false);
@@ -42,6 +43,10 @@ export function GrowerForm({
       <Box>
         <Text fontSize="sm" mb={1}>Name</Text>
         <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Ramesh Orchard" />
+      </Box>
+      <Box>
+        <Text fontSize="sm" mb={1}>Code Name (optional)</Text>
+        <Input value={codeName} onChange={(e) => setCodeName(e.target.value)} placeholder="e.g. Ramesh-01 or 12" />
       </Box>
       <Box>
         <Text fontSize="sm" mb={1}>Mobile</Text>

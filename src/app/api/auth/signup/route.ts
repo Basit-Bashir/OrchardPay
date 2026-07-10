@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { ok, fail, handle } from "@/lib/api";
-import { signupSchema } from "@/lib/validations";
+import { signupSchema, DEFAULT_DEDUCTIONS } from "@/lib/validations";
 import { generateBuyerFirmId } from "@/lib/uniqueId";
 import { requestOtp } from "@/lib/otp";
 
@@ -27,6 +27,7 @@ export async function POST(req: Request) {
         mobile,
         subscriptionPlan: plan === "premium" ? "premium" : "free",
         users: { create: { mobile, name: ownerName, role: "buyer" } },
+        deductionsConfig: DEFAULT_DEDUCTIONS,
       },
     });
 

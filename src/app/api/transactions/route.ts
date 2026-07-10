@@ -45,7 +45,8 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   return handle(async () => {
     const session = await requireSession();
-    const parsed = batchTransactionSchema.safeParse(await req.json());
+    const rawBody = await req.json();
+    const parsed = batchTransactionSchema.safeParse(rawBody);
     if (!parsed.success) return fail(parsed.error.issues[0]?.message ?? "Invalid input");
 
     const {
@@ -53,14 +54,11 @@ export async function POST(req: Request) {
       sellerId,
       items,
       freight,
-      commissionRate,
-      labourRate,
-      associationRate,
-      printingCharge,
-      miscellaneousRate,
       notes,
       draftId,
     } = parsed.data;
+
+    const deductions = rawBody.deductions;
 
     if (!growerId && !sellerId) {
       return fail("Select at least a Grower or a Seller", 400);
@@ -102,16 +100,43 @@ export async function POST(req: Request) {
       let association = 0;
       let miscellaneous = 0;
       let totalAmount = grossAmount;
+      let itemDeductions: Array<{ name: string; type: string; value: number; amount: number }> = [];
+      let totalItemExpenses = 0;
 
       if (growerId) {
-        commission = Math.round(grossAmount * (commissionRate / 100) * 100) / 100;
-        labour = Math.round(item.quantity * labourRate * 100) / 100;
-        itemFreight = totalQuantity > 0 ? Math.round(((item.quantity / totalQuantity) * freight) * 100) / 100 : 0;
-        itemPrinting = totalQuantity > 0 ? Math.round(((item.quantity / totalQuantity) * printingCharge) * 100) / 100 : 0;
-        association = Math.round(grossAmount * (associationRate / 100) * 100) / 100;
-        miscellaneous = Math.round(grossAmount * (miscellaneousRate / 100) * 100) / 100;
-        const totalExpenses = commission + labour + itemFreight + association + itemPrinting + miscellaneous;
-        totalAmount = Math.round((grossAmount - totalExpenses) * 100) / 100;
+        if (Array.isArray(deductions)) {
+          for (const d of deductions) {
+            let amount = 0;
+            const dValue = parseFloat(d.value) || 0;
+            if (d.type === "percentage") {
+              amount = Math.round(grossAmount * (dValue / 100) * 100) / 100;
+            } else if (d.type === "fixed_per_unit" || d.type === "fixed") {
+              amount = Math.round(item.quantity * dValue * 100) / 100;
+            } else if (d.type === "fixed_flat") {
+              amount = totalQuantity > 0 ? Math.round(((item.quantity / totalQuantity) * dValue) * 100) / 100 : 0;
+            }
+            itemDeductions.push({ name: d.name, type: d.type, value: dValue, amount });
+            totalItemExpenses += amount;
+
+            const nameLower = d.name.toLowerCase();
+            if (nameLower === "commission") commission = amount;
+            else if (nameLower === "labour") labour = amount;
+            else if (nameLower === "freight") itemFreight = amount;
+            else if (nameLower === "printing") itemPrinting = amount;
+            else if (nameLower === "association") association = amount;
+            else if (nameLower === "miscellaneous") miscellaneous = amount;
+          }
+        }
+
+        // Fallback for freight if passed separately and not in deductions list
+        if (freight > 0 && !itemDeductions.some(d => d.name.toLowerCase() === "freight")) {
+          const amt = totalQuantity > 0 ? Math.round(((item.quantity / totalQuantity) * freight) * 100) / 100 : 0;
+          itemDeductions.push({ name: "Freight", type: "fixed_flat", value: freight, amount: amt });
+          totalItemExpenses += amt;
+          itemFreight = amt;
+        }
+
+        totalAmount = Math.round((grossAmount - totalItemExpenses) * 100) / 100;
       }
 
       if (growerId && sellerId) {
@@ -134,6 +159,7 @@ export async function POST(req: Request) {
             miscellaneous,
             totalAmount, // Net amount credited to grower
             notes: notes || null,
+            deductions: JSON.stringify(itemDeductions),
           },
         });
         createdTxns.push(growerTxn);
@@ -179,6 +205,7 @@ export async function POST(req: Request) {
             miscellaneous,
             totalAmount,
             notes: notes || null,
+            deductions: growerId ? JSON.stringify(itemDeductions) : null,
           },
         });
         createdTxns.push(txn);

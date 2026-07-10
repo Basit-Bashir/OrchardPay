@@ -28,7 +28,7 @@ export async function POST(req: Request) {
     const parsed = paymentSchema.safeParse(await req.json());
     if (!parsed.success) return fail(parsed.error.issues[0]?.message ?? "Invalid input");
 
-    const { growerId, amount, notes, paidAt } = parsed.data;
+    const { growerId, amount, notes, paidAt, method, bankTransferType, bankName, bankAccNumber, bankAddress } = parsed.data;
 
     const grower = await prisma.grower.findFirst({
       where: { id: growerId, buyerFirmId: session.buyerFirmId },
@@ -42,6 +42,11 @@ export async function POST(req: Request) {
         amount,
         notes: notes || null,
         paidAt: paidAt || new Date(),
+        method: method || "CASH",
+        bankTransferType: bankTransferType || null,
+        bankName: bankName || null,
+        bankAccNumber: bankAccNumber || null,
+        bankAddress: bankAddress || null,
       },
     });
 
